@@ -19,6 +19,7 @@ import concurrent.futures as cf
 import json
 import os
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -29,6 +30,7 @@ NODES = {"lmp_np15_da": "TH_NP15_GEN-APND", "lmp_pge_dlap_da": "DLAP_PGAE-APND"}
 PRICE_COL = "lmp_np15_da"  # the price reported as `lmp`
 DAYS = 7
 LIVE_TIMEOUT_S = 60
+CACHE_MAX_AGE_MIN = 60  # a live pull is reused in-process for this long (search runs many rounds)
 
 
 def _fetch_frame(days=DAYS):
@@ -88,6 +90,9 @@ def stress_2025(window="net_load_top2pct"):
     return {"window": window, "availability_if_curtailed_pct": w["availability_if_curtailed_pct"],
             "hours_per_year": w["hours_per_year"], "threshold_mw": w["threshold_mw"],
             "hours_by_month": w["hours_by_month"], "time_convention": d["time_convention"],
+            "demand_p90": {k: d["demand_p90_hours_per_day"][k] for k in
+                           ("threshold_mw", "hours_per_year", "mean_hours_per_day", "days_with_any",
+                            "mean_hours_per_stress_day", "mean_hours_per_day_by_month")},
             "source": "data/l2/ciso_2025_stress.json"}
 
 
@@ -100,20 +105,37 @@ def _point(df, now=None):
     return row
 
 
+_MEMO = {}  # in-process: {"at": epoch s, "path": Path, "df": DataFrame} from the last live pull
+
+
+def _memo_live():
+    m = _MEMO.get("v")
+    if m and time.time() - m["at"] < CACHE_MAX_AGE_MIN * 60:
+        return m
+    return None
+
+
 def latest_signal(iso="CAISO", live=None, now=None):
     if iso.upper() != "CAISO":
         raise ValueError(f"only CAISO is wired, got {iso}")
     if live is None:
         live = "1" not in (os.environ.get("QSITE_OFFLINE"), os.environ.get("QSP_OFFLINE"))
     source, df, note = None, None, None
-    if live:
+    memo = _memo_live()
+    if live and memo:  # cache first: a live pull from this process in the last CACHE_MAX_AGE_MIN is reused
+        path, df = memo["path"], memo["df"].copy()
+        source = f"gridstatus:CAISO (pulled {datetime.fromtimestamp(memo['at'], timezone.utc):%Y-%m-%dT%H:%MZ})"
+    elif live:
+        ex = cf.ThreadPoolExecutor(1)
         try:
-            with cf.ThreadPoolExecutor(1) as ex:
-                path, df = ex.submit(refresh_cache).result(timeout=LIVE_TIMEOUT_S)
+            path, df = ex.submit(refresh_cache).result(timeout=LIVE_TIMEOUT_S)
+            _MEMO["v"] = {"at": time.time(), "path": path, "df": df.copy()}
             source = "gridstatus:CAISO"
         except Exception as e:  # network down, OASIS throttling, timeout: use the cache
             note = f"live fetch failed ({type(e).__name__}); using cache"
             df = None
+        finally:
+            ex.shutdown(wait=False)  # don't block on a hung fetch
     if df is None:
         path, df = _latest_cache()
         source = f"cache:data/l2/{path.name}"

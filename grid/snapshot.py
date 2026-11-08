@@ -180,11 +180,26 @@ def _live_iso(iso_name):
     return out
 
 
+def _l2_iso(iso_name, offline):
+    """CAISO: L2's data/l2/iso.py (NP15 hub day-ahead LMP + CAISO load, 7-day cache, 2025 stress window)."""
+    if iso_name != "CAISO":
+        return None
+    try:
+        from data.l2.iso import latest_signal
+        s = latest_signal("CAISO", live=not offline)
+    except Exception:  # missing cache/module: fall back to the L1 path below
+        return None
+    return s if (s.get("lmp") is not None or s.get("load") is not None) else None
+
+
 def iso_signal(iso_name):
-    """Latest ISO load (MW) and LMP ($/MWh) via gridstatus; cached CSV when live fails."""
+    """Latest ISO load (MW) and LMP ($/MWh). CAISO: data/l2/iso.py first; else gridstatus; cached CSV when live fails."""
+    offline = os.environ.get("QSITE_OFFLINE") == "1"  # skip live calls; read caches only
+    l2 = _l2_iso(iso_name, offline)
+    if l2:
+        return l2
     import gridstatus
     cache = DATA / f"iso_{iso_name}_latest.csv"
-    offline = os.environ.get("QSITE_OFFLINE") == "1"  # skip live calls; read caches only
     live = None if offline or not hasattr(gridstatus, iso_name) else _with_timeout(lambda: _live_iso(iso_name), ISO_TIMEOUT_S)
     if live:
         DATA.mkdir(parents=True, exist_ok=True)
@@ -234,7 +249,9 @@ def get_snapshot(site):
             f"substations: {osm_src}; (c) OpenStreetMap contributors (ODbL)",
             ("assumed_mva/headroom_mw from data/l2/substation_ratings.json (ASSUMED planning values, see its disclaimer); "
              if l2 else "") + f"fallback table {MVA_BY_KV}; headroom_mw = assumed_mva*{PF}*(1-{UTIL}) (assumed {UTIL:.0%} utilization)",
-            "iso.lmp = mean of the ISO's real-time 5-min LMPs returned by gridstatus (CAISO: NP15/SP15/ZP26 hubs); load = latest system load MW",
+            ("iso (CAISO) from data/l2/iso.py: lmp = NP15 hub (TH_NP15_GEN-APND) day-ahead hourly LMP, load = CAISO system load MW, "
+             "stress_2025 = 2025 CISO top-2% net-load hours (curtailment window); fallback: "
+             "mean of gridstatus real-time 5-min LMPs (NP15/SP15/ZP26 hubs)"),
             f"lines inferred (MST + 2nd-nearest), rating from kV table {LINE_MVA_BY_KV}, length = straight line x {ROUTE_FACTOR}",
         ],
     }

@@ -55,6 +55,26 @@ def window(df, col, top_share):
     }
 
 
+def p90_hours_per_day(df, col="demand_mw", q=0.90):
+    """ORCH (c): hours per day above the 2025 p90 of demand, for the curtailment window."""
+    thr = float(df[col].quantile(q))
+    above = df[col] > thr
+    per_day = above.groupby(df["date"]).sum()
+    per_month = above.groupby(df["date"].map(lambda d: d.month)).sum() / df.groupby("month")["date"].nunique()
+    hours = df[above].groupby("hour").size()
+    return {
+        "metric": col, "quantile": q, "threshold_mw": round(thr, 1),
+        "hours_per_year": int(above.sum()),
+        "mean_hours_per_day": round(float(per_day.mean()), 2),
+        "days_with_any": int((per_day > 0).sum()),
+        "mean_hours_per_stress_day": round(float(per_day[per_day > 0].mean()), 2),
+        "max_hours_in_one_day": int(per_day.max()),
+        "mean_hours_per_day_by_month": {str(int(m)): round(float(v), 2) for m, v in per_month.items()},
+        "hours_of_day_count": {str(int(h)): int(n) for h, n in hours.items()},
+        "hours_per_day": {str(d): int(n) for d, n in per_day.items() if n > 0},
+    }
+
+
 def main():
     df = load()
     q = {p: round(float(df["demand_mw"].quantile(p / 100)), 1) for p in (50, 90, 95, 98, 99)}
@@ -66,6 +86,7 @@ def main():
         "stress_definition": "hours in the top X% of the year by the metric; no prices in EIA-930",
         "demand_mw_percentiles": q,
         "demand_peak_mw": round(float(df["demand_mw"].max()), 1),
+        "demand_p90_hours_per_day": p90_hours_per_day(df),
         "curtailment_windows": {
             "demand_top2pct": window(df, "demand_mw", 0.02),
             "net_load_top2pct": window(df, "net_load_mw", 0.02),
@@ -74,6 +95,9 @@ def main():
         "note": "System-level CAISO stress, not feeder-level. Pair with GRIP feeder limiting month/hour for local stress. Directional, not a utility curtailment agreement.",
     }
     OUT.write_text(json.dumps(doc, indent=2) + "\n", encoding="utf-8")
+    p = doc["demand_p90_hours_per_day"]
+    print(f"p90 demand > {p['threshold_mw']} MW: {p['hours_per_year']} h/yr, mean {p['mean_hours_per_day']} h/day, "
+          f"{p['days_with_any']} stress days ({p['mean_hours_per_stress_day']} h each), by month {p['mean_hours_per_day_by_month']}")
     w = doc["curtailment_windows"]
     for k, v in w.items():
         print(f"{k}: {v['hours_per_year']} h/yr, avail {v['availability_if_curtailed_pct']}%, thr {v['threshold_mw']} MW, "
