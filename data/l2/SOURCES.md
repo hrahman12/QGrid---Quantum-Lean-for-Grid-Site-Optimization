@@ -41,3 +41,17 @@ Rebuild offline with `.venv/bin/python data/l2/build_queue_hints.py` (add `--ref
 | Hosting capacity | Not cached | PG&E's ICA / hosting-capacity map needs a PG&E login |
 
 Caveat: the CAISO queue holds generation and storage requests only. Data-center load requests go through PG&E and are not in it, so these are competition and flexibility hints, not available capacity. Example: Los Esteros has 323 MW of active requests (including 200 MW of storage at 230 kV, proposed 2027-12-15) and 5 withdrawals.
+
+## iso.py and caiso_<date>.csv
+
+`latest_signal("CAISO")` returns `{lmp, load, load_mw, timestamp, source, ...}`, matching `grid_snapshot.iso`. It tries a live gridstatus pull (60 s budget) and falls back to the newest `data/l2/caiso_*.csv`. `QSP_OFFLINE=1` forces the cache, and `source` says which one was used (`gridstatus:CAISO` or `cache:data/l2/...`).
+
+| What | Status | Source |
+|---|---|---|
+| CAISO system load, 5-min averaged to hourly | SOURCED | CAISO via `gridstatus` 0.37.0 `CAISO().get_load()` |
+| Day-ahead hourly LMP, `TH_NP15_GEN-APND` (NP15 hub, reported as `lmp`) | SOURCED | CAISO OASIS `PRC_LMP` DAM via `gridstatus` `get_lmp(market="DAY_AHEAD_HOURLY")` |
+| Day-ahead hourly LMP, `DLAP_PGAE-APND` (PG&E load zone) | SOURCED | same |
+| NP15 / DLAP as the price for an Alviso load | ASSUMED | No public nodal price is defined for the site; these are the nearest public hub and zone |
+| Stress hours = hours per day above the 7-day 90th-percentile NP15 price | Derived | from the cached CSV |
+
+Refresh: `.venv/bin/python data/l2/iso.py --refresh`. Cache pulled 2026-11-08: 168 hourly rows (2026-11-02 to 2026-11-08 PT).
