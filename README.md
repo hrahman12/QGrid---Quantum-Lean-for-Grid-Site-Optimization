@@ -12,6 +12,17 @@ QSiteProof is a proposed one-day hack prototype that combines PsiQDK search, pan
 
 **Status:** Working prototype. The pipeline stages (OpenStreetMap grid + CAISO data, PsiQDK Grover search with a NumPy fallback, pandapower power flow with N-1, Lean 4 certificate with a Python mirror when Lean is not installed) run on the North San Jose / Alviso site; each run labels which engine actually ran. **Current results live in [STATUS.md](STATUS.md)**: since the firm N-1 transformer check (PR #21), 150 MW at transmission is RED (about 19.9 MW firm headroom per candidate substation); the YES-IF path is distribution edge sites plus curtailment. All grid numbers are conditional screening estimates from PG&E GRIP 2028 forecasts and assumed ratings, not utility approvals.
 
+## Interactive 3D WebGL explorer
+
+Explore the North San Jose / Alviso network in an interactive [grid-planning workbench](viz/webgl/). Tune load, growth, routing, batteries, curtailment, line ratings, temperature, deadlines, and permitting conditions to see the 3D routes and **GREEN / AMBER / RED** screening verdict change immediately.
+
+```sh
+npm ci --prefix viz/webgl
+npm run dev --prefix viz/webgl
+```
+
+The explorer includes geographic terrain and OSM geometry, node inspection, scenario import/export, a quantum-search replay, and a separate viewer for the saved Lean certificate. Interactive results are analytical scenario screens; they do not rerun AC physics or produce new formal certificates. See [the explorer README](viz/webgl/README.md) for equations, tests, data refresh, and Vercel deployment.
+
 ## Demo: an earlier GREEN run (superseded)
 
 [![QSiteProof demo: 150 MW Alviso site found GREEN](docs/demo_green.gif)](docs/demo_green.mp4)
