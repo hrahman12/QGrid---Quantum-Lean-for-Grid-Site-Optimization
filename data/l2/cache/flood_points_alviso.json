@@ -1,0 +1,302 @@
+{
+ "source": "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Flood_Hazard_Reduced_Set_gdb/FeatureServer/0/query",
+ "pulled": "2026-11-08",
+ "points": [
+  {
+   "kind": "site",
+   "id": "nsj-alviso-150",
+   "name": "North San Jose / Alviso compute site (illustrative 150 MW)",
+   "lat": 37.4265,
+   "lon": -121.975,
+   "features": [
+    {
+     "OBJECTID": 942656,
+     "DFIRM_ID": "06085C",
+     "VERSION_ID": "1.1.1.0",
+     "FLD_AR_ID": "06085C_2248",
+     "STUDY_TYP": "NP",
+     "FLD_ZONE": "AE",
+     "ZONE_SUBTY": null,
+     "SFHA_TF": "T",
+     "STATIC_BFE": 12,
+     "V_DATUM": "NAVD88",
+     "DEPTH": null,
+     "LEN_UNIT": "Feet",
+     "VELOCITY": null,
+     "VEL_UNIT": "",
+     "DUAL_ZONE": "",
+     "SOURCE_CIT": "06085C_LOMC23",
+     "GFID": "85f0bd3e-3c4b-40a3-9f0a-7db8e3a88fa7",
+     "esri_symbology": "1% Annual Chance Flood Hazard",
+     "GlobalID": "1a0b520b-6d72-437b-938a-557ddd817d5c",
+     "Shape__Area": 32848113.12109375,
+     "Shape__Length": 46189.61770699312
+    }
+   ]
+  },
+  {
+   "kind": "grip_substation",
+   "id": "08234",
+   "name": "RIVER OAKS",
+   "lat": 37.411282,
+   "lon": -121.927074,
+   "features": [
+    {
+     "OBJECTID": 1076852,
+     "DFIRM_ID": "06085C",
+     "VERSION_ID": "1.1.1.0",
+     "FLD_AR_ID": "06085C_2221",
+     "STUDY_TYP": "NP",
+     "FLD_ZONE": "X",
+     "ZONE_SUBTY": "0.2 Percent Annual Chance Flood Hazard",
+     "SFHA_TF": "F",
+     "STATIC_BFE": null,
+     "V_DATUM": "",
+     "DEPTH": null,
+     "LEN_UNIT": "",
+     "VELOCITY": null,
+     "VEL_UNIT": "",
+     "DUAL_ZONE": "",
+     "SOURCE_CIT": "06085C_FIRM1",
+     "GFID": "85f0bd3e-3c4b-40a3-9f0a-7db8e3a88fa7",
+     "esri_symbology": "0.2% Annual Chance Flood Hazard",
+     "GlobalID": "ce4d2852-f177-4cb1-a30f-0ef66f83454b",
+     "Shape__Area": 10477995.69140625,
+     "Shape__Length": 31605.99171425676
+    }
+   ]
+  },
+  {
+   "kind": "grip_substation",
+   "id": "08389",
+   "name": "MONTAGUE",
+   "lat": 37.403069,
+   "lon": -121.905624,
+   "features": []
+  },
+  {
+   "kind": "grip_substation",
+   "id": "08342",
+   "name": "LAWRENCE",
+   "lat": 37.397195,
+   "lon": -122.010095,
+   "features": [
+    {
+     "OBJECTID": 4098013,
+     "DFIRM_ID": "06085C",
+     "VERSION_ID": "1.1.1.0",
+     "FLD_AR_ID": "06085C_2242",
+     "STUDY_TYP": "NP",
+     "FLD_ZONE": "X",
+     "ZONE_SUBTY": "Area With Reduced Flood Risk Due To Levee",
+     "SFHA_TF": "F",
+     "STATIC_BFE": null,
+     "V_DATUM": "",
+     "DEPTH": null,
+     "LEN_UNIT": "",
+     "VELOCITY": null,
+     "VEL_UNIT": "",
+     "DUAL_ZONE": "",
+     "SOURCE_CIT": "06085C_FIRM1",
+     "GFID": "85f0bd3e-3c4b-40a3-9f0a-7db8e3a88fa7",
+     "esri_symbology": "Area with Reduced Risk Due to Levee",
+     "GlobalID": "9d93cad9-7666-4510-bd18-52dfdc9677aa",
+     "Shape__Area": 27821661.9765625,
+     "Shape__Length": 44254.91534568634
+    }
+   ]
+  },
+  {
+   "kind": "grip_substation",
+   "id": "01472",
+   "name": "DIXON LANDING",
+   "lat": 37.457059,
+   "lon": -121.920973,
+   "features": [
+    {
+     "OBJECTID": 3239171,
+     "DFIRM_ID": "06001C",
+     "VERSION_ID": "1.1.1.0",
+     "FLD_AR_ID": "06001C_966",
+     "STUDY_TYP": "NP",
+     "FLD_ZONE": "AE",
+     "ZONE_SUBTY": null,
+     "SFHA_TF": "T",
+     "STATIC_BFE": 12,
+     "V_DATUM": "NAVD88",
+     "DEPTH": null,
+     "LEN_UNIT": "Feet",
+     "VELOCITY": null,
+     "VEL_UNIT": "",
+     "DUAL_ZONE": "",
+     "SOURCE_CIT": "06001C_FIRM3",
+     "GFID": "b1a15192-301c-43ff-976c-6bf52b79d661",
+     "esri_symbology": "1% Annual Chance Flood Hazard",
+     "GlobalID": "32e478d6-995f-41e5-a4f9-2dd76c3d8e06",
+     "Shape__Area": 14000094.95703125,
+     "Shape__Length": 29732.804105018826
+    }
+   ]
+  },
+  {
+   "kind": "grip_substation",
+   "id": "08380",
+   "name": "TRIMBLE",
+   "lat": 37.382832,
+   "lon": -121.92644,
+   "features": [
+    {
+     "OBJECTID": 3056576,
+     "DFIRM_ID": "06085C",
+     "VERSION_ID": "1.1.1.0",
+     "FLD_AR_ID": "06085C_2284",
+     "STUDY_TYP": "NP",
+     "FLD_ZONE": "X",
+     "ZONE_SUBTY": "0.2 Percent Annual Chance Flood Hazard",
+     "SFHA_TF": "F",
+     "STATIC_BFE": null,
+     "V_DATUM": "",
+     "DEPTH": null,
+     "LEN_UNIT": "",
+     "VELOCITY": null,
+     "VEL_UNIT": "",
+     "DUAL_ZONE": "",
+     "SOURCE_CIT": "06085C_FIRM1",
+     "GFID": "85f0bd3e-3c4b-40a3-9f0a-7db8e3a88fa7",
+     "esri_symbology": "0.2% Annual Chance Flood Hazard",
+     "GlobalID": "aa55231b-12ba-4477-9ecc-7dc268fca26a",
+     "Shape__Area": 2057319.75,
+     "Shape__Length": 20165.66726921153
+    }
+   ]
+  },
+  {
+   "kind": "grip_substation",
+   "id": "08361",
+   "name": "BRITTON",
+   "lat": 37.374916,
+   "lon": -122.016517,
+   "features": [
+    {
+     "OBJECTID": 4098013,
+     "DFIRM_ID": "06085C",
+     "VERSION_ID": "1.1.1.0",
+     "FLD_AR_ID": "06085C_2242",
+     "STUDY_TYP": "NP",
+     "FLD_ZONE": "X",
+     "ZONE_SUBTY": "Area With Reduced Flood Risk Due To Levee",
+     "SFHA_TF": "F",
+     "STATIC_BFE": null,
+     "V_DATUM": "",
+     "DEPTH": null,
+     "LEN_UNIT": "",
+     "VELOCITY": null,
+     "VEL_UNIT": "",
+     "DUAL_ZONE": "",
+     "SOURCE_CIT": "06085C_FIRM1",
+     "GFID": "85f0bd3e-3c4b-40a3-9f0a-7db8e3a88fa7",
+     "esri_symbology": "Area with Reduced Risk Due to Levee",
+     "GlobalID": "9d93cad9-7666-4510-bd18-52dfdc9677aa",
+     "Shape__Area": 27821661.9765625,
+     "Shape__Length": 44254.91534568634
+    }
+   ]
+  },
+  {
+   "kind": "grip_substation",
+   "id": "08283",
+   "name": "MILPITAS",
+   "lat": 37.415579,
+   "lon": -121.88807,
+   "features": [
+    {
+     "OBJECTID": 2848457,
+     "DFIRM_ID": "06085C",
+     "VERSION_ID": "1.1.1.0",
+     "FLD_AR_ID": "06085C_2245",
+     "STUDY_TYP": "NP",
+     "FLD_ZONE": "X",
+     "ZONE_SUBTY": "0.2 Percent Annual Chance Flood Hazard",
+     "SFHA_TF": "F",
+     "STATIC_BFE": null,
+     "V_DATUM": "",
+     "DEPTH": null,
+     "LEN_UNIT": "",
+     "VELOCITY": null,
+     "VEL_UNIT": "",
+     "DUAL_ZONE": "",
+     "SOURCE_CIT": "06085C_STUDY4",
+     "GFID": "85f0bd3e-3c4b-40a3-9f0a-7db8e3a88fa7",
+     "esri_symbology": "0.2% Annual Chance Flood Hazard",
+     "GlobalID": "f9abc671-7efc-4eb6-a1a7-0d6941b8b95d",
+     "Shape__Area": 13093015.5234375,
+     "Shape__Length": 77683.83701869973
+    }
+   ]
+  },
+  {
+   "kind": "grip_substation",
+   "id": "08246",
+   "name": "NORTECH",
+   "lat": 37.420952,
+   "lon": -121.960459,
+   "features": [
+    {
+     "OBJECTID": 942656,
+     "DFIRM_ID": "06085C",
+     "VERSION_ID": "1.1.1.0",
+     "FLD_AR_ID": "06085C_2248",
+     "STUDY_TYP": "NP",
+     "FLD_ZONE": "AE",
+     "ZONE_SUBTY": null,
+     "SFHA_TF": "T",
+     "STATIC_BFE": 12,
+     "V_DATUM": "NAVD88",
+     "DEPTH": null,
+     "LEN_UNIT": "Feet",
+     "VELOCITY": null,
+     "VEL_UNIT": "",
+     "DUAL_ZONE": "",
+     "SOURCE_CIT": "06085C_LOMC23",
+     "GFID": "85f0bd3e-3c4b-40a3-9f0a-7db8e3a88fa7",
+     "esri_symbology": "1% Annual Chance Flood Hazard",
+     "GlobalID": "1a0b520b-6d72-437b-938a-557ddd817d5c",
+     "Shape__Area": 32848113.12109375,
+     "Shape__Length": 46189.61770699312
+    }
+   ]
+  },
+  {
+   "kind": "grip_substation",
+   "id": "08379",
+   "name": "SIGNETICS",
+   "lat": 37.384845,
+   "lon": -122.013185,
+   "features": [
+    {
+     "OBJECTID": 4098013,
+     "DFIRM_ID": "06085C",
+     "VERSION_ID": "1.1.1.0",
+     "FLD_AR_ID": "06085C_2242",
+     "STUDY_TYP": "NP",
+     "FLD_ZONE": "X",
+     "ZONE_SUBTY": "Area With Reduced Flood Risk Due To Levee",
+     "SFHA_TF": "F",
+     "STATIC_BFE": null,
+     "V_DATUM": "",
+     "DEPTH": null,
+     "LEN_UNIT": "",
+     "VELOCITY": null,
+     "VEL_UNIT": "",
+     "DUAL_ZONE": "",
+     "SOURCE_CIT": "06085C_FIRM1",
+     "GFID": "85f0bd3e-3c4b-40a3-9f0a-7db8e3a88fa7",
+     "esri_symbology": "Area with Reduced Risk Due to Levee",
+     "GlobalID": "9d93cad9-7666-4510-bd18-52dfdc9677aa",
+     "Shape__Area": 27821661.9765625,
+     "Shape__Length": 44254.91534568634
+    }
+   ]
+  }
+ ]
+}

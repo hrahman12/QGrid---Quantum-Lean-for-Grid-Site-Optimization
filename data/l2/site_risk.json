@@ -1,0 +1,301 @@
+{
+  "site_id": "nsj-alviso-150",
+  "summary": {
+    "site_flood_zone": "AE",
+    "site_in_sfha": true,
+    "site_bfe_ft": 12,
+    "site_in_hftd": false,
+    "site_nearest_hftd_km": 8.74,
+    "grip_substations_in_sfha": [
+      "DIXON LANDING",
+      "NORTECH"
+    ],
+    "grip_substations_in_hftd_tier2_3": []
+  },
+  "lean_rule_hint": "FLOOD_SFHA -> permit condition: equipment elevated above BFE (+ freeboard), cost adder, not an automatic RED. FIRE_HFTD_TIER2_3 -> PSPS shutoff exposure: availability < 100%. Neither is a utility determination.",
+  "sources": {
+    "flood": "FEMA NFHL flood hazard zones via Esri Living Atlas 'USA Flood Hazard Areas' (https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Flood_Hazard_Reduced_Set_gdb/FeatureServer/0/query), point queries pulled 2026-11-08; cached data/l2/cache/flood_points_alviso.json",
+    "fire": "PG&E GRIP layer 18 HighFireThreatDistricts (CPUC HFTD, Cal Fire v22_3) in bbox -122.02,37.36,-121.88,37.46; cached data/shared/grip/raw/layer_18.geojson"
+  },
+  "caveats": [
+    "Fire polygons cover only the GRIP bbox; Tier 2/3 areas in the eastern foothills lie outside it, so nearest_hftd_km is within the bbox only.",
+    "Point checks at substation coordinates; an edge site on a feeder may sit in a different zone.",
+    "hazards.fema.gov failed TLS from the VM, so the Esri mirror of NFHL was used."
+  ],
+  "points": [
+    {
+      "kind": "site",
+      "id": "nsj-alviso-150",
+      "name": "North San Jose / Alviso compute site (illustrative 150 MW)",
+      "lat": 37.4265,
+      "lon": -121.975,
+      "flood": {
+        "zone": "AE",
+        "subtype": null,
+        "sfha": true,
+        "bfe_ft": 12,
+        "label": "1% Annual Chance Flood Hazard",
+        "dfirm_id": "06085C"
+      },
+      "fire": {
+        "in_hftd_any": false,
+        "in_hftd_tier2_3": false,
+        "tiers": [],
+        "nearest_hftd_km": 8.74,
+        "nearest_hftd": {
+          "hftd": "Zone 1 - HHZ",
+          "cpuc_tier": 1,
+          "cpuc_fire_map": "Tier 1"
+        }
+      },
+      "flags": [
+        "FLOOD_SFHA"
+      ]
+    },
+    {
+      "kind": "grip_substation",
+      "id": "08234",
+      "name": "RIVER OAKS",
+      "lat": 37.411282,
+      "lon": -121.927074,
+      "flood": {
+        "zone": "X",
+        "subtype": "0.2 Percent Annual Chance Flood Hazard",
+        "sfha": false,
+        "bfe_ft": null,
+        "label": "0.2% Annual Chance Flood Hazard",
+        "dfirm_id": "06085C"
+      },
+      "fire": {
+        "in_hftd_any": false,
+        "in_hftd_tier2_3": false,
+        "tiers": [],
+        "nearest_hftd_km": 4.42,
+        "nearest_hftd": {
+          "hftd": "Zone 1 - HHZ",
+          "cpuc_tier": 1,
+          "cpuc_fire_map": "Tier 1"
+        }
+      },
+      "flags": []
+    },
+    {
+      "kind": "grip_substation",
+      "id": "08389",
+      "name": "MONTAGUE",
+      "lat": 37.403069,
+      "lon": -121.905624,
+      "flood": {
+        "zone": null,
+        "sfha": false,
+        "bfe_ft": null,
+        "label": "not in a mapped FEMA flood hazard area (reduced set omits minimal-risk Zone X)"
+      },
+      "fire": {
+        "in_hftd_any": false,
+        "in_hftd_tier2_3": false,
+        "tiers": [],
+        "nearest_hftd_km": 2.6,
+        "nearest_hftd": {
+          "hftd": "Zone 1 - HHZ",
+          "cpuc_tier": 1,
+          "cpuc_fire_map": "Tier 1"
+        }
+      },
+      "flags": []
+    },
+    {
+      "kind": "grip_substation",
+      "id": "08342",
+      "name": "LAWRENCE",
+      "lat": 37.397195,
+      "lon": -122.010095,
+      "flood": {
+        "zone": "X",
+        "subtype": "Area With Reduced Flood Risk Due To Levee",
+        "sfha": false,
+        "bfe_ft": null,
+        "label": "Area with Reduced Risk Due to Levee",
+        "dfirm_id": "06085C"
+      },
+      "fire": {
+        "in_hftd_any": false,
+        "in_hftd_tier2_3": false,
+        "tiers": [],
+        "nearest_hftd_km": 10.44,
+        "nearest_hftd": {
+          "hftd": "Zone 1 - HHZ",
+          "cpuc_tier": 1,
+          "cpuc_fire_map": "Tier 1"
+        }
+      },
+      "flags": []
+    },
+    {
+      "kind": "grip_substation",
+      "id": "01472",
+      "name": "DIXON LANDING",
+      "lat": 37.457059,
+      "lon": -121.920973,
+      "flood": {
+        "zone": "AE",
+        "subtype": null,
+        "sfha": true,
+        "bfe_ft": 12,
+        "label": "1% Annual Chance Flood Hazard",
+        "dfirm_id": "06001C"
+      },
+      "fire": {
+        "in_hftd_any": false,
+        "in_hftd_tier2_3": false,
+        "tiers": [],
+        "nearest_hftd_km": 8.72,
+        "nearest_hftd": {
+          "hftd": "Zone 1 - HHZ",
+          "cpuc_tier": 1,
+          "cpuc_fire_map": "Tier 1"
+        }
+      },
+      "flags": [
+        "FLOOD_SFHA"
+      ]
+    },
+    {
+      "kind": "grip_substation",
+      "id": "08380",
+      "name": "TRIMBLE",
+      "lat": 37.382832,
+      "lon": -121.92644,
+      "flood": {
+        "zone": "X",
+        "subtype": "0.2 Percent Annual Chance Flood Hazard",
+        "sfha": false,
+        "bfe_ft": null,
+        "label": "0.2% Annual Chance Flood Hazard",
+        "dfirm_id": "06085C"
+      },
+      "fire": {
+        "in_hftd_any": false,
+        "in_hftd_tier2_3": false,
+        "tiers": [],
+        "nearest_hftd_km": 2.91,
+        "nearest_hftd": {
+          "hftd": "Zone 1 - HHZ",
+          "cpuc_tier": 1,
+          "cpuc_fire_map": "Tier 1"
+        }
+      },
+      "flags": []
+    },
+    {
+      "kind": "grip_substation",
+      "id": "08361",
+      "name": "BRITTON",
+      "lat": 37.374916,
+      "lon": -122.016517,
+      "flood": {
+        "zone": "X",
+        "subtype": "Area With Reduced Flood Risk Due To Levee",
+        "sfha": false,
+        "bfe_ft": null,
+        "label": "Area with Reduced Risk Due to Levee",
+        "dfirm_id": "06085C"
+      },
+      "fire": {
+        "in_hftd_any": false,
+        "in_hftd_tier2_3": false,
+        "tiers": [],
+        "nearest_hftd_km": 10.89,
+        "nearest_hftd": {
+          "hftd": "Zone 1 - HHZ",
+          "cpuc_tier": 1,
+          "cpuc_fire_map": "Tier 1"
+        }
+      },
+      "flags": []
+    },
+    {
+      "kind": "grip_substation",
+      "id": "08283",
+      "name": "MILPITAS",
+      "lat": 37.415579,
+      "lon": -121.88807,
+      "flood": {
+        "zone": "X",
+        "subtype": "0.2 Percent Annual Chance Flood Hazard",
+        "sfha": false,
+        "bfe_ft": null,
+        "label": "0.2% Annual Chance Flood Hazard",
+        "dfirm_id": "06085C"
+      },
+      "fire": {
+        "in_hftd_any": false,
+        "in_hftd_tier2_3": false,
+        "tiers": [],
+        "nearest_hftd_km": 3.79,
+        "nearest_hftd": {
+          "hftd": "Zone 1 - HHZ",
+          "cpuc_tier": 1,
+          "cpuc_fire_map": "Tier 1"
+        }
+      },
+      "flags": []
+    },
+    {
+      "kind": "grip_substation",
+      "id": "08246",
+      "name": "NORTECH",
+      "lat": 37.420952,
+      "lon": -121.960459,
+      "flood": {
+        "zone": "AE",
+        "subtype": null,
+        "sfha": true,
+        "bfe_ft": 12,
+        "label": "1% Annual Chance Flood Hazard",
+        "dfirm_id": "06085C"
+      },
+      "fire": {
+        "in_hftd_any": false,
+        "in_hftd_tier2_3": false,
+        "tiers": [],
+        "nearest_hftd_km": 7.34,
+        "nearest_hftd": {
+          "hftd": "Zone 1 - HHZ",
+          "cpuc_tier": 1,
+          "cpuc_fire_map": "Tier 1"
+        }
+      },
+      "flags": [
+        "FLOOD_SFHA"
+      ]
+    },
+    {
+      "kind": "grip_substation",
+      "id": "08379",
+      "name": "SIGNETICS",
+      "lat": 37.384845,
+      "lon": -122.013185,
+      "flood": {
+        "zone": "X",
+        "subtype": "Area With Reduced Flood Risk Due To Levee",
+        "sfha": false,
+        "bfe_ft": null,
+        "label": "Area with Reduced Risk Due to Levee",
+        "dfirm_id": "06085C"
+      },
+      "fire": {
+        "in_hftd_any": false,
+        "in_hftd_tier2_3": false,
+        "tiers": [],
+        "nearest_hftd_km": 10.57,
+        "nearest_hftd": {
+          "hftd": "Zone 1 - HHZ",
+          "cpuc_tier": 1,
+          "cpuc_fire_map": "Tier 1"
+        }
+      },
+      "flags": []
+    }
+  ]
+}

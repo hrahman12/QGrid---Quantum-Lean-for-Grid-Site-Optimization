@@ -89,3 +89,14 @@ Result (directional, an upper bound because GRIP pending load is withheld):
 | Distribution MW near Alviso | 38.8 | 40.7 | 47.6 | 66.2 | 90.6 |
 
 Local bank peaks fall on August-September afternoons (13:00-18:00). The 2025 CAISO net-load stress falls in the evenings (18:00-23:00), and the two windows barely overlap.
+
+## site_risk.json (flood and wildfire flags)
+
+Rebuild offline with `.venv/bin/python data/l2/build_site_risk.py`.
+
+| What | Status | Source |
+|---|---|---|
+| FEMA flood zone at the site and at the 9 GRIP substations | SOURCED | FEMA NFHL via Esri Living Atlas "USA Flood Hazard Areas" (`USA_Flood_Hazard_Reduced_Set_gdb/FeatureServer/0`), point queries pulled 2026-11-08; cached in `cache/flood_points_alviso.json`. `hazards.fema.gov` itself failed the TLS handshake from the VM |
+| High Fire-Threat Districts | SOURCED | PG&E GRIP layer 18 (CPUC HFTD, Cal Fire v22_3), `data/shared/grip/raw/layer_18.geojson`, GRIP bbox only |
+
+Result: the Alviso site is in **Zone AE (SFHA, 1% annual chance, BFE 12 ft)**, as are the Nortech and Dixon Landing substations. No point is inside a fire-threat district (the nearest polygon is 8.7 km from the site, and both polygons in the bbox are CPUC Tier 1). Suggested rule: an SFHA location is a permit and cost condition (elevate equipment above the BFE), not an automatic RED.
