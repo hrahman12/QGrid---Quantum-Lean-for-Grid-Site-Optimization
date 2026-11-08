@@ -24,6 +24,8 @@ from pathlib import Path
 
 import requests
 
+from .distribution import edge_sites, load_grip
+
 DATA = Path(__file__).resolve().parents[1] / "data" / "l1"
 OVERPASS = ("https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter",
             "https://overpass.private.coffee/api/interpreter")
@@ -222,10 +224,12 @@ def get_snapshot(site):
     subs = pick_substations(fc, site, {s["id"]: s for s in l2["substations"]} if l2 else None)
     if not subs:
         raise RuntimeError(f"no OSM substations >= {MIN_KV} kV within {RADIUS_KM} km of {site['id']}")
+    grip = load_grip()
     return {
         "site_id": site["id"], "substations": subs, "lines": infer_lines(subs) if len(subs) > 1 else [],
         "iso": iso_signal(site["iso"]),
         "dlr_uplift_pct": l2["dlr_uplift_pct"]["mid"] if l2 else DLR_UPLIFT_PCT_DEFAULT,
+        **({"distribution": edge_sites(grip, site["requested_mw"])} if grip else {}),
         "assumptions": [
             f"substations: {osm_src}; (c) OpenStreetMap contributors (ODbL)",
             ("assumed_mva/headroom_mw from data/l2/substation_ratings.json (ASSUMED planning values, see its disclaimer); "

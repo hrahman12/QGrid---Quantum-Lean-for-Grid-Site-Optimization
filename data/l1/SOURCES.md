@@ -14,3 +14,5 @@ All files are cached responses so the demo runs offline. No API keys are stored 
 Skipped, with reasons (checked 2026-11-08):
 - WRI Aqueduct: the SeaBridgeAI endpoint (`aqueduct40_baseline_annual_y2023m07d05`) now returns 400 Invalid URL; the service is no longer listed in that ArcGIS org.
 - EIA-860: the EIA v2 `operating-generator-capacity` API (works with a free key) has no county or lat/lon fields, so plants cannot be selected near Alviso from it. A plant list needs the EIA-860 plant file (lat/lon) instead.
+
+Derived, not fetched: `distribution_map.html` (grid/map.py) is built from the PG&E GRIP cache in `data/shared/grip/` (owned by the data-grip branch). It sums feeder hosting capacity, each edge site capped at 10 MW and limited by the substation bank headroom. Directional only.

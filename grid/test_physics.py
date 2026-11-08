@@ -36,3 +36,13 @@ def test_flex_relieves_the_same_plan():
 def test_unknown_substation_is_reported_not_raised():
     r = check(plan({"NOPE": 10}), SNAP)
     assert not r["converged"] and "unknown substation NOPE" in r["violations"][0]
+
+
+def test_distribution_edge_sites_respect_bank_headroom():
+    from grid.distribution import edge_sites
+    grip = {"substations": [{"id": "S1", "name": "S ONE", "lat": 0, "lon": 0, "headroom_mw": 12.0, "feeders": [
+        {"feeder_id": "f1", "name": "F1", "max_load_hosting_mw": 14.3}, {"feeder_id": "f2", "name": "F2", "max_load_hosting_mw": 5.0},
+        {"feeder_id": "f3", "name": "F3", "max_load_hosting_mw": 0.2}, {"feeder_id": "f4", "name": "F4", "max_load_hosting_mw": None}]}]}
+    r = edge_sites(grip, 150)
+    assert [s["mw"] for s in r["edge_sites"]] == [10.0, 2.0]  # 10 MW cap, then what is left of the 12 MW bank headroom
+    assert r["connectable_at_distribution_mw"] == 12.0 and r["needs_transmission_mw"] == 138.0
