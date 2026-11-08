@@ -107,7 +107,7 @@ Rebuild offline with `.venv/bin/python data/l2/build_l3_inputs.py`. It joins GRI
 
 | What | Status | Source |
 |---|---|---|
-| Feeder -> bank | ASSUMED | PG&E circuit numbering: the first digit of the 4-digit circuit number is the bank (LAWRENCE 1102 -> bank 0834201). It matches an existing bank id for 81 of 82 feeders; GRIP does not publish this link |
+| Feeder -> bank | SOURCED | GRIP layer 31 FEEDER rows, field `bankname` (e.g. BRITTON 1104 -> BRITTON BANK 1), `data/shared/grip/raw/layer_31.geojson`; 81 of 82 feeders (SIGNETICS 1101 has no row). This replaces an earlier circuit-number guess that was wrong |
 | Everything else | as in the sections above | |
 
-Key fact for the Lean bank rule: the edge-site maxima of the 73 eligible feeders sum to 430.6 MW, but the bank caps sum to 38.8 MW (0% curtailment). Feeder hosting is not additive, and some high-hosting feeders (e.g. MONTAGUE 2101) sit on banks with 0 MW headroom.
+Key fact for the Lean bank rule: the edge-site maxima of the 73 eligible feeders sum to 430.6 MW, but the bank caps sum to 38.8 MW (0% curtailment). Feeder hosting is not additive: e.g. MONTAGUE 2101 can host 10 MW, but its bank (0838901) has only 3.18 MW of headroom, shared with the bank's other feeders (25.9 MW of feeder maxima).
