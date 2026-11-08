@@ -1,0 +1,1 @@
+{"splits": [{"substation_id": "S1", "mw": 50}], "flex": {"dlr": true, "storage_mw": 0, "curtailment_mw": 0, "reconductor": false}, "search": {"method": "random", "evals": 12}}

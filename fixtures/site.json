@@ -1,0 +1,9 @@
+{
+  "id": "nsj-alviso-150",
+  "name": "North San Jose / Alviso compute site (illustrative 150 MW)",
+  "lat": 37.4265,
+  "lon": -121.9750,
+  "requested_mw": 150,
+  "deadline": "2028-06-30",
+  "iso": "CAISO"
+}

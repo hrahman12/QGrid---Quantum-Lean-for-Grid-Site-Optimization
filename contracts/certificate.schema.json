@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "certificate.schema.json",
+  "title": "Certificate over the encoded rules (not a utility approval)",
+  "type": "object",
+  "required": ["checks", "result", "blocking_condition", "scope_note"],
+  "properties": {
+    "checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "pass", "detail"],
+        "properties": {
+          "name": {"type": "string"},
+          "pass": {"type": "boolean"},
+          "detail": {"type": "string"}
+        }
+      }
+    },
+    "result": {"enum": ["GREEN", "RED"]},
+    "blocking_condition": {"type": ["string", "null"], "description": "null when GREEN; the first failing check when RED"},
+    "scope_note": {"type": "string", "minLength": 1}
+  }
+}

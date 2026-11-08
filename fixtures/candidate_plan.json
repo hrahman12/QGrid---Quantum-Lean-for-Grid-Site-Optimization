@@ -1,0 +1,11 @@
+{
+  "site_id": "nsj-alviso-150",
+  "splits": [
+    {"substation_id": "SUB-A", "mw": 55},
+    {"substation_id": "SUB-B", "mw": 45},
+    {"substation_id": "SUB-C", "mw": 30},
+    {"substation_id": "SUB-D", "mw": 20}
+  ],
+  "flex": {"dlr": false, "storage_mw": 0, "curtailment_mw": 0, "reconductor": false},
+  "search": {"method": "heuristic", "evals": 1}
+}

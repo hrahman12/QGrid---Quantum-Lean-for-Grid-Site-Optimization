@@ -1,0 +1,16 @@
+{
+  "site_id": "nsj-alviso-150",
+  "substations": [
+    {"id": "SUB-A", "name": "Synthetic substation A", "lat": 37.4310, "lon": -121.9580, "kv": 230, "assumed_mva": 300, "distance_km": 1.6, "headroom_mw": 60},
+    {"id": "SUB-B", "name": "Synthetic substation B", "lat": 37.4120, "lon": -121.9450, "kv": 115, "assumed_mva": 200, "distance_km": 3.1, "headroom_mw": 50},
+    {"id": "SUB-C", "name": "Synthetic substation C", "lat": 37.3980, "lon": -121.9800, "kv": 115, "assumed_mva": 150, "distance_km": 3.2, "headroom_mw": 40},
+    {"id": "SUB-D", "name": "Synthetic substation D", "lat": 37.4050, "lon": -122.0100, "kv": 115, "assumed_mva": 120, "distance_km": 3.9, "headroom_mw": 30}
+  ],
+  "lines": [
+    {"id": "L-AB", "from": "SUB-A", "to": "SUB-B", "kv": 115, "rating_mva": 250, "length_km": 2.5},
+    {"id": "L-BC", "from": "SUB-B", "to": "SUB-C", "kv": 115, "rating_mva": 200, "length_km": 3.3},
+    {"id": "L-CD", "from": "SUB-C", "to": "SUB-D", "kv": 115, "rating_mva": 180, "length_km": 2.9},
+    {"id": "L-DA", "from": "SUB-D", "to": "SUB-A", "kv": 115, "rating_mva": 220, "length_km": 6.0}
+  ],
+  "iso": {"lmp": 42.5, "load": 27800, "timestamp": "2026-11-08T20:00:00Z", "source": "fixture-synthetic"}
+}

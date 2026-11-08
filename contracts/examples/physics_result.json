@@ -1,0 +1,1 @@
+{"converged": true, "max_line_loading_pct": 131.0, "v_min_pu": 0.93, "v_max_pu": 1.01, "n1_pass": false, "violations": ["S1 transformer loading 131% > 100%", "bus S1 voltage 0.93 pu < 0.95 pu"]}
