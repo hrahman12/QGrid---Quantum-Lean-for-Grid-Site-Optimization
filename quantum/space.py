@@ -121,7 +121,9 @@ class PlanSpace:
         # from the grid lane's offline cache. The split schema allows extra keys; validate.py still re-checks
         # every split against the pipeline's own grid_snapshot.
         splits = [{"substation_id": s["id"], "mw": m,
-                   **({"headroom_mw": s["headroom_mw"]} if isinstance(s.get("headroom_mw"), (int, float)) else {})}
+                   **({"headroom_mw": s["headroom_mw"]} if isinstance(s.get("headroom_mw"), (int, float)) else {}),
+                   **({"headroom_mw_n1_firm": s["headroom_mw_n1_firm"]}
+                      if isinstance(s.get("headroom_mw_n1_firm"), (int, float)) else {})}
                   for s, m in zip(self.substations, mw) if m > 0]
         return {
             "site_id": self.site_id,

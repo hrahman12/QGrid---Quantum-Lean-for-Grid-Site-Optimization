@@ -47,6 +47,15 @@ WSL_SCRIPT = QDIR / "_wsl_grover.sh"
 WSL_TIMEOUT_S = int(os.environ.get("QSITE_WSL_TIMEOUT", "300"))
 SHOTS, SEED = 32, 7
 
+def engine_label(backend):
+    """Astra #9: the engine that actually produced the pick (method enum stays psiqdk|heuristic|random)."""
+    if backend == "psiqdk":
+        return "psiqdk-simulated-grover"
+    if backend and "numpy" in str(backend):
+        return "numpy-fallback"
+    return "classical"
+
+
 HONESTY = ("Grover here is a classical simulation (PsiQDK workbench simulator, or numpy fallback) of a "
            "fault-tolerant quantum search circuit. No quantum hardware ran and no quantum advantage is claimed: "
            "the phase oracle is compiled from a marked list found by evaluating the classical predicate on all N "
@@ -159,13 +168,17 @@ def propose(site, snapshot, constraints=None, *, exclude=(), k=DEFAULT_K, shots=
         backend_used = res.get("backend")
         method = "psiqdk" if backend_used == "psiqdk" else "heuristic"
     cand = space.to_candidate_plan(plan, method, evals)
+    # Astra #9: extra keys (candidate_plan.search allows them): the real engine and the full evaluation cost,
+    # including the N classical predicate calls that compiled the lookup oracle
+    cand["search"].update(engine=engine_label(backend_used), classical_enumeration_calls=space.size,
+                          evals_total=evals + space.size)
 
     record = {
         "generated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "honesty": HONESTY,
         "site_id": site["id"],
         "space": space.describe(),
-        "oracle": {"rule": "split_i*(1-(storage+curtail)/requested) <= headroom_i*(1+dlr_uplift if dlr)",
+        "oracle": {"rule": "storage+curtail <= requested and split_i*(1-(storage+curtail)/requested) <= headroom_i (DLR: lines only)",
                    "notes": oracle.notes, "constraints": oracle.constraints.interpretations,
                    "excluded_plan_indices": sorted(set(exclude)), "M": info.get("M", 0),
                    "classical_enumeration_calls": space.size, "widened": widened},

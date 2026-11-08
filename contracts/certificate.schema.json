@@ -14,12 +14,14 @@
         "properties": {
           "name": {"type": "string"},
           "pass": {"type": "boolean"},
-          "detail": {"type": "string"}
+          "detail": {"type": "string"},
+          "tag": {"enum": ["hard", "negotiable"]}
         }
       }
     },
-    "result": {"enum": ["GREEN", "RED"]},
-    "blocking_condition": {"type": ["string", "null"], "description": "null when GREEN; the first failing check when RED"},
+    "result": {"enum": ["GREEN", "AMBER", "RED"], "description": "AMBER: only negotiable checks fail; conditions[] lists what turns it GREEN"},
+    "conditions": {"type": "array", "items": {"type": "string"}},
+    "blocking_condition": {"type": ["string", "null"], "description": "null when GREEN; the first failing hard check when RED; the first failing check when AMBER"},
     "scope_note": {"type": "string", "minLength": 1}
   }
 }
