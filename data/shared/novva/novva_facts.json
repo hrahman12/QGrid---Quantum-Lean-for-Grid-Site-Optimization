@@ -1,0 +1,93 @@
+{
+  "site": "NOVVA Colorado Springs data center",
+  "accessed": "2026-11-08",
+  "location": {
+    "address": "650 Sybilla Ln, Colorado Springs, CO",
+    "address_source": "https://baxtel.com/data-center/novva-colorado-springs (fetched); https://datacenterhawk.com/marketplace/providers/novva/650-sybilla-lane/1057417 (search listing)",
+    "lat_lon_given_by_requester": [39.0130, -104.8164],
+    "lat_lon_note": "Coordinates supplied by the requester; not independently geocoded here. The bundled OSM extract (osm_novva_colorado_springs_buildings.geojson, 46 building footprints) sits at about 39.01 N, -104.814 W, consistent with them.",
+    "jurisdiction": "ASSUMED City of Colorado Springs / El Paso County; not verified against city limits."
+  },
+  "facts": [
+    {
+      "field": "owner_operator",
+      "value": "NOVVA Data Centers (Utah-based); bought the two-building campus in 2021 for $38.5M",
+      "sources": ["https://baxtel.com/data-center/novva-colorado-springs (fetched; price from a photo caption filename only)", "https://www.structureresearch.net/2021/09/09/novva-data-centers-acquires-colorado-springs-data-centre-campus-for-38-5m/ (title seen in search; page 404 on fetch)"],
+      "evidence": "fetched_partial"
+    },
+    {
+      "field": "year_built",
+      "value": 2005,
+      "sources": ["https://baxtel.com/data-center/novva-colorado-springs"],
+      "evidence": "fetched"
+    },
+    {
+      "field": "size",
+      "value": "122,000 sq ft data center (59,700 sq ft raised floor); 13,000 sq ft generator building; 55,000 sq ft printing facility; 17-acre lot + ~17 acres excess land to the west (Baxtel). NOVVA's own page says '68-acre campus' and '37 acres' available land - sources conflict.",
+      "sources": ["https://baxtel.com/data-center/novva-colorado-springs", "https://www.novva.com/data-center-facilities/colorado"],
+      "evidence": "fetched"
+    },
+    {
+      "field": "capacity_mw",
+      "value": {
+        "at_acquisition_2021": "6 MW designed capacity (search summary of 2021 announcements: DCD, Capacity Media, JLL)",
+        "company_page_2026": "'40MW capacity' headline AND 'Circuit underground single feed, 6mW' under Power Availability (same page; relation not explained)",
+        "colorado_sun_2024": "building had 3 MW when bought; plan to add three more buildings, total 40 MW (secondary summary; original page returned 429)",
+        "expansion_plan_2021": "~$200M to expand from 6 MW to 30 MW, +250,000 sq ft (DCD / Capacity Media via search summary)",
+        "datacenterhawk": "30,000 kW planned colocation capacity (search listing)",
+        "cleanview": "Phase 1 listed at 40 MW, operational since 2023 (search listing, unverified)",
+        "baxtel": "MW not disclosed"
+      },
+      "assessment": "No single authoritative installed-MW figure. For modelling use 6 MW as the only utility-feed number stated by the operator (company page) and treat 30-40 MW as PLANNED/ASSUMED, not built.",
+      "sources": ["https://www.novva.com/data-center-facilities/colorado", "https://datacenterdynamics.com/en/news/novva-acquires-data-center-in-colorado-springs-plans-200-million-expansion", "https://coloradosun.com/2024/03/25/as-demand-for-data-centers-grows-so-do-concerns-over-their-effects-on-colorados-environment/", "https://www.cleanview.co/data-centers/colorado/1004/colorado-springs-campus---phase-1", "https://datacenterhawk.com/marketplace/providers/novva/650-sybilla-lane/1057417"],
+      "evidence": "conflicting"
+    },
+    {
+      "field": "phases",
+      "value": "Not stated on the company page. Reports describe an existing single-building 3-6 MW campus plus planned additional buildings (Colorado Sun: three more buildings, 40 MW total; DCD 2021: 6->30 MW). Phase 1 per Cleanview = 40 MW since 2023 (unverified). Generators: 3 now, 6 future (company page).",
+      "sources": ["https://www.novva.com/data-center-facilities/colorado", "https://www.cleanview.co/data-centers/colorado/1004/colorado-springs-campus---phase-1"],
+      "evidence": "conflicting"
+    },
+    {
+      "field": "power_source_utility",
+      "value": "Colorado Springs Utilities; underground single feed rated 6 MW; page also says 'Single source from utility' and elsewhere 'dual generation power' (internal inconsistency). Backup: 3 generators now, 6 future.",
+      "sources": ["https://www.novva.com/data-center-facilities/colorado"],
+      "evidence": "fetched_company_claim"
+    },
+    {
+      "field": "cooling_water",
+      "value": "Ambient-air / 'waterless' cooling; chilled-water CRAH with under-floor distribution; air-cooled cabinets; '8,000+ hours a year of ambient mountain air cooling'; PUE 1.3 annualized (self-reported). No water-consumption figure published (not found).",
+      "sources": ["https://www.novva.com/data-center-facilities/colorado"],
+      "evidence": "fetched_company_claim"
+    },
+    {
+      "field": "certifications_claimed",
+      "value": "LEED-aligned design; SOC 1/SOC 2/HIPAA 'adherent'; ISO 27001; ISO 22301; PCI DSS AoC (company claims).",
+      "sources": ["https://www.novva.com/data-center-facilities/colorado"],
+      "evidence": "fetched_company_claim"
+    },
+    {
+      "field": "projected_load_252_mw",
+      "value": "UNVERIFIED. A search summary of the Colorado Sun (2024-03-25) says a Colorado PUC filing projected load 'potentially escalate up to 252 MW' and concerned Xcel's subsidiary PSCo. Colorado Springs Utilities is not PSCo, so this may refer to different facilities. Do not use as NOVVA capacity.",
+      "sources": ["https://coloradosun.com/2024/03/25/as-demand-for-data-centers-grows-so-do-concerns-over-their-effects-on-colorados-environment/"],
+      "evidence": "search_snippet_only"
+    },
+    {
+      "field": "company_context",
+      "value": "NOVVA raised $355M from CIM Group (2022-06-02) toward a 1,000 MW designed-capacity goal; other sites: North Las Vegas, Storey County NV, Mesa AZ.",
+      "sources": ["https://baxtel.com/data-center/novva-colorado-springs"],
+      "evidence": "fetched"
+    },
+    {
+      "field": "news_last_12_months",
+      "value": "No 2026 article found naming NOVVA Colorado Springs in a controversy. Local 2026 coverage is about Project Taurus (Raeden, 50 MW, Colorado Springs Utilities contract pending) and moratoria elsewhere. See ../socio/novva.json.",
+      "sources": ["https://gazette.com/?p=2024844"],
+      "evidence": "search_sweep"
+    }
+  ],
+  "assumed": [
+    "All MW beyond the 6 MW utility feed are PLANNED/ASSUMED, not measured.",
+    "Jurisdiction (Colorado Springs city vs unincorporated El Paso County) is ASSUMED.",
+    "No live meter, interconnection or CSU load data was available."
+  ]
+}

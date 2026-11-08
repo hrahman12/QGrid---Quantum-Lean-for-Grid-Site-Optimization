@@ -1,0 +1,224 @@
+{
+  "site": "novva",
+  "name": "NOVVA Colorado Springs (39.0130,-104.8164); Colorado Springs Utilities; El Paso County",
+  "accessed": "2026-11-08",
+  "jurisdictions": {
+    "state": "CO",
+    "city": "Colorado Springs (ASSUMED, not geocoded)",
+    "county": "El Paso",
+    "utility": "Colorado Springs Utilities"
+  },
+  "consent_score": 0.434,
+  "consent_score_inputs": {
+    "S_supportive": 0.727,
+    "O_opposition": 0.859
+  },
+  "consent_formula": "S = 1 - prod(1 - w_i) over supportive items; O = 1 - prod(1 - w_i*m_i) over opposition items with m=1.0 (hard) or 0.6 (negotiable); consent_score = clamp(0.5 + 0.5*(S - O), 0, 1). Bands: >=0.65 GREEN-leaning, 0.35-0.65 AMBER, <0.35 RED-leaning; override: any hard item with weight>=0.8 and applies_to 'site' forces RED regardless of score. Weights are ASSUMED analyst judgments (each has a one-line rationale); this is a heuristic, not a validated model.",
+  "verdict": "AMBER",
+  "verdict_note": "Consent layer only; says nothing about grid/physics. Weights are ASSUMED judgments.",
+  "items": [
+    {
+      "id": "b-taurus-appeals",
+      "type": "permit_rule",
+      "effect": "negotiable",
+      "weight": 0.55,
+      "weight_rationale": "Same city, same utility, same year: a 50 MW project got administrative approval, 100+ speakers opposed, council delayed to Apr 2027 - this is the real consent test in Colorado Springs.",
+      "outlet": "Colorado Politics / Denver Gazette / Gazette",
+      "date": "2026-06-16 to 2026-09-18",
+      "url": "https://www.coloradopolitics.com/2026/09/18/colorado-springs-city-council-punts-decision-on-project-taurus-data-center-to-april-2027-after-raucous-meeting-2/",
+      "summary": "Project Taurus (Raeden Corp, ~50 MW, former Intel plant, 1615 W Garden of the Gods Rd) was administratively approved; residents within 3 miles could appeal (Gazette Jun 16 fetched: confirms approval, 50 MW, appeal window; appeals later filed). Per search snippets: Planning Commission rejected appeals 6-2 on Jul 24 2026 with four conditions (>100 signed up against vs 13 for); Council voted 7-2 on Sep 17 2026 to delay the appeal decision to Apr 13 2027 so Raeden can negotiate a CSU large-load contract; Axios (Sep 22) says the developer is wavering. Not NOVVA, but shows the process any new CSU large load faces.",
+      "evidence": "search_snippet",
+      "applies_to": "region"
+    },
+    {
+      "id": "b-cs-no-moratorium",
+      "type": "moratorium",
+      "effect": "supportive",
+      "weight": 0.4,
+      "weight_rationale": "Colorado Springs (NOVVA's jurisdiction, ASSUMED) has not adopted a moratorium while neighbors did; leadership quiet but permissive.",
+      "outlet": "The Gazette",
+      "date": "2026-06-16",
+      "url": "https://gazette.com/?p=2024844",
+      "summary": "'Data Center moratoriums take hold along Front Range, but not Colorado Springs' (Alexander Edwards): Denver, Jefferson, Boulder, Larimer and Longmont adopted moratoriums/restrictions; Colorado Springs did not. 'City leadership in Colorado Springs has remained tight-lipped on Project Taurus.' Article does not explain why and does not mention NOVVA.",
+      "evidence": "fetched",
+      "applies_to": "site"
+    },
+    {
+      "id": "b-monument-moratorium",
+      "type": "moratorium",
+      "effect": "negotiable",
+      "weight": 0.35,
+      "weight_rationale": "First El Paso County municipality to pause (contagion risk to county-level action) but no unincorporated-county rule found.",
+      "outlet": "KOAA",
+      "date": "2026-07-20 (inferred; page undated)",
+      "url": "https://www.koaa.com/news/local-news/monument-puts-the-brakes-on-data-centers-as-council-approves-moratorium",
+      "summary": "Monument Town Council approved a data-center moratorium (at least six months; no applications considered). No company had applied; proactive. Woodland Park (Teller Co.) passed an 18-month pause the week before (Gazette, search snippet). Article does not mention Colorado Springs.",
+      "evidence": "fetched",
+      "applies_to": "region"
+    },
+    {
+      "id": "b-front-range-moratoria",
+      "type": "moratorium",
+      "effect": "negotiable",
+      "weight": 0.3,
+      "weight_rationale": "Denver 12-month, Jefferson Co. to Mar 2027 (1,500 ft setback), Larimer, Boulder: regional momentum, but Aurora rejected an indefinite pause.",
+      "outlet": "Colorado Politics / Gazette",
+      "date": "2026-05-19; 2026-10-26",
+      "url": "https://www.coloradopolitics.com/2026/05/19/denver-stops-new-data-centers-for-12-months/",
+      "summary": "Denver Council Bill 26-0431: 12-month moratorium on new data-center permits (passed May 18 2026). Jefferson County moratorium extended to March 2027 with 1,500-ft setback from homes. Larimer and Boulder counties also paused. Aurora council voted down an indefinite moratorium (Colorado Politics, 2026-10-26). Details from search snippets only.",
+      "evidence": "search_snippet",
+      "applies_to": "region"
+    },
+    {
+      "id": "b-co-state-bills",
+      "type": "state_bill",
+      "effect": "negotiable",
+      "weight": 0.2,
+      "weight_rationale": "Both 2026 bills died: no state incentive to sweeten a deal and no state regime, leaving decisions local.",
+      "outlet": "Colorado Sun / Colorado Newsline / KUNC",
+      "date": "2026-05-07 to 2026-05-12",
+      "url": "https://coloradosun.com/2026/05/07/bill-to-attract-data-centers-to-colorado-with-tax-incentives-fails/",
+      "summary": "HB26-1030 (100% state sales/use tax exemption for qualifying data centers) failed 11-2 in House Energy & Environment and was postponed indefinitely; SB26-102 (Sen. Cathy Kipp, regulatory) was rewritten to include a tax incentive then postponed indefinitely at the sponsor's request. Search snippets only (Newsline fetch returned 403).",
+      "evidence": "search_snippet",
+      "applies_to": "site"
+    },
+    {
+      "id": "b-csu-large-load-rate",
+      "type": "utility_policy",
+      "effect": "negotiable",
+      "weight": 0.5,
+      "weight_rationale": "Applies to any >10 MW customer: 10-year minimum contract and customer-paid infrastructure; a negotiable gate that governs expansion beyond today's load.",
+      "outlet": "CPR News / Colorado Springs Utilities",
+      "date": "2025-10-30",
+      "url": "https://www.cpr.org/2025/10/30/colorado-springs-utilities-2026-large-load-power-users-requirements/",
+      "summary": "Council (acting as utility board) gave final approval to a 2026 pricing plan with a Large Load Rate for new customers needing >10 MW; CSU says large customers sign a minimum 10-year agreement, pay for the infrastructure they need, and may qualify for incentives where they bring community value; CSU says it is the first Colorado utility with such a rate (csu.org blog 'Serving large data centers, protecting existing customers'). CPR page returned 403 and the CSU blog body was truncated: terms are from search summaries only. Whether NOVVA's existing load is grandfathered is NOT verified (ASSUMED yes for the existing 6 MW feed; any new >10 MW expansion ASSUMED covered).",
+      "evidence": "search_snippet",
+      "applies_to": "site"
+    },
+    {
+      "id": "b-novva-no-local-opposition",
+      "type": "opposition_group",
+      "effect": "supportive",
+      "weight": 0.3,
+      "weight_rationale": "No NOVVA-specific opposition, petition or controversy found in ~40 search results; absence of evidence from a limited search.",
+      "outlet": "Multiple (search sweep)",
+      "date": "2026-11-08",
+      "url": "https://www.novva.com/data-center-facilities/colorado",
+      "summary": "Searches for NOVVA + Colorado Springs returned only trade/real-estate coverage (2021 acquisition, expansion plans, Baxtel/DCD/JLL) and the Colorado Sun March 2024 piece; no petition, hearing or protest tied to NOVVA found. Local opposition centres on Project Taurus.",
+      "evidence": "search_snippet",
+      "applies_to": "site"
+    },
+    {
+      "id": "b-taurus-opposition-groups",
+      "type": "opposition_group",
+      "effect": "negotiable",
+      "weight": 0.45,
+      "weight_rationale": "Organized, well attended and able to file appeals; targeted at Taurus but builds a local anti-data-center constituency.",
+      "outlet": "Colorado Politics / Denver Gazette / change.org",
+      "date": "2026-04 to 2026-09",
+      "url": "https://www.change.org/p/reject-the-project-taurus-data-center-near-garden-of-the-gods",
+      "summary": "Primary appeal filed by watchdog group Integrity Matters and Chelsea Glen residents (Colorado Politics); change.org petitions (an Apr 2026 petition demanding an immediate moratorium; another 'Reject the Project Taurus data center near Garden of the Gods'). The Sep 17 council meeting was described as raucous. Search snippets only.",
+      "evidence": "search_snippet",
+      "applies_to": "region"
+    },
+    {
+      "id": "b-novva-waterless",
+      "type": "incentive",
+      "effect": "supportive",
+      "weight": 0.35,
+      "weight_rationale": "NOVVA's own claims (ambient/waterless cooling, PUE 1.3) answer the water objection raised in local threads; self-reported, unverified.",
+      "outlet": "NOVVA Data Centers (company site)",
+      "date": "2026 (page footer (c) 2026)",
+      "url": "https://www.novva.com/data-center-facilities/colorado",
+      "summary": "Company page: ambient-air and waterless cooling, '8,000+ hours a year of ambient mountain air cooling', PUE 1.3 (annualized), chilled-water CRAH units. Self-reported.",
+      "evidence": "fetched",
+      "applies_to": "site"
+    },
+    {
+      "id": "b-reddit-cosprings",
+      "type": "news_sentiment",
+      "effect": "negotiable",
+      "weight": 0.25,
+      "weight_rationale": "One 77-comment thread on Taurus: skeptical on water/noise/city motives, a couple supportive. Weak signal for NOVVA.",
+      "outlet": "Reddit r/ColoradoSprings (via reddit.sentinel-team.org mirror)",
+      "date": "2025-11 (post ~179 days before the 2026-05-14 snapshot)",
+      "url": "https://reddit.sentinel-team.org/posts/1tbkykd/snapshots/2026-05-14T04%3A35%3A08.545363Z",
+      "summary": "'Project Taurus/Data Center Community Meeting': 245 pts, 77 comments (11 captured). Top comments: drought/water worry, noise, distrust that the city weighs anything but revenue, power cost; a minority cite jobs / zoning fit.",
+      "evidence": "fetched",
+      "applies_to": "site"
+    },
+    {
+      "id": "dcw-q1-2026",
+      "type": "opposition_group",
+      "effect": "negotiable",
+      "weight": 0.25,
+      "weight_rationale": "National backdrop raises base rate of local fights, but names no site here; context only.",
+      "outlet": "Data Center Watch",
+      "date": "2026 Q1 report (no publication date on page)",
+      "url": "https://www.datacenterwatch.org/q1-2026",
+      "summary": "At least 75 US projects, ~$130B blocked or delayed in the quarter; opposition active in 49 states; 300+ state data-center bills filed in first six weeks of 2026; statewide moratorium proposals in 14 states (none enacted per page). The '833 opposition groups' figure was supplied by the requester and is NOT visible on the fetched page (page says groups 'more than doubled' since Q4 2025). Page text does not mention California or Colorado.",
+      "evidence": "fetched",
+      "applies_to": "context"
+    }
+  ],
+  "news_scan": {
+    "window": "roughly 2026-01 to 2026-11",
+    "distinct_articles_found": 24,
+    "articles_naming_NOVVA_in_2026": 0,
+    "sentiment": {
+      "negative": 10,
+      "neutral": 12,
+      "positive": 2
+    },
+    "classification_basis": "headline/snippet only; rough; nearly all are about Project Taurus / moratoria, not NOVVA",
+    "examples": {
+      "negative": [
+        "Colorado Politics 'Colorado Springs City Council punts decision on Project Taurus data center to April 2027 after raucous meeting' https://www.coloradopolitics.com/2026/09/18/colorado-springs-city-council-punts-decision-on-project-taurus-data-center-to-april-2027-after-raucous-meeting-2/",
+        "Construction Reporter 'Massive Colorado Springs Data Center Project Aired - Much Opposition' https://constructionreporter.com/massive-colorado-springs-data-center-project-aired-much-opposition/",
+        "Pikes Peak Bulletin 'CO Springs Planning Commissioners reject activists' attempt to stop data center' https://pikespeakbulletin.org/news/co-springs-planning-commissioners-reject-activists/"
+      ],
+      "neutral": [
+        "Gazette 'Data Center moratoriums take hold along Front Range, but not Colorado Springs' https://gazette.com/?p=2024844",
+        "KOAA 'Monument puts the brakes on data centers as council approves moratorium' https://www.koaa.com/news/local-news/monument-puts-the-brakes-on-data-centers-as-council-approves-moratorium",
+        "KRDO 'Project Taurus decision postponed' https://krdo.com/news/2026/09/18/project-taurus-decision-postponed/"
+      ],
+      "positive": [
+        "Gazette Guest Opinion 'New data center is a win-win for the Springs' https://gazette.com/?p=2033440",
+        "Gazette Guest Opinion 'Colorado Springs can lead the next era of innovation' https://gazette.com/?p=2019852"
+      ]
+    }
+  },
+  "coverage": {
+    "scanned": [
+      "WebSearch + page fetch: NOVVA site, Gazette (Jun 16 2026), KOAA (Monument), Reddit mirror (r/ColoradoSprings), Data Center Watch",
+      "Search-result summaries only (page 403/429/not read): Colorado Sun (2024 and 2026), Colorado Newsline, CPR, KUNC, Axios, Colorado Politics, Denver Gazette, KRDO (May 15, Sep 18 2026), Fox21, Pikes Peak Bulletin, Construction Reporter, DCD",
+      "Public Reddit via third-party mirror (r/ColoradoSprings); 1 thread read"
+    ],
+    "not_scanned": [
+      "X/Twitter, Facebook, Nextdoor (API/login needed; not attempted)",
+      "Radio audio (KRDO NewsRadio, KVOR, Colorado Public Radio broadcasts): only station web articles seen",
+      "KKTV and most KOAA coverage not directly searched",
+      "Colorado Springs City Council/Planning agendas, El Paso County commissioner minutes and Land Development Code",
+      "CSU Large Load Rate tariff text and Colorado PUC dockets",
+      "Gazette article bodies beyond Jun 16 (paywall)"
+    ],
+    "method": "WebSearch (standard mode) + WebFetch, one pass. Article counts are distinct URLs surfaced by searches, classified by headline/snippet."
+  },
+  "amber_conditions": [
+    "Large-load contract with CSU (10-year minimum, customer-paid infrastructure) signed before any expansion above 10 MW",
+    "Water-neutral / waterless cooling commitment, contractually bound (NOVVA already markets ambient/waterless cooling, PUE 1.3)",
+    "Community benefit agreement with nearby neighborhoods: noise limits, generator testing hours, setbacks (Jefferson Co. uses 1,500 ft from homes)",
+    "Surplus power / demand-response sharing with CSU during peaks so residential rates are insulated",
+    "Heat reuse (ambient-cooled site, low-grade heat offtake)",
+    "Early public outreach before any administrative approval to avoid the Taurus-style appeal path",
+    "Local hiring / tax-base commitments (the jobs argument is the main pro-side theme)"
+  ],
+  "missing": [
+    "No social-media (X/Facebook/Nextdoor) or radio-audio scan",
+    "CSU Large Load Rate terms and NOVVA's grandfathering status not verified (tariff text not read)",
+    "Whether NOVVA's parcel is inside Colorado Springs city limits vs unincorporated El Paso County is ASSUMED city (not geocoded); El Paso County Land Development Code not researched",
+    "Colorado Sun 2024 '252 MW' PUC filing claim seen only through a search summary (page 429); its attribution to this site, and to Xcel/PSCo rather than CSU, is doubtful: UNVERIFIED",
+    "Colorado Springs council/planning agendas not read; no direct NOVVA contact",
+    "Project Taurus final outcome (Apr 13 2027 hearing) is in the future"
+  ]
+}
