@@ -10,6 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
+from report import labels  # noqa: E402
 from scenarios import growth_alviso  # noqa: E402
 
 NEVER = "Never claimed: quantum advantage; utility or PG&E approval; real substation ratings where we assumed them; numbers we did not run."
@@ -27,6 +28,8 @@ def load(run_dir):
     run_dir = Path(run_dir)
     d = {n: json.loads((run_dir / f"{n}.json").read_text(encoding="utf-8"))
          for n in ("site", "candidate_plan", "physics_result", "certificate", "grid_snapshot", "sources")}
+    rj = run_dir / "rounds.json"
+    d["rounds"] = json.loads(rj.read_text(encoding="utf-8")) if rj.exists() else []
     sc = growth_alviso.OUT
     d["growth"] = json.loads(sc.read_text(encoding="utf-8")) if sc.exists() else growth_alviso.run()
     d["run_dir"] = run_dir
@@ -43,13 +46,17 @@ def sections(d):
     stale = [k for k, v in d["sources"].items() if v == "FIXTURE"]
     return [
         ("The question", [f"Can {site['name']} get {site['requested_mw']} MW by {site['deadline']}?"]),
-        ("Verdict", [f"RESULT: {cert['result']}" + (f" (blocked by {cert['blocking_condition']})" if cert["blocking_condition"] else "")]
+        ("Verdict", [f"RESULT: {labels.verdict_label(cert['result'])}" + (f" (blocked by {cert['blocking_condition']})" if cert["blocking_condition"] else "")]
+         + [f"Certificate engine: {labels.cert_engine(cert)}", f"Rules covered: {labels.RULES_LABEL}"]
          + [f"{'PASS' if c['pass'] else 'FAIL'}  {c['name']}" for c in cert["checks"]]),
         ("The plan", [f"{names.get(s['substation_id'], s['substation_id'])}: {s['mw']:.1f} MW" for s in plan["splits"]]
-         + [f"Flex levers: {flex}", f"Search: {plan['search']['method']}, {plan['search']['evals']} evals"]),
+         + [f"Flex levers: {flex}", f"Search engine: {labels.search_engine(plan)}, {plan['search']['evals']} evals"]),
+        ("Feedback loop (propose -> physics -> certify)", [
+            f"round {r['round']}: {r['verdict']}  {r['plan']}  blocked by {r['blocking_rule'] or '-'}  ({r['evals']} evals)"
+            for r in d["rounds"]] or ["single pass (no rounds.json)"]),
         ("Physics (pandapower)", [f"Converged: {phys['converged']}   Max line loading: {phys['max_line_loading_pct']}%",
                                   f"Voltage: {phys['v_min_pu']} to {phys['v_max_pu']} pu   N-1: {'pass' if phys['n1_pass'] else 'FAIL'}"]),
-        ("Distribution headroom near Alviso (PG&E GRIP 2028, directional)", [
+        ("Distribution headroom near Alviso (" + labels.DATA_LABEL + ")", [
             f"{mw(BASE, '0'):.1f} MW firm on the local distribution grid; the rest needs transmission (7-10 years)",
             f"{mw(BASE, '2'):.1f} MW if the site accepts curtailment in ~2% of hours (98% availability)",
             f"Curve at 0/2/5/10% curtailment: " + " / ".join(f"{mw(BASE, p):.1f}" for p in ("0", "2", "5", "10")) + " MW",
@@ -57,7 +64,7 @@ def sections(d):
             f"At +20%, {len(g[STRESS]['by_curtailment_pct']['0']['banks_at_zero'])} banks have 0 MW firm headroom "
             f"(baseline {len(g[BASE]['by_curtailment_pct']['0']['banks_at_zero'])}).",
         ]),
-        ("Scope", [NEVER, "GRIP values are directional. +20% is an assumed stress scenario, not a utility forecast."]
+        ("Scope", [NEVER, "Headroom/connectivity/ratings are " + labels.DATA_LABEL + ". +20% is an assumed stress scenario, not a utility forecast."]
          + ([f"NOTE: stages using synthetic fixtures, not live results: {', '.join(stale)}"] if stale else [])),
     ]
 
