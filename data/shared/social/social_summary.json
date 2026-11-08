@@ -1,0 +1,448 @@
+{
+ "generated": "2026-11-08",
+ "all": {
+  "n": 110,
+  "by_stance": {
+   "oppose": 83,
+   "neutral": 17,
+   "support": 10
+  },
+  "by_topic": {
+   "politics": 20,
+   "moratorium": 34,
+   "power": 9,
+   "bills": 12,
+   "heat_reuse": 1,
+   "water": 3,
+   "noise": 2,
+   "jobs": 3,
+   "transparency": 1,
+   "taxes": 1
+  },
+  "monthly_stance": {
+   "2025-07": {
+    "oppose": 1
+   },
+   "2025-12": {
+    "oppose": 5
+   },
+   "2026-01": {
+    "oppose": 2
+   },
+   "2026-02": {
+    "oppose": 2
+   },
+   "2026-03": {
+    "oppose": 6,
+    "neutral": 1
+   },
+   "2026-04": {
+    "oppose": 13,
+    "neutral": 5,
+    "support": 4
+   },
+   "2026-05": {
+    "oppose": 9,
+    "support": 1
+   },
+   "2026-06": {
+    "oppose": 10
+   },
+   "2026-07": {
+    "oppose": 13,
+    "support": 1
+   },
+   "2026-08": {
+    "oppose": 14,
+    "neutral": 3,
+    "support": 3
+   },
+   "2026-09": {
+    "oppose": 4,
+    "neutral": 2
+   },
+   "2026-10": {
+    "support": 1,
+    "neutral": 3,
+    "oppose": 3
+   },
+   "2026-11": {
+    "neutral": 3,
+    "oppose": 1
+   }
+  },
+  "monthly_topic": {
+   "2025-12": {
+    "politics": 2,
+    "moratorium": 3
+   },
+   "2026-02": {
+    "moratorium": 2
+   },
+   "2026-03": {
+    "power": 1,
+    "bills": 5,
+    "moratorium": 5,
+    "politics": 3
+   },
+   "2026-04": {
+    "power": 3,
+    "bills": 2,
+    "moratorium": 6,
+    "heat_reuse": 1,
+    "politics": 1
+   },
+   "2026-05": {
+    "water": 2,
+    "noise": 1,
+    "bills": 1,
+    "power": 2,
+    "moratorium": 3
+   },
+   "2026-06": {
+    "water": 1,
+    "moratorium": 2,
+    "jobs": 3,
+    "noise": 1,
+    "politics": 1
+   },
+   "2026-07": {
+    "moratorium": 7,
+    "power": 1,
+    "politics": 1
+   },
+   "2026-08": {
+    "moratorium": 4,
+    "politics": 6,
+    "power": 2,
+    "bills": 2
+   },
+   "2026-09": {
+    "politics": 3,
+    "moratorium": 1
+   },
+   "2026-10": {
+    "bills": 1,
+    "transparency": 1,
+    "moratorium": 1,
+    "politics": 1
+   },
+   "2026-11": {
+    "bills": 1,
+    "taxes": 1,
+    "politics": 2
+   }
+  }
+ },
+ "posts_only_excluding_reddit_comments": {
+  "n": 97,
+  "by_stance": {
+   "oppose": 79,
+   "neutral": 12,
+   "support": 6
+  },
+  "by_topic": {
+   "politics": 20,
+   "moratorium": 34,
+   "power": 7,
+   "bills": 11,
+   "water": 3,
+   "noise": 2,
+   "jobs": 3,
+   "transparency": 1,
+   "taxes": 1
+  },
+  "monthly_stance": {
+   "2025-07": {
+    "oppose": 1
+   },
+   "2025-12": {
+    "oppose": 5
+   },
+   "2026-01": {
+    "oppose": 2
+   },
+   "2026-02": {
+    "oppose": 2
+   },
+   "2026-03": {
+    "oppose": 6,
+    "neutral": 1
+   },
+   "2026-04": {
+    "oppose": 9
+   },
+   "2026-05": {
+    "oppose": 9,
+    "support": 1
+   },
+   "2026-06": {
+    "oppose": 10
+   },
+   "2026-07": {
+    "oppose": 13,
+    "support": 1
+   },
+   "2026-08": {
+    "oppose": 14,
+    "neutral": 3,
+    "support": 3
+   },
+   "2026-09": {
+    "oppose": 4,
+    "neutral": 2
+   },
+   "2026-10": {
+    "support": 1,
+    "neutral": 3,
+    "oppose": 3
+   },
+   "2026-11": {
+    "neutral": 3,
+    "oppose": 1
+   }
+  },
+  "monthly_topic": {
+   "2025-12": {
+    "politics": 2,
+    "moratorium": 3
+   },
+   "2026-02": {
+    "moratorium": 2
+   },
+   "2026-03": {
+    "power": 1,
+    "bills": 5,
+    "moratorium": 5,
+    "politics": 3
+   },
+   "2026-04": {
+    "power": 1,
+    "bills": 1,
+    "moratorium": 6,
+    "politics": 1
+   },
+   "2026-05": {
+    "water": 2,
+    "noise": 1,
+    "bills": 1,
+    "power": 2,
+    "moratorium": 3
+   },
+   "2026-06": {
+    "water": 1,
+    "moratorium": 2,
+    "jobs": 3,
+    "noise": 1,
+    "politics": 1
+   },
+   "2026-07": {
+    "moratorium": 7,
+    "power": 1,
+    "politics": 1
+   },
+   "2026-08": {
+    "moratorium": 4,
+    "politics": 6,
+    "power": 2,
+    "bills": 2
+   },
+   "2026-09": {
+    "politics": 3,
+    "moratorium": 1
+   },
+   "2026-10": {
+    "bills": 1,
+    "transparency": 1,
+    "moratorium": 1,
+    "politics": 1
+   },
+   "2026-11": {
+    "bills": 1,
+    "taxes": 1,
+    "politics": 2
+   }
+  }
+ },
+ "by_scope": {
+  "national": {
+   "n": 95,
+   "by_stance": {
+    "oppose": 77,
+    "neutral": 12,
+    "support": 6
+   },
+   "by_topic": {
+    "politics": 20,
+    "moratorium": 33,
+    "power": 6,
+    "bills": 9,
+    "water": 2,
+    "jobs": 3,
+    "noise": 1,
+    "transparency": 1,
+    "taxes": 1
+   },
+   "monthly_stance": {
+    "2025-07": {
+     "oppose": 1
+    },
+    "2025-12": {
+     "oppose": 5
+    },
+    "2026-01": {
+     "oppose": 2
+    },
+    "2026-02": {
+     "oppose": 2
+    },
+    "2026-03": {
+     "oppose": 6,
+     "neutral": 1
+    },
+    "2026-04": {
+     "oppose": 8
+    },
+    "2026-05": {
+     "support": 1,
+     "oppose": 8
+    },
+    "2026-06": {
+     "oppose": 10
+    },
+    "2026-07": {
+     "oppose": 13,
+     "support": 1
+    },
+    "2026-08": {
+     "oppose": 14,
+     "neutral": 3,
+     "support": 3
+    },
+    "2026-09": {
+     "oppose": 4,
+     "neutral": 2
+    },
+    "2026-10": {
+     "support": 1,
+     "neutral": 3,
+     "oppose": 3
+    },
+    "2026-11": {
+     "neutral": 3,
+     "oppose": 1
+    }
+   },
+   "monthly_topic": {
+    "2025-12": {
+     "politics": 2,
+     "moratorium": 3
+    },
+    "2026-02": {
+     "moratorium": 2
+    },
+    "2026-03": {
+     "power": 1,
+     "bills": 5,
+     "moratorium": 5,
+     "politics": 3
+    },
+    "2026-04": {
+     "moratorium": 5,
+     "politics": 1
+    },
+    "2026-05": {
+     "power": 2,
+     "water": 1,
+     "moratorium": 3
+    },
+    "2026-06": {
+     "water": 1,
+     "moratorium": 2,
+     "jobs": 3,
+     "noise": 1,
+     "politics": 1
+    },
+    "2026-07": {
+     "moratorium": 7,
+     "power": 1,
+     "politics": 1
+    },
+    "2026-08": {
+     "moratorium": 4,
+     "politics": 6,
+     "power": 2,
+     "bills": 2
+    },
+    "2026-09": {
+     "politics": 3,
+     "moratorium": 1
+    },
+    "2026-10": {
+     "bills": 1,
+     "transparency": 1,
+     "moratorium": 1,
+     "politics": 1
+    },
+    "2026-11": {
+     "bills": 1,
+     "taxes": 1,
+     "politics": 2
+    }
+   }
+  },
+  "local_sj": {
+   "n": 14,
+   "by_stance": {
+    "oppose": 5,
+    "neutral": 5,
+    "support": 4
+   },
+   "by_topic": {
+    "power": 3,
+    "bills": 2,
+    "moratorium": 1,
+    "heat_reuse": 1
+   },
+   "monthly_stance": {
+    "2026-04": {
+     "oppose": 5,
+     "neutral": 5,
+     "support": 4
+    }
+   },
+   "monthly_topic": {
+    "2026-04": {
+     "power": 3,
+     "bills": 2,
+     "moratorium": 1,
+     "heat_reuse": 1
+    }
+   }
+  },
+  "local_cos": {
+   "n": 1,
+   "by_stance": {
+    "oppose": 1
+   },
+   "by_topic": {
+    "water": 1,
+    "noise": 1,
+    "bills": 1
+   },
+   "monthly_stance": {
+    "2026-05": {
+     "oppose": 1
+    }
+   },
+   "monthly_topic": {
+    "2026-05": {
+     "water": 1,
+     "noise": 1,
+     "bills": 1
+    }
+   }
+  }
+ },
+ "caveat": "HN = national discourse (no HN story found naming Alviso/Colorado Springs data centers). Reddit direct JSON returned HTTP 403 from this host; local Reddit = 2 mirror-archived threads + 13 captured comments only. Sample is small and not representative."
+}

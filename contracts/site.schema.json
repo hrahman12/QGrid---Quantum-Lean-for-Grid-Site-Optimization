@@ -11,6 +11,8 @@
     "lon": {"type": "number", "minimum": -180, "maximum": 180},
     "requested_mw": {"type": "number", "exclusiveMinimum": 0},
     "deadline": {"type": "string", "format": "date", "description": "Target energization date, YYYY-MM-DD"},
-    "iso": {"type": "string", "description": "Market/BA name as gridstatus uses it, e.g. CAISO, ERCOT, PJM"}
+    "iso": {"type": "string", "description": "Market/BA name as gridstatus uses it, e.g. CAISO, ERCOT, PJM"},
+    "country": {"type": "string", "pattern": "^[A-Z]{2}$", "description": "Optional ISO-3166 alpha-2; omitted means US. Non-US routes through grid/adapters global_osm"},
+    "grid_operator": {"type": "string", "description": "Optional TSO/utility name, informational"}
   }
 }

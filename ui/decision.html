@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QSiteProof Decision</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#14171c;--muted:#5b6370;--line:#dde1e7;
+  --red:#c0262d;--amber:#a85d00;--green:#1d7a3a;--redbg:#fde8e8;--amberbg:#fff1d6;--greenbg:#e2f5e8}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1216;--card:#181c22;--ink:#eef1f5;--muted:#a3abb8;--line:#2a3039;
+  --red:#ff6b6b;--amber:#ffb340;--green:#4cd47a;--redbg:#3a1a1c;--amberbg:#3a2a10;--greenbg:#143222}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1200px;margin:0 auto;padding:16px}
+h1{font-size:clamp(20px,3vw,28px);margin:0 0 12px;font-weight:650}
+.top{display:flex;gap:20px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px}
+.light{width:96px;height:96px;border-radius:50%;display:grid;place-items:center;font-size:44px;color:var(--bg);flex:none}
+.verdict .word{font-size:clamp(28px,5vw,44px);font-weight:800;letter-spacing:.02em}
+.verdict .why{font-size:clamp(18px,2.6vw,24px)}
+.RED{--c:var(--red);--cb:var(--redbg)}.AMBER{--c:var(--amber);--cb:var(--amberbg)}.GREEN{--c:var(--green);--cb:var(--greenbg)}
+.light{background:var(--c)}.word{color:var(--c)}
+.lanes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.lane{all:unset;display:block;cursor:pointer;background:var(--card);border:1px solid var(--line);border-top:6px solid var(--c);border-radius:12px;padding:12px}
+.lane:focus-visible,.lane[aria-expanded=true]{outline:3px solid var(--c);outline-offset:2px}
+.lane .h{font-size:14px;color:var(--muted);display:flex;justify-content:space-between;gap:6px}
+.tag{font-size:12px;font-weight:700;color:var(--c);white-space:nowrap}
+.lane .n{font-size:26px;font-weight:750;margin:4px 0 2px}
+.lane .t{font-size:14px}
+.drawer{background:var(--cb,var(--card));border:1px solid var(--line);border-left:6px solid var(--c);border-radius:12px;padding:10px 16px;margin-bottom:14px}
+.drawer ul{margin:6px 0;padding-left:20px}.drawer .src{font-size:13px;color:var(--muted);font-family:ui-monospace,Consolas,monospace}
+.grid2{display:grid;grid-template-columns:1.3fr 1fr;gap:14px}
+@media (max-width:760px){.grid2{grid-template-columns:1fr}.top{flex-direction:row}.light{width:72px;height:72px;font-size:32px}}
+section.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+h2{font-size:18px;margin:0 0 8px}
+.act{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid var(--line)}
+.act:last-child{border:0}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:700;border-radius:99px;padding:2px 9px;background:var(--cb);color:var(--c);white-space:nowrap}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.small{font-size:13px;color:var(--muted)}
+.how{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.step{display:flex;flex-direction:column;align-items:center;min-width:70px}
+.step b{font-size:14px}.step span{font-size:13px;color:var(--muted)}
+.ico{font-size:22px}
+.arrow{color:var(--muted)}
+.dots{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
+footer{margin-top:14px;font-size:14px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+a{color:inherit}
+</style>
+</head>
+<body>
+<main>
+  <h1 id="q"></h1>
+  <div class="top" id="top"></div>
+  <div class="lanes" id="lanes" role="list"></div>
+  <div class="drawer" id="drawer" hidden aria-live="polite"></div>
+  <div class="grid2">
+    <section class="box"><h2>What makes it a YES</h2><div id="acts"></div><div id="sim"></div></section>
+    <section class="box"><h2>How it decided</h2><div class="how" id="how"></div><div class="dots" id="loop"></div></section>
+  </div>
+  <footer><span id="foot"></span><a href="index.html">Full details</a></footer>
+</main>
+<script id="decision-data" type="application/json">{
+ "question": "150 MW at Alviso, San Jose by Jun 2028?",
+ "overall": "AMBER",
+ "reason": "Not 150 MW. Yes to 38.7 MW now.",
+ "lanes": [
+  {
+   "id": "grid",
+   "name": "Grid power",
+   "rag": "RED",
+   "num": "45.2 MW",
+   "text": "short at transmission (N-1)",
+   "bullets": [
+    "Transmission plan for 150 MW fails firm N-1 by 45.2 MW.",
+    "Needs 111.3 MW beyond distribution capacity.",
+    "Thermal and voltage checks pass; N-1 is the blocker."
+   ],
+   "src": "20261108T230352Z/certificate.json"
+  },
+  {
+   "id": "edge",
+   "name": "Edge sites now",
+   "rag": "GREEN",
+   "num": "38.7 MW",
+   "text": "across 9 feeder sites",
+   "bullets": [
+    "38.7 MW connectable at distribution, 0% curtailment.",
+    "Edge loop proved 16 MW GREEN in round 3.",
+    "Directional PG&E GRIP 2028 data, not verified capacity."
+   ],
+   "src": "data/l2/flex_headroom.json, 20261108T230427Z/edge_alviso.json"
+  },
+  {
+   "id": "flex",
+   "name": "Flexibility",
+   "rag": "AMBER",
+   "num": "47.6 MW",
+   "text": "with 2% curtailment",
+   "bullets": [
+    "0% curtailment: 38.8 MW. 2%: 47.6 MW. 10%: 90.6 MW.",
+    "Needs a signed storage/curtailment commitment (none today).",
+    "Curtailment hours are a contract term, not physics."
+   ],
+   "src": "data/l2/flex_headroom.json"
+  },
+  {
+   "id": "future",
+   "name": "Future load",
+   "rag": "RED",
+   "num": "7.4 MW",
+   "text": "if area load +20%",
+   "bullets": [
+    "Edge capacity drops from 38.7 to 7.4 MW.",
+    "+20% is an ASSUMED stress case, not a utility forecast.",
+    "Lock in capacity early before others queue."
+   ],
+   "src": "scenarios/growth_alviso.py"
+  },
+  {
+   "id": "consent",
+   "name": "Community consent",
+   "rag": "AMBER",
+   "num": "0.47",
+   "text": "negotiable, no hard blocker",
+   "bullets": [
+    "Consent score 0.47 (AMBER band 0.35-0.65). Weights ASSUMED.",
+    "San Jose draft standards: recycled-water cooling, carbon-neutral power, generator limits.",
+    "Public posts: 83 oppose, 10 support, 17 neutral."
+   ],
+   "src": "data/shared/socio/alviso.json, data/shared/social/social_summary.json"
+  },
+  {
+   "id": "climate",
+   "name": "Climate & resilience",
+   "rag": "AMBER",
+   "num": "Zone AE",
+   "text": "FEMA flood zone, 12 ft BFE",
+   "bullets": [
+    "River flood 0 m now -> 0.19 m in 2050 (CLIMADA).",
+    "Days >35C: ~5.7 -> ~9.2/yr by 2036-2050.",
+    "Not in a fire-threat district."
+   ],
+   "src": "data/shared/climate/alviso.json"
+  },
+  {
+   "id": "time",
+   "name": "Timeline",
+   "rag": "RED",
+   "num": "7-10 yrs",
+   "text": "for transmission; 1.6 yrs left",
+   "bullets": [
+    "Deadline 2028-06-30: 1.6 years left.",
+    "New transmission takes 7-10 years.",
+    "Distribution edge sites and storage fit the deadline."
+   ],
+   "src": "data/l2/l3_inputs.json"
+  }
+ ],
+ "actions": [
+  {
+   "text": "Phase 16-38.7 MW at edge sites first",
+   "flips": "time",
+   "to": "GREEN"
+  },
+  {
+   "text": "Commit 25-50 MW battery storage",
+   "flips": "grid",
+   "to": "AMBER"
+  },
+  {
+   "text": "Accept 2% curtailment (47.6 MW)",
+   "flips": "flex",
+   "to": "GREEN"
+  },
+  {
+   "text": "Community benefit agreement + local hiring",
+   "flips": "consent",
+   "to": "AMBER"
+  },
+  {
+   "text": "Recycled-water cooling + all levers (sim 0.67)",
+   "flips": "consent",
+   "to": "GREEN"
+  }
+ ],
+ "sim": {
+  "engine": "MiroFish-style fallback, not MiroFish",
+  "items": [
+   {
+    "id": "S0",
+    "label": "150 MW, gas backup, no engagement",
+    "proxy": 0.475,
+    "rag": "AMBER"
+   },
+   {
+    "id": "S1",
+    "label": "S0 + community benefit agreement + local hiring",
+    "proxy": 0.511,
+    "rag": "AMBER"
+   },
+   {
+    "id": "S2",
+    "label": "S0 + recycled-water/closed-loop cooling + heat reuse",
+    "proxy": 0.521,
+    "rag": "AMBER"
+   },
+   {
+    "id": "S3",
+    "label": "16-38 MW edge phase at distribution + generator limits",
+    "proxy": 0.552,
+    "rag": "AMBER"
+   },
+   {
+    "id": "S4",
+    "label": "All levers",
+    "proxy": 0.668,
+    "rag": "GREEN"
+   }
+  ]
+ },
+ "how": [
+  {
+   "step": "Find",
+   "status": "classical",
+   "detail": "NumPy/classical fallback (not PsiQDK)"
+  },
+  {
+   "step": "Check",
+   "status": "N-1 fail",
+   "detail": "AC power flow + N-1 contingency"
+  },
+  {
+   "step": "Prove",
+   "status": "Python mirror",
+   "detail": "Python mirror of the Lean rules (Lean did not run)"
+  }
+ ],
+ "loop": [
+  {
+   "round": 1,
+   "rag": "RED"
+  },
+  {
+   "round": 2,
+   "rag": "RED"
+  },
+  {
+   "round": 3,
+   "rag": "GREEN"
+  }
+ ],
+ "footer": "Screening estimate from public utility data. Not a utility approval.",
+ "generated_utc": "2026-11-08T23:04:39Z",
+ "run": "20261108T230352Z"
+}</script><!--/decision-data-->
+<script>
+const D = JSON.parse(document.getElementById('decision-data').textContent);
+// Shape + word so color is never the only signal.
+const ICON = {RED: '✖', AMBER: '▲', GREEN: '✔'};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const rag = r => r.startsWith('GREEN') ? 'GREEN' : r.startsWith('AMBER') ? 'AMBER' : 'RED';
+const chip = (r, txt) => `<span class="chip ${rag(r)}">${ICON[rag(r)]} ${esc(txt)}</span>`;
+const $ = id => document.getElementById(id);
+
+$('q').textContent = D.question;
+$('top').className = 'top ' + D.overall;
+$('top').innerHTML = `<div class="light" aria-hidden="true">${ICON[D.overall]}</div>
+  <div class="verdict"><div class="word">${D.overall}${D.overall === 'AMBER' ? ': yes, if' : ''}</div><div class="why">${esc(D.reason)}</div></div>`;
+
+$('lanes').innerHTML = D.lanes.map((l, i) => `<button class="lane ${l.rag}" role="listitem" aria-expanded="false" aria-controls="drawer" data-i="${i}">
+  <div class="h"><span>${esc(l.name)}</span><span class="tag">${ICON[l.rag]} ${l.rag}</span></div>
+  <div class="n">${esc(l.num)}</div><div class="t">${esc(l.text)}</div></button>`).join('');
+let open = -1;
+$('lanes').addEventListener('click', e => {
+  const b = e.target.closest('.lane'); if (!b) return;
+  const i = +b.dataset.i, dr = $('drawer');
+  document.querySelectorAll('.lane').forEach(x => x.setAttribute('aria-expanded', 'false'));
+  if (open === i) { dr.hidden = true; open = -1; return; }
+  open = i; b.setAttribute('aria-expanded', 'true');
+  const l = D.lanes[i];
+  dr.className = 'drawer ' + l.rag; dr.hidden = false;
+  dr.innerHTML = `<b>${ICON[l.rag]} ${l.rag} · ${esc(l.name)}</b><ul>${l.bullets.map(x => `<li>${esc(x)}</li>`).join('')}</ul><div class="src">Source: ${esc(l.src)}</div>`;
+});
+
+const laneName = Object.fromEntries(D.lanes.map(l => [l.id, l.name]));
+$('acts').innerHTML = D.actions.map(a => `<div class="act"><span>☐ ${esc(a.text)}</span>${chip(a.to, laneName[a.flips] + ' → ' + a.to)}</div>`).join('');
+if (D.sim) $('sim').innerHTML = `<div class="chips">${D.sim.items.map(s => `<span title="${esc(s.label)}">${chip(s.rag, s.id + ' ' + s.proxy.toFixed(2))}</span>`).join('')}</div>
+  <div class="small">Approval proxy by engagement scenario (simulation, MiroFish-style). S0 none, S4 all levers.</div>`;
+
+const HI = {Find: '🔍', Check: '⚡', Prove: '⚖'};
+$('how').innerHTML = D.how.map((h, i) => `${i ? '<span class="arrow" aria-hidden="true">→</span>' : ''}<div class="step" title="${esc(h.detail)}"><span class="ico" aria-hidden="true">${HI[h.step]}</span><b>${h.step}</b><span>${esc(h.status)}</span></div>`).join('');
+$('loop').innerHTML = '<span class="small">Edge loop:</span>' + D.loop.map((r, i) => `${i ? '<span class="arrow" aria-hidden="true">→</span>' : ''}${chip(r.rag, 'R' + r.round + ' ' + r.rag)}`).join('');
+$('foot').textContent = D.footer;
+</script>
+</body>
+</html>

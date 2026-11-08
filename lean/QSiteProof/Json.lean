@@ -12,19 +12,36 @@ def parseSplit (j : Json) : Except String Split := do
   return {
     id := ← j.getObjValAs? String "substation_id"
     kw := ← j.getObjValAs? Nat "kw"
+    netKw := ← j.getObjValAs? Nat "net_kw"
     known := ← j.getObjValAs? Bool "headroom_known"
     headroomKw := ← j.getObjValAs? Nat "headroom_kw" }
+
+def parseBank (j : Json) : Except String Bank := do
+  return {
+    id := ← j.getObjValAs? String "bank_id"
+    kw := ← j.getObjValAs? Nat "kw"
+    capKnown := ← j.getObjValAs? Bool "cap_known"
+    capKw := ← j.getObjValAs? Nat "cap_kw" }
+
+def parseFirm (j : Json) : Except String Firm := do
+  return {
+    id := ← j.getObjValAs? String "substation_id"
+    known := ← j.getObjValAs? Bool "firm_known"
+    firmKw := ← j.getObjValAs? Nat "firm_kw" }
 
 def parseEvidence (j : Json) : Except String Evidence := do
   let fmt ← j.getObjValAs? String "format"
   if fmt != "qsiteproof-evidence/1" then throw s!"unsupported evidence format {fmt}"
   let splitsJ ← j.getObjValAs? (Array Json) "splits"
   let splits ← splitsJ.toList.mapM parseSplit
+  let banks ← (← j.getObjValAs? (Array Json) "banks").toList.mapM parseBank
+  let firm ← (← j.getObjValAs? (Array Json) "firm").toList.mapM parseFirm
   let n (k : String) : Except String Nat := j.getObjValAs? Nat k
   let b (k : String) : Except String Bool := j.getObjValAs? Bool k
   let s (k : String) : Except String String := j.getObjValAs? String k
   return {
-    requestedKw := ← n "requested_kw", splits
+    requestedKw := ← n "requested_kw", splits, banks, firm
+    planSiteBound := ← b "plan_site_bound"
     dlr := ← b "dlr", dlrHeadroomUpliftPermille := ← n "dlr_headroom_uplift_permille"
     storageKw := ← n "storage_kw", curtailmentKw := ← n "curtailment_kw"
     reconductor := ← b "reconductor", newRow := ← b "new_row"

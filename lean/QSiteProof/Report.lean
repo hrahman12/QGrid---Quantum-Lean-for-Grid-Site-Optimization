@@ -102,6 +102,28 @@ def penaltyDetail (e : Evidence) : String :=
   else if ¬ decide (DeadlineMet e) then "penalty trigger TRUE: deadline miss"
   else s!"penalty trigger FALSE: curtailment {fmtMW e.curtailmentKw} <= cap {fmtPct e.curtailCapPermille} of requested; deadline met"
 
+def bankDetail (e : Evidence) : String :=
+  match e.banks.find? (fun b => !decide (b.capKnown = true ∧ b.kw ≤ b.capKw)) with
+  | some b =>
+    if b.capKnown then s!"bank {b.id} feeders carry {fmtMW b.kw} > bank cap {fmtMW b.capKw}"
+    else s!"bank {b.id} has no cap evidence"
+  | none =>
+    if e.banks.isEmpty then "no feeder/bank splits; bank rule not applicable"
+    else s!"{e.banks.length} bank(s): MW on shared-bank feeders <= bank cap"
+
+def storageReliefDetail (e : Evidence) : String :=
+  let r := e.storageKw + e.curtailmentKw
+  if r > e.requestedKw then s!"storage+curtailment relief {fmtMW r} > requested load {fmtMW e.requestedKw}"
+  else s!"relief {fmtMW r} <= requested load {fmtMW e.requestedKw}"
+
+def firmDetail (e : Evidence) : String :=
+  match (e.splits.zip e.firm).find? (fun p => !decide (FirmFits p)) with
+  | some (s, f) => s!"{s.id} net {fmtMW s.netKw} > N-1 firm headroom {fmtMW f.firmKw}"
+  | none => "every split's net MW <= its N-1 firm headroom, where known"
+
+def bindingDetail (e : Evidence) : String :=
+  if e.planSiteBound then "plan site_id bound to site id" else "plan site_id != site id"
+
 def detail : Obligation → Evidence → String
   | .capacity, e => capacityDetail e
   | .thermalVoltage, e => thermalDetail e
@@ -110,6 +132,10 @@ def detail : Obligation → Evidence → String
   | .deadline, e => deadlineDetail e
   | .permitRow, e => permitDetail e
   | .penaltyTrigger, e => penaltyDetail e
+  | .bank, e => bankDetail e
+  | .storageRelief, e => storageReliefDetail e
+  | .firmN1, e => firmDetail e
+  | .evidenceBinding, e => bindingDetail e
 
 structure CheckRow where
   name : String

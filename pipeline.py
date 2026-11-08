@@ -145,7 +145,7 @@ def print_summary(out, sources, problems, run_dir):
     print("-" * 72)
     print(f"  certificate engine: {labels.cert_engine(cert)}")
     print(f"  rules covered: {labels.RULES_LABEL}")
-    print(f"  headroom data: {labels.DATA_LABEL}")
+    print(f"  headroom data: {labels.data_label(out['site'])}")
     print(f"  RESULT: {labels.verdict_label(cert['result'])}" + (f"  blocked by: {cert['blocking_condition']}" if cert["blocking_condition"] else ""))
     print(f"  {cert['scope_note']}")
     if any(v == "FIXTURE" for v in sources.values()):

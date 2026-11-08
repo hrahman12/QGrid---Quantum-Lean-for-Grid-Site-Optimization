@@ -1,0 +1,214 @@
+{
+ "site": {
+  "id": "novva-colorado-springs",
+  "name": "NOVVA Colorado Springs, CO (650 Sybilla Ln)",
+  "lat": 39.013,
+  "lon": -104.8164,
+  "generated": "2026-11-08",
+  "label_key": "method: climada = CLIMADA worker output; cited = public source / repo-cached public layer / public model API; assumed = our assumption or unverified placeholder"
+ },
+ "hazards_climada": {
+  "river_flood_depth_p50_baseline": {
+   "value": 1.064,
+   "unit": "m (cell depth where >0, within 0.25 deg)",
+   "source": "SeaBridgeAI climada-stack climada_workers.river_flood (CLIMADA data API, cached hazard sets), run via data/shared/climate/run_climada.py",
+   "method": "climada",
+   "scenario": "historical (1980-2000)",
+   "year": "1980-2000",
+   "note": "Regional depth over a ~28 km radius (Front Range / Fountain Creek area), not at the site; coarse 150 arcsec global model. CLIMADA worker output is a first-order screening number (percentile of hazard cells within a radius of the site, not a point value); aai_agg uses the repo default exposure value in _damage.py, so USD figures are NOT site-specific loss estimates and are omitted here."
+  },
+  "river_flood_depth_p50_2050": {
+   "value": 0.98,
+   "unit": "m",
+   "source": "SeaBridgeAI climada-stack climada_workers.river_flood (CLIMADA data API, cached hazard sets), run via data/shared/climate/run_climada.py",
+   "method": "climada",
+   "scenario": "RCP6.0 (worker maps SSP2-4.5 to rcp60)",
+   "year": "2050-2070",
+   "note": "CLIMADA worker output is a first-order screening number (percentile of hazard cells within a radius of the site, not a point value); aai_agg uses the repo default exposure value in _damage.py, so USD figures are NOT site-specific loss estimates and are omitted here."
+  },
+  "wildfire_fire_pixel_brightness_p95": {
+   "value": 472.53,
+   "unit": "K (satellite fire-pixel brightness temp, not a probability)",
+   "source": "SeaBridgeAI climada-stack climada_workers.wildfire (CLIMADA data API, cached hazard sets), run via data/shared/climate/run_climada.py",
+   "method": "climada",
+   "scenario": "historical only",
+   "year": "2001-2020",
+   "note": "Regional fire activity within 0.5 deg, not on-site burn probability; CLIMADA has no SSP projection. CLIMADA worker output is a first-order screening number (percentile of hazard cells within a radius of the site, not a point value); aai_agg uses the repo default exposure value in _damage.py, so USD figures are NOT site-specific loss estimates and are omitted here."
+  },
+  "coastal_surge": {
+   "value": null,
+   "unit": "m",
+   "source": "SeaBridgeAI climada-stack climada_workers.coastal_surge (CLIMADA data API, cached hazard sets), run via data/shared/climate/run_climada.py",
+   "method": "climada",
+   "scenario": "n/a",
+   "year": "n/a",
+   "note": "Not applicable: inland site."
+  },
+  "seasonal_heat_hw_index": {
+   "value": null,
+   "unit": "K",
+   "source": "SeaBridgeAI climada-stack climada_workers.seasonal_heat (CLIMADA data API, cached hazard sets), run via data/shared/climate/run_climada.py",
+   "method": "climada",
+   "scenario": "historical",
+   "year": "2025",
+   "note": "worker returned empty: Copernicus CDS download/processing failed in this environment. Heat days were computed from Open-Meteo instead."
+  },
+  "tropical_cyclone_crop_hail": {
+   "value": null,
+   "unit": "n/a",
+   "source": "not run",
+   "method": "assumed",
+   "scenario": "n/a",
+   "year": "n/a",
+   "note": "Not run: not meaningful for an inland Colorado site with the cached global TC / GBR-only hail sets."
+  }
+ },
+ "indicators": {
+  "flood": {
+   "fema_zone": {
+    "value": "not in a mapped SFHA (Esri reduced set returned no polygon at the point; minimal-risk Zone X is omitted from that layer)",
+    "unit": "FEMA zone",
+    "source": "FEMA NFHL via Esri Living Atlas 'USA Flood Hazard Areas' (https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Flood_Hazard_Reduced_Set_gdb/FeatureServer/0), point query 2026-11-08",
+    "method": "cited",
+    "scenario": "current FIRM",
+    "year": "2026",
+    "note": "Consistent with Zone X but NOT confirmed against the FEMA MSC panel."
+   },
+   "base_flood_elevation": {
+    "value": null,
+    "unit": "ft",
+    "source": "FEMA NFHL via Esri Living Atlas 'USA Flood Hazard Areas' (https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Flood_Hazard_Reduced_Set_gdb/FeatureServer/0), point query 2026-11-08",
+    "method": "cited",
+    "scenario": "n/a",
+    "year": "2026",
+    "note": "No BFE: point is not in an SFHA polygon."
+   },
+   "regional_river_flood_note": {
+    "value": "CLIMADA shows nonzero regional river-flood depth (see hazards_climada); check Fountain Creek floodplain proximity before relying on Zone X",
+    "unit": "text",
+    "source": "see hazards_climada",
+    "method": "assumed",
+    "scenario": "n/a",
+    "year": "n/a"
+   }
+  },
+  "heat": {
+   "days_tmax_gt_35C_baseline": {
+    "value": 0.1,
+    "unit": "days/yr Tmax>35C",
+    "source": "Open-Meteo Climate API (https://open-meteo.com/en/docs/climate-api), CMIP6 HighResMIP models EC_Earth3P_HR, MRI_AGCM3_2_S, CMCC_CM2_VHR4, MPI_ESM1_2_XR; computed by data/shared/climate/heat_openmeteo.py; multi-model mean of raw (not bias-corrected) daily Tmax",
+    "method": "cited",
+    "scenario": "historical (CMIP6 HighResMIP)",
+    "year": "1995-2014",
+    "note": "Future window is 2036-2050 (API ends 2050); future forcing is SSP5-8.5 per Open-Meteo. Coarse 25-50 km grid, no bias or elevation correction: indicative, not site-grade. Per-model values (EC_Earth3P_HR, MRI_AGCM3_2_S, CMCC_CM2_VHR4, MPI_ESM1_2_XR): [0.1, 0.1, 0.0, 0.0] Colorado Springs sits near 1,830 m; raw models are likely too cool for >35C (observed 95F days are a few per year), so the baseline is biased LOW."
+   },
+   "days_tmax_gt_35C_2050": {
+    "value": 1.4,
+    "unit": "days/yr Tmax>35C",
+    "source": "Open-Meteo Climate API (https://open-meteo.com/en/docs/climate-api), CMIP6 HighResMIP models EC_Earth3P_HR, MRI_AGCM3_2_S, CMCC_CM2_VHR4, MPI_ESM1_2_XR; computed by data/shared/climate/heat_openmeteo.py; multi-model mean of raw (not bias-corrected) daily Tmax",
+    "method": "cited",
+    "scenario": "SSP5-8.5",
+    "year": "2036-2050",
+    "note": "Future window is 2036-2050 (API ends 2050); future forcing is SSP5-8.5 per Open-Meteo. Coarse 25-50 km grid, no bias or elevation correction: indicative, not site-grade. Per-model values (EC_Earth3P_HR, MRI_AGCM3_2_S, CMCC_CM2_VHR4, MPI_ESM1_2_XR): [0.2, 4.5, 0.3, 0.5] Colorado Springs sits near 1,830 m; raw models are likely too cool for >35C (observed 95F days are a few per year), so the baseline is biased LOW."
+   },
+   "days_tmax_gt_35C_delta": {
+    "value": 1.3,
+    "unit": "days/yr",
+    "source": "Open-Meteo Climate API (https://open-meteo.com/en/docs/climate-api), CMIP6 HighResMIP models EC_Earth3P_HR, MRI_AGCM3_2_S, CMCC_CM2_VHR4, MPI_ESM1_2_XR; computed by data/shared/climate/heat_openmeteo.py; multi-model mean of raw (not bias-corrected) daily Tmax",
+    "method": "cited",
+    "scenario": "SSP5-8.5 minus historical",
+    "year": "2036-2050 vs 1995-2014"
+   },
+   "front_range_reference_days_ge_95F": {
+    "value": "Denver ~5 days/yr now to ~35 by 2050 (high emissions); Boulder ~38-40; Fort Collins ~24",
+    "unit": "days/yr",
+    "source": "https://5280.com/climate-change-a-matter-of-degree/ (Front Range study summary; no Colorado Springs figure found)",
+    "method": "cited",
+    "scenario": "high emissions",
+    "year": "2050",
+    "note": "95F = 35.0C. A different city; shown because the raw-model Colorado Springs baseline is biased low."
+   },
+   "cooling_load_implication": {
+    "value": "Operator claims 8,000+ h/yr of ambient-air cooling and PUE 1.3 (self-reported); more hot days erode free-cooling hours, but the elevation gives large margin. Not quantified.",
+    "unit": "text",
+    "source": "repo data/shared/novva/novva_facts.json (cooling_water) plus the heat delta",
+    "method": "assumed",
+    "scenario": "SSP5-8.5",
+    "year": "2036-2050"
+   }
+  },
+  "wildfire_psps": {
+   "wildfire_context": {
+    "value": "Colorado Springs WUI region (2012 Waldo Canyon and 2013 Black Forest fires were nearby); no parcel-level wildfire hazard layer retrieved.",
+    "unit": "text",
+    "source": "general knowledge, not re-fetched this session",
+    "method": "assumed",
+    "scenario": "n/a",
+    "year": "n/a"
+   },
+   "psps_exposure": {
+    "value": "unknown: no Colorado Springs Utilities PSPS programme or event data retrieved",
+    "unit": "text",
+    "source": "n/a",
+    "method": "assumed",
+    "scenario": "n/a",
+    "year": "n/a"
+   }
+  },
+  "grid_resilience": {
+   "utility_feed": {
+    "value": 6,
+    "unit": "MW (single underground feed, Colorado Springs Utilities)",
+    "source": "repo data/shared/novva/novva_facts.json (operator page claim)",
+    "method": "cited",
+    "scenario": "n/a",
+    "year": "2026",
+    "note": "The operator page says both 'single source from utility' and 'dual generation power'; internally inconsistent."
+   },
+   "n1_firm_headroom": {
+    "value": 0,
+    "unit": "MW",
+    "source": "inferred from the single-feed statement in novva_facts.json",
+    "method": "assumed",
+    "scenario": "N-1",
+    "year": "2026",
+    "note": "No utility N-1 data exists; a single feed implies zero firm headroom, backed by 3 generators now (6 planned)."
+   },
+   "planned_capacity": {
+    "value": "30-40 MW PLANNED/ASSUMED, not built; the 252 MW PUC figure is unverified and likely not NOVVA",
+    "unit": "text",
+    "source": "repo data/shared/novva/novva_facts.json",
+    "method": "cited",
+    "scenario": "n/a",
+    "year": "2026"
+   },
+   "csu_large_load_rate": {
+    "value": "2026 Large Load Rate for new customers >10 MW: 10-year minimum agreement, customer-paid infrastructure; grandfathering of the existing 6 MW feed not verified",
+    "unit": "text",
+    "source": "https://www.cpr.org/2025/10/30/colorado-springs-utilities-2026-large-load-power-users-requirements/ via repo data/shared/socio/novva.json (search snippet only)",
+    "method": "cited",
+    "scenario": "n/a",
+    "year": "2026"
+   }
+  },
+  "water_stress": {
+   "aqueduct_baseline_water_stress": {
+    "value": "Medium-High to High (unverified)",
+    "unit": "Aqueduct category",
+    "source": "WRI Aqueduct 4.0 (https://www.wri.org/applications/aqueduct/water-risk-atlas/)",
+    "method": "assumed",
+    "scenario": "baseline",
+    "year": "1979-2019",
+    "note": "Not retrievable in time: the WRI Atlas/data download was not reachable by API from this session and web search returned no site-level score. Value is an unverified placeholder; replace with an Atlas lookup at the site coordinates."
+   },
+   "site_water_use": {
+    "value": "waterless / ambient-air cooling claimed; no consumption figure published",
+    "unit": "text",
+    "source": "repo data/shared/novva/novva_facts.json",
+    "method": "cited",
+    "scenario": "n/a",
+    "year": "2026"
+   }
+  }
+ }
+}
