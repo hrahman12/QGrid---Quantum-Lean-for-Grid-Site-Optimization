@@ -1,0 +1,258 @@
+{
+ "site": {
+  "id": "nsj-alviso-150",
+  "name": "Alviso / North San Jose, CA (illustrative 150 MW)",
+  "lat": 37.4265,
+  "lon": -121.975,
+  "generated": "2026-11-08",
+  "label_key": "method: climada = CLIMADA worker output; cited = public source / repo-cached public layer / public model API; assumed = our assumption or unverified placeholder"
+ },
+ "hazards_climada": {
+  "river_flood_depth_p50_baseline": {
+   "value": 0.0,
+   "unit": "m (cell depth where >0, within 0.25 deg)",
+   "source": "SeaBridgeAI climada-stack climada_workers.river_flood (CLIMADA data API, cached hazard sets), run via data/shared/climate/run_climada.py",
+   "method": "climada",
+   "scenario": "historical (1980-2000)",
+   "year": "1980-2000",
+   "note": "0.0 = no flooded cells within the search radius in the coarse 150 arcsec global dataset; it does not resolve Alviso levee/tidal exposure. CLIMADA worker output is a first-order screening number (percentile of hazard cells within a radius of the site, not a point value); aai_agg uses the repo default exposure value in _damage.py, so USD figures are NOT site-specific loss estimates and are omitted here."
+  },
+  "river_flood_depth_p95_2050": {
+   "value": 0.188,
+   "unit": "m",
+   "source": "SeaBridgeAI climada-stack climada_workers.river_flood (CLIMADA data API, cached hazard sets), run via data/shared/climate/run_climada.py",
+   "method": "climada",
+   "scenario": "RCP6.0 (worker maps SSP2-4.5 to rcp60; CLIMADA has no rcp45)",
+   "year": "2050-2070",
+   "note": "Only one flooded cell near site so p50=p95. CLIMADA worker output is a first-order screening number (percentile of hazard cells within a radius of the site, not a point value); aai_agg uses the repo default exposure value in _damage.py, so USD figures are NOT site-specific loss estimates and are omitted here."
+  },
+  "wildfire_fire_pixel_brightness_p95": {
+   "value": 458.66,
+   "unit": "K (satellite fire-pixel brightness temp, not a probability)",
+   "source": "SeaBridgeAI climada-stack climada_workers.wildfire (CLIMADA data API, cached hazard sets), run via data/shared/climate/run_climada.py",
+   "method": "climada",
+   "scenario": "historical only (no projections in CLIMADA wildfire set)",
+   "year": "2001-2020",
+   "note": "The 2050 run returns the identical baseline (worker flags no SSP projection exists). Regional fire activity within 0.5 deg, not on-site burn probability. CLIMADA worker output is a first-order screening number (percentile of hazard cells within a radius of the site, not a point value); aai_agg uses the repo default exposure value in _damage.py, so USD figures are NOT site-specific loss estimates and are omitted here."
+  },
+  "coastal_surge_tc_p50_baseline": {
+   "value": 2.385,
+   "unit": "m",
+   "source": "SeaBridgeAI climada-stack climada_workers.coastal_surge (CLIMADA data API, cached hazard sets), run via data/shared/climate/run_climada.py",
+   "method": "climada",
+   "scenario": "historical (STORM synthetic TC)",
+   "year": "STORM synthetic set",
+   "note": "NOT DECISION-GRADE for Alviso: the worker is tropical-cyclone wind-to-surge (Xu 2010) and the Bay Area has essentially no TC surge; the hit is a far-field synthetic-track artefact. Real Alviso coastal flood drivers are tide + sea-level rise + levees; use the FEMA AE/BFE values below. The 2050 run returned empty (no TC centroids within 1 deg)."
+  },
+  "seasonal_heat_hw_index": {
+   "value": null,
+   "unit": "K",
+   "source": "SeaBridgeAI climada-stack climada_workers.seasonal_heat (CLIMADA data API, cached hazard sets), run via data/shared/climate/run_climada.py",
+   "method": "climada",
+   "scenario": "historical",
+   "year": "2025",
+   "note": "worker returned empty: Copernicus CDS download/processing failed in this environment, and the worker does not support future years. Heat days were computed from Open-Meteo instead (see indicators)."
+  },
+  "tropical_cyclone_crop_hail": {
+   "value": null,
+   "unit": "n/a",
+   "source": "not run",
+   "method": "assumed",
+   "scenario": "n/a",
+   "year": "n/a",
+   "note": "Not run: no relevant TC or hail hazard at this site (cached hail set is GBR only)."
+  }
+ },
+ "indicators": {
+  "flood": {
+   "fema_zone": {
+    "value": "AE",
+    "unit": "FEMA zone",
+    "source": "FEMA NFHL via Esri Living Atlas 'USA Flood Hazard Areas' (https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Flood_Hazard_Reduced_Set_gdb/FeatureServer/0), point query 2026-11-08; repo data/l2/site_risk.json",
+    "method": "cited",
+    "scenario": "current FIRM",
+    "year": "2026"
+   },
+   "in_sfha": {
+    "value": true,
+    "unit": "bool",
+    "source": "repo data/l2/site_risk.json (FEMA NFHL)",
+    "method": "cited",
+    "scenario": "current FIRM",
+    "year": "2026"
+   },
+   "base_flood_elevation": {
+    "value": 12,
+    "unit": "ft",
+    "source": "repo data/l2/site_risk.json (FEMA NFHL STATIC_BFE)",
+    "method": "cited",
+    "scenario": "1% annual chance",
+    "year": "2026",
+    "note": "Vertical datum not recorded in the cached layer; NAVD88 is ASSUMED."
+   },
+   "design_implication": {
+    "value": "Elevate critical equipment above BFE plus freeboard (freeboard amount not looked up)",
+    "unit": "text",
+    "source": "repo data/l2/site_risk.json lean_rule_hint (FLOOD_SFHA is a permit/cost condition, not auto-RED)",
+    "method": "assumed",
+    "scenario": "n/a",
+    "year": "n/a"
+   },
+   "substations_in_sfha_nearby": {
+    "value": [
+     "DIXON LANDING",
+     "NORTECH"
+    ],
+    "unit": "list",
+    "source": "repo data/l2/site_risk.json",
+    "method": "cited",
+    "scenario": "current FIRM",
+    "year": "2026"
+   }
+  },
+  "heat": {
+   "days_tmax_gt_35C_baseline": {
+    "value": 5.7,
+    "unit": "days/yr Tmax>35C",
+    "source": "Open-Meteo Climate API (https://open-meteo.com/en/docs/climate-api), CMIP6 HighResMIP models EC_Earth3P_HR, MRI_AGCM3_2_S, CMCC_CM2_VHR4, MPI_ESM1_2_XR; computed by data/shared/climate/heat_openmeteo.py; multi-model mean of raw (not bias-corrected) daily Tmax",
+    "method": "cited",
+    "scenario": "historical (CMIP6 HighResMIP)",
+    "year": "1995-2014",
+    "note": "Future window is 2036-2050 (API ends 2050); future forcing is SSP5-8.5 per Open-Meteo. Coarse 25-50 km grid, no bias or elevation correction: indicative, not site-grade. Per-model values (EC_Earth3P_HR, MRI_AGCM3_2_S, CMCC_CM2_VHR4, MPI_ESM1_2_XR): [3.5, 5.4, 10.9, 2.9]"
+   },
+   "days_tmax_gt_35C_2050": {
+    "value": 9.2,
+    "unit": "days/yr Tmax>35C",
+    "source": "Open-Meteo Climate API (https://open-meteo.com/en/docs/climate-api), CMIP6 HighResMIP models EC_Earth3P_HR, MRI_AGCM3_2_S, CMCC_CM2_VHR4, MPI_ESM1_2_XR; computed by data/shared/climate/heat_openmeteo.py; multi-model mean of raw (not bias-corrected) daily Tmax",
+    "method": "cited",
+    "scenario": "SSP5-8.5",
+    "year": "2036-2050",
+    "note": "Future window is 2036-2050 (API ends 2050); future forcing is SSP5-8.5 per Open-Meteo. Coarse 25-50 km grid, no bias or elevation correction: indicative, not site-grade. Per-model values (EC_Earth3P_HR, MRI_AGCM3_2_S, CMCC_CM2_VHR4, MPI_ESM1_2_XR): [6.7, 11.4, 13.5, 5.4]"
+   },
+   "days_tmax_gt_35C_delta": {
+    "value": 3.5,
+    "unit": "days/yr",
+    "source": "Open-Meteo Climate API (https://open-meteo.com/en/docs/climate-api), CMIP6 HighResMIP models EC_Earth3P_HR, MRI_AGCM3_2_S, CMCC_CM2_VHR4, MPI_ESM1_2_XR; computed by data/shared/climate/heat_openmeteo.py; multi-model mean of raw (not bias-corrected) daily Tmax",
+    "method": "cited",
+    "scenario": "SSP5-8.5 minus historical",
+    "year": "2036-2050 vs 1995-2014"
+   },
+   "cooling_load_implication": {
+    "value": "More hot days cut economizer hours and push chillers to peak, raising PUE and peak MW; magnitude not quantified (no site PUE data in repo).",
+    "unit": "text",
+    "source": "reasoning from the days>35C delta",
+    "method": "assumed",
+    "scenario": "SSP5-8.5",
+    "year": "2036-2050",
+    "note": "Overlaps the Aug-Sep afternoon curtailment cells used in data/l2/l3_inputs.json."
+   }
+  },
+  "wildfire_psps": {
+   "site_in_cpuc_hftd": {
+    "value": false,
+    "unit": "bool",
+    "source": "repo data/l2/site_risk.json (CPUC HFTD v22_3 via PG&E GRIP layer 18)",
+    "method": "cited",
+    "scenario": "current map",
+    "year": "2026"
+   },
+   "nearest_hftd_km": {
+    "value": 8.74,
+    "unit": "km (Tier 1 zone)",
+    "source": "repo data/l2/site_risk.json",
+    "method": "cited",
+    "scenario": "current map",
+    "year": "2026",
+    "note": "Measured only within the cached GRIP bbox; Tier 2/3 areas outside the bbox are not counted."
+   },
+   "psps_direct_exposure": {
+    "value": "low: site and nearby GRIP substations are not in HFTD Tier 2/3; upstream transmission lines could still be de-energised (not mapped)",
+    "unit": "text",
+    "source": "repo data/l2/site_risk.json (grip_substations_in_hftd_tier2_3 is empty)",
+    "method": "cited",
+    "scenario": "current map",
+    "year": "2026"
+   },
+   "psps_context": {
+    "value": "PG&E ran PSPS events in 2024 (Oct, Nov, Dec) and 2025 (Jan, Jun); the Nov 5-8 2024 event de-energised 21,357 customers in 17 counties. Santa Clara-only counts not retrieved.",
+    "unit": "text",
+    "source": "https://www.pge.com/en/outages-and-safety/safety/community-wildfire-safety-program/public-safety-power-shutoffs.html ; CPUC PG&E 2024-11-05 PSPS post-event report",
+    "method": "cited",
+    "scenario": "historical",
+    "year": "2024-2025"
+   }
+  },
+  "grid_resilience": {
+   "requested_load": {
+    "value": 150,
+    "unit": "MW",
+    "source": "repo data/l2/l3_inputs.json site.requested_mw",
+    "method": "cited",
+    "scenario": "n/a",
+    "year": "2028"
+   },
+   "n1_firm_headroom_transmission": {
+    "value": {
+     "Nortech Substation (115 kV, 1.48 km)": 0.0,
+     "Northern Receiving Station (230 kV, 2.83 km)": 19.9,
+     "Los Esteros Substation (230 kV, 3.72 km)": 19.9,
+     "Fair Oaks Substation (115 kV, 4.51 km)": 0.0,
+     "Scott Receiving Station (115 kV, 5.78 km)": 0.0
+    },
+    "unit": "MW",
+    "source": "repo data/l2/l3_inputs.json transmission_candidates (OSM-derived, assumed_mva)",
+    "method": "assumed",
+    "scenario": "N-1 firm",
+    "year": "2028",
+    "note": "Ratings are ASSUMED MVA by voltage class, not utility data."
+   },
+   "n1_firm_headroom_best_nearby": {
+    "value": 19.9,
+    "unit": "MW",
+    "source": "repo data/l2/l3_inputs.json transmission_candidates",
+    "method": "assumed",
+    "scenario": "N-1 firm",
+    "year": "2028",
+    "note": "Against 150 MW requested."
+   },
+   "distribution_cap_by_curtailment_pct": {
+    "value": {
+     "0": 38.79,
+     "1": 40.73,
+     "2": 47.59,
+     "5": 66.16,
+     "10": 90.6
+    },
+    "unit": "MW (key = % curtailment)",
+    "source": "repo data/l2/l3_inputs.json summary (PG&E GRIP)",
+    "method": "cited",
+    "scenario": "n/a",
+    "year": "2028",
+    "note": "GRIP is not guaranteed; not a PG&E determination."
+   },
+   "nearest_banks_rating_minus_2028_forecast": {
+    "value": {
+     "NORTECH BANK 2": -1.25,
+     "LAWRENCE BANK 1": -1.91,
+     "LAWRENCE BANK 2": 12.2
+    },
+    "unit": "MW (negative = forecast above rating)",
+    "source": "repo data/l2/l3_inputs.json banks",
+    "method": "cited",
+    "scenario": "2028 forecast",
+    "year": "2028"
+   }
+  },
+  "water_stress": {
+   "aqueduct_baseline_water_stress": {
+    "value": "High (unverified)",
+    "unit": "Aqueduct category",
+    "source": "WRI Aqueduct 4.0 (https://www.wri.org/applications/aqueduct/water-risk-atlas/)",
+    "method": "assumed",
+    "scenario": "baseline",
+    "year": "1979-2019",
+    "note": "Not retrievable in time: the WRI Atlas/data download was not reachable by API from this session and web search returned no site-level score. Value is an unverified placeholder; replace with an Atlas lookup at the site coordinates."
+   }
+  }
+ }
+}
