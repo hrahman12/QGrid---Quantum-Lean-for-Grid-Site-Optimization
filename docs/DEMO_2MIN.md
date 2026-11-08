@@ -26,6 +26,6 @@ Mention consent: "Consent layer: AMBER. San Jose's draft standards and local opp
 Find with a Grover search, check with power flow, prove with Lean rules. Every verdict says which engine ran and which numbers are assumptions. We never claim utility approval, only a defensible yes, yes-if, or no."
 
 ## If asked
-- Quantum: Grover search runs on a simulator (PsiQDK); no quantum advantage claimed at this size.
-- Lean: the laptop shows which engine ran (Lean 4 or the Python mirror of the same rules).
+- Quantum: Grover search runs on the PsiQDK simulator (verified on Linux with psiqdk 2.5.0: e.g. a 30 MW request marks 36 feasible plans on 10 qubits). At 150 MW no plan passes firm N-1, so there is nothing for Grover to find and the run is honestly labelled classical. No quantum advantage claimed at this size.
+- Lean: Lean 4.35 builds on our Linux box (lake build, 42 Lean tests pass) and the certificate there says "certificate engine: Lean 4". Windows laptops run the Python mirror of the same rules and say so. Lean decides the core 7 rules + verdict theorems; bank / storage / firm N-1 / evidence binding are being ported (orch-lean-rules).
 - Data: PG&E GRIP 2028 forecast (directional), OSM substations, CAISO NP15, FEMA, Data Center Watch; ratings not from GRIP are labelled ASSUMED.
