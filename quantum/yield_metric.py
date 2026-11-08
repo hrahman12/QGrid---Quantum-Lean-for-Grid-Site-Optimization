@@ -21,7 +21,7 @@ from pathlib import Path
 
 from .baselines import heuristic_search, random_search
 from .oracle import Oracle
-from .search import grover_pick
+from .search import engine_label, grover_pick
 from .space import build_space
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -42,6 +42,7 @@ def run_method(method, site, snapshot, cycles=10, seed=0, certify=None, check=No
         oracle = Oracle(space, snapshot, constraints)
         if method == "psiqdk":
             plan, evals, info = grover_pick(space, oracle, exclude=tried, seed=seed + c)
+            evals += info.get("classical_enumeration_calls", 0)  # Astra #9: count oracle compilation too
             res = info.get("result") or {}
             backend = res.get("backend", backend)
             label = "psiqdk" if res.get("backend") == "psiqdk" else "heuristic"
@@ -70,6 +71,8 @@ def run_method(method, site, snapshot, cycles=10, seed=0, certify=None, check=No
                     "result": cert["result"], "blocking_condition": cert["blocking_condition"],
                     "certify_engine": cert.get("engine")})
     spent = sum(1 for e in log if e.get("plan_index") is not None)
+    if method == "psiqdk":
+        method = "psiqdk" if engine_label(backend) == "psiqdk-simulated-grover" else "grover-numpy-fallback"
     return {"method": method, "seed": seed, "backend": backend, "cycles_spent": spent, "green": greens,
             "green_per_10_cycles": round(10 * greens / spent, 2) if spent else None,
             "oracle_evals_total": total_evals, "cycles": log}
@@ -103,7 +106,9 @@ def main(argv=None):
         s["green_per_10_cycles_mean"] = round(10 * s["green"] / s["cycles"], 2) if s["cycles"] else None
     out = {"generated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
            "definition": "GREEN certificates per 10 verification cycles (cycle = grid.physics.check + lean.certify)",
-           "note": "Actual runs only. 'psiqdk' = PsiQDK simulation of Grover (numpy fallback if backend says so); "
+           "note": "Actual runs only. 'psiqdk' = PsiQDK simulation of Grover; 'grover-numpy-fallback' = the same "
+                   "circuit on the numpy fallback, reported separately. Grover oracle_evals include the N classical "
+                   "calls that compiled the lookup oracle; "
                    "no quantum advantage claimed. GREEN covers only the encoded rules over the supplied evidence, "
                    "not a utility approval.",
            "site_id": site["id"], "snapshot_iso_source": snap["iso"]["source"],

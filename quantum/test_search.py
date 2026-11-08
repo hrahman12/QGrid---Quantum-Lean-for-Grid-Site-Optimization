@@ -28,6 +28,9 @@ def _sub(i, headroom, dist, **kw):
             "distance_km": dist, "headroom_mw": headroom, **kw}
 
 
+# 150 MW does not fit the real substations' N-1 firm headroom (~19.9 MW each), so search-mechanics tests on the
+# real snapshot use a request that does
+SITE_FIRM = {**SITE, "requested_mw": 30}
 SYN = {"substations": [_sub(1, 200, 1.0), _sub(2, 10, 2.0), _sub(3, 100, 3.0), _sub(4, 40, 4.0), _sub(5, 500, 9.0),
                        _sub(6, 0, 0.5)],
        "lines": [], "iso": {"lmp": None, "load": None, "timestamp": "2026-11-08T00:00:00Z", "source": "test"},
@@ -101,17 +104,30 @@ def test_constraint_interpretation():
                             "flex_commitment: storage 25.0 MW > committed 0.0 MW (ASSUMED)",
                             "n1: N-1 contingency check failed (1 violations; first: N-1 line L-AB out: line L-BC loading 115% > 110%)",
                             "something the parser does not know"], subs)
-    assert cs.excluded_substations == {"S2"} and cs.forbid_storage and cs.require_dlr
+    # a named "> headroom X MW" caps that substation instead of excluding it (firm N-1 feedback)
+    assert cs.capped_substations == {"S2": 10.0} and not cs.excluded_substations
+    assert cs.forbid_storage and cs.require_dlr
     assert cs.unparsed == ["something the parser does not know"]
     # S2 must not match a longer id such as S21
     assert parse_constraints(["capacity: S21 split"], subs).excluded_substations == set()
+    assert parse_constraints(["capacity: S2 has no headroom evidence"], subs).excluded_substations == {"S2"}
 
 
 def test_constraint_exclusion_in_oracle():
     sp = build_space(SYN_SITE, SYN)
-    o = Oracle(sp, SYN, ["capacity: S1 split 100 MW > headroom 200 MW", "penalty trigger TRUE: curtailment 10 MW"])
+    o = Oracle(sp, SYN, ["capacity: S1 split 100 MW > headroom 50 MW", "penalty trigger TRUE: curtailment 10 MW"])
     marked = [sp.decode(i) for i in o.marked_indices()]
-    assert marked and all(p.quarters[0] == 0 and p.curtail_pct == 0 for p in marked)
+    assert marked and all(p.curtail_pct == 0 and sp.split_mw(p)[0] * (1 - p.storage_mw / 100) <= 50 for p in marked)
+    assert any(p.quarters[0] for p in marked)  # S1 restricted to 50 MW, not excluded
+
+
+def test_oracle_respects_n1_firm_headroom():
+    snap = {**SYN, "substations": [dict(s, headroom_mw_n1_firm=30.0) if s["id"] == "S1" else s
+                                   for s in SYN["substations"]]}
+    sp = build_space(SYN_SITE, snap)
+    o = Oracle(sp, snap)
+    assert not o(sp.encode((4, 0, 0, 0), False, 0, 0))     # 100 MW > firm 30 though headroom 200
+    assert all(sp.split_mw(sp.decode(i))[0] <= 30 + 1e-9 or sp.decode(i).storage_mw for i in o.marked_indices())
 
 
 # --- Grover maths ---------------------------------------------------------------------------------------
@@ -153,15 +169,18 @@ def _valid(plan):
 
 def test_propose_numpy_fallback_validates(real_snapshot, tmp_path):
     out = tmp_path / "last_search.json"
-    plan = propose(SITE, real_snapshot, [], backend="numpy", out_path=out)
+    plan = propose(SITE_FIRM, real_snapshot, [], backend="numpy", out_path=out)
     _valid(plan)
     assert plan["search"]["method"] == "heuristic"           # numpy fallback is never labelled psiqdk
-    assert abs(sum(s["mw"] for s in plan["splits"]) - SITE["requested_mw"]) <= 0.01
+    assert abs(sum(s["mw"] for s in plan["splits"]) - SITE_FIRM["requested_mw"]) <= 0.01
     ids = {s["id"] for s in real_snapshot["substations"]}
     assert all(s["substation_id"] in ids for s in plan["splits"])
     rec = json.loads(out.read_text(encoding="utf-8"))
     assert rec["backend"] == "numpy-statevector-fallback" and rec["iterations"] == rec["iterations_expected"]
     assert plan["search"]["evals"] == rec["iterations"] * 32 + 32
+    # Astra #9: the actual engine and the full cost (incl. oracle compilation) are recorded
+    assert plan["search"]["engine"] == "numpy-fallback"
+    assert plan["search"]["evals_total"] == plan["search"]["evals"] + plan["search"]["classical_enumeration_calls"]
 
 
 def test_propose_auto_backend_labels_honestly(real_snapshot, tmp_path):
@@ -194,7 +213,7 @@ def test_propose_widens_k_when_nothing_marked(tmp_path):
 
 # --- baselines -----------------------------------------------------------------------------------------
 def test_baselines_return_marked_plans(real_snapshot):
-    sp = build_space(SITE, real_snapshot)
+    sp = build_space(SITE_FIRM, real_snapshot)
     o = Oracle(sp, real_snapshot)
     for plan, evals in (random_search(sp, o, seed=3), heuristic_search(sp, o)):
         assert plan is not None and evals >= 1 and o(plan)

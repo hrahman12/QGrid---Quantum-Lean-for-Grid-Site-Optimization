@@ -37,6 +37,9 @@ from .space import Plan, PlanSpace
 @dataclass
 class ConstraintSet:
     excluded_substations: set[str] = field(default_factory=set)
+    # substation id -> MW cap taken from a blocking condition ("> firm headroom 19.9 MW"): restricts the
+    # offending allocation instead of excluding the whole substation (orchestrator, firm N-1 caps)
+    capped_substations: dict[str, float] = field(default_factory=dict)
     require_dlr: bool = False
     forbid_dlr: bool = False
     forbid_storage: bool = False
@@ -60,6 +63,12 @@ def parse_constraints(constraints, substations) -> ConstraintSet:
     for c in constraints or []:
         text = str(c)
         hit = [s["id"] for s in substations if _mentions(text, s)]
+        cap = re.search(r">\s*(?:firm\s+)?headroom\s+([\d.]+)\s*MW", text)
+        if hit and cap:
+            for h in hit:
+                cs.capped_substations[h] = min(float(cap.group(1)), cs.capped_substations.get(h, float("inf")))
+            cs.interpretations.append({"constraint": text, "effect": f"cap net MW on {hit} at {cap.group(1)} MW"})
+            continue
         if hit:
             cs.excluded_substations.update(hit)
             cs.interpretations.append({"constraint": text, "effect": f"exclude plans loading {hit}"})
@@ -109,6 +118,16 @@ class Oracle:
                               "headroom (L2 defines it on line ratings; shared quantum/load_model.py semantics)")
         self.calls = 0
 
+    def limit_mw(self, s: dict) -> float:
+        """Per-substation MW limit: headroom, the N-1 firm headroom when the snapshot has it (grid/physics.py
+        fails N-1 above it), and any cap fed back from a blocking condition -- whichever is smallest."""
+        lims = [float(s["headroom_mw"])]
+        if s.get("headroom_mw_n1_firm") is not None:
+            lims.append(float(s["headroom_mw_n1_firm"]))
+        if s["id"] in self.constraints.capped_substations:
+            lims.append(self.constraints.capped_substations[s["id"]])
+        return min(lims)
+
     def margins(self, plan: Plan) -> list[float]:
         """Per candidate substation: (effective capacity - effective load) / effective capacity."""
         sp = self.space
@@ -116,7 +135,7 @@ class Oracle:
         for s, mw in zip(sp.substations, sp.split_mw(plan)):
             # Astra #6: shared net-load model with lean/certify.py; DLR uplifts line ratings only, so
             # substation headroom is NOT raised by DLR here (was an optimistic screening shortcut).
-            cap = float(s["headroom_mw"])
+            cap = self.limit_mw(s)
             load = net_split(mw, sp.requested_mw, plan.storage_mw, sp.curtail_mw(plan))
             out.append((cap - load) / cap if cap > 0 else float("-inf"))
         return out

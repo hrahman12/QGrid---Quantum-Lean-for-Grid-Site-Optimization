@@ -310,3 +310,20 @@ def test_evidence_hash_binds_plan_ids():
     assert h1 != base and run(plan=mod(fe, splits__0__feeder_id="F2"))["evidence_sha256"] != h1
     assert run(plan=mod(PLAN, splits__1__bank_id="BANK-9"))["evidence_sha256"] != base
     assert run(phys=mod(PHYS, max_line_loading_pct=71.2))["evidence_sha256"] != base
+
+
+def test_firm_n1_red_names_gap_and_amber_when_flex_closes_it():
+    snap = {**SNAP, "substations": [dict(s, headroom_mw_n1_firm=30.0) for s in SNAP["substations"]]}
+    viol = ["N-1 transformer XF-A largest bank out: plan 95.0 MW > firm headroom 60.0 MW (headroom_mw_n1_firm)"]
+    phys = mod(PHYS, n1_pass=False, violations=viol)
+    cert = C.certify(PLAN, phys, SITE, snapshot=snap, as_of=AS_OF, engine="python", write_evidence=False)
+    assert cert["result"] == "RED"
+    assert cert["blocking_condition"].startswith("firm_n1: exceeds firm N-1 capacity of the candidate substations by")
+    # firm 30: needs 150*(1-30/95)=102.6 MW relief > 65 MW levers -> RED. firm 63 + 45 MW storage: 5.5 MW more -> AMBER
+    plan = mod(PLAN, flex__storage_mw=45, flex__curtailment_mw=0)
+    snap2 = {**snap, "substations": [dict(s, headroom_mw_n1_firm=63.0) for s in SNAP["substations"]]}
+    cert = C.certify(plan, phys, SITE, snapshot=snap2, as_of="2024-01-01", engine="python", write_evidence=False,
+                     commitment={"storage_mw": 45, "curtailment_mw": 0, "source": "test"})
+    firm = next(c for c in cert["checks"] if c["name"] == "firm_n1")
+    assert not firm["pass"] and firm["tag"] == "negotiable", firm
+    assert cert["result"] == "AMBER" and any(c.startswith("firm_n1") for c in cert["conditions"]), cert["blocking_condition"]
