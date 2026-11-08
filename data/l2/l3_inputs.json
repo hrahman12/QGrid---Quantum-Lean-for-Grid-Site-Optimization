@@ -1,0 +1,7334 @@
+{
+  "site": {
+    "id": "nsj-alviso-150",
+    "name": "North San Jose / Alviso compute site (illustrative 150 MW)",
+    "lat": 37.4265,
+    "lon": -121.975,
+    "requested_mw": 150,
+    "deadline": "2028-06-30",
+    "iso": "CAISO"
+  },
+  "disclaimer": "Directional inputs for search and Lean rules. GRIP is not guaranteed; pending load withheld; not a PG&E approval.",
+  "search_space": {
+    "split_step_pct": 25,
+    "dlr": {
+      "options": [
+        false,
+        true
+      ],
+      "uplift_pct_mid": 10,
+      "applies_to": "transmission lines"
+    },
+    "battery_mw": [
+      0,
+      25,
+      50
+    ],
+    "curtailment_pct": [
+      0,
+      5,
+      10
+    ],
+    "curtailment_pct_also_available": [
+      1,
+      2
+    ],
+    "edge_site_mw_range": [
+      0.5,
+      10.0
+    ],
+    "note": "From ORCH 13:24 / L3 brief. Bank caps exist for every curtailment_pct listed."
+  },
+  "rule_inputs": {
+    "R_bank_cap": "sum(MW on feeders with the same bank_id) <= banks[].cap_mw_by_curtailment_pct[c] (feeder hosting is NOT additive)",
+    "R_feeder_cap": "edge site MW <= feeders[].edge_site_max_mw and >= 0.5",
+    "R_curtail_window": "a plan with curtailment c commits to banks[].curtail_cells_by_pct[c] (local Aug-Sep afternoons), not the CAISO system window",
+    "R_flood": "flood_sfha true -> permit/cost condition (equipment above BFE), not auto-RED",
+    "R_transmission": "MW not placed on distribution needs transmission service: 7-10 years (organizers) > deadline 2028-06-30 -> RED for that share unless deadline relaxed"
+  },
+  "summary": {
+    "banks": 24,
+    "banks_with_forecast": 18,
+    "feeders": 82,
+    "eligible_edge_feeders": 73,
+    "distribution_cap_mw_by_curtailment_pct": {
+      "0": 38.79,
+      "1": 40.73,
+      "2": 47.59,
+      "5": 66.16,
+      "10": 90.6
+    },
+    "sum_feeder_edge_site_max_mw": 430.61,
+    "feeders_with_bank_id": 81
+  },
+  "banks": [
+    {
+      "bank_id": "0823401",
+      "bank": "RIVER OAKS BANK 1",
+      "substation_id": "08234",
+      "substation": "RIVER OAKS",
+      "lat": 37.411282,
+      "lon": -121.927074,
+      "distance_km": 4.56,
+      "rating_mw": 44.52,
+      "forecast_2028_mw": 65.47,
+      "has_forecast": true,
+      "cap_mw_by_curtailment_pct": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0,
+        "5": 0.0,
+        "10": 0.0
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 16
+          }
+        ],
+        "2": [
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          }
+        ],
+        "5": [
+          {
+            "month": 5,
+            "hour": 15
+          },
+          {
+            "month": 5,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 13
+          },
+          {
+            "month": 7,
+            "hour": 14
+          },
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 7,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 11
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          }
+        ],
+        "10": [
+          {
+            "month": 5,
+            "hour": 13
+          },
+          {
+            "month": 5,
+            "hour": 14
+          },
+          {
+            "month": 5,
+            "hour": 15
+          },
+          {
+            "month": 5,
+            "hour": 16
+          },
+          {
+            "month": 5,
+            "hour": 17
+          },
+          {
+            "month": 6,
+            "hour": 13
+          },
+          {
+            "month": 6,
+            "hour": 14
+          },
+          {
+            "month": 6,
+            "hour": 15
+          },
+          {
+            "month": 6,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 12
+          },
+          {
+            "month": 7,
+            "hour": 13
+          },
+          {
+            "month": 7,
+            "hour": 14
+          },
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 7,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 10
+          },
+          {
+            "month": 8,
+            "hour": 11
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 62,
+        "2": 155,
+        "5": 434,
+        "10": 861
+      },
+      "flood_zone": "X",
+      "flood_sfha": false,
+      "flood_bfe_ft": null
+    },
+    {
+      "bank_id": "0823402",
+      "bank": "RIVER OAKS BANK 2",
+      "substation_id": "08234",
+      "substation": "RIVER OAKS",
+      "lat": 37.411282,
+      "lon": -121.927074,
+      "distance_km": 4.56,
+      "rating_mw": 44.52,
+      "forecast_2028_mw": 50.42,
+      "has_forecast": true,
+      "cap_mw_by_curtailment_pct": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0,
+        "5": 0.0,
+        "10": 0.0
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 16
+          }
+        ],
+        "2": [
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          }
+        ],
+        "5": [
+          {
+            "month": 5,
+            "hour": 15
+          },
+          {
+            "month": 5,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 13
+          },
+          {
+            "month": 7,
+            "hour": 14
+          },
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 7,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 11
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          }
+        ],
+        "10": [
+          {
+            "month": 5,
+            "hour": 13
+          },
+          {
+            "month": 5,
+            "hour": 14
+          },
+          {
+            "month": 5,
+            "hour": 15
+          },
+          {
+            "month": 5,
+            "hour": 16
+          },
+          {
+            "month": 5,
+            "hour": 17
+          },
+          {
+            "month": 6,
+            "hour": 13
+          },
+          {
+            "month": 6,
+            "hour": 14
+          },
+          {
+            "month": 6,
+            "hour": 15
+          },
+          {
+            "month": 6,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 12
+          },
+          {
+            "month": 7,
+            "hour": 13
+          },
+          {
+            "month": 7,
+            "hour": 14
+          },
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 7,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 10
+          },
+          {
+            "month": 8,
+            "hour": 11
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 62,
+        "2": 155,
+        "5": 434,
+        "10": 861
+      },
+      "flood_zone": "X",
+      "flood_sfha": false,
+      "flood_bfe_ft": null
+    },
+    {
+      "bank_id": "0838901",
+      "bank": "MONTAGUE BANK 1",
+      "substation_id": "08389",
+      "substation": "MONTAGUE",
+      "lat": 37.403069,
+      "lon": -121.905624,
+      "distance_km": 6.66,
+      "rating_mw": 44.52,
+      "forecast_2028_mw": 41.34,
+      "has_forecast": true,
+      "cap_mw_by_curtailment_pct": {
+        "0": 3.18,
+        "1": 3.64,
+        "2": 4.22,
+        "5": 5.66,
+        "10": 7.84
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          }
+        ],
+        "2": [
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 15
+          }
+        ],
+        "5": [
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 7,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ],
+        "10": [
+          {
+            "month": 5,
+            "hour": 16
+          },
+          {
+            "month": 6,
+            "hour": 15
+          },
+          {
+            "month": 6,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 11
+          },
+          {
+            "month": 7,
+            "hour": 12
+          },
+          {
+            "month": 7,
+            "hour": 13
+          },
+          {
+            "month": 7,
+            "hour": 14
+          },
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 7,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 17
+          },
+          {
+            "month": 7,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 11
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 62,
+        "2": 154,
+        "5": 429,
+        "10": 858
+      },
+      "flood_zone": null,
+      "flood_sfha": false,
+      "flood_bfe_ft": null
+    },
+    {
+      "bank_id": "0838902",
+      "bank": "MONTAGUE BANK 2",
+      "substation_id": "08389",
+      "substation": "MONTAGUE",
+      "lat": 37.403069,
+      "lon": -121.905624,
+      "distance_km": 6.66,
+      "rating_mw": 44.52,
+      "forecast_2028_mw": 59.63,
+      "has_forecast": true,
+      "cap_mw_by_curtailment_pct": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0,
+        "5": 0.0,
+        "10": 0.0
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          }
+        ],
+        "2": [
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 15
+          }
+        ],
+        "5": [
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 7,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ],
+        "10": [
+          {
+            "month": 5,
+            "hour": 16
+          },
+          {
+            "month": 6,
+            "hour": 15
+          },
+          {
+            "month": 6,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 11
+          },
+          {
+            "month": 7,
+            "hour": 12
+          },
+          {
+            "month": 7,
+            "hour": 13
+          },
+          {
+            "month": 7,
+            "hour": 14
+          },
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 7,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 17
+          },
+          {
+            "month": 7,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 11
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 62,
+        "2": 154,
+        "5": 429,
+        "10": 858
+      },
+      "flood_zone": null,
+      "flood_sfha": false,
+      "flood_bfe_ft": null
+    },
+    {
+      "bank_id": "0838903",
+      "bank": "MONTAGUE BANK 3",
+      "substation_id": "08389",
+      "substation": "MONTAGUE",
+      "lat": 37.403069,
+      "lon": -121.905624,
+      "distance_km": 6.66,
+      "rating_mw": 75,
+      "forecast_2028_mw": 72.18,
+      "has_forecast": true,
+      "cap_mw_by_curtailment_pct": {
+        "0": 2.82,
+        "1": 3.63,
+        "2": 4.64,
+        "5": 7.16,
+        "10": 10.96
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          }
+        ],
+        "2": [
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 15
+          }
+        ],
+        "5": [
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 7,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ],
+        "10": [
+          {
+            "month": 5,
+            "hour": 16
+          },
+          {
+            "month": 6,
+            "hour": 15
+          },
+          {
+            "month": 6,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 11
+          },
+          {
+            "month": 7,
+            "hour": 12
+          },
+          {
+            "month": 7,
+            "hour": 13
+          },
+          {
+            "month": 7,
+            "hour": 14
+          },
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 7,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 17
+          },
+          {
+            "month": 7,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 11
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 62,
+        "2": 154,
+        "5": 429,
+        "10": 858
+      },
+      "flood_zone": null,
+      "flood_sfha": false,
+      "flood_bfe_ft": null
+    },
+    {
+      "bank_id": "0834201",
+      "bank": "LAWRENCE BANK 1",
+      "substation_id": "08342",
+      "substation": "LAWRENCE",
+      "lat": 37.397195,
+      "lon": -122.010095,
+      "distance_km": 4.5,
+      "rating_mw": 44.53,
+      "forecast_2028_mw": 46.44,
+      "has_forecast": true,
+      "cap_mw_by_curtailment_pct": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0,
+        "5": 0.94,
+        "10": 3.63
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          }
+        ],
+        "2": [
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ],
+        "5": [
+          {
+            "month": 3,
+            "hour": 16
+          },
+          {
+            "month": 3,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          }
+        ],
+        "10": [
+          {
+            "month": 2,
+            "hour": 11
+          },
+          {
+            "month": 3,
+            "hour": 13
+          },
+          {
+            "month": 3,
+            "hour": 14
+          },
+          {
+            "month": 3,
+            "hour": 15
+          },
+          {
+            "month": 3,
+            "hour": 16
+          },
+          {
+            "month": 3,
+            "hour": 17
+          },
+          {
+            "month": 3,
+            "hour": 18
+          },
+          {
+            "month": 3,
+            "hour": 19
+          },
+          {
+            "month": 8,
+            "hour": 10
+          },
+          {
+            "month": 8,
+            "hour": 11
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 9
+          },
+          {
+            "month": 9,
+            "hour": 10
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 60,
+        "2": 150,
+        "5": 427,
+        "10": 855
+      },
+      "flood_zone": "X",
+      "flood_sfha": false,
+      "flood_bfe_ft": null
+    },
+    {
+      "bank_id": "0834202",
+      "bank": "LAWRENCE BANK 2",
+      "substation_id": "08342",
+      "substation": "LAWRENCE",
+      "lat": 37.397195,
+      "lon": -122.010095,
+      "distance_km": 4.5,
+      "rating_mw": 44.53,
+      "forecast_2028_mw": 32.33,
+      "has_forecast": true,
+      "cap_mw_by_curtailment_pct": {
+        "0": 12.2,
+        "1": 12.24,
+        "2": 13.24,
+        "5": 14.19,
+        "10": 16.06
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          }
+        ],
+        "2": [
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ],
+        "5": [
+          {
+            "month": 3,
+            "hour": 16
+          },
+          {
+            "month": 3,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          }
+        ],
+        "10": [
+          {
+            "month": 2,
+            "hour": 11
+          },
+          {
+            "month": 3,
+            "hour": 13
+          },
+          {
+            "month": 3,
+            "hour": 14
+          },
+          {
+            "month": 3,
+            "hour": 15
+          },
+          {
+            "month": 3,
+            "hour": 16
+          },
+          {
+            "month": 3,
+            "hour": 17
+          },
+          {
+            "month": 3,
+            "hour": 18
+          },
+          {
+            "month": 3,
+            "hour": 19
+          },
+          {
+            "month": 8,
+            "hour": 10
+          },
+          {
+            "month": 8,
+            "hour": 11
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 9
+          },
+          {
+            "month": 9,
+            "hour": 10
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 60,
+        "2": 150,
+        "5": 427,
+        "10": 855
+      },
+      "flood_zone": "X",
+      "flood_sfha": false,
+      "flood_bfe_ft": null
+    },
+    {
+      "bank_id": "0834203",
+      "bank": "LAWRENCE BANK 3",
+      "substation_id": "08342",
+      "substation": "LAWRENCE",
+      "lat": 37.397195,
+      "lon": -122.010095,
+      "distance_km": 4.5,
+      "rating_mw": 47.53,
+      "forecast_2028_mw": 38.23,
+      "has_forecast": true,
+      "cap_mw_by_curtailment_pct": {
+        "0": 9.3,
+        "1": 9.35,
+        "2": 10.53,
+        "5": 11.65,
+        "10": 13.86
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          }
+        ],
+        "2": [
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ],
+        "5": [
+          {
+            "month": 3,
+            "hour": 16
+          },
+          {
+            "month": 3,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          }
+        ],
+        "10": [
+          {
+            "month": 2,
+            "hour": 11
+          },
+          {
+            "month": 3,
+            "hour": 13
+          },
+          {
+            "month": 3,
+            "hour": 14
+          },
+          {
+            "month": 3,
+            "hour": 15
+          },
+          {
+            "month": 3,
+            "hour": 16
+          },
+          {
+            "month": 3,
+            "hour": 17
+          },
+          {
+            "month": 3,
+            "hour": 18
+          },
+          {
+            "month": 3,
+            "hour": 19
+          },
+          {
+            "month": 8,
+            "hour": 10
+          },
+          {
+            "month": 8,
+            "hour": 11
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 9
+          },
+          {
+            "month": 9,
+            "hour": 10
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 60,
+        "2": 150,
+        "5": 427,
+        "10": 855
+      },
+      "flood_zone": "X",
+      "flood_sfha": false,
+      "flood_bfe_ft": null
+    },
+    {
+      "bank_id": "0147201",
+      "bank": "DIXON LANDING BANK 1",
+      "substation_id": "01472",
+      "substation": "DIXON LANDING",
+      "lat": 37.457059,
+      "lon": -121.920973,
+      "distance_km": 5.86,
+      "rating_mw": 44.52,
+      "forecast_2028_mw": 41.89,
+      "has_forecast": true,
+      "cap_mw_by_curtailment_pct": {
+        "0": 2.63,
+        "1": 2.69,
+        "2": 4.0,
+        "5": 6.36,
+        "10": 8.16
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 16
+          }
+        ],
+        "2": [
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          }
+        ],
+        "5": [
+          {
+            "month": 7,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 17
+          },
+          {
+            "month": 7,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          }
+        ],
+        "10": [
+          {
+            "month": 6,
+            "hour": 17
+          },
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 7,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 17
+          },
+          {
+            "month": 7,
+            "hour": 18
+          },
+          {
+            "month": 7,
+            "hour": 19
+          },
+          {
+            "month": 7,
+            "hour": 20
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 8,
+            "hour": 20
+          },
+          {
+            "month": 8,
+            "hour": 21
+          },
+          {
+            "month": 9,
+            "hour": 9
+          },
+          {
+            "month": 9,
+            "hour": 10
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 20
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 61,
+        "2": 152,
+        "5": 428,
+        "10": 855
+      },
+      "flood_zone": "AE",
+      "flood_sfha": true,
+      "flood_bfe_ft": 12
+    },
+    {
+      "bank_id": "0147202",
+      "bank": "DIXON LANDING BANK 2",
+      "substation_id": "01472",
+      "substation": "DIXON LANDING",
+      "lat": 37.457059,
+      "lon": -121.920973,
+      "distance_km": 5.86,
+      "rating_mw": 44.52,
+      "forecast_2028_mw": 41.35,
+      "has_forecast": true,
+      "cap_mw_by_curtailment_pct": {
+        "0": 3.17,
+        "1": 3.23,
+        "2": 4.52,
+        "5": 6.85,
+        "10": 8.63
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 16
+          }
+        ],
+        "2": [
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          }
+        ],
+        "5": [
+          {
+            "month": 7,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 17
+          },
+          {
+            "month": 7,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          }
+        ],
+        "10": [
+          {
+            "month": 6,
+            "hour": 17
+          },
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 7,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 17
+          },
+          {
+            "month": 7,
+            "hour": 18
+          },
+          {
+            "month": 7,
+            "hour": 19
+          },
+          {
+            "month": 7,
+            "hour": 20
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 8,
+            "hour": 20
+          },
+          {
+            "month": 8,
+            "hour": 21
+          },
+          {
+            "month": 9,
+            "hour": 9
+          },
+          {
+            "month": 9,
+            "hour": 10
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 20
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 61,
+        "2": 152,
+        "5": 428,
+        "10": 855
+      },
+      "flood_zone": "AE",
+      "flood_sfha": true,
+      "flood_bfe_ft": 12
+    },
+    {
+      "bank_id": "0147203",
+      "bank": "DIXON LANDING BANK 3",
+      "substation_id": "01472",
+      "substation": "DIXON LANDING",
+      "lat": 37.457059,
+      "lon": -121.920973,
+      "distance_km": 5.86,
+      "rating_mw": 44.52,
+      "forecast_2028_mw": null,
+      "has_forecast": false,
+      "cap_mw_by_curtailment_pct": {
+        "0": null,
+        "1": null,
+        "2": null,
+        "5": null,
+        "10": null
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 16
+          }
+        ],
+        "2": [
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          }
+        ],
+        "5": [
+          {
+            "month": 7,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 17
+          },
+          {
+            "month": 7,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          }
+        ],
+        "10": [
+          {
+            "month": 6,
+            "hour": 17
+          },
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 7,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 17
+          },
+          {
+            "month": 7,
+            "hour": 18
+          },
+          {
+            "month": 7,
+            "hour": 19
+          },
+          {
+            "month": 7,
+            "hour": 20
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 8,
+            "hour": 20
+          },
+          {
+            "month": 8,
+            "hour": 21
+          },
+          {
+            "month": 9,
+            "hour": 9
+          },
+          {
+            "month": 9,
+            "hour": 10
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 20
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 61,
+        "2": 152,
+        "5": 428,
+        "10": 855
+      },
+      "flood_zone": "AE",
+      "flood_sfha": true,
+      "flood_bfe_ft": 12
+    },
+    {
+      "bank_id": "0838001",
+      "bank": "TRIMBLE BANK 1",
+      "substation_id": "08380",
+      "substation": "TRIMBLE",
+      "lat": 37.382832,
+      "lon": -121.92644,
+      "distance_km": 6.48,
+      "rating_mw": 44.54,
+      "forecast_2028_mw": null,
+      "has_forecast": false,
+      "cap_mw_by_curtailment_pct": {
+        "0": null,
+        "1": null,
+        "2": null,
+        "5": null,
+        "10": null
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          }
+        ],
+        "2": [
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          }
+        ],
+        "5": [
+          {
+            "month": 6,
+            "hour": 13
+          },
+          {
+            "month": 6,
+            "hour": 14
+          },
+          {
+            "month": 6,
+            "hour": 15
+          },
+          {
+            "month": 6,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          }
+        ],
+        "10": [
+          {
+            "month": 5,
+            "hour": 13
+          },
+          {
+            "month": 5,
+            "hour": 14
+          },
+          {
+            "month": 5,
+            "hour": 15
+          },
+          {
+            "month": 5,
+            "hour": 16
+          },
+          {
+            "month": 6,
+            "hour": 12
+          },
+          {
+            "month": 6,
+            "hour": 13
+          },
+          {
+            "month": 6,
+            "hour": 14
+          },
+          {
+            "month": 6,
+            "hour": 15
+          },
+          {
+            "month": 6,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 12
+          },
+          {
+            "month": 7,
+            "hour": 13
+          },
+          {
+            "month": 7,
+            "hour": 14
+          },
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 11
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 10
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 60,
+        "2": 152,
+        "5": 424,
+        "10": 855
+      },
+      "flood_zone": "X",
+      "flood_sfha": false,
+      "flood_bfe_ft": null
+    },
+    {
+      "bank_id": "0838002",
+      "bank": "TRIMBLE BANK 2",
+      "substation_id": "08380",
+      "substation": "TRIMBLE",
+      "lat": 37.382832,
+      "lon": -121.92644,
+      "distance_km": 6.48,
+      "rating_mw": 44.54,
+      "forecast_2028_mw": null,
+      "has_forecast": false,
+      "cap_mw_by_curtailment_pct": {
+        "0": null,
+        "1": null,
+        "2": null,
+        "5": null,
+        "10": null
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          }
+        ],
+        "2": [
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          }
+        ],
+        "5": [
+          {
+            "month": 6,
+            "hour": 13
+          },
+          {
+            "month": 6,
+            "hour": 14
+          },
+          {
+            "month": 6,
+            "hour": 15
+          },
+          {
+            "month": 6,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          }
+        ],
+        "10": [
+          {
+            "month": 5,
+            "hour": 13
+          },
+          {
+            "month": 5,
+            "hour": 14
+          },
+          {
+            "month": 5,
+            "hour": 15
+          },
+          {
+            "month": 5,
+            "hour": 16
+          },
+          {
+            "month": 6,
+            "hour": 12
+          },
+          {
+            "month": 6,
+            "hour": 13
+          },
+          {
+            "month": 6,
+            "hour": 14
+          },
+          {
+            "month": 6,
+            "hour": 15
+          },
+          {
+            "month": 6,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 12
+          },
+          {
+            "month": 7,
+            "hour": 13
+          },
+          {
+            "month": 7,
+            "hour": 14
+          },
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 11
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 10
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 60,
+        "2": 152,
+        "5": 424,
+        "10": 855
+      },
+      "flood_zone": "X",
+      "flood_sfha": false,
+      "flood_bfe_ft": null
+    },
+    {
+      "bank_id": "0838003",
+      "bank": "TRIMBLE BANK 3",
+      "substation_id": "08380",
+      "substation": "TRIMBLE",
+      "lat": 37.382832,
+      "lon": -121.92644,
+      "distance_km": 6.48,
+      "rating_mw": 44.52,
+      "forecast_2028_mw": 50.52,
+      "has_forecast": true,
+      "cap_mw_by_curtailment_pct": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0,
+        "5": 0.0,
+        "10": 0.0
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          }
+        ],
+        "2": [
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          }
+        ],
+        "5": [
+          {
+            "month": 6,
+            "hour": 13
+          },
+          {
+            "month": 6,
+            "hour": 14
+          },
+          {
+            "month": 6,
+            "hour": 15
+          },
+          {
+            "month": 6,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          }
+        ],
+        "10": [
+          {
+            "month": 5,
+            "hour": 13
+          },
+          {
+            "month": 5,
+            "hour": 14
+          },
+          {
+            "month": 5,
+            "hour": 15
+          },
+          {
+            "month": 5,
+            "hour": 16
+          },
+          {
+            "month": 6,
+            "hour": 12
+          },
+          {
+            "month": 6,
+            "hour": 13
+          },
+          {
+            "month": 6,
+            "hour": 14
+          },
+          {
+            "month": 6,
+            "hour": 15
+          },
+          {
+            "month": 6,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 12
+          },
+          {
+            "month": 7,
+            "hour": 13
+          },
+          {
+            "month": 7,
+            "hour": 14
+          },
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 11
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 10
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 60,
+        "2": 152,
+        "5": 424,
+        "10": 855
+      },
+      "flood_zone": "X",
+      "flood_sfha": false,
+      "flood_bfe_ft": null
+    },
+    {
+      "bank_id": "0838005",
+      "bank": "TRIMBLE BANK 5",
+      "substation_id": "08380",
+      "substation": "TRIMBLE",
+      "lat": 37.382832,
+      "lon": -121.92644,
+      "distance_km": 6.48,
+      "rating_mw": 44.52,
+      "forecast_2028_mw": null,
+      "has_forecast": false,
+      "cap_mw_by_curtailment_pct": {
+        "0": null,
+        "1": null,
+        "2": null,
+        "5": null,
+        "10": null
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          }
+        ],
+        "2": [
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          }
+        ],
+        "5": [
+          {
+            "month": 6,
+            "hour": 13
+          },
+          {
+            "month": 6,
+            "hour": 14
+          },
+          {
+            "month": 6,
+            "hour": 15
+          },
+          {
+            "month": 6,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          }
+        ],
+        "10": [
+          {
+            "month": 5,
+            "hour": 13
+          },
+          {
+            "month": 5,
+            "hour": 14
+          },
+          {
+            "month": 5,
+            "hour": 15
+          },
+          {
+            "month": 5,
+            "hour": 16
+          },
+          {
+            "month": 6,
+            "hour": 12
+          },
+          {
+            "month": 6,
+            "hour": 13
+          },
+          {
+            "month": 6,
+            "hour": 14
+          },
+          {
+            "month": 6,
+            "hour": 15
+          },
+          {
+            "month": 6,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 12
+          },
+          {
+            "month": 7,
+            "hour": 13
+          },
+          {
+            "month": 7,
+            "hour": 14
+          },
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 11
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 10
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 60,
+        "2": 152,
+        "5": 424,
+        "10": 855
+      },
+      "flood_zone": "X",
+      "flood_sfha": false,
+      "flood_bfe_ft": null
+    },
+    {
+      "bank_id": "0836101",
+      "bank": "BRITTON BANK 1",
+      "substation_id": "08361",
+      "substation": "BRITTON",
+      "lat": 37.374916,
+      "lon": -122.016517,
+      "distance_km": 6.81,
+      "rating_mw": 29.69,
+      "forecast_2028_mw": 34.49,
+      "has_forecast": true,
+      "cap_mw_by_curtailment_pct": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0,
+        "5": 0.0,
+        "10": 0.0
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ],
+        "2": [
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ],
+        "5": [
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          }
+        ],
+        "10": [
+          {
+            "month": 3,
+            "hour": 17
+          },
+          {
+            "month": 3,
+            "hour": 18
+          },
+          {
+            "month": 7,
+            "hour": 13
+          },
+          {
+            "month": 7,
+            "hour": 14
+          },
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 7,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 17
+          },
+          {
+            "month": 7,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 10
+          },
+          {
+            "month": 8,
+            "hour": 11
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 10
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 61,
+        "2": 152,
+        "5": 427,
+        "10": 858
+      },
+      "flood_zone": "X",
+      "flood_sfha": false,
+      "flood_bfe_ft": null
+    },
+    {
+      "bank_id": "0836102",
+      "bank": "BRITTON BANK 2",
+      "substation_id": "08361",
+      "substation": "BRITTON",
+      "lat": 37.374916,
+      "lon": -122.016517,
+      "distance_km": 6.81,
+      "rating_mw": 44.53,
+      "forecast_2028_mw": 56.28,
+      "has_forecast": true,
+      "cap_mw_by_curtailment_pct": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0,
+        "5": 0.0,
+        "10": 0.0
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ],
+        "2": [
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ],
+        "5": [
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          }
+        ],
+        "10": [
+          {
+            "month": 3,
+            "hour": 17
+          },
+          {
+            "month": 3,
+            "hour": 18
+          },
+          {
+            "month": 7,
+            "hour": 13
+          },
+          {
+            "month": 7,
+            "hour": 14
+          },
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 7,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 17
+          },
+          {
+            "month": 7,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 10
+          },
+          {
+            "month": 8,
+            "hour": 11
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 10
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 61,
+        "2": 152,
+        "5": 427,
+        "10": 858
+      },
+      "flood_zone": "X",
+      "flood_sfha": false,
+      "flood_bfe_ft": null
+    },
+    {
+      "bank_id": "0836103",
+      "bank": "BRITTON BANK 3",
+      "substation_id": "08361",
+      "substation": "BRITTON",
+      "lat": 37.374916,
+      "lon": -122.016517,
+      "distance_km": 6.81,
+      "rating_mw": 44.53,
+      "forecast_2028_mw": 39.04,
+      "has_forecast": true,
+      "cap_mw_by_curtailment_pct": {
+        "0": 5.49,
+        "1": 5.95,
+        "2": 6.19,
+        "5": 8.48,
+        "10": 10.12
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ],
+        "2": [
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ],
+        "5": [
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          }
+        ],
+        "10": [
+          {
+            "month": 3,
+            "hour": 17
+          },
+          {
+            "month": 3,
+            "hour": 18
+          },
+          {
+            "month": 7,
+            "hour": 13
+          },
+          {
+            "month": 7,
+            "hour": 14
+          },
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 7,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 17
+          },
+          {
+            "month": 7,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 10
+          },
+          {
+            "month": 8,
+            "hour": 11
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 10
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 61,
+        "2": 152,
+        "5": 427,
+        "10": 858
+      },
+      "flood_zone": "X",
+      "flood_sfha": false,
+      "flood_bfe_ft": null
+    },
+    {
+      "bank_id": "0828301",
+      "bank": "MILPITAS BANK 1",
+      "substation_id": "08283",
+      "substation": "MILPITAS",
+      "lat": 37.415579,
+      "lon": -121.88807,
+      "distance_km": 7.77,
+      "rating_mw": 44.54,
+      "forecast_2028_mw": 46.17,
+      "has_forecast": true,
+      "cap_mw_by_curtailment_pct": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0,
+        "5": 3.49,
+        "10": 6.25
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ],
+        "2": [
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          }
+        ],
+        "5": [
+          {
+            "month": 7,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 8,
+            "hour": 20
+          },
+          {
+            "month": 8,
+            "hour": 21
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 20
+          },
+          {
+            "month": 9,
+            "hour": 21
+          }
+        ],
+        "10": [
+          {
+            "month": 6,
+            "hour": 17
+          },
+          {
+            "month": 6,
+            "hour": 18
+          },
+          {
+            "month": 6,
+            "hour": 19
+          },
+          {
+            "month": 7,
+            "hour": 17
+          },
+          {
+            "month": 7,
+            "hour": 18
+          },
+          {
+            "month": 7,
+            "hour": 19
+          },
+          {
+            "month": 7,
+            "hour": 20
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 8,
+            "hour": 20
+          },
+          {
+            "month": 8,
+            "hour": 21
+          },
+          {
+            "month": 8,
+            "hour": 22
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 20
+          },
+          {
+            "month": 9,
+            "hour": 21
+          },
+          {
+            "month": 9,
+            "hour": 22
+          },
+          {
+            "month": 12,
+            "hour": 18
+          },
+          {
+            "month": 12,
+            "hour": 19
+          },
+          {
+            "month": 12,
+            "hour": 20
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 61,
+        "2": 152,
+        "5": 427,
+        "10": 856
+      },
+      "flood_zone": "X",
+      "flood_sfha": false,
+      "flood_bfe_ft": null
+    },
+    {
+      "bank_id": "0828302",
+      "bank": "MILPITAS BANK 2",
+      "substation_id": "08283",
+      "substation": "MILPITAS",
+      "lat": 37.415579,
+      "lon": -121.88807,
+      "distance_km": 7.77,
+      "rating_mw": 29.68,
+      "forecast_2028_mw": 34.18,
+      "has_forecast": true,
+      "cap_mw_by_curtailment_pct": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0,
+        "5": 0.0,
+        "10": 1.33
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ],
+        "2": [
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          }
+        ],
+        "5": [
+          {
+            "month": 7,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 8,
+            "hour": 20
+          },
+          {
+            "month": 8,
+            "hour": 21
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 20
+          },
+          {
+            "month": 9,
+            "hour": 21
+          }
+        ],
+        "10": [
+          {
+            "month": 6,
+            "hour": 17
+          },
+          {
+            "month": 6,
+            "hour": 18
+          },
+          {
+            "month": 6,
+            "hour": 19
+          },
+          {
+            "month": 7,
+            "hour": 17
+          },
+          {
+            "month": 7,
+            "hour": 18
+          },
+          {
+            "month": 7,
+            "hour": 19
+          },
+          {
+            "month": 7,
+            "hour": 20
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 8,
+            "hour": 20
+          },
+          {
+            "month": 8,
+            "hour": 21
+          },
+          {
+            "month": 8,
+            "hour": 22
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 20
+          },
+          {
+            "month": 9,
+            "hour": 21
+          },
+          {
+            "month": 9,
+            "hour": 22
+          },
+          {
+            "month": 12,
+            "hour": 18
+          },
+          {
+            "month": 12,
+            "hour": 19
+          },
+          {
+            "month": 12,
+            "hour": 20
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 61,
+        "2": 152,
+        "5": 427,
+        "10": 856
+      },
+      "flood_zone": "X",
+      "flood_sfha": false,
+      "flood_bfe_ft": null
+    },
+    {
+      "bank_id": "0828303",
+      "bank": "MILPITAS BANK 3",
+      "substation_id": "08283",
+      "substation": "MILPITAS",
+      "lat": 37.415579,
+      "lon": -121.88807,
+      "distance_km": 7.77,
+      "rating_mw": 44.52,
+      "forecast_2028_mw": 56.33,
+      "has_forecast": true,
+      "cap_mw_by_curtailment_pct": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0,
+        "5": 0.0,
+        "10": 0.0
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ],
+        "2": [
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          }
+        ],
+        "5": [
+          {
+            "month": 7,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 8,
+            "hour": 20
+          },
+          {
+            "month": 8,
+            "hour": 21
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 20
+          },
+          {
+            "month": 9,
+            "hour": 21
+          }
+        ],
+        "10": [
+          {
+            "month": 6,
+            "hour": 17
+          },
+          {
+            "month": 6,
+            "hour": 18
+          },
+          {
+            "month": 6,
+            "hour": 19
+          },
+          {
+            "month": 7,
+            "hour": 17
+          },
+          {
+            "month": 7,
+            "hour": 18
+          },
+          {
+            "month": 7,
+            "hour": 19
+          },
+          {
+            "month": 7,
+            "hour": 20
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 8,
+            "hour": 20
+          },
+          {
+            "month": 8,
+            "hour": 21
+          },
+          {
+            "month": 8,
+            "hour": 22
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 20
+          },
+          {
+            "month": 9,
+            "hour": 21
+          },
+          {
+            "month": 9,
+            "hour": 22
+          },
+          {
+            "month": 12,
+            "hour": 18
+          },
+          {
+            "month": 12,
+            "hour": 19
+          },
+          {
+            "month": 12,
+            "hour": 20
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 61,
+        "2": 152,
+        "5": 427,
+        "10": 856
+      },
+      "flood_zone": "X",
+      "flood_sfha": false,
+      "flood_bfe_ft": null
+    },
+    {
+      "bank_id": "0828306",
+      "bank": "MILPITAS BANK 6",
+      "substation_id": "08283",
+      "substation": "MILPITAS",
+      "lat": 37.415579,
+      "lon": -121.88807,
+      "distance_km": 7.77,
+      "rating_mw": 44.52,
+      "forecast_2028_mw": null,
+      "has_forecast": false,
+      "cap_mw_by_curtailment_pct": {
+        "0": null,
+        "1": null,
+        "2": null,
+        "5": null,
+        "10": null
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ],
+        "2": [
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          }
+        ],
+        "5": [
+          {
+            "month": 7,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 8,
+            "hour": 20
+          },
+          {
+            "month": 8,
+            "hour": 21
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 20
+          },
+          {
+            "month": 9,
+            "hour": 21
+          }
+        ],
+        "10": [
+          {
+            "month": 6,
+            "hour": 17
+          },
+          {
+            "month": 6,
+            "hour": 18
+          },
+          {
+            "month": 6,
+            "hour": 19
+          },
+          {
+            "month": 7,
+            "hour": 17
+          },
+          {
+            "month": 7,
+            "hour": 18
+          },
+          {
+            "month": 7,
+            "hour": 19
+          },
+          {
+            "month": 7,
+            "hour": 20
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 8,
+            "hour": 19
+          },
+          {
+            "month": 8,
+            "hour": 20
+          },
+          {
+            "month": 8,
+            "hour": 21
+          },
+          {
+            "month": 8,
+            "hour": 22
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 19
+          },
+          {
+            "month": 9,
+            "hour": 20
+          },
+          {
+            "month": 9,
+            "hour": 21
+          },
+          {
+            "month": 9,
+            "hour": 22
+          },
+          {
+            "month": 12,
+            "hour": 18
+          },
+          {
+            "month": 12,
+            "hour": 19
+          },
+          {
+            "month": 12,
+            "hour": 20
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 61,
+        "2": 152,
+        "5": 427,
+        "10": 856
+      },
+      "flood_zone": "X",
+      "flood_sfha": false,
+      "flood_bfe_ft": null
+    },
+    {
+      "bank_id": "0824602",
+      "bank": "NORTECH BANK 2",
+      "substation_id": "08246",
+      "substation": "NORTECH",
+      "lat": 37.420952,
+      "lon": -121.960459,
+      "distance_km": 1.42,
+      "rating_mw": 44.52,
+      "forecast_2028_mw": 45.77,
+      "has_forecast": true,
+      "cap_mw_by_curtailment_pct": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.25,
+        "5": 1.38,
+        "10": 3.76
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          }
+        ],
+        "2": [
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          }
+        ],
+        "5": [
+          {
+            "month": 8,
+            "hour": 11
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ],
+        "10": [
+          {
+            "month": 7,
+            "hour": 11
+          },
+          {
+            "month": 7,
+            "hour": 12
+          },
+          {
+            "month": 7,
+            "hour": 13
+          },
+          {
+            "month": 7,
+            "hour": 14
+          },
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 7,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 8
+          },
+          {
+            "month": 8,
+            "hour": 9
+          },
+          {
+            "month": 8,
+            "hour": 10
+          },
+          {
+            "month": 8,
+            "hour": 11
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 9
+          },
+          {
+            "month": 9,
+            "hour": 10
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 62,
+        "2": 155,
+        "5": 427,
+        "10": 858
+      },
+      "flood_zone": "AE",
+      "flood_sfha": true,
+      "flood_bfe_ft": 12
+    },
+    {
+      "bank_id": "0824603",
+      "bank": "NORTECH BANK 3",
+      "substation_id": "08246",
+      "substation": "NORTECH",
+      "lat": 37.420952,
+      "lon": -121.960459,
+      "distance_km": 1.42,
+      "rating_mw": 44.52,
+      "forecast_2028_mw": null,
+      "has_forecast": false,
+      "cap_mw_by_curtailment_pct": {
+        "0": null,
+        "1": null,
+        "2": null,
+        "5": null,
+        "10": null
+      },
+      "curtail_cells_by_pct": {
+        "0": [],
+        "1": [
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          }
+        ],
+        "2": [
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          }
+        ],
+        "5": [
+          {
+            "month": 8,
+            "hour": 11
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          }
+        ],
+        "10": [
+          {
+            "month": 7,
+            "hour": 11
+          },
+          {
+            "month": 7,
+            "hour": 12
+          },
+          {
+            "month": 7,
+            "hour": 13
+          },
+          {
+            "month": 7,
+            "hour": 14
+          },
+          {
+            "month": 7,
+            "hour": 15
+          },
+          {
+            "month": 7,
+            "hour": 16
+          },
+          {
+            "month": 7,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 8
+          },
+          {
+            "month": 8,
+            "hour": 9
+          },
+          {
+            "month": 8,
+            "hour": 10
+          },
+          {
+            "month": 8,
+            "hour": 11
+          },
+          {
+            "month": 8,
+            "hour": 12
+          },
+          {
+            "month": 8,
+            "hour": 13
+          },
+          {
+            "month": 8,
+            "hour": 14
+          },
+          {
+            "month": 8,
+            "hour": 15
+          },
+          {
+            "month": 8,
+            "hour": 16
+          },
+          {
+            "month": 8,
+            "hour": 17
+          },
+          {
+            "month": 8,
+            "hour": 18
+          },
+          {
+            "month": 9,
+            "hour": 9
+          },
+          {
+            "month": 9,
+            "hour": 10
+          },
+          {
+            "month": 9,
+            "hour": 11
+          },
+          {
+            "month": 9,
+            "hour": 12
+          },
+          {
+            "month": 9,
+            "hour": 13
+          },
+          {
+            "month": 9,
+            "hour": 14
+          },
+          {
+            "month": 9,
+            "hour": 15
+          },
+          {
+            "month": 9,
+            "hour": 16
+          },
+          {
+            "month": 9,
+            "hour": 17
+          },
+          {
+            "month": 9,
+            "hour": 18
+          }
+        ]
+      },
+      "curtail_hours_by_pct": {
+        "0": 0,
+        "1": 62,
+        "2": 155,
+        "5": 427,
+        "10": 858
+      },
+      "flood_zone": "AE",
+      "flood_sfha": true,
+      "flood_bfe_ft": 12
+    }
+  ],
+  "feeders": [
+    {
+      "feeder_id": "082462111",
+      "feeder": "NORTECH 2111",
+      "substation_id": "08246",
+      "substation": "NORTECH",
+      "bank_id": "0824602",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.420952,
+      "lon": -121.960459,
+      "distance_km": 1.42,
+      "hosting_mw": 14.308,
+      "edge_site_max_mw": 10.0,
+      "eligible_edge_site": true,
+      "limiting_month": 11,
+      "limiting_hour": 14,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": true
+    },
+    {
+      "feeder_id": "083802114",
+      "feeder": "TRIMBLE 2114",
+      "substation_id": "08380",
+      "substation": "TRIMBLE",
+      "bank_id": "0838002",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.382832,
+      "lon": -121.92644,
+      "distance_km": 6.48,
+      "hosting_mw": 13.19,
+      "edge_site_max_mw": 10.0,
+      "eligible_edge_site": true,
+      "limiting_month": 7,
+      "limiting_hour": 14,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083802117",
+      "feeder": "TRIMBLE 2117",
+      "substation_id": "08380",
+      "substation": "TRIMBLE",
+      "bank_id": "0838002",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.382832,
+      "lon": -121.92644,
+      "distance_km": 6.48,
+      "hosting_mw": 10.95,
+      "edge_site_max_mw": 10.0,
+      "eligible_edge_site": true,
+      "limiting_month": 11,
+      "limiting_hour": 13,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083802118",
+      "feeder": "TRIMBLE 2118",
+      "substation_id": "08380",
+      "substation": "TRIMBLE",
+      "bank_id": "0838002",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.382832,
+      "lon": -121.92644,
+      "distance_km": 6.48,
+      "hosting_mw": 10.492,
+      "edge_site_max_mw": 10.0,
+      "eligible_edge_site": true,
+      "limiting_month": 4,
+      "limiting_hour": 16,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083892101",
+      "feeder": "MONTAGUE 2101",
+      "substation_id": "08389",
+      "substation": "MONTAGUE",
+      "bank_id": "0838902",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.403069,
+      "lon": -121.905624,
+      "distance_km": 6.66,
+      "hosting_mw": 12.405,
+      "edge_site_max_mw": 10.0,
+      "eligible_edge_site": true,
+      "limiting_month": 8,
+      "limiting_hour": 18,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083892102",
+      "feeder": "MONTAGUE 2102",
+      "substation_id": "08389",
+      "substation": "MONTAGUE",
+      "bank_id": "0838902",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.403069,
+      "lon": -121.905624,
+      "distance_km": 6.66,
+      "hosting_mw": 10.087,
+      "edge_site_max_mw": 10.0,
+      "eligible_edge_site": true,
+      "limiting_month": 8,
+      "limiting_hour": 14,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083892107",
+      "feeder": "MONTAGUE 2107",
+      "substation_id": "08389",
+      "substation": "MONTAGUE",
+      "bank_id": "0838902",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.403069,
+      "lon": -121.905624,
+      "distance_km": 6.66,
+      "hosting_mw": 11.73,
+      "edge_site_max_mw": 10.0,
+      "eligible_edge_site": true,
+      "limiting_month": 11,
+      "limiting_hour": 14,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "082832111",
+      "feeder": "MILPITAS 2111",
+      "substation_id": "08283",
+      "substation": "MILPITAS",
+      "bank_id": "0828302",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.415579,
+      "lon": -121.88807,
+      "distance_km": 7.77,
+      "hosting_mw": 14.28,
+      "edge_site_max_mw": 10.0,
+      "eligible_edge_site": true,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": null,
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "082832112",
+      "feeder": "MILPITAS 2112",
+      "substation_id": "08283",
+      "substation": "MILPITAS",
+      "bank_id": "0828302",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.415579,
+      "lon": -121.88807,
+      "distance_km": 7.77,
+      "hosting_mw": 11.888,
+      "edge_site_max_mw": 10.0,
+      "eligible_edge_site": true,
+      "limiting_month": 1,
+      "limiting_hour": 20,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "082832114",
+      "feeder": "MILPITAS 2114",
+      "substation_id": "08283",
+      "substation": "MILPITAS",
+      "bank_id": "0828302",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.415579,
+      "lon": -121.88807,
+      "distance_km": 7.77,
+      "hosting_mw": 11.038,
+      "edge_site_max_mw": 10.0,
+      "eligible_edge_site": true,
+      "limiting_month": 7,
+      "limiting_hour": 18,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "082831104",
+      "feeder": "MILPITAS 1104",
+      "substation_id": "08283",
+      "substation": "MILPITAS",
+      "bank_id": "0828301",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.415579,
+      "lon": -121.88807,
+      "distance_km": 7.77,
+      "hosting_mw": 9.86,
+      "edge_site_max_mw": 9.86,
+      "eligible_edge_site": true,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": null,
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "082462110",
+      "feeder": "NORTECH 2110",
+      "substation_id": "08246",
+      "substation": "NORTECH",
+      "bank_id": "0824602",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.420952,
+      "lon": -121.960459,
+      "distance_km": 1.42,
+      "hosting_mw": 9.78,
+      "edge_site_max_mw": 9.78,
+      "eligible_edge_site": true,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": null,
+      "flood_sfha": true
+    },
+    {
+      "feeder_id": "082462106",
+      "feeder": "NORTECH 2106",
+      "substation_id": "08246",
+      "substation": "NORTECH",
+      "bank_id": "0824602",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.420952,
+      "lon": -121.960459,
+      "distance_km": 1.42,
+      "hosting_mw": 9.663,
+      "edge_site_max_mw": 9.663,
+      "eligible_edge_site": true,
+      "limiting_month": 7,
+      "limiting_hour": 13,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": true
+    },
+    {
+      "feeder_id": "083892106",
+      "feeder": "MONTAGUE 2106",
+      "substation_id": "08389",
+      "substation": "MONTAGUE",
+      "bank_id": "0838902",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.403069,
+      "lon": -121.905624,
+      "distance_km": 6.66,
+      "hosting_mw": 9.26,
+      "edge_site_max_mw": 9.26,
+      "eligible_edge_site": true,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": null,
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083421108",
+      "feeder": "LAWRENCE 1108",
+      "substation_id": "08342",
+      "substation": "LAWRENCE",
+      "bank_id": "0834201",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.397195,
+      "lon": -122.010095,
+      "distance_km": 4.5,
+      "hosting_mw": 8.77,
+      "edge_site_max_mw": 8.77,
+      "eligible_edge_site": true,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": null,
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "082342102",
+      "feeder": "RIVER OAKS 2102",
+      "substation_id": "08234",
+      "substation": "RIVER OAKS",
+      "bank_id": "0823402",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.411282,
+      "lon": -121.927074,
+      "distance_km": 4.56,
+      "hosting_mw": 8.576,
+      "edge_site_max_mw": 8.576,
+      "eligible_edge_site": true,
+      "limiting_month": 11,
+      "limiting_hour": 17,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083421102",
+      "feeder": "LAWRENCE 1102",
+      "substation_id": "08342",
+      "substation": "LAWRENCE",
+      "bank_id": "0834201",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.397195,
+      "lon": -122.010095,
+      "distance_km": 4.5,
+      "hosting_mw": 8.535,
+      "edge_site_max_mw": 8.535,
+      "eligible_edge_site": true,
+      "limiting_month": 9,
+      "limiting_hour": 16,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "082832115",
+      "feeder": "MILPITAS 2115",
+      "substation_id": "08283",
+      "substation": "MILPITAS",
+      "bank_id": "0828302",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.415579,
+      "lon": -121.88807,
+      "distance_km": 7.77,
+      "hosting_mw": 8.509,
+      "edge_site_max_mw": 8.509,
+      "eligible_edge_site": true,
+      "limiting_month": 9,
+      "limiting_hour": 18,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "014722105",
+      "feeder": "DIXON LANDING 2105",
+      "substation_id": "01472",
+      "substation": "DIXON LANDING",
+      "bank_id": "0147202",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.457059,
+      "lon": -121.920973,
+      "distance_km": 5.86,
+      "hosting_mw": 8.237,
+      "edge_site_max_mw": 8.237,
+      "eligible_edge_site": true,
+      "limiting_month": 2,
+      "limiting_hour": 10,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": true
+    },
+    {
+      "feeder_id": "083892108",
+      "feeder": "MONTAGUE 2108",
+      "substation_id": "08389",
+      "substation": "MONTAGUE",
+      "bank_id": "0838902",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.403069,
+      "lon": -121.905624,
+      "distance_km": 6.66,
+      "hosting_mw": 8.1,
+      "edge_site_max_mw": 8.1,
+      "eligible_edge_site": true,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": null,
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "014722109",
+      "feeder": "DIXON LANDING 2109",
+      "substation_id": "01472",
+      "substation": "DIXON LANDING",
+      "bank_id": "0147202",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.457059,
+      "lon": -121.920973,
+      "distance_km": 5.86,
+      "hosting_mw": 7.771,
+      "edge_site_max_mw": 7.771,
+      "eligible_edge_site": true,
+      "limiting_month": 6,
+      "limiting_hour": 18,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": true
+    },
+    {
+      "feeder_id": "083802119",
+      "feeder": "TRIMBLE 2119",
+      "substation_id": "08380",
+      "substation": "TRIMBLE",
+      "bank_id": "0838002",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.382832,
+      "lon": -121.92644,
+      "distance_km": 6.48,
+      "hosting_mw": 7.168,
+      "edge_site_max_mw": 7.168,
+      "eligible_edge_site": true,
+      "limiting_month": 6,
+      "limiting_hour": 16,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083611109",
+      "feeder": "BRITTON 1109",
+      "substation_id": "08361",
+      "substation": "BRITTON",
+      "bank_id": "0836101",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.374916,
+      "lon": -122.016517,
+      "distance_km": 6.81,
+      "hosting_mw": 7.089,
+      "edge_site_max_mw": 7.089,
+      "eligible_edge_site": true,
+      "limiting_month": 11,
+      "limiting_hour": 12,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083892105",
+      "feeder": "MONTAGUE 2105",
+      "substation_id": "08389",
+      "substation": "MONTAGUE",
+      "bank_id": "0838902",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.403069,
+      "lon": -121.905624,
+      "distance_km": 6.66,
+      "hosting_mw": 7.084,
+      "edge_site_max_mw": 7.084,
+      "eligible_edge_site": true,
+      "limiting_month": 2,
+      "limiting_hour": 15,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "082832110",
+      "feeder": "MILPITAS 2110",
+      "substation_id": "08283",
+      "substation": "MILPITAS",
+      "bank_id": "0828302",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.415579,
+      "lon": -121.88807,
+      "distance_km": 7.77,
+      "hosting_mw": 6.935,
+      "edge_site_max_mw": 6.935,
+      "eligible_edge_site": true,
+      "limiting_month": 8,
+      "limiting_hour": 18,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083801105",
+      "feeder": "TRIMBLE 1105",
+      "substation_id": "08380",
+      "substation": "TRIMBLE",
+      "bank_id": "0838001",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.382832,
+      "lon": -121.92644,
+      "distance_km": 6.48,
+      "hosting_mw": 6.903,
+      "edge_site_max_mw": 6.903,
+      "eligible_edge_site": true,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": null,
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083421112",
+      "feeder": "LAWRENCE 1112",
+      "substation_id": "08342",
+      "substation": "LAWRENCE",
+      "bank_id": "0834201",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.397195,
+      "lon": -122.010095,
+      "distance_km": 4.5,
+      "hosting_mw": 6.882,
+      "edge_site_max_mw": 6.882,
+      "eligible_edge_site": true,
+      "limiting_month": 11,
+      "limiting_hour": 12,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083421113",
+      "feeder": "LAWRENCE 1113",
+      "substation_id": "08342",
+      "substation": "LAWRENCE",
+      "bank_id": "0834201",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.397195,
+      "lon": -122.010095,
+      "distance_km": 4.5,
+      "hosting_mw": 6.685,
+      "edge_site_max_mw": 6.685,
+      "eligible_edge_site": true,
+      "limiting_month": 11,
+      "limiting_hour": 10,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "082462107",
+      "feeder": "NORTECH 2107",
+      "substation_id": "08246",
+      "substation": "NORTECH",
+      "bank_id": "0824602",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.420952,
+      "lon": -121.960459,
+      "distance_km": 1.42,
+      "hosting_mw": 6.63,
+      "edge_site_max_mw": 6.63,
+      "eligible_edge_site": true,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": null,
+      "flood_sfha": true
+    },
+    {
+      "feeder_id": "014722103",
+      "feeder": "DIXON LANDING 2103",
+      "substation_id": "01472",
+      "substation": "DIXON LANDING",
+      "bank_id": "0147202",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.457059,
+      "lon": -121.920973,
+      "distance_km": 5.86,
+      "hosting_mw": 6.5,
+      "edge_site_max_mw": 6.5,
+      "eligible_edge_site": true,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": null,
+      "flood_sfha": true
+    },
+    {
+      "feeder_id": "014722101",
+      "feeder": "DIXON LANDING 2101",
+      "substation_id": "01472",
+      "substation": "DIXON LANDING",
+      "bank_id": "0147202",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.457059,
+      "lon": -121.920973,
+      "distance_km": 5.86,
+      "hosting_mw": 6.4,
+      "edge_site_max_mw": 6.4,
+      "eligible_edge_site": true,
+      "limiting_month": 7,
+      "limiting_hour": 19,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": true
+    },
+    {
+      "feeder_id": "083801109",
+      "feeder": "TRIMBLE 1109",
+      "substation_id": "08380",
+      "substation": "TRIMBLE",
+      "bank_id": "0838001",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.382832,
+      "lon": -121.92644,
+      "distance_km": 6.48,
+      "hosting_mw": 6.27,
+      "edge_site_max_mw": 6.27,
+      "eligible_edge_site": true,
+      "limiting_month": 8,
+      "limiting_hour": 14,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "014722102",
+      "feeder": "DIXON LANDING 2102",
+      "substation_id": "01472",
+      "substation": "DIXON LANDING",
+      "bank_id": "0147202",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.457059,
+      "lon": -121.920973,
+      "distance_km": 5.86,
+      "hosting_mw": 6.236,
+      "edge_site_max_mw": 6.236,
+      "eligible_edge_site": true,
+      "limiting_month": 6,
+      "limiting_hour": 18,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": true
+    },
+    {
+      "feeder_id": "083892103",
+      "feeder": "MONTAGUE 2103",
+      "substation_id": "08389",
+      "substation": "MONTAGUE",
+      "bank_id": "0838902",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.403069,
+      "lon": -121.905624,
+      "distance_km": 6.66,
+      "hosting_mw": 5.872,
+      "edge_site_max_mw": 5.872,
+      "eligible_edge_site": true,
+      "limiting_month": 11,
+      "limiting_hour": 13,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083892109",
+      "feeder": "MONTAGUE 2109",
+      "substation_id": "08389",
+      "substation": "MONTAGUE",
+      "bank_id": "0838902",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.403069,
+      "lon": -121.905624,
+      "distance_km": 6.66,
+      "hosting_mw": 5.783,
+      "edge_site_max_mw": 5.783,
+      "eligible_edge_site": true,
+      "limiting_month": 8,
+      "limiting_hour": 14,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083611115",
+      "feeder": "BRITTON 1115",
+      "substation_id": "08361",
+      "substation": "BRITTON",
+      "bank_id": "0836101",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.374916,
+      "lon": -122.016517,
+      "distance_km": 6.81,
+      "hosting_mw": 5.358,
+      "edge_site_max_mw": 5.358,
+      "eligible_edge_site": true,
+      "limiting_month": 8,
+      "limiting_hour": 14,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083611108",
+      "feeder": "BRITTON 1108",
+      "substation_id": "08361",
+      "substation": "BRITTON",
+      "bank_id": "0836101",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.374916,
+      "lon": -122.016517,
+      "distance_km": 6.81,
+      "hosting_mw": 5.243,
+      "edge_site_max_mw": 5.243,
+      "eligible_edge_site": true,
+      "limiting_month": 8,
+      "limiting_hour": 14,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083611112",
+      "feeder": "BRITTON 1112",
+      "substation_id": "08361",
+      "substation": "BRITTON",
+      "bank_id": "0836101",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.374916,
+      "lon": -122.016517,
+      "distance_km": 6.81,
+      "hosting_mw": 5.175,
+      "edge_site_max_mw": 5.175,
+      "eligible_edge_site": true,
+      "limiting_month": 8,
+      "limiting_hour": 14,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083802115",
+      "feeder": "TRIMBLE 2115",
+      "substation_id": "08380",
+      "substation": "TRIMBLE",
+      "bank_id": "0838002",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.382832,
+      "lon": -121.92644,
+      "distance_km": 6.48,
+      "hosting_mw": 5.119,
+      "edge_site_max_mw": 5.119,
+      "eligible_edge_site": true,
+      "limiting_month": 7,
+      "limiting_hour": 17,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083611107",
+      "feeder": "BRITTON 1107",
+      "substation_id": "08361",
+      "substation": "BRITTON",
+      "bank_id": "0836101",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.374916,
+      "lon": -122.016517,
+      "distance_km": 6.81,
+      "hosting_mw": 5.094,
+      "edge_site_max_mw": 5.094,
+      "eligible_edge_site": true,
+      "limiting_month": 8,
+      "limiting_hour": 15,
+      "limiting_criteria": "Voltage",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083801111",
+      "feeder": "TRIMBLE 1111",
+      "substation_id": "08380",
+      "substation": "TRIMBLE",
+      "bank_id": "0838001",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.382832,
+      "lon": -121.92644,
+      "distance_km": 6.48,
+      "hosting_mw": 5.068,
+      "edge_site_max_mw": 5.068,
+      "eligible_edge_site": true,
+      "limiting_month": 8,
+      "limiting_hour": 14,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "082462109",
+      "feeder": "NORTECH 2109",
+      "substation_id": "08246",
+      "substation": "NORTECH",
+      "bank_id": "0824602",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.420952,
+      "lon": -121.960459,
+      "distance_km": 1.42,
+      "hosting_mw": 4.986,
+      "edge_site_max_mw": 4.986,
+      "eligible_edge_site": true,
+      "limiting_month": 9,
+      "limiting_hour": 21,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": true
+    },
+    {
+      "feeder_id": "083421110",
+      "feeder": "LAWRENCE 1110",
+      "substation_id": "08342",
+      "substation": "LAWRENCE",
+      "bank_id": "0834201",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.397195,
+      "lon": -122.010095,
+      "distance_km": 4.5,
+      "hosting_mw": 4.986,
+      "edge_site_max_mw": 4.986,
+      "eligible_edge_site": true,
+      "limiting_month": 6,
+      "limiting_hour": 15,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083802116",
+      "feeder": "TRIMBLE 2116",
+      "substation_id": "08380",
+      "substation": "TRIMBLE",
+      "bank_id": "0838002",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.382832,
+      "lon": -121.92644,
+      "distance_km": 6.48,
+      "hosting_mw": 4.984,
+      "edge_site_max_mw": 4.984,
+      "eligible_edge_site": true,
+      "limiting_month": 6,
+      "limiting_hour": 14,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "082831103",
+      "feeder": "MILPITAS 1103",
+      "substation_id": "08283",
+      "substation": "MILPITAS",
+      "bank_id": "0828301",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.415579,
+      "lon": -121.88807,
+      "distance_km": 7.77,
+      "hosting_mw": 4.847,
+      "edge_site_max_mw": 4.847,
+      "eligible_edge_site": true,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": null,
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083421103",
+      "feeder": "LAWRENCE 1103",
+      "substation_id": "08342",
+      "substation": "LAWRENCE",
+      "bank_id": "0834201",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.397195,
+      "lon": -122.010095,
+      "distance_km": 4.5,
+      "hosting_mw": 4.774,
+      "edge_site_max_mw": 4.774,
+      "eligible_edge_site": true,
+      "limiting_month": 10,
+      "limiting_hour": 14,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "014722106",
+      "feeder": "DIXON LANDING 2106",
+      "substation_id": "01472",
+      "substation": "DIXON LANDING",
+      "bank_id": "0147202",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.457059,
+      "lon": -121.920973,
+      "distance_km": 5.86,
+      "hosting_mw": 4.758,
+      "edge_site_max_mw": 4.758,
+      "eligible_edge_site": true,
+      "limiting_month": 12,
+      "limiting_hour": 11,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": true
+    },
+    {
+      "feeder_id": "083611104",
+      "feeder": "BRITTON 1104",
+      "substation_id": "08361",
+      "substation": "BRITTON",
+      "bank_id": "0836101",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.374916,
+      "lon": -122.016517,
+      "distance_km": 6.81,
+      "hosting_mw": 4.735,
+      "edge_site_max_mw": 4.735,
+      "eligible_edge_site": true,
+      "limiting_month": 1,
+      "limiting_hour": 21,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083611105",
+      "feeder": "BRITTON 1105",
+      "substation_id": "08361",
+      "substation": "BRITTON",
+      "bank_id": "0836101",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.374916,
+      "lon": -122.016517,
+      "distance_km": 6.81,
+      "hosting_mw": 4.415,
+      "edge_site_max_mw": 4.415,
+      "eligible_edge_site": true,
+      "limiting_month": 6,
+      "limiting_hour": 17,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083892104",
+      "feeder": "MONTAGUE 2104",
+      "substation_id": "08389",
+      "substation": "MONTAGUE",
+      "bank_id": "0838902",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.403069,
+      "lon": -121.905624,
+      "distance_km": 6.66,
+      "hosting_mw": 4.32,
+      "edge_site_max_mw": 4.32,
+      "eligible_edge_site": true,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": null,
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "014722111",
+      "feeder": "DIXON LANDING 2111",
+      "substation_id": "01472",
+      "substation": "DIXON LANDING",
+      "bank_id": "0147202",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.457059,
+      "lon": -121.920973,
+      "distance_km": 5.86,
+      "hosting_mw": 4.275,
+      "edge_site_max_mw": 4.275,
+      "eligible_edge_site": true,
+      "limiting_month": 1,
+      "limiting_hour": 16,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": true
+    },
+    {
+      "feeder_id": "083801103",
+      "feeder": "TRIMBLE 1103",
+      "substation_id": "08380",
+      "substation": "TRIMBLE",
+      "bank_id": "0838001",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.382832,
+      "lon": -121.92644,
+      "distance_km": 6.48,
+      "hosting_mw": 4.24,
+      "edge_site_max_mw": 4.24,
+      "eligible_edge_site": true,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": null,
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083421107",
+      "feeder": "LAWRENCE 1107",
+      "substation_id": "08342",
+      "substation": "LAWRENCE",
+      "bank_id": "0834201",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.397195,
+      "lon": -122.010095,
+      "distance_km": 4.5,
+      "hosting_mw": 4.095,
+      "edge_site_max_mw": 4.095,
+      "eligible_edge_site": true,
+      "limiting_month": 2,
+      "limiting_hour": 14,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "082831101",
+      "feeder": "MILPITAS 1101",
+      "substation_id": "08283",
+      "substation": "MILPITAS",
+      "bank_id": "0828301",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.415579,
+      "lon": -121.88807,
+      "distance_km": 7.77,
+      "hosting_mw": 3.79,
+      "edge_site_max_mw": 3.79,
+      "eligible_edge_site": true,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": null,
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "082832113",
+      "feeder": "MILPITAS 2113",
+      "substation_id": "08283",
+      "substation": "MILPITAS",
+      "bank_id": "0828302",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.415579,
+      "lon": -121.88807,
+      "distance_km": 7.77,
+      "hosting_mw": 3.582,
+      "edge_site_max_mw": 3.582,
+      "eligible_edge_site": true,
+      "limiting_month": 7,
+      "limiting_hour": 18,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083421111",
+      "feeder": "LAWRENCE 1111",
+      "substation_id": "08342",
+      "substation": "LAWRENCE",
+      "bank_id": "0834201",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.397195,
+      "lon": -122.010095,
+      "distance_km": 4.5,
+      "hosting_mw": 3.541,
+      "edge_site_max_mw": 3.541,
+      "eligible_edge_site": true,
+      "limiting_month": 8,
+      "limiting_hour": 18,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083421109",
+      "feeder": "LAWRENCE 1109",
+      "substation_id": "08342",
+      "substation": "LAWRENCE",
+      "bank_id": "0834201",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.397195,
+      "lon": -122.010095,
+      "distance_km": 4.5,
+      "hosting_mw": 3.521,
+      "edge_site_max_mw": 3.521,
+      "eligible_edge_site": true,
+      "limiting_month": 8,
+      "limiting_hour": 18,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "082831106",
+      "feeder": "MILPITAS 1106",
+      "substation_id": "08283",
+      "substation": "MILPITAS",
+      "bank_id": "0828301",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.415579,
+      "lon": -121.88807,
+      "distance_km": 7.77,
+      "hosting_mw": 3.398,
+      "edge_site_max_mw": 3.398,
+      "eligible_edge_site": true,
+      "limiting_month": 7,
+      "limiting_hour": 17,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "082831109",
+      "feeder": "MILPITAS 1109",
+      "substation_id": "08283",
+      "substation": "MILPITAS",
+      "bank_id": "0828301",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.415579,
+      "lon": -121.88807,
+      "distance_km": 7.77,
+      "hosting_mw": 3.342,
+      "edge_site_max_mw": 3.342,
+      "eligible_edge_site": true,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": null,
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083801106",
+      "feeder": "TRIMBLE 1106",
+      "substation_id": "08380",
+      "substation": "TRIMBLE",
+      "bank_id": "0838001",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.382832,
+      "lon": -121.92644,
+      "distance_km": 6.48,
+      "hosting_mw": 3.322,
+      "edge_site_max_mw": 3.322,
+      "eligible_edge_site": true,
+      "limiting_month": 8,
+      "limiting_hour": 12,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083611113",
+      "feeder": "BRITTON 1113",
+      "substation_id": "08361",
+      "substation": "BRITTON",
+      "bank_id": "0836101",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.374916,
+      "lon": -122.016517,
+      "distance_km": 6.81,
+      "hosting_mw": 3.182,
+      "edge_site_max_mw": 3.182,
+      "eligible_edge_site": true,
+      "limiting_month": 10,
+      "limiting_hour": 15,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083611110",
+      "feeder": "BRITTON 1110",
+      "substation_id": "08361",
+      "substation": "BRITTON",
+      "bank_id": "0836101",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.374916,
+      "lon": -122.016517,
+      "distance_km": 6.81,
+      "hosting_mw": 3.175,
+      "edge_site_max_mw": 3.175,
+      "eligible_edge_site": true,
+      "limiting_month": 1,
+      "limiting_hour": 19,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083801107",
+      "feeder": "TRIMBLE 1107",
+      "substation_id": "08380",
+      "substation": "TRIMBLE",
+      "bank_id": "0838001",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.382832,
+      "lon": -121.92644,
+      "distance_km": 6.48,
+      "hosting_mw": 2.987,
+      "edge_site_max_mw": 2.987,
+      "eligible_edge_site": true,
+      "limiting_month": 10,
+      "limiting_hour": 13,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083611111",
+      "feeder": "BRITTON 1111",
+      "substation_id": "08361",
+      "substation": "BRITTON",
+      "bank_id": "0836101",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.374916,
+      "lon": -122.016517,
+      "distance_km": 6.81,
+      "hosting_mw": 2.867,
+      "edge_site_max_mw": 2.867,
+      "eligible_edge_site": true,
+      "limiting_month": 8,
+      "limiting_hour": 13,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "082831105",
+      "feeder": "MILPITAS 1105",
+      "substation_id": "08283",
+      "substation": "MILPITAS",
+      "bank_id": "0828301",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.415579,
+      "lon": -121.88807,
+      "distance_km": 7.77,
+      "hosting_mw": 2.833,
+      "edge_site_max_mw": 2.833,
+      "eligible_edge_site": true,
+      "limiting_month": 8,
+      "limiting_hour": 19,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083801101",
+      "feeder": "TRIMBLE 1101",
+      "substation_id": "08380",
+      "substation": "TRIMBLE",
+      "bank_id": "0838001",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.382832,
+      "lon": -121.92644,
+      "distance_km": 6.48,
+      "hosting_mw": 2.778,
+      "edge_site_max_mw": 2.778,
+      "eligible_edge_site": true,
+      "limiting_month": 11,
+      "limiting_hour": 13,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083421104",
+      "feeder": "LAWRENCE 1104",
+      "substation_id": "08342",
+      "substation": "LAWRENCE",
+      "bank_id": "0834201",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.397195,
+      "lon": -122.010095,
+      "distance_km": 4.5,
+      "hosting_mw": 2.725,
+      "edge_site_max_mw": 2.725,
+      "eligible_edge_site": true,
+      "limiting_month": 7,
+      "limiting_hour": 18,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083801104",
+      "feeder": "TRIMBLE 1104",
+      "substation_id": "08380",
+      "substation": "TRIMBLE",
+      "bank_id": "0838001",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.382832,
+      "lon": -121.92644,
+      "distance_km": 6.48,
+      "hosting_mw": 2.491,
+      "edge_site_max_mw": 2.491,
+      "eligible_edge_site": true,
+      "limiting_month": 5,
+      "limiting_hour": 11,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083611114",
+      "feeder": "BRITTON 1114",
+      "substation_id": "08361",
+      "substation": "BRITTON",
+      "bank_id": "0836101",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.374916,
+      "lon": -122.016517,
+      "distance_km": 6.81,
+      "hosting_mw": 2.172,
+      "edge_site_max_mw": 2.172,
+      "eligible_edge_site": true,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "014722107",
+      "feeder": "DIXON LANDING 2107",
+      "substation_id": "01472",
+      "substation": "DIXON LANDING",
+      "bank_id": "0147202",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.457059,
+      "lon": -121.920973,
+      "distance_km": 5.86,
+      "hosting_mw": 1.911,
+      "edge_site_max_mw": 1.911,
+      "eligible_edge_site": true,
+      "limiting_month": 1,
+      "limiting_hour": 14,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": true
+    },
+    {
+      "feeder_id": "082342108",
+      "feeder": "RIVER OAKS 2108",
+      "substation_id": "08234",
+      "substation": "RIVER OAKS",
+      "bank_id": "0823402",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.411282,
+      "lon": -121.927074,
+      "distance_km": 4.56,
+      "hosting_mw": 1.39,
+      "edge_site_max_mw": 1.39,
+      "eligible_edge_site": true,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": null,
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083611106",
+      "feeder": "BRITTON 1106",
+      "substation_id": "08361",
+      "substation": "BRITTON",
+      "bank_id": "0836101",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.374916,
+      "lon": -122.016517,
+      "distance_km": 6.81,
+      "hosting_mw": 0.982,
+      "edge_site_max_mw": 0.982,
+      "eligible_edge_site": true,
+      "limiting_month": 1,
+      "limiting_hour": 19,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083421105",
+      "feeder": "LAWRENCE 1105",
+      "substation_id": "08342",
+      "substation": "LAWRENCE",
+      "bank_id": "0834201",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.397195,
+      "lon": -122.010095,
+      "distance_km": 4.5,
+      "hosting_mw": 0.65,
+      "edge_site_max_mw": 0.65,
+      "eligible_edge_site": true,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": null,
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "082831108",
+      "feeder": "MILPITAS 1108",
+      "substation_id": "08283",
+      "substation": "MILPITAS",
+      "bank_id": "0828301",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.415579,
+      "lon": -121.88807,
+      "distance_km": 7.77,
+      "hosting_mw": 0.188,
+      "edge_site_max_mw": 0.188,
+      "eligible_edge_site": false,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": "Voltage",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083801110",
+      "feeder": "TRIMBLE 1110",
+      "substation_id": "08380",
+      "substation": "TRIMBLE",
+      "bank_id": "0838001",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.382832,
+      "lon": -121.92644,
+      "distance_km": 6.48,
+      "hosting_mw": 0.05,
+      "edge_site_max_mw": 0.05,
+      "eligible_edge_site": false,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": null,
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083421106",
+      "feeder": "LAWRENCE 1106",
+      "substation_id": "08342",
+      "substation": "LAWRENCE",
+      "bank_id": "0834201",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.397195,
+      "lon": -122.010095,
+      "distance_km": 4.5,
+      "hosting_mw": 0.0,
+      "edge_site_max_mw": 0.0,
+      "eligible_edge_site": false,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "082342101",
+      "feeder": "RIVER OAKS 2101",
+      "substation_id": "08234",
+      "substation": "RIVER OAKS",
+      "bank_id": "0823402",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.411282,
+      "lon": -121.927074,
+      "distance_km": 4.56,
+      "hosting_mw": 0.0,
+      "edge_site_max_mw": 0.0,
+      "eligible_edge_site": false,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": null,
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "082342106",
+      "feeder": "RIVER OAKS 2106",
+      "substation_id": "08234",
+      "substation": "RIVER OAKS",
+      "bank_id": "0823402",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.411282,
+      "lon": -121.927074,
+      "distance_km": 4.56,
+      "hosting_mw": 0.0,
+      "edge_site_max_mw": 0.0,
+      "eligible_edge_site": false,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "082342107",
+      "feeder": "RIVER OAKS 2107",
+      "substation_id": "08234",
+      "substation": "RIVER OAKS",
+      "bank_id": "0823402",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.411282,
+      "lon": -121.927074,
+      "distance_km": 4.56,
+      "hosting_mw": 0.0,
+      "edge_site_max_mw": 0.0,
+      "eligible_edge_site": false,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": "Thermal",
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083791101",
+      "feeder": null,
+      "substation_id": "08379",
+      "substation": "SIGNETICS",
+      "bank_id": null,
+      "bank_id_status": "unknown",
+      "lat": 37.384845,
+      "lon": -122.013185,
+      "distance_km": 5.73,
+      "hosting_mw": null,
+      "edge_site_max_mw": null,
+      "eligible_edge_site": false,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": null,
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083892110",
+      "feeder": null,
+      "substation_id": "08389",
+      "substation": "MONTAGUE",
+      "bank_id": "0838902",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.403069,
+      "lon": -121.905624,
+      "distance_km": 6.66,
+      "hosting_mw": null,
+      "edge_site_max_mw": null,
+      "eligible_edge_site": false,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": null,
+      "flood_sfha": false
+    },
+    {
+      "feeder_id": "083892111",
+      "feeder": null,
+      "substation_id": "08389",
+      "substation": "MONTAGUE",
+      "bank_id": "0838902",
+      "bank_id_status": "ASSUMED (circuit numbering)",
+      "lat": 37.403069,
+      "lon": -121.905624,
+      "distance_km": 6.66,
+      "hosting_mw": null,
+      "edge_site_max_mw": null,
+      "eligible_edge_site": false,
+      "limiting_month": null,
+      "limiting_hour": null,
+      "limiting_criteria": null,
+      "flood_sfha": false
+    }
+  ],
+  "transmission_candidates": [
+    {
+      "id": "osm-way-539148054",
+      "name": "Nortech Substation",
+      "kv": 115.0,
+      "distance_km": 1.48,
+      "assumed_mva": 90,
+      "headroom_mw": 29.9,
+      "headroom_mw_n1_firm": 0.0,
+      "operator": "Pacific Gas and Electric Company"
+    },
+    {
+      "id": "osm-way-52612640",
+      "name": "Northern Receiving Station",
+      "kv": 230.0,
+      "distance_km": 2.83,
+      "assumed_mva": 1260,
+      "headroom_mw": 418.9,
+      "headroom_mw_n1_firm": 19.9,
+      "operator": "Silicon Valley Power"
+    },
+    {
+      "id": "osm-way-39017429",
+      "name": "Los Esteros Substation",
+      "kv": 230.0,
+      "distance_km": 3.72,
+      "assumed_mva": 1260,
+      "headroom_mw": 418.9,
+      "headroom_mw_n1_firm": 19.9,
+      "operator": "Pacific Gas and Electric Company"
+    },
+    {
+      "id": "osm-way-38084005",
+      "name": "Fair Oaks Substation",
+      "kv": 115.0,
+      "distance_km": 4.51,
+      "assumed_mva": 90,
+      "headroom_mw": 29.9,
+      "headroom_mw_n1_firm": 0.0,
+      "operator": null
+    },
+    {
+      "id": "osm-way-120346267",
+      "name": "Scott Receiving Station",
+      "kv": 115.0,
+      "distance_km": 5.78,
+      "assumed_mva": 90,
+      "headroom_mw": 29.9,
+      "headroom_mw_n1_firm": 0.0,
+      "operator": null
+    },
+    {
+      "id": "osm-way-120342208",
+      "name": "Dixon Landing Substation",
+      "kv": 115.0,
+      "distance_km": 5.86,
+      "assumed_mva": 90,
+      "headroom_mw": 29.9,
+      "headroom_mw_n1_firm": 0.0,
+      "operator": "Pacific Gas and Electric Company"
+    },
+    {
+      "id": "osm-way-1272201645",
+      "name": "Kifer Receiving Station",
+      "kv": 115.0,
+      "distance_km": 5.97,
+      "assumed_mva": 90,
+      "headroom_mw": 29.9,
+      "headroom_mw_n1_firm": 0.0,
+      "operator": "Silicon Valley Power"
+    },
+    {
+      "id": "osm-way-188689669",
+      "name": "Applied Materials Substation",
+      "kv": 115.0,
+      "distance_km": 6.15,
+      "assumed_mva": 90,
+      "headroom_mw": 29.9,
+      "headroom_mw_n1_firm": 0.0,
+      "operator": "Pacific Gas and Electric Company"
+    }
+  ],
+  "system_stress_2025": {
+    "window": "net_load_top2pct",
+    "hours_by_month": {
+      "5": [
+        20,
+        21,
+        22
+      ],
+      "6": [
+        20,
+        21
+      ],
+      "7": [
+        20,
+        21,
+        22
+      ],
+      "8": [
+        0,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "9": [
+        0,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ]
+    }
+  },
+  "sources": [
+    "data/shared/grip/grip_capacity.json",
+    "data/l2/flex_headroom.json",
+    "data/l2/site_risk.json",
+    "data/l2/substation_ratings.json",
+    "data/l2/ciso_2025_stress.json"
+  ]
+}
