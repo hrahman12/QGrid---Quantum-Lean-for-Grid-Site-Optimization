@@ -1,0 +1,430 @@
+{
+ "engine": "MiroFish-style fallback, not MiroFish (agent-based opinion dynamics, no LLM)",
+ "scenario": "S3_edge_phase",
+ "label": "16-38 MW edge phase at distribution + generator limits",
+ "levers": [
+  "Edge phase 16-38 MW at distribution + generator limits (25 h/yr)"
+ ],
+ "agents": 38,
+ "steps": 50,
+ "rng_seed": 7,
+ "stance_timeline": [
+  {
+   "step": 0,
+   "support": 10,
+   "neutral": 6,
+   "oppose": 22,
+   "mean": -0.151
+  },
+  {
+   "step": 1,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.126
+  },
+  {
+   "step": 2,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.103
+  },
+  {
+   "step": 3,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.088
+  },
+  {
+   "step": 4,
+   "support": 14,
+   "neutral": 2,
+   "oppose": 22,
+   "mean": -0.079
+  },
+  {
+   "step": 5,
+   "support": 14,
+   "neutral": 2,
+   "oppose": 22,
+   "mean": -0.074
+  },
+  {
+   "step": 6,
+   "support": 14,
+   "neutral": 2,
+   "oppose": 22,
+   "mean": -0.074
+  },
+  {
+   "step": 7,
+   "support": 14,
+   "neutral": 2,
+   "oppose": 22,
+   "mean": -0.077
+  },
+  {
+   "step": 8,
+   "support": 14,
+   "neutral": 2,
+   "oppose": 22,
+   "mean": -0.069
+  },
+  {
+   "step": 9,
+   "support": 14,
+   "neutral": 2,
+   "oppose": 22,
+   "mean": -0.071
+  },
+  {
+   "step": 10,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.067
+  },
+  {
+   "step": 11,
+   "support": 12,
+   "neutral": 4,
+   "oppose": 22,
+   "mean": -0.067
+  },
+  {
+   "step": 12,
+   "support": 14,
+   "neutral": 2,
+   "oppose": 22,
+   "mean": -0.077
+  },
+  {
+   "step": 13,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.074
+  },
+  {
+   "step": 14,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.066
+  },
+  {
+   "step": 15,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.07
+  },
+  {
+   "step": 16,
+   "support": 14,
+   "neutral": 2,
+   "oppose": 22,
+   "mean": -0.07
+  },
+  {
+   "step": 17,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.071
+  },
+  {
+   "step": 18,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.072
+  },
+  {
+   "step": 19,
+   "support": 14,
+   "neutral": 2,
+   "oppose": 22,
+   "mean": -0.068
+  },
+  {
+   "step": 20,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.066
+  },
+  {
+   "step": 21,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.069
+  },
+  {
+   "step": 22,
+   "support": 14,
+   "neutral": 2,
+   "oppose": 22,
+   "mean": -0.067
+  },
+  {
+   "step": 23,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.065
+  },
+  {
+   "step": 24,
+   "support": 14,
+   "neutral": 2,
+   "oppose": 22,
+   "mean": -0.067
+  },
+  {
+   "step": 25,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.071
+  },
+  {
+   "step": 26,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.074
+  },
+  {
+   "step": 27,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.074
+  },
+  {
+   "step": 28,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.07
+  },
+  {
+   "step": 29,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.064
+  },
+  {
+   "step": 30,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.073
+  },
+  {
+   "step": 31,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.069
+  },
+  {
+   "step": 32,
+   "support": 14,
+   "neutral": 2,
+   "oppose": 22,
+   "mean": -0.067
+  },
+  {
+   "step": 33,
+   "support": 12,
+   "neutral": 4,
+   "oppose": 22,
+   "mean": -0.068
+  },
+  {
+   "step": 34,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.064
+  },
+  {
+   "step": 35,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.073
+  },
+  {
+   "step": 36,
+   "support": 14,
+   "neutral": 2,
+   "oppose": 22,
+   "mean": -0.068
+  },
+  {
+   "step": 37,
+   "support": 14,
+   "neutral": 2,
+   "oppose": 22,
+   "mean": -0.067
+  },
+  {
+   "step": 38,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.066
+  },
+  {
+   "step": 39,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.073
+  },
+  {
+   "step": 40,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.076
+  },
+  {
+   "step": 41,
+   "support": 14,
+   "neutral": 2,
+   "oppose": 22,
+   "mean": -0.079
+  },
+  {
+   "step": 42,
+   "support": 12,
+   "neutral": 4,
+   "oppose": 22,
+   "mean": -0.073
+  },
+  {
+   "step": 43,
+   "support": 12,
+   "neutral": 4,
+   "oppose": 22,
+   "mean": -0.072
+  },
+  {
+   "step": 44,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.074
+  },
+  {
+   "step": 45,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.07
+  },
+  {
+   "step": 46,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.073
+  },
+  {
+   "step": 47,
+   "support": 14,
+   "neutral": 2,
+   "oppose": 22,
+   "mean": -0.07
+  },
+  {
+   "step": 48,
+   "support": 14,
+   "neutral": 2,
+   "oppose": 22,
+   "mean": -0.062
+  },
+  {
+   "step": 49,
+   "support": 13,
+   "neutral": 3,
+   "oppose": 22,
+   "mean": -0.067
+  },
+  {
+   "step": 50,
+   "support": 14,
+   "neutral": 2,
+   "oppose": 22,
+   "mean": -0.063
+  }
+ ],
+ "key_actors_final_stance": {
+  "Alviso residents & neighborhood groups": -0.235,
+  "Environmental / water advocates": -0.382,
+  "r/sanjose petition commenters": -0.328,
+  "San Jose City Council": 0.209,
+  "Mayor of San Jose": 0.532,
+  "Planning department": 0.163,
+  "PG&E": 0.48,
+  "CPUC / ratepayer advocates": 0.012,
+  "Building trades / local labor": 0.245,
+  "Developer (150 MW proposal)": 0.581
+ },
+ "key_actors_initial_stance": {
+  "Alviso residents & neighborhood groups": -0.6,
+  "Environmental / water advocates": -0.7,
+  "r/sanjose petition commenters": -0.5,
+  "San Jose City Council": 0.2,
+  "Mayor of San Jose": 0.5,
+  "Planning department": 0.0,
+  "PG&E": 0.3,
+  "CPUC / ratepayer advocates": -0.2,
+  "Building trades / local labor": 0.2,
+  "Developer (150 MW proposal)": 0.9
+ },
+ "top_opposition_arguments": [
+  {
+   "item": "a-alviso-opposition",
+   "effective_weight": 0.425,
+   "argument": "Prologis proposes >1M sq ft across 4 buildings on a 159-acre wastewater-facility site (Alviso); council approved an exclusive negotiating agreement in Nov 2025. Dreaming Collaborative (Ellina Yin) ran a petition with 800+ signatures; Alviso",
+   "source": "https://sanjosespotlight.com/residents-push-back-against-san-joses-data-center-plans/"
+  },
+  {
+   "item": "a-sj-moratorium-calls",
+   "effective_weight": 0.397,
+   "argument": "At the Oct 15, 2026 community meeting residents and groups asked for a pause on all data-center approvals/applications. City says Council has not directed staff toward a moratorium; Mayor Matt Mahan likened an outright ban to 'our heads in ",
+   "source": "https://www.kqed.org/news/12104561/as-san-jose-tries-to-regulate-data-centers-residents-want-to-ban-them"
+  },
+  {
+   "item": "a-sj-draft-standards",
+   "effective_weight": 0.391,
+   "argument": "Draft San Jose standards: recycled water or air/closed-loop cooling; fully carbon-neutral electricity; backup generator testing limited to 25 h/yr (state limit 50); regular water/power reporting with third-party verification every 5 yrs; no",
+   "source": "https://www.kqed.org/news/12104561/as-san-jose-tries-to-regulate-data-centers-residents-want-to-ban-them"
+  }
+ ],
+ "approval_proxy": {
+  "consent_score": 0.552,
+  "band": "AMBER",
+  "item_weight_scale": {
+   "a-sj-draft-standards": 0.869,
+   "a-sj-moratorium-calls": 0.793,
+   "a-alviso-opposition": 0.772,
+   "a-sj-permit-pathway": 0.837,
+   "a-pge-rule30": 0.743,
+   "a-ca-sb57": 0.823,
+   "a-reddit-sanjose": 0.885,
+   "a-sj-council-pro-growth": 1.015,
+   "a-sj-pge-partnership": 1.138
+  },
+  "note": "repo consent formula with lever-adjusted, stance-scaled weights; heuristic, not a forecast"
+ }
+}

@@ -1,0 +1,428 @@
+{
+ "engine": "MiroFish-style fallback, not MiroFish (agent-based opinion dynamics, no LLM)",
+ "scenario": "S0_baseline",
+ "label": "150 MW, gas backup, no engagement",
+ "levers": [],
+ "agents": 38,
+ "steps": 50,
+ "rng_seed": 7,
+ "stance_timeline": [
+  {
+   "step": 0,
+   "support": 10,
+   "neutral": 4,
+   "oppose": 24,
+   "mean": -0.267
+  },
+  {
+   "step": 1,
+   "support": 11,
+   "neutral": 3,
+   "oppose": 24,
+   "mean": -0.236
+  },
+  {
+   "step": 2,
+   "support": 12,
+   "neutral": 2,
+   "oppose": 24,
+   "mean": -0.21
+  },
+  {
+   "step": 3,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.193
+  },
+  {
+   "step": 4,
+   "support": 12,
+   "neutral": 2,
+   "oppose": 24,
+   "mean": -0.184
+  },
+  {
+   "step": 5,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.178
+  },
+  {
+   "step": 6,
+   "support": 14,
+   "neutral": 0,
+   "oppose": 24,
+   "mean": -0.178
+  },
+  {
+   "step": 7,
+   "support": 12,
+   "neutral": 2,
+   "oppose": 24,
+   "mean": -0.181
+  },
+  {
+   "step": 8,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.173
+  },
+  {
+   "step": 9,
+   "support": 12,
+   "neutral": 2,
+   "oppose": 24,
+   "mean": -0.174
+  },
+  {
+   "step": 10,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.171
+  },
+  {
+   "step": 11,
+   "support": 11,
+   "neutral": 3,
+   "oppose": 24,
+   "mean": -0.171
+  },
+  {
+   "step": 12,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.18
+  },
+  {
+   "step": 13,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.177
+  },
+  {
+   "step": 14,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.169
+  },
+  {
+   "step": 15,
+   "support": 12,
+   "neutral": 2,
+   "oppose": 24,
+   "mean": -0.173
+  },
+  {
+   "step": 16,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.173
+  },
+  {
+   "step": 17,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.174
+  },
+  {
+   "step": 18,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.176
+  },
+  {
+   "step": 19,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.172
+  },
+  {
+   "step": 20,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.169
+  },
+  {
+   "step": 21,
+   "support": 12,
+   "neutral": 2,
+   "oppose": 24,
+   "mean": -0.172
+  },
+  {
+   "step": 22,
+   "support": 12,
+   "neutral": 2,
+   "oppose": 24,
+   "mean": -0.171
+  },
+  {
+   "step": 23,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.168
+  },
+  {
+   "step": 24,
+   "support": 12,
+   "neutral": 2,
+   "oppose": 24,
+   "mean": -0.171
+  },
+  {
+   "step": 25,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.174
+  },
+  {
+   "step": 26,
+   "support": 12,
+   "neutral": 2,
+   "oppose": 24,
+   "mean": -0.177
+  },
+  {
+   "step": 27,
+   "support": 12,
+   "neutral": 2,
+   "oppose": 24,
+   "mean": -0.177
+  },
+  {
+   "step": 28,
+   "support": 12,
+   "neutral": 2,
+   "oppose": 24,
+   "mean": -0.173
+  },
+  {
+   "step": 29,
+   "support": 12,
+   "neutral": 2,
+   "oppose": 24,
+   "mean": -0.167
+  },
+  {
+   "step": 30,
+   "support": 12,
+   "neutral": 2,
+   "oppose": 24,
+   "mean": -0.176
+  },
+  {
+   "step": 31,
+   "support": 11,
+   "neutral": 3,
+   "oppose": 24,
+   "mean": -0.173
+  },
+  {
+   "step": 32,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.17
+  },
+  {
+   "step": 33,
+   "support": 11,
+   "neutral": 3,
+   "oppose": 24,
+   "mean": -0.171
+  },
+  {
+   "step": 34,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.168
+  },
+  {
+   "step": 35,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.177
+  },
+  {
+   "step": 36,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.171
+  },
+  {
+   "step": 37,
+   "support": 14,
+   "neutral": 0,
+   "oppose": 24,
+   "mean": -0.17
+  },
+  {
+   "step": 38,
+   "support": 11,
+   "neutral": 3,
+   "oppose": 24,
+   "mean": -0.169
+  },
+  {
+   "step": 39,
+   "support": 12,
+   "neutral": 2,
+   "oppose": 24,
+   "mean": -0.176
+  },
+  {
+   "step": 40,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.179
+  },
+  {
+   "step": 41,
+   "support": 11,
+   "neutral": 3,
+   "oppose": 24,
+   "mean": -0.183
+  },
+  {
+   "step": 42,
+   "support": 12,
+   "neutral": 2,
+   "oppose": 24,
+   "mean": -0.176
+  },
+  {
+   "step": 43,
+   "support": 11,
+   "neutral": 3,
+   "oppose": 24,
+   "mean": -0.175
+  },
+  {
+   "step": 44,
+   "support": 12,
+   "neutral": 2,
+   "oppose": 24,
+   "mean": -0.178
+  },
+  {
+   "step": 45,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.173
+  },
+  {
+   "step": 46,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.176
+  },
+  {
+   "step": 47,
+   "support": 11,
+   "neutral": 3,
+   "oppose": 24,
+   "mean": -0.173
+  },
+  {
+   "step": 48,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.165
+  },
+  {
+   "step": 49,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.17
+  },
+  {
+   "step": 50,
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean": -0.167
+  }
+ ],
+ "key_actors_final_stance": {
+  "Alviso residents & neighborhood groups": -0.376,
+  "Environmental / water advocates": -0.526,
+  "r/sanjose petition commenters": -0.463,
+  "San Jose City Council": 0.186,
+  "Mayor of San Jose": 0.534,
+  "Planning department": 0.146,
+  "PG&E": 0.239,
+  "CPUC / ratepayer advocates": -0.216,
+  "Building trades / local labor": 0.266,
+  "Developer (150 MW proposal)": 0.772
+ },
+ "key_actors_initial_stance": {
+  "Alviso residents & neighborhood groups": -0.6,
+  "Environmental / water advocates": -0.7,
+  "r/sanjose petition commenters": -0.5,
+  "San Jose City Council": 0.2,
+  "Mayor of San Jose": 0.5,
+  "Planning department": 0.0,
+  "PG&E": 0.3,
+  "CPUC / ratepayer advocates": -0.2,
+  "Building trades / local labor": 0.2,
+  "Developer (150 MW proposal)": 0.9
+ },
+ "top_opposition_arguments": [
+  {
+   "item": "a-sj-draft-standards",
+   "effective_weight": 0.562,
+   "argument": "Draft San Jose standards: recycled water or air/closed-loop cooling; fully carbon-neutral electricity; backup generator testing limited to 25 h/yr (state limit 50); regular water/power reporting with third-party verification every 5 yrs; no",
+   "source": "https://www.kqed.org/news/12104561/as-san-jose-tries-to-regulate-data-centers-residents-want-to-ban-them"
+  },
+  {
+   "item": "a-pge-rule30",
+   "effective_weight": 0.543,
+   "argument": "CPUC approved PG&E Electric Rule 30 on an interim basis (D.25-07-039): accelerated transmission-level connection for large loads (data centers, EV charging) for applicants who agree to pay for needed transmission work upfront; refund terms/",
+   "source": "https://www.cpuc.ca.gov/news-and-updates/all-news/cpuc-streamlines-electric-grid-connections-for-high-energy-users-like-data-centers-and-ev-chargers"
+  },
+  {
+   "item": "a-alviso-opposition",
+   "effective_weight": 0.473,
+   "argument": "Prologis proposes >1M sq ft across 4 buildings on a 159-acre wastewater-facility site (Alviso); council approved an exclusive negotiating agreement in Nov 2025. Dreaming Collaborative (Ellina Yin) ran a petition with 800+ signatures; Alviso",
+   "source": "https://sanjosespotlight.com/residents-push-back-against-san-joses-data-center-plans/"
+  }
+ ],
+ "approval_proxy": {
+  "consent_score": 0.475,
+  "band": "AMBER",
+  "item_weight_scale": {
+   "a-sj-draft-standards": 0.936,
+   "a-sj-moratorium-calls": 0.879,
+   "a-alviso-opposition": 0.86,
+   "a-sj-permit-pathway": 0.854,
+   "a-pge-rule30": 1.087,
+   "a-ca-sb57": 1.013,
+   "a-reddit-sanjose": 0.975,
+   "a-sj-council-pro-growth": 1.007,
+   "a-sj-pge-partnership": 0.953
+  },
+  "note": "repo consent formula with lever-adjusted, stance-scaled weights; heuristic, not a forecast"
+ }
+}
