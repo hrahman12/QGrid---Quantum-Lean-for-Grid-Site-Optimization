@@ -1,67 +1,52 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#071019"><meta name="description" content="Explore North San Jose grid connections in 3D. Tune load, flexibility and obligations to see what makes a plan green, conditional, or blocked.">
-<title>QGrid — Grid Integrability Explorer</title>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-</head><body>
-<div id="app">
-  <header class="topbar">
-    <a class="brand" href="./" aria-label="QGrid home"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M18 3 32 11v15l-14 8-14-8V11Z"/><path d="m4 11 14 8 14-8M18 19v15M11 7l14 23"/><circle cx="18" cy="19" r="4"/></svg><strong>Q<span>Grid</span></strong><i></i><span class="product-name">GRID INTEGRABILITY EXPLORER</span></a>
-    <div class="header-actions"><span class="snapshot-dot"></span><span class="snapshot-label">CACHED CASE STUDY · NOV 08, 2026</span><button class="subtle" id="sources-button">Model & sources ↗</button><a class="github-link" href="https://github.com/hrahman12/QGrid---Quantum-Lean-for-Grid-Site-Optimization" target="_blank" rel="noreferrer">GitHub ↗</a></div>
-  </header>
-  <div class="workspace">
-    <aside class="control-panel">
-      <div class="panel-heading"><span class="eyebrow">01 / CONFIGURE</span><button class="text-button" id="reset">Reset ↺</button></div>
-      <h1>Find a path<br>to power.</h1><p class="intro">Tune the site. Explore the trade-offs.<br>See what makes a connection work.</p>
-      <div class="presets" role="group" aria-label="Scenario presets"><button data-preset="baseline" class="active">Baseline</button><button data-preset="flexible">Flexible</button><button data-preset="conditional">Conditional</button><button data-preset="stressed">Stressed</button></div>
-      <form id="knobs" autocomplete="off">
-        <fieldset><legend><span>01</span> Load & network</legend>
-          <label class="knob" for="load">Requested compute load <output data-output="load"></output><input type="range" id="load" name="load" min="25" max="500" step="25"><span class="range-ends"><span>25 MW</span><span>500 MW</span></span></label>
-          <label class="knob" for="growth">Demand growth <output data-output="growth"></output><input type="range" id="growth" name="growth" min="0" max="50" step="5"></label>
-          <label class="knob" for="utilization">Background grid utilization <output data-output="utilization"></output><input type="range" id="utilization" name="utilization" min="40" max="95" step="1"></label>
-          <label class="knob" for="split">Northern Receiving share <output data-output="split"></output><input type="range" id="split" name="split" min="0" max="100" step="5"><span class="range-ends"><span>Los Esteros</span><span>Northern Receiving</span></span></label>
-        </fieldset>
-        <fieldset><legend><span>02</span> Flexibility levers</legend>
-          <label class="knob" for="storage">Battery support <output data-output="storage"></output><input type="range" id="storage" name="storage" min="0" max="100" step="5"></label>
-          <label class="knob" for="curtailment">Curtailment allowance <output data-output="curtailment"></output><input type="range" id="curtailment" name="curtailment" min="0" max="20" step="0.5"></label>
-          <label class="knob" for="dlr">Dynamic line rating uplift <output data-output="dlr"></output><input type="range" id="dlr" name="dlr" min="0" max="30" step="5"></label>
-          <label class="switch"><span>Reconductoring <small>Assumed +20% capacity</small></span><input type="checkbox" name="reconductor" id="reconductor"><i></i></label>
-        </fieldset>
-        <fieldset><legend><span>03</span> Conditions & obligations</legend>
-          <label class="knob" for="temperature">Ambient temperature <output data-output="temperature"></output><input type="range" id="temperature" name="temperature" min="10" max="50" step="1"></label>
-          <label class="knob" for="lineLimit">Line loading limit <output data-output="lineLimit"></output><input type="range" id="lineLimit" name="lineLimit" min="60" max="100" step="5"></label>
-          <label class="knob" for="months">Time to connect <output data-output="months"></output><input type="range" id="months" name="months" min="0" max="60" step="1"></label>
-          <label class="select-label" for="outage">Contingency <select name="outage" id="outage"><option value="none">All sources available</option><option value="northern">Northern Receiving offline</option><option value="esteros">Los Esteros offline</option></select></label>
-          <label class="switch"><span>Require N-1 resilience</span><input type="checkbox" name="requireN1" id="requireN1"><i></i></label>
-          <label class="switch"><span>ROW permission secured</span><input type="checkbox" name="rowPermit" id="rowPermit"><i></i></label>
-          <label class="switch"><span>Flood protection assumed</span><input type="checkbox" name="floodProtected" id="floodProtected"><i></i></label>
-          <label class="switch"><span>Battery support committed</span><input type="checkbox" name="storageCommitted" id="storageCommitted"><i></i></label>
-        </fieldset>
-      </form>
-      <div class="control-footer"><button id="export" class="outline-button">↓ Export scenario</button><label class="import-button">↑ Import<input type="file" id="import" accept="application/json,.json"></label></div>
-    </aside>
-    <main class="scene-panel">
-      <div class="scene-heading"><div><span class="eyebrow">SANTA CLARA COUNTY, CALIFORNIA</span><h2>North San Jose <span>/ Alviso</span></h2><p>37.4265° N &nbsp; 121.9750° W <span>·</span> 150 MW recorded case</p></div><div class="view-modes" role="group" aria-label="View mode"><button class="active" id="view-grid">◈ Grid</button><button id="view-quantum">✧ Quantum</button></div></div>
-      <div class="metrics"><div><span>NET GRID DEMAND</span><strong id="metric-demand">—</strong><small>MW after flexibility</small></div><div><span>PEAK LOADING</span><strong id="metric-loading">—</strong><small>screening estimate</small></div><div><span>ROUTES ACTIVE</span><strong id="metric-routes">—</strong><small>candidate connections</small></div><div><span>GRIP DISTRIBUTION</span><strong id="metric-distribution">—</strong><small>MW directional screen</small></div></div>
-      <div id="viewport" aria-label="Interactive 3D grid. Drag to orbit, scroll to zoom. Select substations using the list below." role="img"><div id="loading">Building the grid<span></span></div><div id="webgl-fallback" hidden>WebGL is unavailable in this browser. The scenario controls and results remain usable below.</div></div>
-      <div class="scene-tools"><button id="home-camera" title="Reset camera" aria-label="Reset camera">⌂</button><button id="top-camera" title="Top-down view" aria-label="Top-down view">⊞</button><button id="rotate-camera" title="Toggle orbit" aria-label="Toggle auto-orbit" aria-pressed="false">⟳</button><span></span><button id="terrain-toggle" aria-pressed="true">Terrain</button><button id="lines-toggle" aria-pressed="true">OSM lines</button><button id="distribution-toggle" aria-pressed="false">GRIP nodes</button></div>
-      <div class="map-legend"><span><i class="dot cyan"></i>Compute site</span><span><i class="dot green"></i>Scenario route</span><span><i class="dot amber"></i>Substation</span><span class="legend-hint">Drag to orbit · Scroll to zoom</span></div>
-      <div class="selection-panel" id="selection"><div><span class="eyebrow">SELECTED ASSET</span><h3 id="asset-name">North San Jose compute site</h3><p id="asset-info">Illustrative site · 150 MW baseline request</p></div><button id="clear-selection" title="Select compute site">↗</button></div>
-      <div class="asset-list" id="asset-list" aria-label="Select a substation"></div>
-      <div class="pipeline"><div class="pipeline-header"><span class="eyebrow">RECORDED PIPELINE</span><button class="text-button" id="play-run">▶ Play walkthrough</button></div><div class="pipeline-stages"><button data-stage="0" class="active"><b>01</b><span>Find<small>PsiQDK simulation</small></span></button><i>→</i><button data-stage="1"><b>02</b><span>Check<small>pandapower</small></span></button><i>→</i><button data-stage="2"><b>03</b><span>Prove<small>Lean 4</small></span></button></div><p id="stage-detail">630 candidate plans · 10 qubits · 1 Grover iteration in the recorded simulation.</p></div>
-      <footer class="scene-footer"><span>© OpenStreetMap contributors · Terrain: USGS / Mapzen</span><span id="render-state">WebGL initializing</span></footer>
-    </main>
-    <aside class="results-panel">
-      <span class="eyebrow">02 / EVALUATE</span><div class="verdict" id="verdict" data-status="GREEN" aria-live="polite"><div class="traffic-lights"><i data-color="RED"></i><i data-color="AMBER"></i><i data-color="GREEN"></i></div><span class="verdict-kicker">SCENARIO SCREEN</span><h2 id="verdict-title">Evaluating…</h2><p id="verdict-description"></p><div class="verdict-score"><span id="passed-count">—</span><span>checks pass</span></div></div>
-      <div class="checks-heading"><h3>What needs to hold</h3><span>8 checks</span></div><div id="checks"></div>
-      <section class="allocation"><span class="eyebrow">PROPOSED LOAD SPLIT</span><div class="split-bar"><i id="split-northern"></i><i id="split-esteros"></i></div><div id="allocations"></div></section>
-      <button class="record-button" id="record-button"><span class="record-icon">✓</span><span><b>View saved Lean certificate</b><small>150 MW recorded run · GREEN</small></span><span>↗</span></button>
-      <p class="scope-note">Knobs update an analytical scenario screen. They do not rerun AC physics, quantum search, or Lean. GREEN is limited to these assumptions and is not utility approval.</p>
-    </aside>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#081322"><meta name="description" content="QGrid: define a site, find a connection, check physics, and review formal obligations in one interactive 3D workbench."><title>QGrid — In. Find. Check. Prove.</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"></head>
+<body><div id="app">
+<header class="topbar"><a class="brand" href="./"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M18 3 32 11v15l-14 8-14-8V11Z M4 11l14 8 14-8M18 19v15"/><circle cx="18" cy="19" r="4"/></svg><strong>Q<span>Grid</span></strong></a><span class="header-tagline">Find quantumly. Check physically. Prove formally.</span><div class="header-actions"><button id="sources-button">Model & sources ↗</button><a href="https://github.com/hrahman12/QGrid---Quantum-Lean-for-Grid-Site-Optimization" target="_blank" rel="noreferrer">GitHub ↗</a><button id="reset">Reset ↺</button></div></header>
+<nav class="mobile-flow" aria-label="Four stages"><button data-jump="0">1 In</button><button data-jump="1">2 Find</button><button data-jump="2">3 Check</button><button data-jump="3">4 Prove</button></nav>
+<main class="stage-board" id="knobs">
+<section class="stage-card input-card" data-step="0"><h1><b>1</b> Define the site</h1><div class="panel-body">
+  <div class="site-brief"><span class="eyebrow">IN · SITE + REQUIREMENTS</span><h2>North San Jose<br><span>/ Alviso</span></h2><p>Santa Clara County, California</p><div class="site-coordinate">37.4265° N · 121.9750° W</div><div class="site-symbol" aria-hidden="true"><svg viewBox="0 0 240 75"><path d="m15 54 48-24 70 8 44-25 49 17M15 64l48-24 70 8 44-25 49 17"/><path d="M107 47V13l28-10 29 10v34l-29 11Z M107 13l28 12 29-12M135 25v33"/><path d="M115 22v4m0 4v4m0 4v4m10-16v4m0 4v4m0 4v4m20-18v4m0 4v4m0 4v4m10-19v4m0 4v4m0 4v4"/></svg></div></div>
+  <div id="viewport" role="img" aria-label="Interactive 3D North San Jose grid. Drag to orbit, scroll to zoom."><div id="loading">Building the grid…</div><div id="webgl-fallback" hidden>WebGL unavailable. All scenario controls and checks remain usable.</div></div>
+  <div class="scene-tools"><button id="home-camera" aria-label="Reset grid camera">↺</button><button id="top-camera" aria-label="Top view">⊞</button><button id="rotate-camera" aria-label="Toggle auto-orbit" aria-pressed="false">⟳</button><div class="layers"><button id="terrain-toggle" aria-pressed="true">Terrain</button><button id="lines-toggle" aria-pressed="true">Lines</button><button id="distribution-toggle" aria-pressed="false">GRIP</button></div></div>
+  <div class="selection-panel"><b id="asset-name">North San Jose compute site</b><small id="asset-info">Select a substation to inspect</small></div><div id="asset-list" class="asset-list"></div>
+  <label class="knob" for="load">Compute load <output data-output="load"></output><input type="range" id="load" name="load" min="25" max="500" step="25"><span class="range-ends"><span>25 MW</span><span>500 MW</span></span></label>
+  <label class="knob" for="growth">Demand growth <output data-output="growth"></output><input type="range" id="growth" name="growth" min="0" max="50" step="5"></label>
+  <label class="knob" for="months">Time to connect <output data-output="months"></output><input type="range" id="months" name="months" min="0" max="60" step="1"></label>
+  <div class="stage-deliverable"><span>STAGE OUTPUT</span><b id="input-output">150 MW connection request</b><small>This request goes to the search.</small></div>
+</div></section>
+<section class="stage-card find-card" data-step="1"><h1><b>2</b> Find a connection</h1><div class="panel-body">
+  <div class="engine-line"><span class="engine-tag">FIND · QUANTUM</span><span class="preview-tag" id="quantum-engine-tag">Native simulator</span></div>
+  <div id="quantum-viewport" aria-label="3D photonic quantum-computer concept and actual PsiQDK state visualizer"></div>
+  <div class="quantum-controls"><button id="view-grid" class="active">Computer</button><button id="view-quantum" disabled>Returned states</button><button id="run-quantum">▶ Run PsiQDK</button></div>
+  <div class="quantum-job"><b id="quantum-status">Ready — not run yet</b><small id="quantum-summary">Runs the actual PsiQDK native simulator on the server.</small></div>
+  <div class="quantum-steps" hidden><div><button data-quantum-step="0" class="active">Superpose</button><span>→</span><button data-quantum-step="1">Phase flip</button><span>→</span><button data-quantum-step="2">Amplify</button><span>→</span><button data-quantum-step="3">Measure</button></div><small>Returned native states and measurement counts</small></div>
+  <div class="panel-tabs" role="tablist" aria-label="Connection controls"><button class="active" role="tab" aria-selected="true" data-pane="routing">Routing & flexibility</button><button role="tab" aria-selected="false" data-pane="upgrades">Line upgrades</button></div>
+  <div class="tab-pane" data-pane-body="routing">
+    <label class="knob" for="split">Northern Receiving share <output data-output="split"></output><input type="range" id="split" name="split" min="0" max="100" step="5"><span class="range-ends"><span>Los Esteros</span><span>Northern Receiving</span></span></label>
+    <div class="two-controls"><label class="knob" for="storage">Battery support <output data-output="storage"></output><input type="range" id="storage" name="storage" min="0" max="100" step="5"></label><label class="knob" for="curtailment">Curtailment <output data-output="curtailment"></output><input type="range" id="curtailment" name="curtailment" min="0" max="20" step="0.5"></label></div>
   </div>
-</div>
-<dialog id="detail-dialog"><div class="dialog-header"><span class="eyebrow" id="dialog-eyebrow"></span><button id="close-dialog" aria-label="Close dialog">×</button></div><div id="dialog-content"></div></dialog>
-<div id="toast" role="status"></div>
-<button id="mobile-verdict" data-status="GREEN" aria-label="View scenario verdict">GREEN · 8 / 8 checks <span>View result ↑</span></button>
-<script type="module" src="/src/main.js"></script>
-</body></html>
+  <div class="tab-pane" data-pane-body="upgrades" hidden><label class="knob" for="dlr">Dynamic line rating uplift <output data-output="dlr"></output><input type="range" id="dlr" name="dlr" min="0" max="30" step="5"></label><label class="switch"><span>Reconductoring <small>Assumed +20% capacity</small></span><input type="checkbox" id="reconductor" name="reconductor"><i></i></label></div>
+  <div class="stage-deliverable"><span>STAGE OUTPUT</span><b id="plan-output">A candidate load split</b><small>Candidate ≠ a feasible or certified plan.</small></div>
+</div></section>
+<section class="stage-card physics-card" data-step="2"><h1><b>3</b> Check physics</h1><div class="panel-body">
+  <div class="engine-line"><span class="engine-tag">CHECK · PANDAPOWER</span><span class="preview-tag">Analytical preview</span></div>
+  <div class="grid-physics"><div id="physics-viewport" role="img" aria-label="Interactive transmission-span physics illustration. Line colors and current pulses follow the scenario; offline sources stop carrying power."></div><div class="physics-legend"><span><i></i> Current flow ∝ route MW</span><span>Illustrative spans</span></div><div class="physics-routes" id="physics-routes"></div><div class="monitor-value"><strong id="metric-loading">71.7%</strong><span>estimated peak<br>line loading</span><b id="physics-state">THERMAL</b></div><div class="loading-track"><i id="loading-bar"></i><span id="limit-marker"></span></div><div class="monitor-facts"><div><span>Net grid demand</span><b id="metric-demand">150 MW</b></div><div><span>Firm N-1 cap</span><b id="metric-firm">39.8 MW</b></div></div></div>
+  <div class="panel-tabs" role="tablist" aria-label="Physics controls"><button class="active" role="tab" aria-selected="true" data-pane="grid-conditions">Grid conditions</button><button role="tab" aria-selected="false" data-pane="contingency">Contingency</button></div>
+  <div class="tab-pane" data-pane-body="grid-conditions"><label class="knob" for="utilization">Background utilization <output data-output="utilization"></output><input type="range" id="utilization" name="utilization" min="40" max="95" step="1"></label><div class="two-controls"><label class="knob" for="temperature">Temperature <output data-output="temperature"></output><input type="range" id="temperature" name="temperature" min="10" max="50" step="1"></label><label class="knob" for="lineLimit">Loading limit <output data-output="lineLimit"></output><input type="range" id="lineLimit" name="lineLimit" min="60" max="100" step="5"></label></div></div>
+  <div class="tab-pane" data-pane-body="contingency" hidden><label class="select-label" for="outage">Take a source offline<select id="outage" name="outage"><option value="none">All sources available</option><option value="northern">Northern Receiving offline</option><option value="esteros">Los Esteros offline</option></select></label><label class="switch"><span>Require N-1 resilience</span><input type="checkbox" id="requireN1" name="requireN1"><i></i></label></div>
+  <div id="physics-checks" class="checks-list"></div><div class="stage-deliverable"><span>STAGE OUTPUT</span><b id="physics-output">Feasibility + blocking limits</b><small>Screens do not execute a new AC power flow.</small></div>
+</div></section>
+<section class="stage-card prove-card" data-step="3"><h1><b>4</b> Prove the rules</h1><div class="panel-body">
+  <div class="engine-line"><span class="engine-tag">PROVE · LEAN 4</span><span class="preview-tag">Rule preview</span></div>
+  <div class="lean-card"><div class="lean-title"><strong>Lean <span>4</span></strong><span class="lean-file">QSiteProof / Basic.lean</span></div><div class="lean-code" aria-label="Actual theorem from the repository"><span class="code-keyword">theorem</span> <span class="code-name">verdict_green_iff_all</span><br>  (e : <span class="code-type">Evidence</span>) : verdict e = .green ↔<br>    ∀ o, <span class="code-type">Holds</span> o e := <span class="code-keyword">by</span><br>  rw [← firstFailing_none_iff]<br>  unfold verdict<br>  cases firstFailing e &lt;;&gt; simp</div><div class="lean-goal"><span class="turnstile">⊢</span><span>Every encoded obligation holds</span><b id="lean-goal-status">BLOCKED</b></div><div class="lean-evidence"><div class="eyebrow">SCENARIO ASSUMPTIONS</div><label class="switch"><span>ROW permission secured</span><input type="checkbox" id="rowPermit" name="rowPermit"><i></i></label><label class="switch"><span>Flood protection assumed</span><input type="checkbox" id="floodProtected" name="floodProtected"><i></i></label><label class="switch"><span>Battery support committed</span><input type="checkbox" id="storageCommitted" name="storageCommitted"><i></i></label></div><div class="lean-trace"><span id="passed-count">0 / 8</span><small>screening checks pass<br><b>Lean rerun required</b></small></div></div><div id="checks" class="checks-list"></div>
+  <button class="record-button" id="record-button"><span>↶</span><span><b>Inspect archived Lean certificate</b><small>Earlier GREEN · superseded by firm N-1 review</small></span><span>↗</span></button>
+  <div class="stage-deliverable"><span>STAGE OUTPUT</span><b id="proof-output">A verdict with exact reasons</b><small>A changed plan needs a new Lean run.</small></div>
+</div></section>
+</main>
+<section class="bottom-board">
+ <div class="flow-card"><div class="eyebrow">ONE REQUEST → ONE PLAN → ONE VERDICT</div><div class="pipeline-flow"><div><b>IN</b><span id="flow-input">150 MW</span><small>Site request</small></div><i>→</i><div><b>FIND</b><span id="flow-plan">2 routes</span><small>Candidate plan</small></div><i>→</i><div id="flow-physics"><b>CHECK</b><span id="flow-check">Blocked</span><small>Grid feasibility</small></div><i>→</i><div id="flow-proof"><b>PROVE</b><span id="flow-result">RED</span><small>Rules + evidence</small></div></div><p>Change the site or the plan. Check again. Every stage uses the output before it.</p></div>
+ <div class="explanation-card"><span class="eyebrow">WHY THIS VERDICT?</span><h2 id="reason-title">Firm N-1 capacity is the limit.</h2><p id="reason-text"></p><button id="why-button">Explain this check ↗</button></div>
+ <div class="scenario-card"><span class="eyebrow">TRY A SCENARIO</span><div class="presets" role="group" aria-label="Scenario presets"><button data-preset="baseline">Baseline</button><button data-preset="flexible">Flexible</button><button data-preset="conditional">Conditional</button><button data-preset="stressed">Stressed</button></div><div class="scenario-actions"><button id="export">↓ Export</button><label>↑ Import<input type="file" id="import" accept="application/json,.json"></label><span id="render-state">WebGL loading</span></div><small>GREEN / AMBER / RED are scenario screens, not utility approvals.</small></div>
+</section>
+<footer class="outcome" id="verdict" data-status="RED" aria-live="polite"><span class="out-label">OUT</span><span class="out-light"></span><h2 id="verdict-title">Evaluating…</h2><p id="verdict-description"></p><span class="attribution">© OSM · USGS / Mapzen terrain</span></footer>
+</div><dialog id="detail-dialog"><div class="dialog-header"><span class="eyebrow" id="dialog-eyebrow"></span><button id="close-dialog" aria-label="Close dialog">×</button></div><div id="dialog-content"></div></dialog><div id="toast" role="status"></div><script type="module" src="/src/main.js"></script></body></html>

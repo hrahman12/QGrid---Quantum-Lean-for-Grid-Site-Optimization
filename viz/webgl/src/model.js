@@ -6,8 +6,8 @@ export const DEFAULTS = Object.freeze({
 });
 export const PRESETS = {
   baseline: { ...DEFAULTS },
-  flexible: { ...DEFAULTS, load: 100, storage: 60, curtailment: 10, dlr: 15, months: 24 },
-  conditional: { ...DEFAULTS, load: 100, storage: 60, curtailment: 10, months: 6, reconductor: true },
+  flexible: { ...DEFAULTS, load: 100, split: 50, storage: 60, curtailment: 10, dlr: 15, months: 24 },
+  conditional: { ...DEFAULTS, load: 100, split: 50, storage: 60, curtailment: 10, months: 6, reconductor: true },
   stressed: { ...DEFAULTS, load: 350, utilization: 88, temperature: 42, growth: 20 },
 };
 const BOUNDS = { load: [25, 500], growth: [0, 50], utilization: [40, 95], split: [0, 100],
@@ -53,6 +53,7 @@ export function evaluate(input, run) {
     (1 + heat) * (s.utilization / 65) / ((1 + s.dlr / 100) * upgrade);
   const leadMonths = Math.max(s.storage > 0 ? 18 : 0, s.dlr > 0 ? 12 : 0, s.reconductor ? 36 : 0);
   const n1Capacity = allocations.reduce((sum, a) => sum + (a.offline ? 0 : Math.max(0, a.headroom_mw_n1_firm ?? 0)), 0);
+  const n1Overload = allocations.find((a) => a.mw > (a.offline ? 0 : Math.max(0, a.headroom_mw_n1_firm ?? 0)) + .001);
   const checks = [];
   const add = (id, name, status, detail) => checks.push({ id, name, status, detail });
   const overload = allocations.find((a) => a.mw > a.capacity + 0.001);
@@ -61,8 +62,8 @@ export function evaluate(input, run) {
       : `${round(delivered)} MW net grid demand; smallest route margin ${round(minMargin)} MW.`);
   add('thermal', 'Thermal screen', projectedLoading > s.lineLimit ? 'RED' : projectedLoading > s.lineLimit * 0.9 ? 'AMBER' : 'GREEN',
     `Estimated peak loading ${round(projectedLoading)}% against a ${s.lineLimit}% limit. Analytical proxy, not AC power flow.`);
-  add('n1', 'Firm N-1 capacity', !s.requireN1 ? 'AMBER' : n1Capacity + 0.001 < delivered ? 'RED' : 'GREEN',
-    !s.requireN1 ? 'Single-outage resilience is not required in this scenario.' : `${round(n1Capacity)} MW aggregate firm transformer headroom from the recorded model, versus ${round(delivered)} MW net demand. DLR and reconductoring do not raise these firm caps. Network topology is not solved.`);
+  add('n1', 'Firm N-1 capacity', !s.requireN1 ? 'AMBER' : n1Overload ? 'RED' : 'GREEN',
+    !s.requireN1 ? 'Single-outage resilience is not required in this scenario.' : n1Overload ? `${n1Overload.name}: ${round(n1Overload.mw)} MW exceeds its ${round(n1Overload.headroom_mw_n1_firm || 0)} MW firm cap. DLR and reconductoring do not raise firm transformer caps.` : `${round(delivered)} MW net demand fits the individual firm caps (${round(n1Capacity)} MW combined). Network topology is not solved.`);
   add('commitment', 'Storage commitment', storage > 0 && !s.storageCommitted ? 'AMBER' : 'GREEN',
     storage > 0 ? `${round(storage)} MW storage assumed available at the critical hour${s.storageCommitted ? ' and committed in this scenario' : '; commitment is still needed'}. Energy duration is not modelled.` : 'No battery support required in this scenario.');
   add('deadline', 'Delivery deadline', s.months < leadMonths ? 'AMBER' : 'GREEN',

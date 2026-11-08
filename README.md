@@ -21,7 +21,9 @@ npm ci --prefix viz/webgl
 npm run dev --prefix viz/webgl
 ```
 
-The explorer includes geographic terrain and OSM geometry, node inspection, scenario import/export, a quantum-search replay, and a separate viewer for the saved Lean certificate. Interactive results are analytical scenario screens; they do not rerun AC physics or produce new formal certificates. See [the explorer README](viz/webgl/README.md) for equations, tests, data refresh, and Vercel deployment.
+The single-screen explorer follows **In → Find → Check physics → Prove → Out**. The first panel contains the interactive geographic grid. The second contains a 3D photonic-computer concept and a **Run PsiQDK** action that executes the repository's actual native Workbench circuit, returns measured candidates, phase states, and resource estimates, and rejects fallback results. Local execution also needs `python -m viz.webgl.server.local_api` running from the repository root (Windows uses the existing Ubuntu `~/qsite-venv`).
+
+Sliders and the Check / Prove panels are analytical scenario previews; they do not run new AC physics or produce new Lean certificates. The historical GREEN certificate is clearly marked as superseded by the firm N-1 review. See [the explorer README](viz/webgl/README.md) for setup, tests, data refresh, and the Vercel Python runtime.
 
 ## Demo: an earlier GREEN run (superseded)
 

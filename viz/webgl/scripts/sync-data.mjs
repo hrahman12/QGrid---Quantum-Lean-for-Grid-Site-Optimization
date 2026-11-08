@@ -20,7 +20,7 @@ run.flexibility = await read('data/l2/flex_headroom.json');
 run.provenance = {
   geometry: 'OpenStreetMap contributors, ODbL; cached in data/l1.',
   planning: 'Transmission topology and substation headroom are planning assumptions from the saved run, not utility ratings or approved connections.',
-  certificate: 'The saved Lean certificate covers the supplied evidence. Interactive scenario screening does not execute pandapower, PsiQDK, or Lean.',
+  certificate: 'The saved Lean certificate is historical and superseded by the firm N-1 review. Scenario sliders do not execute pandapower or Lean. Run PsiQDK executes a new native simulation through the server endpoint.',
   source_paths: ['docs/demo_run/', 'data/l2/flex_headroom.json', 'data/l1/osm_power_lines_alviso.geojson', 'viz/data/terrain/heightmap.json'],
 };
 const { lat, lon } = run.site;

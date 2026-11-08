@@ -48,6 +48,12 @@ test('line upgrades never inflate the firm transformer N-1 cap', () => {
   assert.equal(a.n1Capacity, b.n1Capacity);
   assert.equal(b.checks.find((c) => c.id === 'n1').status, 'RED');
 });
+test('a route can fail its individual firm cap even when combined capacity is enough', () => {
+  const r = evaluate({ ...PRESETS.flexible, split: 75 }, run);
+  assert.equal(r.n1Capacity, 39.8);
+  assert.ok(r.delivered < r.n1Capacity);
+  assert.equal(r.checks.find((c) => c.id === 'n1').status, 'RED');
+});
 test('imports clamp invalid inputs and never overwrite saved evidence', () => {
   const before = JSON.stringify(run);
   const state = normalize({ load: -100, split: 999, temperature: 'NaN', rowPermit: 'yes', outage: 'anything' });

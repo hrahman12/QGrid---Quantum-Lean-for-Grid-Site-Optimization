@@ -11,7 +11,7 @@ export function createScene(container, run, geography, onSelect) {
     document.querySelector('#webgl-fallback').hidden = false;
     document.querySelector('#loading').hidden = true;
     document.querySelector('#render-state').textContent = '2D scenario mode';
-    return { update() {}, select() {}, home() {}, top() {}, rotate() {}, layer() {}, quantum() {}, dispose() {} };
+    return { update() {}, select() {}, home() {}, top() {}, rotate() {}, layer() {}, quantum() {}, quantumStep() {}, flow() {}, dispose() {} };
   }
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   renderer.setPixelRatio(Math.min(devicePixelRatio, 1.6));
@@ -187,19 +187,19 @@ export function createScene(container, run, geography, onSelect) {
   const qMesh=new THREE.InstancedMesh(qGeometry,new THREE.MeshStandardMaterial({color:0xffffff,metalness:.2,roughness:.55}),1024);
   quantumWorld.add(qMesh);const dummy=new THREE.Object3D();let qStage=1;
   function updateQuantum(){
-    const probability=run.quantum.per_iteration[Math.min(qStage,run.quantum.per_iteration.length-1)].p_marked;
+    const probability=run.quantum.per_iteration[Math.max(0,Math.min(qStage,run.quantum.per_iteration.length-1))].p_marked;
     for(let i=0;i<1024;i++){
       const marked=i<run.quantum.marked;
       const p=marked?probability/run.quantum.marked:(1-probability)/(1024-run.quantum.marked);
       const height=Math.max(.1,p*1150);
-      dummy.position.set((i%32-15.5)*.9,height/2,(Math.floor(i/32)-15.5)*.9);dummy.scale.set(1,height,1);dummy.updateMatrix();qMesh.setMatrixAt(i,dummy.matrix);
-      qMesh.setColorAt(i,new THREE.Color(marked?0x45e6a1:0x23556c));
+      dummy.position.set((i%32-15.5)*.9,(qStage===-1&&marked?-1:1)*height/2,(Math.floor(i/32)-15.5)*.9);dummy.scale.set(1,height,1);dummy.updateMatrix();qMesh.setMatrixAt(i,dummy.matrix);
+      qMesh.setColorAt(i,new THREE.Color(marked?(qStage===-1?0xffbd58:0x45e6a1):0x23556c));
     }
     qMesh.instanceMatrix.needsUpdate=true;if(qMesh.instanceColor)qMesh.instanceColor.needsUpdate=true;
   }
   updateQuantum();
   const caption=document.createElement('div');caption.className='quantum-caption';caption.hidden=true;
-  caption.innerHTML=`<strong>${(run.quantum.per_iteration.at(-1).p_marked*100).toFixed(1)}% marked-state probability</strong>Saved PsiQDK simulation · ${run.quantum.marked} marked / ${run.quantum.space.padded_N} states<br>Aggregate probabilities; spatial ordering is illustrative.`;container.append(caption);
+  caption.innerHTML=`<strong>${(run.quantum.per_iteration.at(-1).p_marked*100).toFixed(1)}% marked-state probability</strong>Archived pre-firm-N-1 PsiQDK run · ${run.quantum.marked} marked / ${run.quantum.space.padded_N} states<br>Aggregate probabilities; spatial ordering is illustrative. Not a current search.`;container.append(caption);
   const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();let down=null,selected='site',quantumMode=false,alive=true,frame=0;
   renderer.domElement.addEventListener('pointerdown',(e)=>{down=[e.clientX,e.clientY];});
   renderer.domElement.addEventListener('pointerup',(e)=>{
@@ -211,9 +211,9 @@ export function createScene(container, run, geography, onSelect) {
   const resize=()=>{const w=container.clientWidth,h=container.clientHeight;if(!w||!h)return;renderer.setSize(w,h);labels.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();};
   const observer=new ResizeObserver(resize);observer.observe(container);resize();
   renderer.domElement.addEventListener('webglcontextlost',(e)=>{e.preventDefault();document.querySelector('#render-state').textContent='WebGL context lost · reload to restore';alive=false;});
-  const clock=new THREE.Clock();
+  const started=performance.now();
   const animate=()=>{
-    if(!alive)return;frame=requestAnimationFrame(animate);const time=clock.getElapsedTime();
+    if(!alive)return;frame=requestAnimationFrame(animate);const time=(performance.now()-started)/1000;
     if(cameraTarget){camera.position.lerp(cameraTarget,.07);controls.target.lerp(lookTarget,.07);if(camera.position.distanceTo(cameraTarget)<.08)cameraTarget=null;}
     flows.forEach((flow,i)=>{for(let k=0;k<flow.particles.length;k++){
       const dot=flow.particles[k];dot.visible=!reducedMotion&&flow.share>0;dot.position.copy(flow.curve.getPoint((time*(.075+flow.share*.04)+k/6+i*.16)%1));
@@ -235,6 +235,13 @@ export function createScene(container, run, geography, onSelect) {
     home(){lookTarget=new THREE.Vector3(1,0,5);cameraTarget=new THREE.Vector3(24,29,37);},
     top(){lookTarget=new THREE.Vector3(1,0,5);cameraTarget=new THREE.Vector3(1,54,5.01);},
     rotate(value){controls.autoRotate=value&&!reducedMotion;},
+    flow(stage){flowGroup.visible=stage>0;modelLines.visible=stage>0;},
+    quantumStep(step){
+      if(step===3){this.quantum(false);return;}
+      this.quantum(true);qStage=step===1?-1:step===0?0:1;updateQuantum();
+      const titles=['Uniform superposition','Phase flip: marked amplitudes change sign','Interference amplifies marked states'];
+      caption.replaceChildren();const strong=document.createElement('strong');strong.textContent=titles[step];caption.append(strong,document.createTextNode('Archived pre-firm-N-1 simulation · aggregate state ordering is illustrative.'));
+    },
     layer(name,value){({terrain:terrainMesh,lines:geoLines,distribution})[name].visible=value;},
     quantum(value){quantumMode=value;quantumWorld.visible=value;gridWorld.visible=!value;caption.hidden=!value;lookTarget=new THREE.Vector3(0,0,value?0:5);cameraTarget=value?new THREE.Vector3(24,29,30):new THREE.Vector3(24,29,37);},
     dispose(){alive=false;cancelAnimationFrame(frame);observer.disconnect();controls.dispose();scene.traverse((o)=>{o.geometry?.dispose();if(o.material){for(const m of Array.isArray(o.material)?o.material:[o.material])m.dispose();}});renderer.dispose();labels.domElement.remove();renderer.domElement.remove();},

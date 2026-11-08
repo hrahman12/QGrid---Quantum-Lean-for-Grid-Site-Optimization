@@ -1,74 +1,74 @@
 import './style.css';
 import { DEFAULTS, PRESETS, evaluate, normalize, exportScenario, round } from './model.js';
 import { createScene } from './scene.js';
-
-const $ = (selector) => document.querySelector(selector);
-const make = (tag, text, className) => { const node = document.createElement(tag); if (text !== undefined) node.textContent = text; if (className) node.className = className; return node; };
-let run, scene, settings = { ...DEFAULTS }, result, selected = 'site', stage = 0, playback;
-const units = { load: ' MW', growth: '%', utilization: '%', split: '%', storage: ' MW', curtailment: '%', dlr: '%', temperature: '°C', lineLimit: '%', months: ' mo' };
-const descriptions = {
-  GREEN: ['Connection looks viable', 'All screening conditions pass under the selected assumptions. Inspect the saved certificate for the recorded run.'],
-  AMBER: ['Viable, with conditions', 'A path may exist if the outstanding conditions are resolved. Open a check below to see what needs to change.'],
-  RED: ['Connection blocked', 'The current scenario exceeds a hard screening limit. Adjust load, routing, or flexibility to find another path.'],
-};
+import { createQuantumComputer } from './quantum-computer.js';
+import { createGridPhysics } from './grid-physics.js';
+const $ = (s) => document.querySelector(s);
+const make = (tag, text, cls) => { const n = document.createElement(tag); if(text !== undefined) n.textContent = text; if(cls) n.className = cls; return n; };
+let run, scene, quantumComputer, gridPhysics, result, lastQuantum=null, lastQuantumSettings=null, quantumPending=false, selected = 'site', settings = { ...DEFAULTS };
+const units = { load:' MW', growth:'%', utilization:'%', split:'%', storage:' MW', curtailment:'%', dlr:'%', temperature:'°C', lineLimit:'%', months:' mo' };
 const dialog = $('#detail-dialog');
-function toast(text) { $('#toast').textContent = text; $('#toast').classList.add('show'); setTimeout(() => $('#toast').classList.remove('show'), 3500); }
-function syncForm() {
-  for (const [key, value] of Object.entries(settings)) {
-    const input = document.getElementById(key);
-    if (input.type === 'checkbox') input.checked = value; else input.value = value;
-    if (input.type === 'range') {
-      input.style.setProperty('--fill', `${(Number(value) - input.min) / (input.max - input.min) * 100}%`);
-      input.setAttribute('aria-valuetext', `${value}${units[key] || ''}`);
-      document.querySelector(`[data-output="${key}"]`).textContent = `${value}${units[key] || ''}`;
-    }
-  }
-  for (const button of document.querySelectorAll('[data-preset]')) {
-    const preset = PRESETS[button.dataset.preset];
-    const active = Object.keys(DEFAULTS).every((key) => settings[key] === preset[key]);
-    button.classList.toggle('active', active); button.setAttribute('aria-pressed', active);
-  }
+const searchSignature = value => JSON.stringify(['load','growth','utilization','split','storage','curtailment','dlr','temperature','reconductor','requireN1','outage'].map(key=>[key,value[key]]));
+function toast(text){ $('#toast').textContent=text; $('#toast').classList.add('show'); setTimeout(()=>$('#toast').classList.remove('show'),3000); }
+function showDialog(title, content){ $('#dialog-eyebrow').textContent=title; $('#dialog-content').replaceChildren(...content); dialog.showModal(); }
+function checkNode(check){
+ const d=make('details',undefined,'check'); d.dataset.id=check.id; d.dataset.status=check.status;
+ const s=make('summary'); s.append(make('span',check.status==='GREEN'?'✓':check.status==='AMBER'?'!':'×','indicator'),make('span',check.name),make('small',check.status==='GREEN'?'PASS':check.status==='AMBER'?'IF':'BLOCK'));
+ d.append(s,make('p',check.detail)); return d;
 }
-function render() {
-  settings = normalize(settings); result = evaluate(settings, run); syncForm();
-  $('#verdict').dataset.status = result.status;
-  $('#verdict-title').textContent = descriptions[result.status][0];
-  $('#verdict-description').textContent = descriptions[result.status][1];
-  $('#passed-count').textContent = `${result.checks.filter((c) => c.status === 'GREEN').length} / ${result.checks.length}`;
-  $('#mobile-verdict').dataset.status = result.status;
-  $('#mobile-verdict').replaceChildren(document.createTextNode(`${result.status} · ${result.checks.filter((c) => c.status === 'GREEN').length} / ${result.checks.length} checks`), make('span', 'View result ↑'));
-  $('#metric-demand').textContent = round(result.delivered).toFixed(1);
-  $('#metric-loading').textContent = `${round(result.projectedLoading).toFixed(1)}%`;
-  $('#metric-loading').style.color = result.projectedLoading > settings.lineLimit ? 'var(--red)' : result.projectedLoading > settings.lineLimit * .9 ? 'var(--amber)' : '';
-  $('#metric-routes').textContent = String(result.allocations.filter((a) => a.mw > 0).length).padStart(2, '0');
-  $('#metric-distribution').textContent = `${round(result.distribution).toFixed(1)}${result.distributionExtrapolated ? '*' : ''}`;
-  $('#metric-distribution').nextElementSibling.textContent = result.distributionExtrapolated ? '* curve capped at 10% curtailment' : 'MW directional screen';
-  const openChecks = new Set([...document.querySelectorAll('.check[open]')].map((c) => c.dataset.id));
-  $('#checks').replaceChildren(...result.checks.map((check) => {
-    const details = make('details', undefined, 'check'); details.dataset.id = check.id; details.dataset.status = check.status; details.open = openChecks.has(check.id);
-    const summary = make('summary'); summary.append(make('span', check.status === 'GREEN' ? '✓' : check.status === 'AMBER' ? '!' : '×', 'indicator'), make('span', check.name), make('small', check.status === 'GREEN' ? 'PASS' : check.status === 'AMBER' ? 'IF' : 'BLOCK'));
-    details.append(summary, make('p', check.detail)); return details;
-  }));
-  $('#allocations').replaceChildren(...result.allocations.map((a) => {
-    const row = make('div', undefined, 'allocation-row'); row.append(make('span', a.name.replace(' Substation', '').replace(' Station', '')), make('b', `${round(a.mw)} MW${a.offline ? ' · offline' : ''}`)); return row;
-  }));
-  $('#split-northern').style.width = `${result.allocations[0].share * 100}%`;
-  $('#split-esteros').style.width = `${result.allocations[1].share * 100}%`;
-  scene?.update(result); updateSelection();
+function render(){
+ settings=normalize(settings); result=evaluate(settings,run);
+ for(const [key,value] of Object.entries(settings)){
+  const input=document.getElementById(key); if(input.type==='checkbox') input.checked=value; else input.value=value;
+  if(input.type==='range'){input.style.setProperty('--fill',`${(Number(value)-input.min)/(input.max-input.min)*100}%`);input.setAttribute('aria-valuetext',`${value}${units[key]||''}`);document.querySelector(`[data-output="${key}"]`).textContent=`${value}${units[key]||''}`;}
+ }
+ for(const b of document.querySelectorAll('[data-preset]')){const p=PRESETS[b.dataset.preset];const on=Object.keys(DEFAULTS).every(k=>p[k]===settings[k]);b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on));}
+ const passed=result.checks.filter(c=>c.status==='GREEN').length;
+ $('#verdict').dataset.status=result.status;
+ $('#verdict-title').textContent={RED:'RED — connection blocked',AMBER:'AMBER — yes, if conditions hold',GREEN:'GREEN — scenario checks pass'}[result.status];
+ const first=result.blocking.find(c=>c.status==='RED')||result.blocking[0];
+ $('#verdict-description').textContent=first?first.detail:'All selected scenario conditions pass. New physics and Lean evidence are required for formal certification.';
+ $('#input-output').textContent=`${round(result.requested)} MW · ${settings.months} months`;
+ $('#plan-output').textContent=result.allocations.map(a=>`${round(a.mw)} MW`).join(' + ')+` · ${round(result.delivered)} MW net`;
+ $('#metric-demand').textContent=`${round(result.delivered)} MW`;$('#metric-firm').textContent=`${round(result.n1Capacity)} MW`;
+ $('#metric-loading').textContent=`${round(result.projectedLoading)}%`;
+ const thermal=result.checks.find(c=>c.id==='thermal');$('#metric-loading').style.color=`var(--${thermal.status==='GREEN'?'cyan':thermal.status==='AMBER'?'amber':'red'})`;
+ $('#physics-state').textContent=thermal.status==='RED'?'OVERLOAD':thermal.status==='AMBER'?'NEAR LIMIT':'WITHIN LIMIT';$('#physics-state').dataset.status=thermal.status;
+ $('#physics-routes').replaceChildren(...result.allocations.map(a=>{const row=make('div');row.dataset.offline=String(a.offline);row.append(make('span',a.name),make('b',a.offline?'OFFLINE':`${round(a.mw)} MW`));return row;}));
+ $('#loading-bar').style.width=`${Math.min(100,result.projectedLoading/120*100)}%`;$('#loading-bar').style.background=`var(--${thermal.status.toLowerCase()})`;$('#limit-marker').style.left=`${settings.lineLimit/120*100}%`;
+ const opens=new Set([...document.querySelectorAll('.check[open]')].map(n=>n.dataset.id));
+ $('#physics-checks').replaceChildren(...result.checks.filter(c=>['capacity','thermal','n1'].includes(c.id)).map(checkNode));
+ $('#checks').replaceChildren(...result.checks.filter(c=>!['capacity','thermal','n1'].includes(c.id)).map(checkNode));
+ for(const n of document.querySelectorAll('.check')) n.open=opens.has(n.dataset.id);
+ const physicsBlocked=result.checks.some(c=>['capacity','thermal','n1'].includes(c.id)&&c.status==='RED');
+ $('#physics-output').textContent=physicsBlocked?'Blocked — revise the candidate':'Grid screening passes';
+ $('#proof-output').textContent=`${result.status} · ${passed} / 8 scenario checks pass`;$('#passed-count').textContent=`${passed} / 8`;
+ $('#lean-goal-status').textContent={GREEN:'READY TO PROVE',AMBER:'CONDITIONAL',RED:'BLOCKED'}[result.status];$('#lean-goal-status').dataset.status=result.status;$('#passed-count').style.color=`var(--${result.status.toLowerCase()})`;
+ $('#flow-input').textContent=`${round(result.requested)} MW`;$('#flow-plan').textContent=`${result.allocations.filter(a=>a.mw>0).length} routes`;
+ $('#flow-check').textContent=physicsBlocked?'Blocked':'Pass';$('#flow-check').style.color=physicsBlocked?'var(--red)':'var(--green)';$('#flow-result').textContent=result.status;$('#flow-result').style.color=`var(--${result.status.toLowerCase()})`;
+ $('#reason-title').textContent=first?`${first.name} ${first.status==='RED'?'blocks this plan.':'is conditional.'}`:'Every scenario condition holds.';
+ $('#reason-text').textContent=first?first.detail:'This is a screening result. Run the actual pipeline to obtain new physics and formal evidence.';
+ scene?.update(result);gridPhysics?.update(result);updateSelection();
+ if(lastQuantum && !quantumPending && searchSignature(settings)!==lastQuantumSettings){$('#quantum-status').textContent='Inputs changed — run PsiQDK again';$('#quantum-engine-tag').textContent='Previous result is stale';}
 }
-function updateSelection() {
-  const asset = run.grid_snapshot.substations.find((s) => s.id === selected);
-  const allocation = result.allocations.find((a) => a.id === selected);
-  $('#asset-name').textContent = asset ? asset.name : 'North San Jose compute site';
-  $('#asset-info').textContent = asset ? `${asset.kv} kV · ${asset.distance_km} km from site · ${allocation ? round(allocation.capacity) : asset.headroom_mw} MW ${allocation ? 'scenario' : 'recorded model'} headroom${allocation?.offline ? ' · OFFLINE' : ''}` : `Illustrative site · ${round(result.requested)} MW gross demand · ${run.site.deadline} recorded deadline`;
-  for (const button of document.querySelectorAll('[data-asset]')) button.classList.toggle('active', button.dataset.asset === selected);
+function updateSelection(){
+ const a=run.grid_snapshot.substations.find(s=>s.id===selected);const allocation=result.allocations.find(s=>s.id===selected);
+ $('#asset-name').textContent=a?a.name:'North San Jose compute site';
+ $('#asset-info').textContent=a?`${a.kv} kV · ${a.distance_km} km · ${round(allocation?allocation.capacity:a.headroom_mw)} MW scenario headroom`:`${round(result.requested)} MW request · drag to orbit, scroll to zoom`;
+ for(const b of document.querySelectorAll('[data-asset]'))b.classList.toggle('active',b.dataset.asset===selected);
 }
-function selectAsset(id) { selected = id; updateSelection(); scene.select(id); }
-function showDialog(title, content) { $('#dialog-eyebrow').textContent = title; $('#dialog-content').replaceChildren(...content); dialog.showModal(); }
+function selectAsset(id){selected=id;updateSelection();scene.select(id);}
+function explain(){
+ const head=make('h2',`${result.status}: why this verdict?`);head.style.color=`var(--${result.status.toLowerCase()})`;
+ const p=make('p',`${round(result.requested)} MW gross demand − ${round(result.curtailed)} MW curtailment − ${round(result.storage)} MW assumed battery support = ${round(result.delivered)} MW net grid demand. Firm N-1 capacity is ${round(result.n1Capacity)} MW.`);
+ const rows=result.checks.flatMap(c=>[make('h3',`${c.status} · ${c.name}`),make('p',c.detail)]);
+ const next=make('p',result.status==='RED'?'Revise the load split or reduce net grid demand. Line uprating does not increase the recorded firm transformer caps. The Flexible preset illustrates a lower net-demand scenario.':result.status==='AMBER'?'Resolve the specific commitment, deadline, permit, or mitigation conditions above, then check again.':'The browser checks pass. A changed plan still needs the actual quantum / physics / Lean pipeline before formal certification.');
+ showDialog('THIS SCENARIO / EXACT REASONS',[head,p,...rows,make('h3','What to do next'),next]);
+}
 function showRecord() {
-  const heading = make('h2', `Saved certificate: ${run.certificate.result}`);
-  heading.style.color = 'var(--green)';
-  const text = make('p', `This is the repository's saved 150 MW run from ${run.quantum.generated_utc}. Scenario knobs do not change this evidence.`);
+  const heading = make('h2', `Archived certificate: ${run.certificate.result} (superseded)`);
+  heading.style.color = 'var(--amber)';
+  const text = make('p', `This historical 150 MW run (${run.quantum.generated_utc}) predates the firm N-1 transformer review. Its GREEN verdict is superseded: the current 150 MW baseline is blocked by firm transformer caps. It is retained for comparison, not as a current certificate. Scenario knobs do not change this archive.`);
   const rows = run.certificate.checks.map((check) => {
     const row = make('div', undefined, 'certificate-row'); row.append(make('span', check.name.replaceAll('_', ' ')), make('span', check.pass ? 'PASS' : 'FAIL')); row.title = check.detail; return row;
   });
@@ -86,7 +86,7 @@ function showSources() {
     'Gross demand = requested load × (1 + demand growth). Net grid demand subtracts selected curtailment and assumed battery MW.',
     'Scenario headroom scales the recorded assumed headroom by (100 − utilization) / 35, DLR uplift, a 20% reconductoring factor, and a heat penalty of 0.8% per °C above 25°C.',
     'Thermal loading scales the recorded 71.7% result by net load, the largest route share relative to 75%, utilization, heat, and the selected upgrade factors. This is a sensitivity proxy, not an AC or IEEE 738 calculation.',
-    'N-1 uses aggregate remaining headroom after a source outage. It does not solve line contingencies or validate protection and topology.',
+    'Firm N-1 screening uses the recorded firm transformer headroom: 19.9 MW per selected source before an outage. Line-rating uplift and reconductoring never increase those firm caps. It does not solve line contingencies or validate protection and topology.',
     'Assumed delivery times: DLR 12 months, battery 18 months, reconductoring 36 months. ROW, flood protection, and storage commitment toggles are scenario assumptions, not evidence of permits or commitments.',
     'GRIP distribution MW comes from the cached 2028 flexibility curve, linearly interpolated between published scenario points. Above 10% curtailment the display is capped at the last data point.',
     'RED: capacity, thermal, or required N-1 screening fails. AMBER: a near-limit margin or a missing commitment, deadline, permit, mitigation, or curtailment condition. GREEN: all eight screening checks pass.',
@@ -105,72 +105,48 @@ function downloadJson(filename, data) {
   const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }));
   const a = make('a'); a.href = url; a.download = filename; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
-function setStage(value) {
-  stage = value;
-  for (const button of document.querySelectorAll('[data-stage]')) button.classList.toggle('active', Number(button.dataset.stage) === value);
-  const detail = [
-    `${run.quantum.space.N} candidate plans · ${run.quantum.space.n_qubits} qubits · ${run.quantum.iterations} Grover iteration in the recorded simulation.`,
-    `Recorded pandapower check: ${run.physics_result.max_line_loading_pct}% peak loading · ${run.physics_result.v_min_pu}–${run.physics_result.v_max_pu} pu · N-1 ${run.physics_result.n1_pass ? 'pass' : 'fail'}.`,
-    `Saved Lean 4 certificate: ${run.certificate.checks.filter((c) => c.pass).length}/${run.certificate.checks.length} encoded obligations pass. Inspect the certificate for its evidence and assumptions.`,
-  ];
-  $('#stage-detail').textContent = detail[value];
-  const quantum = value === 0;
-  scene.quantum(quantum);
-  $('#view-quantum').classList.toggle('active', quantum); $('#view-grid').classList.toggle('active', !quantum);
-  if (value === 2) toast('Saved result: GREEN · scope limited to encoded rules');
+async function runQuantum(){
+ if(quantumPending)return;
+ const submitted={...settings},signature=searchSignature(settings),controller=new AbortController();
+ const timeout=setTimeout(()=>controller.abort(),110000);quantumPending=true;
+ $('#run-quantum').disabled=true;$('#run-quantum').textContent='Running…';$('#quantum-status').textContent='Executing the PsiQDK native circuit';$('#quantum-summary').textContent='Building the oracle, applying Grover interference, and collecting measurements…';$('#quantum-engine-tag').textContent='RUNNING';quantumComputer.running(true);
+ try{
+  const response=await fetch('/api/quantum',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({settings:submitted}),signal:controller.signal});
+  const type=response.headers.get('content-type')||'';if(!type.includes('application/json'))throw new Error('The native execution service is not available. Start the API server or deploy the repository root.');const data=await response.json();if(!response.ok)throw new Error(data.error||'PsiQDK execution failed.');
+  if(data.backend!=='psiqdk'||!data.result?.numpy_crosscheck_ok)throw new Error('The response did not contain a verified PsiQDK result.');
+  lastQuantum=data;quantumComputer.result(data);$('#view-quantum').disabled=false;
+  if(searchSignature(settings)===signature && data.selected_settings){settings=normalize({...settings,...Object.fromEntries(['storage','curtailment','dlr','split'].map(key=>[key,data.selected_settings[key]]))});lastQuantumSettings=searchSignature(settings);render();}else lastQuantumSettings=signature;
+  const metrics=data.result.resources?.qpu_metrics||{};
+  $('#quantum-status').textContent=data.plan?'PsiQDK completed · measured candidate applied':'PsiQDK completed · no feasible candidate measured';
+  $('#quantum-summary').textContent=`${data.space.n_qubits} qubits · ${data.space.padded_N} states · ${data.marked_indices.length} marked · ${data.result.iterations} Grover iterations · ${data.result.samples_marked}/${data.result.shots} marked shots · AV ${metrics.active_volume??'n/a'} · ${data.wall_s}s`;
+  $('#quantum-engine-tag').textContent='PSIQDK · COMPLETED';
+  if(searchSignature(settings)!==lastQuantumSettings){$('#quantum-status').textContent='PsiQDK completed for earlier inputs — run again';$('#quantum-engine-tag').textContent='RESULT STALE';}
+  $('.quantum-steps small').textContent=`Returned native states · job ${data.job_id.slice(0,8)} · ${Object.entries(data.result.versions).map(([k,v])=>`${k} ${v}`).join(' · ')}`;
+ }catch(error){$('#quantum-status').textContent='PsiQDK did not complete';$('#quantum-summary').textContent=error.name==='AbortError'?'The job timed out. No fallback result was used.':error.message;$('#quantum-engine-tag').textContent='UNAVAILABLE';}
+ finally{clearTimeout(timeout);quantumPending=false;quantumComputer.running(false);$('#run-quantum').disabled=false;$('#run-quantum').textContent='▶ Run PsiQDK';}
 }
-async function init() {
-  try {
-    const fetchJson = async (path) => { const response = await fetch(path); if (!response.ok) throw new Error(`Could not load ${path}`); return response.json(); };
-    const geographyPromise = fetchJson(`${import.meta.env.BASE_URL}data/geography.json`);
-    run = await fetchJson(`${import.meta.env.BASE_URL}data/run.json`);
-    const geography = await geographyPromise;
-    scene = createScene($('#viewport'), run, geography, selectAsset);
-    $('#asset-list').replaceChildren(...run.grid_snapshot.substations.map((sub) => {
-      const button = make('button', sub.name.replace(' Substation', '').replace(' Station', '')); button.dataset.asset = sub.id; button.onclick = () => selectAsset(sub.id); return button;
-    }));
-    $('#knobs').addEventListener('input', (event) => {
-      const input = event.target; if (!(input.name in DEFAULTS)) return;
-      settings[input.name] = input.type === 'checkbox' ? input.checked : input.type === 'range' ? Number(input.value) : input.value;
-      render();
-    });
-    for (const button of document.querySelectorAll('[data-preset]')) button.onclick = () => { settings = { ...PRESETS[button.dataset.preset] }; render(); };
-    $('#reset').onclick = () => { settings = { ...DEFAULTS }; render(); scene.home(); toast('Baseline restored'); };
-    $('#home-camera').onclick = () => scene.home(); $('#top-camera').onclick = () => scene.top();
-    $('#rotate-camera').onclick = (event) => { const on = event.currentTarget.getAttribute('aria-pressed') !== 'true'; event.currentTarget.setAttribute('aria-pressed', String(on)); scene.rotate(on); };
-    for (const [id, name] of [['terrain-toggle', 'terrain'], ['lines-toggle', 'lines'], ['distribution-toggle', 'distribution']]) {
-      $(id.startsWith('#') ? id : `#${id}`).onclick = (event) => { const on = event.currentTarget.getAttribute('aria-pressed') !== 'true'; event.currentTarget.setAttribute('aria-pressed', String(on)); scene.layer(name, on); };
-    }
-    $('#view-grid').onclick = () => { scene.quantum(false); $('#view-grid').classList.add('active'); $('#view-quantum').classList.remove('active'); };
-    $('#view-quantum').onclick = () => { scene.quantum(true); $('#view-quantum').classList.add('active'); $('#view-grid').classList.remove('active'); };
-    $('#clear-selection').onclick = () => selectAsset('site');
-    $('#sources-button').onclick = showSources; $('#record-button').onclick = showRecord;
-    $('#export').onclick = () => { downloadJson('qgrid-scenario.json', exportScenario(settings, run)); toast('Scenario exported'); };
-    $('#import').onchange = async (event) => {
-      try {
-        const file = event.target.files[0]; if (!file) return; if (file.size > 100_000) throw new Error('File too large');
-        const data = JSON.parse(await file.text());
-        if (data.format !== 'qgrid-scenario-preview/1' || !data.settings || Array.isArray(data.settings)) throw new Error('Not a QGrid scenario');
-        settings = normalize(data.settings); render(); toast('Scenario imported');
-      } catch { toast('Import a QGrid scenario JSON file under 100 KB.'); }
-      event.target.value = '';
-    };
-    for (const button of document.querySelectorAll('[data-stage]')) button.onclick = () => { clearInterval(playback); playback = undefined; $('#play-run').textContent = '▶ Play walkthrough'; setStage(Number(button.dataset.stage)); };
-    $('#play-run').onclick = () => {
-      if (playback) { clearInterval(playback); playback = undefined; $('#play-run').textContent = '▶ Play walkthrough'; return; }
-      setStage(0); $('#play-run').textContent = 'Ⅱ Pause walkthrough';
-      playback = setInterval(() => { if (stage >= 2) { clearInterval(playback); playback = undefined; $('#play-run').textContent = '↺ Replay walkthrough'; return; } setStage(stage + 1); }, 4200);
-    };
-    render();
-  } catch (error) {
-    $('#loading').hidden = true; $('#webgl-fallback').hidden = false;
-    $('#webgl-fallback').textContent = 'The saved case-study data could not be loaded. Please reload the page or serve the app with npm run dev.';
-    $('#render-state').textContent = 'Data loading failed';
-    console.error(error);
-  }
+async function init(){
+ try{
+  const get=async p=>{const r=await fetch(`${import.meta.env.BASE_URL}data/${p}.json`);if(!r.ok)throw new Error('Data unavailable');return r.json();};
+  const values=await Promise.all([get('run'),get('geography')]);run=values[0];scene=createScene($('#viewport'),run,values[1],selectAsset);scene.flow(1);quantumComputer=createQuantumComputer($('#quantum-viewport'));gridPhysics=createGridPhysics($('#physics-viewport'));
+  $('#asset-list').replaceChildren(...run.grid_snapshot.substations.map(s=>{const b=make('button',s.name);b.dataset.asset=s.id;b.onclick=()=>selectAsset(s.id);return b;}));
+  $('#knobs').addEventListener('input',e=>{const i=e.target;if(!(i.name in DEFAULTS))return;settings[i.name]=i.type==='checkbox'?i.checked:i.type==='range'?Number(i.value):i.value;render();});
+  $('#knobs').addEventListener('focusin',e=>{const card=e.target.closest('.stage-card');if(card)document.querySelectorAll('.stage-card').forEach(n=>n.classList.toggle('selected',n===card));});
+  document.querySelectorAll('[data-preset]').forEach(b=>b.onclick=()=>{settings={...PRESETS[b.dataset.preset]};render();});
+  $('#reset').onclick=()=>{settings={...DEFAULTS};render();scene.home();toast('Baseline restored');};
+  document.querySelectorAll('[data-pane]').forEach(b=>b.onclick=()=>{const card=b.closest('.stage-card');card.querySelectorAll('[data-pane]').forEach(n=>{const on=n===b;n.classList.toggle('active',on);n.setAttribute('aria-selected',String(on));});card.querySelectorAll('[data-pane-body]').forEach(n=>n.hidden=n.dataset.paneBody!==b.dataset.pane);});
+  document.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>{const card=document.querySelector(`[data-step="${b.dataset.jump}"]`);$('#knobs').scrollTo({left:card.offsetLeft-$('#knobs').offsetLeft,behavior:'instant'});document.querySelectorAll('[data-jump]').forEach(n=>n.classList.toggle('active',n===b));});
+  $('#home-camera').onclick=()=>scene.home();$('#top-camera').onclick=()=>scene.top();
+  $('#rotate-camera').onclick=e=>{const on=e.currentTarget.getAttribute('aria-pressed')!=='true';e.currentTarget.setAttribute('aria-pressed',String(on));scene.rotate(on);};
+  for(const [id,name] of [['terrain-toggle','terrain'],['lines-toggle','lines'],['distribution-toggle','distribution']])document.getElementById(id).onclick=e=>{const on=e.currentTarget.getAttribute('aria-pressed')!=='true';e.currentTarget.setAttribute('aria-pressed',String(on));scene.layer(name,on);};
+  $('#view-grid').onclick=()=>{quantumComputer.step('computer');$('#view-grid').classList.add('active');$('#view-quantum').classList.remove('active');$('.quantum-steps').hidden=true;};
+  $('#view-quantum').onclick=()=>{if(!lastQuantum)return;quantumComputer.step(0);$('.quantum-steps').hidden=false;$('#view-quantum').classList.add('active');$('#view-grid').classList.remove('active');};
+  document.querySelectorAll('[data-quantum-step]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-quantum-step]').forEach(n=>n.classList.toggle('active',n===b));quantumComputer.step(Number(b.dataset.quantumStep));});
+  $('#run-quantum').onclick=runQuantum;
+  $('#why-button').onclick=explain;$('#sources-button').onclick=showSources;$('#record-button').onclick=showRecord;
+  $('#export').onclick=()=>downloadJson('qgrid-scenario.json',exportScenario(settings,run));
+  $('#import').onchange=async e=>{try{const f=e.target.files[0];if(!f)return;if(f.size>100000)throw new Error('Too big');const d=JSON.parse(await f.text());if(d.format!=='qgrid-scenario-preview/1'||!d.settings||typeof d.settings!=='object'||Array.isArray(d.settings))throw new Error('Invalid');settings=normalize(d.settings);render();toast('Scenario imported');}catch{toast('Import a QGrid scenario JSON file under 100 KB.');}e.target.value='';};
+  render();document.querySelector('[data-jump="0"]').classList.add('active');
+ }catch(e){$('#loading').hidden=true;$('#webgl-fallback').hidden=false;$('#webgl-fallback').textContent='Unable to load case-study data. Reload or run npm run dev.';console.error(e);}
 }
-$('#close-dialog').onclick = () => dialog.close();
-$('#mobile-verdict').onclick = () => $('.results-panel').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
-dialog.addEventListener('click', (event) => { if (event.target === dialog) { const r = dialog.getBoundingClientRect(); if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) dialog.close(); } });
-addEventListener('pagehide', () => { clearInterval(playback); scene?.dispose(); });
-init();
+$('#close-dialog').onclick=()=>dialog.close();dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});addEventListener('pagehide',()=>{scene?.dispose();quantumComputer?.dispose();gridPhysics?.dispose();});init();
