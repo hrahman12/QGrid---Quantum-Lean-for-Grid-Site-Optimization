@@ -38,6 +38,20 @@ def stage(module, func, name, *args):
     return fn(*args), "live"
 
 
+def pro_rata_plan(site, snapshot):
+    """Stand-in for L3 until quantum.search exists: split the request by each substation's headroom."""
+    subs = snapshot["substations"]
+    total = sum(max(s.get("headroom_mw") or 0, 0) for s in subs) or len(subs)
+    want = site["requested_mw"]
+    splits = [{"substation_id": s["id"],
+               "mw": round(want * (max(s.get("headroom_mw") or 0, 0) or (total / len(subs))) / total, 2)}
+              for s in subs]
+    splits[-1]["mw"] = round(want - sum(x["mw"] for x in splits[:-1]), 2)  # exact total after rounding
+    return {"site_id": site["id"], "splits": splits,
+            "flex": {"dlr": False, "storage_mw": 0, "curtailment_mw": 0, "reconductor": False},
+            "search": {"method": "heuristic", "evals": 1}}
+
+
 def run(site_path=None, out_root=None):
     site = json.loads(Path(site_path).read_text(encoding="utf-8")) if site_path else fixture("site")
     sources = {"site": site_path or "FIXTURE"}
@@ -47,6 +61,9 @@ def run(site_path=None, out_root=None):
     constraints = []  # Lean blocking conditions fed back into the next search (one pass for now)
     out["candidate_plan"], sources["candidate_plan"] = stage(
         "quantum.search", "propose", "candidate_plan", site, out["grid_snapshot"], constraints)
+    if sources["candidate_plan"] == "FIXTURE" and sources["grid_snapshot"] != "FIXTURE":
+        # fixture plan names synthetic SUB-A..D; re-split it over the live snapshot's substations
+        out["candidate_plan"], sources["candidate_plan"] = pro_rata_plan(site, out["grid_snapshot"]), "FIXTURE"
     out["physics_result"], sources["physics_result"] = stage(
         "grid.physics", "check", "physics_result", out["candidate_plan"], out["grid_snapshot"])
     out["certificate"], sources["certificate"] = stage(

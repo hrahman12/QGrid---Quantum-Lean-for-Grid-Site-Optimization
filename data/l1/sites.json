@@ -1,0 +1,38 @@
+[
+  {
+    "id": "nsj-alviso-150",
+    "name": "North San Jose / Alviso compute site (illustrative 150 MW)",
+    "lat": 37.4265,
+    "lon": -121.975,
+    "requested_mw": 150,
+    "deadline": "2028-06-30",
+    "iso": "CAISO"
+  },
+  {
+    "id": "novva-colorado-springs",
+    "name": "NOVVA Colorado Springs data center (assumed 40 MW request)",
+    "lat": 39.013,
+    "lon": -104.8164,
+    "requested_mw": 40,
+    "deadline": "2027-12-31",
+    "iso": "NONE"
+  },
+  {
+    "id": "ashburn-va-100",
+    "name": "Ashburn VA Data Center Alley (approx, assumed 100 MW request)",
+    "lat": 39.03,
+    "lon": -77.47,
+    "requested_mw": 100,
+    "deadline": "2028-03-31",
+    "iso": "PJM"
+  },
+  {
+    "id": "dfw-plano-60",
+    "name": "Dallas-Fort Worth Plano colocation corridor (approx, assumed 60 MW request)",
+    "lat": 33.02,
+    "lon": -96.7,
+    "requested_mw": 60,
+    "deadline": "2027-09-30",
+    "iso": "ERCOT"
+  }
+]

@@ -29,6 +29,19 @@ Rebuild offline with `.venv/bin/python data/l2/build_substation_ratings.py`. It 
 
 Unnamed substations, elements without a voltage tag or below 60 kV, and rail traction substations (Caltrain, BART) are dropped. The counts are in `skipped_osm_elements`. Ids are `osm-<type>-<id>`, so they can be joined to L1's OSM export once `data/l1/` lands.
 
+## queue_hints.json
+
+Rebuild offline with `.venv/bin/python data/l2/build_queue_hints.py` (add `--refresh` to re-download the queue).
+
+| What | Status | Source |
+|---|---|---|
+| Queue projects (id, location, type, MW, status, proposed COD) | SOURCED | CAISO public interconnection queue (`PublicQueueReport.xlsx`) via `gridstatus` 0.37.0 `CAISO().get_interconnection_queue()`, pulled 2026-11-08, filtered to Santa Clara, Alameda and San Mateo counties; cached in `cache/caiso_queue_bay_counties_2026-11-08.csv` |
+| Match to nearby substations | Method | Substation name (suffix stripped) as a whole word in `Interconnection Location`. Projects on a line or tap are tagged `"at": "line"` and left out of `active_mw_at_substation` |
+| Utility territory = PG&E | ASSUMED | The site is in the City of San Jose; Silicon Valley Power serves the City of Santa Clara. Not checked against a territory map |
+| Hosting capacity | Not cached | PG&E's ICA / hosting-capacity map needs a PG&E login |
+
+Caveat: the CAISO queue holds generation and storage requests only. Data-center load requests go through PG&E and are not in it, so these are competition and flexibility hints, not available capacity. Example: Los Esteros has 323 MW of active requests (including 200 MW of storage at 230 kV, proposed 2027-12-15) and 5 withdrawals.
+
 ## iso.py and caiso_<date>.csv
 
 `latest_signal("CAISO")` returns `{lmp, load, load_mw, timestamp, source, ...}`, matching `grid_snapshot.iso`. It tries a live gridstatus pull (60 s budget) and falls back to the newest `data/l2/caiso_*.csv`. `QSP_OFFLINE=1` forces the cache, and `source` says which one was used (`gridstatus:CAISO` or `cache:data/l2/...`).
