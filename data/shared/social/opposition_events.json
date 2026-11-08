@@ -1,0 +1,131 @@
+{
+ "note": "Events concern Project Taurus (Colorado Springs, a different developer) for site 'novva'; no opposition event naming NOVVA was found. Dates are article dates when the action date is unknown.",
+ "events": [
+  {
+   "site": "alviso",
+   "date": "2026-04-23",
+   "actor": "Dreaming Collaborative (Ellina Yin)",
+   "event": "petition",
+   "size": "800+ signatures (reported; petition start date unknown, date = article date)",
+   "url": "https://sanjosespotlight.com/residents-push-back-against-san-joses-data-center-plans/",
+   "evidence": "fetched"
+  },
+  {
+   "site": "alviso",
+   "date": "2026-04-23",
+   "actor": "Alviso in Action (Marcos Espinoza)",
+   "event": "op-ed",
+   "size": "n/a; quoted opposition on noise, air pollution, burrowing owl; says city has not contacted residents",
+   "url": "https://sanjosespotlight.com/residents-push-back-against-san-joses-data-center-plans/",
+   "evidence": "fetched"
+  },
+  {
+   "site": "alviso",
+   "date": "2026-04",
+   "actor": "Anonymous r/SanJose poster (online petition promoted)",
+   "event": "petition",
+   "size": "Reddit thread 45 pts / 54 comments; signature count unverified; a commenter alleges bot promotion",
+   "url": "https://reddit.com/r/SanJose/comments/1su3dox/petition_against_data_centers_in_san_jose/",
+   "evidence": "mirror_snapshot"
+  },
+  {
+   "site": "alviso",
+   "date": "2026-08-19",
+   "actor": "Multiple community groups and residents (parents; health, pollution, drought)",
+   "event": "council_comment",
+   "size": "first city listening session at City Hall; attendees 'overwhelmingly' skeptical; count not reported (date = article date)",
+   "url": "https://www.ktvu.com/news/san-jose-residents-push-back-new-ai-data-centers-during-city-listening-session",
+   "evidence": "fetched"
+  },
+  {
+   "site": "alviso",
+   "date": "2026-09",
+   "actor": "Sierra Club Loma Prieta / residents",
+   "event": "council_comment",
+   "size": "public outcry reported while Council rejected an appeal and advanced rezoning of former IBM property (North San Jose; snippet only, exact date and appellant unverified)",
+   "url": "https://www.sierraclub.org/loma-prieta/blog/2026/09/san-jose-considering-wave-ai-data-center-developments",
+   "evidence": "search_snippet"
+  },
+  {
+   "site": "alviso",
+   "date": "2026-10-15",
+   "actor": "Ellina Yin (Dreaming Collaborative), Kylie Clark (Silicon Valley Council of Nonprofits) and others",
+   "event": "protest",
+   "size": "rallies before and after the community meeting demanding a moratorium; size not reported",
+   "url": "https://www.kqed.org/news/12104561/as-san-jose-tries-to-regulate-data-centers-residents-want-to-ban-them",
+   "evidence": "fetched"
+  },
+  {
+   "site": "alviso",
+   "date": "2026-10-15",
+   "actor": "Silicon Valley Council of Nonprofits; Dreaming Collaborative; Amigos de Guadalupe (Misrayn Mendoza); Ted Smith; Shaf Khan; Thurston Brevett",
+   "event": "council_comment",
+   "size": "community meeting on draft standards; demand = pause on all approvals; attendance not reported; business groups and union laborers spoke in support of standards",
+   "url": "https://www.kqed.org/news/12104561/as-san-jose-tries-to-regulate-data-centers-residents-want-to-ban-them",
+   "evidence": "fetched"
+  },
+  {
+   "site": "alviso",
+   "date": "2017",
+   "actor": "Santa Clara Valley Audubon Society",
+   "event": "lawsuit",
+   "size": "precedent, not a data center: suit vs City of San Jose over Topgolf in Alviso (MND inadequate on burrowing owl habitat); URL is a Conservation Corner post surfaced by search, sentence not verified on that exact page",
+   "url": "https://scvbirdalliance.org/conservation-corner-posts/conservation-corner-marchapril-2017",
+   "evidence": "search_snippet"
+  },
+  {
+   "site": "novva",
+   "date": "2026-04-09",
+   "actor": "Colorado Springs residents",
+   "event": "council_comment",
+   "size": "public meeting on proposed data center drew backlash (CPR headline; page returned 403, details unread)",
+   "url": "https://www.cpr.org/2026/04/09/colorado-springs-proposed-data-center-backlash-public-meeting/",
+   "evidence": "search_snippet"
+  },
+  {
+   "site": "novva",
+   "date": "2026-04",
+   "actor": "change.org petitioners (moratorium; 'Reject the Project Taurus data center')",
+   "event": "petition",
+   "size": "signature counts not captured",
+   "url": "https://www.change.org/p/reject-the-project-taurus-data-center-near-garden-of-the-gods",
+   "evidence": "search_snippet"
+  },
+  {
+   "site": "novva",
+   "date": "2026-05-14",
+   "actor": "Colorado Springs residents",
+   "event": "council_comment",
+   "size": "Raeden Project Taurus community meeting (Marriott, Tech Center Dr); r/ColoradoSprings thread 241 pts / 77 comments",
+   "url": "https://reddit.sentinel-team.org/posts/1tbkykd/snapshots/2026-05-14T04%3A35%3A09.042677Z",
+   "evidence": "mirror_snapshot"
+  },
+  {
+   "site": "novva",
+   "date": "2026-06",
+   "actor": "Integrity Matters + Chelsea Glen residents (lead appellant Kate Kent)",
+   "event": "appeal",
+   "size": "primary administrative appeal of Project Taurus approval (50 MW); appeal window 3 miles",
+   "url": "https://www.coloradopolitics.com/2026/09/18/colorado-springs-city-council-punts-decision-on-project-taurus-data-center-to-april-2027-after-raucous-meeting-2/",
+   "evidence": "fetched"
+  },
+  {
+   "site": "novva",
+   "date": "2026-07-24",
+   "actor": "Appellants / residents",
+   "event": "council_comment",
+   "size": "Planning Commission rejected appeals 6-2 with four conditions; >100 signed up against vs 13 for (snippet only)",
+   "url": "https://www.coloradopolitics.com/2026/09/18/colorado-springs-city-council-punts-decision-on-project-taurus-data-center-to-april-2027-after-raucous-meeting-2/",
+   "evidence": "search_snippet"
+  },
+  {
+   "site": "novva",
+   "date": "2026-09-17",
+   "actor": "Residents at City Council hearing (Pikes Peak Center)",
+   "event": "council_comment",
+   "size": "126 signed up against vs 22 for; 120 allowed to speak; council voted 7-2 to postpone to 2027-04-13; 4 arrests after altercation; appellants say they do not condone violence",
+   "url": "https://www.coloradopolitics.com/2026/09/18/colorado-springs-city-council-punts-decision-on-project-taurus-data-center-to-april-2027-after-raucous-meeting-2/",
+   "evidence": "fetched"
+  }
+ ]
+}
