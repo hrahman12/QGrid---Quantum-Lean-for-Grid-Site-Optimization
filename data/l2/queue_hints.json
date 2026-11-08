@@ -1,0 +1,455 @@
+{
+  "site_id": "nsj-alviso-150",
+  "source": "CAISO public interconnection queue (PublicQueueReport.xlsx) via gridstatus 0.37.0 CAISO().get_interconnection_queue(), pulled 2026-11-08, cached in cache/caiso_queue_bay_counties_2026-11-08.csv",
+  "match_method": "substation name (suffix stripped) as a whole word in 'Interconnection Location'; substations from substation_ratings.json",
+  "caveats": [
+    "The CAISO queue covers generation and storage only; data-center load requests are not in it.",
+    "Active storage near a substation is a possible flexibility partner (battery) and a sign of interest in that node, not available capacity.",
+    "Many withdrawals at a substation hint at costly upgrades there; this is a hint, not a study result.",
+    "Hosting capacity: PG&E's ICA/hosting-capacity map needs a PG&E login, so it is not cached here (ASSUMED unknown)."
+  ],
+  "utility_territory": {
+    "value": "PG&E (transmission and distribution)",
+    "status": "ASSUMED",
+    "basis": "The site is in the City of San Jose (Alviso). Silicon Valley Power serves the City of Santa Clara, not San Jose. Not confirmed against a PG&E territory map."
+  },
+  "hints": [
+    {
+      "substation_ids": [
+        "osm-way-39017429"
+      ],
+      "substation": "Los Esteros Substation",
+      "distance_km": 3.72,
+      "active_count": 3,
+      "active_mw": 323.0,
+      "active_mw_at_substation": 323.0,
+      "active_storage_mw_at_substation": 323.0,
+      "withdrawn_count": 5,
+      "completed_count": 0,
+      "projects": [
+        {
+          "queue_id": "378",
+          "location": "Los Esteros 115 kV",
+          "type": "Combined Cycle + Storage",
+          "mw": 120.0,
+          "status": "ACTIVE",
+          "proposed_cod": "2023-09-01",
+          "at": "substation"
+        },
+        {
+          "queue_id": "1457",
+          "location": "Los Esteros 115 kV",
+          "type": "Storage",
+          "mw": 3.0,
+          "status": "ACTIVE",
+          "proposed_cod": "2025-04-29",
+          "at": "substation"
+        },
+        {
+          "queue_id": "1550",
+          "location": "Los Esteros 230 kV",
+          "type": "Storage",
+          "mw": 200.0,
+          "status": "ACTIVE",
+          "proposed_cod": "2027-12-15",
+          "at": "substation"
+        },
+        {
+          "queue_id": "1007",
+          "location": "Los Esteros Substation 115kV",
+          "type": "Storage",
+          "mw": 20.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2020-01-01",
+          "at": "substation"
+        },
+        {
+          "queue_id": "1549",
+          "location": "Los Esteros Substation 115kV",
+          "type": "Storage",
+          "mw": 200.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2023-12-01",
+          "at": "substation"
+        },
+        {
+          "queue_id": "1698",
+          "location": "Los Esteros Substation 115kV",
+          "type": "Storage",
+          "mw": 300.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2024-12-01",
+          "at": "substation"
+        },
+        {
+          "queue_id": "1703",
+          "location": "New Switchyard on Los Esteros-Trimble Line 115kV",
+          "type": "Storage",
+          "mw": 150.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2023-10-15",
+          "at": "line"
+        },
+        {
+          "queue_id": "1906",
+          "location": "Los Esteros 230 kV",
+          "type": "Storage",
+          "mw": 250.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2032-12-18",
+          "at": "substation"
+        }
+      ]
+    },
+    {
+      "substation_ids": [
+        "osm-way-120342208"
+      ],
+      "substation": "Dixon Landing Substation",
+      "distance_km": 5.86,
+      "active_count": 0,
+      "active_mw": 0,
+      "active_mw_at_substation": 0,
+      "active_storage_mw_at_substation": 0,
+      "withdrawn_count": 1,
+      "completed_count": 0,
+      "projects": [
+        {
+          "queue_id": "1910",
+          "location": "Dixon Landing - McKee 115 kV line",
+          "type": "Storage",
+          "mw": 40.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2025-07-01",
+          "at": "line"
+        }
+      ]
+    },
+    {
+      "substation_ids": [
+        "osm-way-120353461"
+      ],
+      "substation": "Trimble Substation",
+      "distance_km": 6.51,
+      "active_count": 0,
+      "active_mw": 0,
+      "active_mw_at_substation": 0,
+      "active_storage_mw_at_substation": 0,
+      "withdrawn_count": 2,
+      "completed_count": 0,
+      "projects": [
+        {
+          "queue_id": "1564",
+          "location": "Trimble Substation 115kV",
+          "type": "Storage",
+          "mw": 100.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2023-05-31",
+          "at": "substation"
+        },
+        {
+          "queue_id": "1703",
+          "location": "New Switchyard on Los Esteros-Trimble Line 115kV",
+          "type": "Storage",
+          "mw": 150.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2023-10-15",
+          "at": "line"
+        }
+      ]
+    },
+    {
+      "substation_ids": [
+        "osm-way-28875096",
+        "osm-way-28875097"
+      ],
+      "substation": "Newark Substation",
+      "distance_km": 8.33,
+      "active_count": 2,
+      "active_mw": 680.0,
+      "active_mw_at_substation": 180.0,
+      "active_storage_mw_at_substation": 180.0,
+      "withdrawn_count": 7,
+      "completed_count": 0,
+      "projects": [
+        {
+          "queue_id": "1881",
+          "location": "Tesla-Newark #1 230 kV Line",
+          "type": "Storage",
+          "mw": 500.0,
+          "status": "ACTIVE",
+          "proposed_cod": "2032-02-29",
+          "at": "line"
+        },
+        {
+          "queue_id": "1911",
+          "location": "Newark 230 kV",
+          "type": "Storage",
+          "mw": 180.0,
+          "status": "ACTIVE",
+          "proposed_cod": "2034-02-19",
+          "at": "substation"
+        },
+        {
+          "queue_id": "228",
+          "location": "Newark Substation 230kV bus",
+          "type": "Gas Turbine",
+          "mw": 630.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2011-06-01",
+          "at": "substation"
+        },
+        {
+          "queue_id": "1017",
+          "location": "Newark Substation 115 kV ",
+          "type": "Storage",
+          "mw": 50.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2019-01-01",
+          "at": "substation"
+        },
+        {
+          "queue_id": "1502",
+          "location": "Newark Station 230kV",
+          "type": "Storage",
+          "mw": 300.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2021-07-01",
+          "at": "substation"
+        },
+        {
+          "queue_id": "1879",
+          "location": "Tassajara - Newark 230 kV",
+          "type": "Storage",
+          "mw": 500.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2024-08-01",
+          "at": "line"
+        },
+        {
+          "queue_id": "1882",
+          "location": "Dumbarton-Newark 115 kV line",
+          "type": "Storage",
+          "mw": 225.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2024-08-01",
+          "at": "line"
+        },
+        {
+          "queue_id": "1885",
+          "location": "Newark Substation 230 kV",
+          "type": "Storage",
+          "mw": 150.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2025-10-01",
+          "at": "substation"
+        },
+        {
+          "queue_id": "1913",
+          "location": "Dumbarton-Newark 115 kV Line",
+          "type": "Storage",
+          "mw": 46.5,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2034-02-18",
+          "at": "line"
+        }
+      ]
+    },
+    {
+      "substation_ids": [
+        "osm-way-95912441"
+      ],
+      "substation": "McKee Substation",
+      "distance_km": 13.41,
+      "active_count": 0,
+      "active_mw": 0,
+      "active_mw_at_substation": 0,
+      "active_storage_mw_at_substation": 0,
+      "withdrawn_count": 1,
+      "completed_count": 0,
+      "projects": [
+        {
+          "queue_id": "1910",
+          "location": "Dixon Landing - McKee 115 kV line",
+          "type": "Storage",
+          "mw": 40.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2025-07-01",
+          "at": "line"
+        }
+      ]
+    },
+    {
+      "substation_ids": [
+        "osm-way-27925546",
+        "osm-way-27925549"
+      ],
+      "substation": "Monta Vista Substation",
+      "distance_km": 14.26,
+      "active_count": 0,
+      "active_mw": 0,
+      "active_mw_at_substation": 0,
+      "active_storage_mw_at_substation": 0,
+      "withdrawn_count": 1,
+      "completed_count": 0,
+      "projects": [
+        {
+          "queue_id": "1894",
+          "location": "Monta Vista 230 kV",
+          "type": "Storage",
+          "mw": 500.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2034-03-19",
+          "at": "substation"
+        }
+      ]
+    },
+    {
+      "substation_ids": [
+        "osm-way-48203963"
+      ],
+      "substation": "Cooley Landing Substation",
+      "distance_km": 14.49,
+      "active_count": 0,
+      "active_mw": 0,
+      "active_mw_at_substation": 0,
+      "active_storage_mw_at_substation": 0,
+      "withdrawn_count": 2,
+      "completed_count": 0,
+      "projects": [
+        {
+          "queue_id": "1101",
+          "location": "Cooley Landing 60kV Substation",
+          "type": "Storage",
+          "mw": 20.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2018-06-01",
+          "at": "substation"
+        },
+        {
+          "queue_id": "1919",
+          "location": "Cooley Landing 60 kV",
+          "type": "Storage",
+          "mw": 65.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2034-02-19",
+          "at": "substation"
+        }
+      ]
+    },
+    {
+      "substation_ids": [
+        "osm-way-59470569"
+      ],
+      "substation": "Dumbarton Substation",
+      "distance_km": 16.26,
+      "active_count": 0,
+      "active_mw": 0,
+      "active_mw_at_substation": 0,
+      "active_storage_mw_at_substation": 0,
+      "withdrawn_count": 2,
+      "completed_count": 0,
+      "projects": [
+        {
+          "queue_id": "1882",
+          "location": "Dumbarton-Newark 115 kV line",
+          "type": "Storage",
+          "mw": 225.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2024-08-01",
+          "at": "line"
+        },
+        {
+          "queue_id": "1913",
+          "location": "Dumbarton-Newark 115 kV Line",
+          "type": "Storage",
+          "mw": 46.5,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2034-02-18",
+          "at": "line"
+        }
+      ]
+    },
+    {
+      "substation_ids": [
+        "osm-way-38653255"
+      ],
+      "substation": "Evergreen Substation",
+      "distance_km": 18.13,
+      "active_count": 0,
+      "active_mw": 0,
+      "active_mw_at_substation": 0,
+      "active_storage_mw_at_substation": 0,
+      "withdrawn_count": 2,
+      "completed_count": 0,
+      "projects": [
+        {
+          "queue_id": "1023",
+          "location": "Evergreen Substation  60kV",
+          "type": "Storage",
+          "mw": 20.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2016-08-01",
+          "at": "substation"
+        },
+        {
+          "queue_id": "1873",
+          "location": "Evergreen 115 kV",
+          "type": "Storage",
+          "mw": 95.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2034-03-19",
+          "at": "substation"
+        }
+      ]
+    },
+    {
+      "substation_ids": [
+        "osm-way-30637327"
+      ],
+      "substation": "Bair Substation",
+      "distance_km": 22.54,
+      "active_count": 0,
+      "active_mw": 0,
+      "active_mw_at_substation": 0,
+      "active_storage_mw_at_substation": 0,
+      "withdrawn_count": 1,
+      "completed_count": 0,
+      "projects": [
+        {
+          "queue_id": "1451",
+          "location": "Bair Substation 60kV bus ",
+          "type": "Storage",
+          "mw": 40.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2021-12-01",
+          "at": "substation"
+        }
+      ]
+    },
+    {
+      "substation_ids": [
+        "osm-way-119409662"
+      ],
+      "substation": "Piercy Substation",
+      "distance_km": 24.13,
+      "active_count": 0,
+      "active_mw": 0,
+      "active_mw_at_substation": 0,
+      "active_storage_mw_at_substation": 0,
+      "withdrawn_count": 1,
+      "completed_count": 0,
+      "projects": [
+        {
+          "queue_id": "1893",
+          "location": "Piercy Substation 115 kV",
+          "type": "Storage",
+          "mw": 100.0,
+          "status": "WITHDRAWN",
+          "proposed_cod": "2025-10-01",
+          "at": "substation"
+        }
+      ]
+    }
+  ]
+}
