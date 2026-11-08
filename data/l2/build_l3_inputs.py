@@ -7,9 +7,8 @@ Joins (all cached on main):
   data/l2/substation_ratings.json       transmission-level OSM substations (for the MW that cannot go on distribution)
   data/l2/ciso_2025_stress.json         system stress window (context; the Lean curtailment rule uses the LOCAL bank window)
 
-ASSUMED: feeder -> bank from PG&E circuit numbering (first digit of the 4-digit circuit number = bank number,
-e.g. LAWRENCE 1102 -> bank 0834201). Matches an existing bank id for 81 of 82 GRIP feeders (the miss is
-SIGNETICS, which has no bank data). GRIP itself does not publish the feeder-bank link.
+Feeder -> bank: SOURCED from GRIP layer 31 FEEDER rows (field `bankname`, e.g. BRITTON 1104 -> BRITTON BANK 1),
+data/shared/grip/raw/layer_31.geojson. Feeders without a layer-31 row get bank_id null (unknown).
 
 Usage: python data/l2/build_l3_inputs.py
 """
@@ -25,7 +24,15 @@ FLEX = json.loads((HERE / "flex_headroom.json").read_text(encoding="utf-8"))
 RISK = json.loads((HERE / "site_risk.json").read_text(encoding="utf-8"))
 RATINGS = json.loads((HERE / "substation_ratings.json").read_text(encoding="utf-8"))
 STRESS = json.loads((HERE / "ciso_2025_stress.json").read_text(encoding="utf-8"))
+L31 = ROOT / "data" / "shared" / "grip" / "raw" / "layer_31.geojson"
 OUT = HERE / "l3_inputs.json"
+
+
+def feeder_banks():
+    rows = [f["properties"] for f in json.loads(L31.read_text(encoding="utf-8"))["features"]]
+    bank_id = {r["gnafacilityname"].strip().upper(): r["idnumber"] for r in rows if r.get("facilitytype") == "BANK"}
+    return {r["idnumber"]: bank_id.get((r.get("bankname") or "").strip().upper())
+            for r in rows if r.get("facilitytype") == "FEEDER"}
 
 MIN_SITE_MW, MAX_SITE_MW = 0.5, 10.0  # organizers' edge-site range (Track 1)
 CURTAIL_PCTS = ["0", "1", "2", "5", "10"]
@@ -40,6 +47,7 @@ def km(lat1, lon1, lat2, lon2):
 def main():
     risk = {p["id"]: p for p in RISK["points"]}
     flex = {s["id"]: s for s in FLEX["substations"]}
+    fbank = feeder_banks()
     banks, feeders = [], []
     for s in GRIP["substations"]:
         r = risk.get(s["id"], {})
@@ -62,13 +70,12 @@ def main():
                 "flood_zone": flood.get("zone"), "flood_sfha": flood.get("sfha", False), "flood_bfe_ft": flood.get("bfe_ft"),
             })
         for f in s["feeders"]:
-            circuit = f["feeder_id"][len(s["id"]):]
-            bank_guess = f"{s['id']}0{circuit[0]}"
+            bid = fbank.get(f["feeder_id"])
             host = f.get("max_load_hosting_mw")
             feeders.append({
                 "feeder_id": f["feeder_id"], "feeder": f["name"], "substation_id": s["id"], "substation": s["name"],
-                "bank_id": bank_guess if bank_guess in bank_ids else None,
-                "bank_id_status": "ASSUMED (circuit numbering)" if bank_guess in bank_ids else "unknown",
+                "bank_id": bid if bid in bank_ids else None,
+                "bank_id_status": "SOURCED (GRIP layer 31 bankname)" if bid in bank_ids else "unknown (no layer-31 feeder row)",
                 "lat": s["lat"], "lon": s["lon"], "distance_km": dist,
                 "hosting_mw": host,
                 "edge_site_max_mw": None if host is None else round(min(host, MAX_SITE_MW), 3),
