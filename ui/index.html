@@ -6,16 +6,13 @@
 <title>QSiteProof Quantum View</title>
 <meta name="description" content="Can a 150 MW data center connect at North San Jose / Alviso, how much, how soon? Find (Grover search), check (power flow, N-1), prove (rule certificate).">
 <link rel="icon" href="data:,">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#04050a; --bg2:#080b14; --panel:rgba(10,14,26,.72); --line:rgba(140,170,255,.14); --line2:rgba(140,170,255,.28);
   --fg:#e8ecff; --fg2:#a9b3d6; --fg3:#7a84a8;
   --q:#5ef2ff; --v:#a58bff; --g:#3ef0a0; --a:#ffb547; --r:#ff5470; --blue:#4d8dff;
   --ease-out:cubic-bezier(.23,1,.32,1); --ease-io:cubic-bezier(.77,0,.175,1);
-  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace; --sans:"Sora",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,monospace; --sans:system-ui,-apple-system,"Segoe UI",sans-serif;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
@@ -154,7 +151,7 @@ footer code{font-family:var(--mono);color:var(--fg2)}
 @media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important;animation-duration:.01ms!important}}
 </style>
 <script type="importmap">
-{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+{"imports":{"three":"./vendor/three.module.js","three/addons/":"./vendor/jsm/"}}
 </script>
 </head>
 <body>
