@@ -38,11 +38,50 @@ def test_unknown_substation_is_reported_not_raised():
     assert not r["converged"] and "unknown substation NOPE" in r["violations"][0]
 
 
+def test_75mw_on_19_9mw_firm_substation_fails_n1():
+    snap = {**SNAP, "substations": [{**s, "headroom_mw_n1_firm": 19.9} if s["id"] == "SUB-A" else s for s in SNAP["substations"]]}
+    r = check(plan({"SUB-A": 75}), snap)
+    assert r["converged"] and not r["n1_pass"]
+    assert any("XF-SUB-A largest bank out" in v and "75.0 MW > firm headroom 19.9 MW" in v for v in r["violations"])
+    assert check(plan({"SUB-A": 75}), SNAP)["n1_pass"]  # same plan without firm data: only lines are outaged
+
+
 def test_distribution_edge_sites_respect_bank_headroom():
     from grid.distribution import edge_sites
-    grip = {"substations": [{"id": "S1", "name": "S ONE", "lat": 0, "lon": 0, "headroom_mw": 12.0, "feeders": [
+    grip = {"substations": [{"id": "S1", "name": "S ONE", "lat": 0, "lon": 0, "headroom_mw": 12.0, "banks": [{"id": "B1", "headroom_mw": 12.0}],
+                             "feeders": [
         {"feeder_id": "f1", "name": "F1", "max_load_hosting_mw": 14.3}, {"feeder_id": "f2", "name": "F2", "max_load_hosting_mw": 5.0},
         {"feeder_id": "f3", "name": "F3", "max_load_hosting_mw": 0.2}, {"feeder_id": "f4", "name": "F4", "max_load_hosting_mw": None}]}]}
-    r = edge_sites(grip, 150)
+    r = edge_sites(grip, 150)  # single bank: feeders default to it
     assert [s["mw"] for s in r["edge_sites"]] == [10.0, 2.0]  # 10 MW cap, then what is left of the 12 MW bank headroom
     assert r["connectable_at_distribution_mw"] == 12.0 and r["needs_transmission_mw"] == 138.0
+
+
+def test_edge_sites_never_pool_headroom_across_banks():
+    from grid.distribution import edge_sites
+    grip = {"substations": [{"id": "S", "name": "S", "lat": 0, "lon": 0, "headroom_mw": 9.0,
+                             "banks": [{"id": "FULL", "headroom_mw": 0}, {"id": "SPARE", "headroom_mw": 9.0}, {"id": "NOFC", "headroom_mw": None}],
+                             "feeders": [{"feeder_id": "a", "name": "A", "max_load_hosting_mw": 8.5},
+                                         {"feeder_id": "b", "name": "B", "max_load_hosting_mw": 6.0},
+                                         {"feeder_id": "c", "name": "C", "max_load_hosting_mw": 7.0},
+                                         {"feeder_id": "d", "name": "D", "max_load_hosting_mw": 9.0}]}]}
+    r = edge_sites(grip, 150, {"a": "FULL", "b": "SPARE", "c": "NOFC"})  # d: unknown bank
+    assert [(s["feeder_id"], s["mw"]) for s in r["edge_sites"]] == [("b", 6.0)]
+
+
+def test_real_grip_edge_sites_within_every_bank_cap():
+    from collections import Counter
+
+    import pytest
+
+    from grid.distribution import edge_sites, load_bank_map, load_grip
+    grip = load_grip()
+    if grip is None:
+        pytest.skip("no GRIP cache")
+    r = edge_sites(grip, 150, load_bank_map())
+    cap = {b["id"]: b.get("headroom_mw") or 0.0 for s in grip["substations"] for b in s.get("banks", [])}
+    used = Counter()
+    for s in r["edge_sites"]:
+        assert 0.5 <= s["mw"] <= 10.0
+        used[s["bank_id"]] += s["mw"]
+    assert all(mw <= cap[b] + 1e-6 for b, mw in used.items()), {b: (mw, cap[b]) for b, mw in used.items() if mw > cap[b]}
