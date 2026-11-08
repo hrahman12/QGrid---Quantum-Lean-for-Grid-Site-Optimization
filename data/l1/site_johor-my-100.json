@@ -1,0 +1,11 @@
+{
+  "id": "johor-my-100",
+  "name": "Johor Sedenak/Kulai data-center corridor (approx, assumed 100 MW request)",
+  "lat": 1.63,
+  "lon": 103.58,
+  "requested_mw": 100,
+  "deadline": "2028-06-30",
+  "iso": "TNB:Peninsular",
+  "country": "MY",
+  "grid_operator": "Tenaga Nasional Berhad (TNB)"
+}

@@ -29,6 +29,19 @@ SITES = [
         "id": "dfw-plano-60", "name": "Dallas-Fort Worth Plano colocation corridor (approx, assumed 60 MW request)",
         "lat": 33.0200, "lon": -96.7000, "requested_mw": 60, "deadline": "2027-09-30", "iso": "ERCOT",
     },
+    # International (grid/adapters global_osm). `country` = ISO-3166 alpha-2; omitted means "US".
+    {   # EU: Frankfurt am Main data-center cluster (Ostend / Hanauer Landstrasse, DE-CIX hub). Approx cluster centre
+        # from public maps; TSO Amprion/TenneT, DSO Syna/Mainova. requested_mw ASSUMED.
+        "id": "frankfurt-de-120", "name": "Frankfurt am Main data-center cluster (approx, assumed 120 MW request)",
+        "lat": 50.1150, "lon": 8.7300, "requested_mw": 120, "deadline": "2028-12-31", "iso": "ENTSOE:DE-LU",
+        "country": "DE", "grid_operator": "Amprion / TenneT (TSO), Mainova/Syna (DSO)",
+    },
+    {   # Non-EU: Johor, Malaysia (Sedenak Tech Park / Kulai data-center corridor). Approx centre from public maps;
+        # utility TNB (single buyer, no LMP market). requested_mw ASSUMED.
+        "id": "johor-my-100", "name": "Johor Sedenak/Kulai data-center corridor (approx, assumed 100 MW request)",
+        "lat": 1.6300, "lon": 103.5800, "requested_mw": 100, "deadline": "2028-06-30", "iso": "TNB:Peninsular",
+        "country": "MY", "grid_operator": "Tenaga Nasional Berhad (TNB)",
+    },
 ]
 
 if __name__ == "__main__":
@@ -36,4 +49,7 @@ if __name__ == "__main__":
     out.mkdir(parents=True, exist_ok=True)
     (out / "sites.json").write_text(json.dumps(SITES, indent=2), encoding="utf-8")
     (out / "site.json").write_text(json.dumps(SITES[0], indent=2), encoding="utf-8")
+    for s in SITES:
+        if "country" in s:  # international sample sites get their own site file for `pipeline.py data/l1/site_<id>.json`
+            (out / f"site_{s['id']}.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
     print(f"wrote {len(SITES)} sites to {out}")
