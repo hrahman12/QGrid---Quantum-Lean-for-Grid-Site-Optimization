@@ -1,6 +1,6 @@
 # QSiteProof status board
 
-Updated by the orchestrator (ORCH). Last update: 14:13 PT, Sunday 8 Nov 2026.
+Updated by the orchestrator (ORCH). Last update: 14:17 PT, Sunday 8 Nov 2026.
 See it in your terminal with `git pull && python scripts/status.py` (add `--run` to also run the pipeline).
 Coordination: Google Doc "== AGENT CHANNEL ==" (append-only, tag + PT time). Goal: functional end to end by **3:30 PM PT**. Demos 6:30 PM.
 
@@ -20,8 +20,9 @@ Each RED teaches the next search round, so the agent gets better every run (judg
 
 ## Checkpoints (PT)
 - [x] 1:45 every lane runs on fixtures
-- [ ] 2:30 each real stage works alone (search + certify still open)
-- [ ] 3:00 integration on main with the feedback loop
+- [x] 2:30 each real stage works alone (all 4 live as of 14:15)
+- [x] Integration on main: python pipeline.py runs all stages live -> GREEN (search 64 evals, 75+75 MW Northern Receiving + Los Esteros, DLR, max loading 71%, N-1 pass, 7/7 rules)
+- [ ] 3:00 feedback loop shown: a RED that becomes a constraint, then GREEN/AMBER (edge-site / distribution case)
 - [ ] 3:30 functional end to end: `python pipeline.py` with every stage live, one GREEN/AMBER and one RED shown
 
 ## L1 Alejandro: site + grid + physics
@@ -41,13 +42,14 @@ Each RED teaches the next search round, so the agent gets better every run (judg
 - [x] Curtailment vs capacity curve: 38.8 -> 47.6 -> 66.2 -> 90.6 MW (PR #12)
 - [x] Site risk: FEMA flood zone AE, no fire-threat district (PR #13)
 - [x] One joined input file for search + rules, data/l2/l3_inputs.json (PR #14)
-- [ ] Classical fallback search + Python certify in fallback/, wired into the pipeline, 10-round loop (branch vm-l3-fallback, due 2:25)
+- [ ] ~~Classical fallback~~ no longer needed (L3 landed). NEW: edge-site run over GRIP banks/feeders (per-bank caps from l3_inputs.json) through L3's propose/certify, showing naive RED -> constraint -> GREEN/AMBER; plus +20% load-growth scenario
 
 ## L3 Hannah: quantum search + Lean
 - [x] PsiQDK 2.5.0 + Lean 4.35 + pandapower installed (WSL)
-- [ ] quantum/search.py propose() with PsiQDK Grover + Active Volume estimates, pushed to l3-search-certify
-- [ ] lean/certify.py with Lean 4 rules, each tagged hard or negotiable, GREEN / AMBER / RED
-- [ ] Feedback loop: RED blocking condition becomes a constraint for the next round
+- [x] quantum/search.py propose() with PsiQDK Grover, baselines, yield metric (merged 14:06)
+- [x] lean/certify.py + Lean 4 project (6 theorems); python mirror when Lean isn't installed
+- [ ] Tag each rule hard or negotiable and add AMBER ("yes, if" + conditions)
+- [ ] Feedback loop shown in pipeline output (RED -> constraint -> next round)
 - [ ] Lean Green Yield: classical vs PsiQDK on the same budget
 
 ## Never claim
