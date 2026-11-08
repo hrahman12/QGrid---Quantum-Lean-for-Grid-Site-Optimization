@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "site.schema.json",
+  "title": "Site: a compute load asking to connect",
+  "type": "object",
+  "required": ["id", "name", "lat", "lon", "requested_mw", "deadline", "iso"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "name": {"type": "string"},
+    "lat": {"type": "number", "minimum": -90, "maximum": 90},
+    "lon": {"type": "number", "minimum": -180, "maximum": 180},
+    "requested_mw": {"type": "number", "exclusiveMinimum": 0},
+    "deadline": {"type": "string", "format": "date", "description": "Target energization date, YYYY-MM-DD"},
+    "iso": {"type": "string", "description": "Market/BA name as gridstatus uses it, e.g. CAISO, ERCOT, PJM"}
+  }
+}

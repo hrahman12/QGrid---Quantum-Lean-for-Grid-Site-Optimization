@@ -1,0 +1,10 @@
+{
+  "checks": [
+    {"name": "capacity", "pass": true, "detail": "every split <= substation headroom; splits sum to 150 MW requested"},
+    {"name": "physics", "pass": true, "detail": "power flow converged, max loading 78%, voltage 0.97-1.02 pu, N-1 pass"},
+    {"name": "deadline", "pass": true, "detail": "no flex option with lead time past 2028-06-30"}
+  ],
+  "result": "GREEN",
+  "blocking_condition": null,
+  "scope_note": "FIXTURE (synthetic data). GREEN covers only the encoded rules above; it is not a utility interconnection approval."
+}

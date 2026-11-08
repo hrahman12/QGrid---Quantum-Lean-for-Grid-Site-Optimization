@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "physics_result.schema.json",
+  "title": "Power-flow check of one candidate plan",
+  "type": "object",
+  "required": ["converged", "max_line_loading_pct", "v_min_pu", "v_max_pu", "n1_pass", "violations"],
+  "properties": {
+    "converged": {"type": "boolean"},
+    "max_line_loading_pct": {"type": ["number", "null"]},
+    "v_min_pu": {"type": ["number", "null"]},
+    "v_max_pu": {"type": ["number", "null"]},
+    "n1_pass": {"type": "boolean"},
+    "violations": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Human-readable, e.g. 'line L2 loading 112% > 100%'"
+    }
+  }
+}

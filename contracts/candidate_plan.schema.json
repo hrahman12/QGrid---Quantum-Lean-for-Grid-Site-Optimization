@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "candidate_plan.schema.json",
+  "title": "Candidate connection plan from the search stage",
+  "type": "object",
+  "required": ["splits", "flex", "search"],
+  "properties": {
+    "site_id": {"type": "string"},
+    "splits": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["substation_id", "mw"],
+        "properties": {
+          "substation_id": {"type": "string", "minLength": 1},
+          "mw": {"type": "number", "minimum": 0}
+        }
+      }
+    },
+    "flex": {
+      "type": "object",
+      "required": ["dlr", "storage_mw", "curtailment_mw", "reconductor"],
+      "properties": {
+        "dlr": {"type": "boolean", "description": "Dynamic line rating used"},
+        "storage_mw": {"type": "number", "minimum": 0},
+        "curtailment_mw": {"type": "number", "minimum": 0},
+        "reconductor": {"type": "boolean"}
+      }
+    },
+    "search": {
+      "type": "object",
+      "required": ["method", "evals"],
+      "properties": {
+        "method": {"enum": ["random", "heuristic", "psiqdk"]},
+        "evals": {"type": "integer", "minimum": 0, "description": "Candidate evaluations spent to find this plan"}
+      }
+    }
+  }
+}

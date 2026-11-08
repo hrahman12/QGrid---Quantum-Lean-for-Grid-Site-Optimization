@@ -1,0 +1,5 @@
+{
+  "substations": [{"id": "S1", "name": "Example substation", "lat": 37.01, "lon": -122.01, "kv": 115, "assumed_mva": 100, "distance_km": 1.4, "headroom_mw": 30}],
+  "lines": [],
+  "iso": {"lmp": null, "load": null, "timestamp": "2026-11-08T20:00:00Z", "source": "fixture-synthetic"}
+}

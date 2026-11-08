@@ -1,0 +1,9 @@
+{
+  "checks": [
+    {"name": "capacity", "pass": false, "detail": "S1 split 50 MW > headroom 30 MW"},
+    {"name": "physics", "pass": false, "detail": "2 violations, N-1 fail"}
+  ],
+  "result": "RED",
+  "blocking_condition": "capacity: S1 split 50 MW > headroom 30 MW",
+  "scope_note": "Example only. Covers the encoded rules; not a utility interconnection approval."
+}
