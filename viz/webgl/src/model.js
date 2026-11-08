@@ -7,7 +7,7 @@ export const DEFAULTS = Object.freeze({
 export const PRESETS = {
   baseline: { ...DEFAULTS },
   flexible: { ...DEFAULTS, load: 100, split: 50, storage: 60, curtailment: 10, dlr: 15, months: 24 },
-  conditional: { ...DEFAULTS, load: 100, split: 50, storage: 60, curtailment: 10, months: 6, reconductor: true },
+  conditional: { ...DEFAULTS, load: 100, split: 50, storage: 60, curtailment: 10, months: 6 },
   stressed: { ...DEFAULTS, load: 350, utilization: 88, temperature: 42, growth: 20 },
 };
 const BOUNDS = { load: [25, 500], growth: [0, 50], utilization: [40, 95], split: [0, 100],
@@ -26,6 +26,10 @@ export function normalize(input = {}) {
   return result;
 }
 export const round = (n, decimals = 1) => Number(n.toFixed(decimals));
+export function screeningStatus(checks) {
+  const unmet = checks.filter(c => c.status !== 'GREEN').length;
+  return unmet === 0 ? 'GREEN' : unmet === 1 ? 'AMBER' : 'RED';
+}
 export function evaluate(input, run) {
   const s = normalize(input);
   const selected = run.candidate_plan.splits.map((split) => ({
@@ -74,7 +78,7 @@ export function evaluate(input, run) {
     s.floodProtected ? 'Protection is assumed in this scenario for the recorded FEMA AE flood-zone context.' : 'Flood-zone AE mitigation evidence is still needed.');
   add('penalty', 'Curtailment obligation', s.curtailment > 10 ? 'AMBER' : 'GREEN',
     `${s.curtailment}% curtailment selected; the screening penalty cap is assumed at 10%.`);
-  const status = checks.some((c) => c.status === 'RED') ? 'RED' : checks.some((c) => c.status === 'AMBER') ? 'AMBER' : 'GREEN';
+  const status = screeningStatus(checks);
   const blocking = checks.filter((c) => c.status !== 'GREEN');
   const isBaseline = Object.keys(DEFAULTS).every((key) => s[key] === DEFAULTS[key]);
   const curve = run.flexibility.curve;

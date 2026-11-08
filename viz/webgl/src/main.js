@@ -25,7 +25,7 @@ function render(){
  for(const b of document.querySelectorAll('[data-preset]')){const p=PRESETS[b.dataset.preset];const on=Object.keys(DEFAULTS).every(k=>p[k]===settings[k]);b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on));}
  const passed=result.checks.filter(c=>c.status==='GREEN').length;
  $('#verdict').dataset.status=result.status;
- $('#verdict-title').textContent={RED:'RED — connection blocked',AMBER:'AMBER — yes, if conditions hold',GREEN:'GREEN — scenario checks pass'}[result.status];
+ $('#verdict-title').textContent=`${result.status==='AMBER'?'YELLOW':result.status} — ${passed} / 8 rules pass`;
  const first=result.blocking.find(c=>c.status==='RED')||result.blocking[0];
  $('#verdict-description').textContent=first?first.detail:'All selected scenario conditions pass. New physics and Lean evidence are required for formal certification.';
  $('#input-output').textContent=`${round(result.requested)} MW · ${settings.months} months`;
@@ -43,7 +43,7 @@ function render(){
  const physicsBlocked=result.checks.some(c=>['capacity','thermal','n1'].includes(c.id)&&c.status==='RED');
  $('#physics-output').textContent=physicsBlocked?'Blocked — revise the candidate':'Grid screening passes';
  $('#proof-output').textContent=`${result.status} · ${passed} / 8 scenario checks pass`;$('#passed-count').textContent=`${passed} / 8`;
- $('#lean-goal-status').textContent={GREEN:'READY TO PROVE',AMBER:'CONDITIONAL',RED:'BLOCKED'}[result.status];$('#lean-goal-status').dataset.status=result.status;$('#passed-count').style.color=`var(--${result.status.toLowerCase()})`;
+ $('#lean-goal-status').textContent={GREEN:'READY TO PROVE',AMBER:'1 RULE UNMET',RED:'RULES UNMET'}[result.status];$('#lean-goal-status').dataset.status=result.status;$('#passed-count').style.color=`var(--${result.status.toLowerCase()})`;
  $('#flow-input').textContent=`${round(result.requested)} MW`;$('#flow-plan').textContent=`${result.allocations.filter(a=>a.mw>0).length} routes`;
  $('#flow-check').textContent=physicsBlocked?'Blocked':'Pass';$('#flow-check').style.color=physicsBlocked?'var(--red)':'var(--green)';$('#flow-result').textContent=result.status;$('#flow-result').style.color=`var(--${result.status.toLowerCase()})`;
  $('#reason-title').textContent=first?`${first.name} ${first.status==='RED'?'blocks this plan.':'is conditional.'}`:'Every scenario condition holds.';
@@ -62,7 +62,7 @@ function explain(){
  const head=make('h2',`${result.status}: why this verdict?`);head.style.color=`var(--${result.status.toLowerCase()})`;
  const p=make('p',`${round(result.requested)} MW gross demand − ${round(result.curtailed)} MW curtailment − ${round(result.storage)} MW assumed battery support = ${round(result.delivered)} MW net grid demand. Firm N-1 capacity is ${round(result.n1Capacity)} MW.`);
  const rows=result.checks.flatMap(c=>[make('h3',`${c.status} · ${c.name}`),make('p',c.detail)]);
- const next=make('p',result.status==='RED'?'Revise the load split or reduce net grid demand. Line uprating does not increase the recorded firm transformer caps. The Flexible preset illustrates a lower net-demand scenario.':result.status==='AMBER'?'Resolve the specific commitment, deadline, permit, or mitigation conditions above, then check again.':'The browser checks pass. A changed plan still needs the actual quantum / physics / Lean pipeline before formal certification.');
+ const next=make('p',result.blocking.length?'Resolve every unmet rule listed above, then check again. Yellow means exactly seven of eight screens pass; any blocking physics limit still needs to be resolved. Line uprating does not increase firm transformer caps.':'The browser checks pass. A changed plan still needs the actual quantum / physics / Lean pipeline before formal certification.');
  showDialog('THIS SCENARIO / EXACT REASONS',[head,p,...rows,make('h3','What to do next'),next]);
 }
 function showRecord() {
@@ -89,7 +89,7 @@ function showSources() {
     'Firm N-1 screening uses the recorded firm transformer headroom: 19.9 MW per selected source before an outage. Line-rating uplift and reconductoring never increase those firm caps. It does not solve line contingencies or validate protection and topology.',
     'Assumed delivery times: DLR 12 months, battery 18 months, reconductoring 36 months. ROW, flood protection, and storage commitment toggles are scenario assumptions, not evidence of permits or commitments.',
     'GRIP distribution MW comes from the cached 2028 flexibility curve, linearly interpolated between published scenario points. Above 10% curtailment the display is capped at the last data point.',
-    'RED: capacity, thermal, or required N-1 screening fails. AMBER: a near-limit margin or a missing commitment, deadline, permit, mitigation, or curtailment condition. GREEN: all eight screening checks pass.',
+    'Overall display: GREEN when 8/8 screens pass, YELLOW (AMBER) when exactly 7/8 pass, RED when 6/8 or fewer pass. Unmet includes a failed limit or an unresolved condition. Individual blocking physics rules remain red regardless of the overall count. This display rule does not change the pipeline or Lean verdict.',
   ]) equations.append(make('li', text));
   const sources = make('ul');
   for (const [label, url] of [

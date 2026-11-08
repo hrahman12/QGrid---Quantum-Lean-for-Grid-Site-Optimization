@@ -23,7 +23,7 @@ From the repository root, also run `python -m viz.webgl.server.local_api` in a s
 
 ## Scope
 
-The 150 MW baseline is RED under the recorded firm N-1 transformer caps (19.9 MW per selected source). DLR and reconductoring do not inflate those caps. The Flexible preset reduces net demand to 30 MW and passes the browser screen. The older GREEN certificate is retained only as a superseded historical record.
+The overall browser color follows the requested count: **8/8 pass → GREEN; 7/8 → YELLOW (AMBER); 0–6/8 → RED**. An unresolved condition counts as unmet. Individual blocking physics checks remain red. This count-based display does not alter the actual pipeline or Lean verdict. The 150 MW baseline has seven passing screens and one blocking firm N-1 check, so its overall browser display is yellow while the actual transmission pipeline remains RED under the recorded 19.9 MW firm cap per selected source. DLR and reconductoring do not inflate those caps. The Flexible preset reduces net demand to 30 MW and passes the browser screen. The older GREEN certificate is retained only as a superseded historical record.
 
 The sliders update an analytical sensitivity screen. **Run PsiQDK does execute the native PsiQDK Workbench simulator**, using at most eight register qubits and 32 shots per bounded request. This is a classical simulation of a fault-tolerant quantum circuit, not a quantum-hardware run; the oracle marking list is classically enumerated, so no quantum advantage is claimed. The browser Check / Prove screens do **not** execute pandapower or Lean and do not issue a new formal certificate or utility approval. The saved Lean result and its evidence hash remain separate from the scenario state.
 

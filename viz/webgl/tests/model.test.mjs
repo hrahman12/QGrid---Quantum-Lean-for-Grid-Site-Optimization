@@ -1,23 +1,23 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { DEFAULTS, PRESETS, evaluate, normalize, exportScenario } from '../src/model.js';
+import { DEFAULTS, PRESETS, evaluate, normalize, exportScenario, screeningStatus } from '../src/model.js';
 const run = JSON.parse(await readFile(new URL('../public/data/run.json', import.meta.url)));
 
 test('the baseline keeps the archived load and split but fails the current firm N-1 screen', () => {
   const r = evaluate(DEFAULTS, run);
-  assert.equal(r.status, 'RED'); assert.equal(r.delivered, 150);
+  assert.equal(r.status, 'AMBER'); assert.equal(r.delivered, 150);
   assert.equal(r.n1Capacity, 39.8);
   assert.equal(r.checks.find((c) => c.id === 'n1').status, 'RED');
   assert.deepEqual(r.allocations.map((a) => a.mw), [112.5, 37.5]);
   assert.equal(r.projectedLoading, run.physics_result.max_line_loading_pct);
 });
-test('the three verdict presets are distinct and respect hard versus conditional failures', () => {
+test('the verdict presets show all pass, one unmet, and several unmet screens', () => {
   assert.equal(evaluate(PRESETS.flexible, run).status, 'GREEN');
   const conditional = evaluate(PRESETS.conditional, run);
   assert.equal(conditional.status, 'AMBER');
   assert.ok(conditional.blocking.some((c) => c.id === 'deadline'));
-  assert.ok(conditional.blocking.some((c) => c.id === 'row'));
+  assert.equal(conditional.blocking.length, 1);
   const stressed = evaluate(PRESETS.stressed, run);
   assert.equal(stressed.status, 'RED');
   assert.ok(stressed.checks.some((c) => c.id === 'capacity' && c.status === 'RED'));
@@ -34,13 +34,22 @@ test('deadline and permit conditions clear only when the corresponding knobs res
   assert.equal(r.checks.find((c) => c.id === 'row').status, 'GREEN');
   assert.equal(r.status, 'GREEN');
 });
-test('uncommitted storage and excess curtailment remain conditional', () => {
+test('two unresolved conditions produce an overall red display', () => {
   const r = evaluate({ ...PRESETS.flexible, storageCommitted: false, curtailment: 15 }, run);
-  assert.equal(r.status, 'AMBER');
+  assert.equal(r.status, 'RED');
   assert.equal(r.checks.find((c) => c.id === 'commitment').status, 'AMBER');
   assert.equal(r.checks.find((c) => c.id === 'penalty').status, 'AMBER');
   assert.equal(r.distribution, run.flexibility.curve.at(-1).distribution_mw);
   assert.equal(r.distributionExtrapolated, true);
+});
+test('the overall display is green only at 8/8, yellow only at 7/8, red at every lower count', () => {
+  const expected = ['RED','RED','RED','RED','RED','RED','RED','AMBER','GREEN'];
+  for (let passed = 0; passed <= 8; passed++) {
+    for (const unmet of ['AMBER', 'RED']) {
+      const checks = Array.from({length: 8}, (_, i) => ({status: i < passed ? 'GREEN' : unmet}));
+      assert.equal(screeningStatus(checks), expected[passed], `${passed}/8 with ${unmet} unmet rules`);
+    }
+  }
 });
 test('line upgrades never inflate the firm transformer N-1 cap', () => {
   const a = evaluate(DEFAULTS, run);

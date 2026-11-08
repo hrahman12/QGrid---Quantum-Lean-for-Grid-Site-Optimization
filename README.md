@@ -23,7 +23,7 @@ npm run dev --prefix viz/webgl
 
 The single-screen explorer follows **In → Find → Check physics → Prove → Out**. The first panel contains the interactive geographic grid. The second contains a 3D photonic-computer concept and a **Run PsiQDK** action that executes the repository's actual native Workbench circuit, returns measured candidates, phase states, and resource estimates, and rejects fallback results. Local execution also needs `python -m viz.webgl.server.local_api` running from the repository root (Windows uses the existing Ubuntu `~/qsite-venv`).
 
-Sliders and the Check / Prove panels are analytical scenario previews; they do not run new AC physics or produce new Lean certificates. The historical GREEN certificate is clearly marked as superseded by the firm N-1 review. See [the explorer README](viz/webgl/README.md) for setup, tests, data refresh, and the Vercel Python runtime.
+The browser uses an overall count-based display: 8/8 screens pass is green, exactly 7/8 is yellow, and 6/8 or fewer is red; individual blocking limits stay visible. This does not change the pipeline or Lean verdict. Sliders and the Check / Prove panels are analytical scenario previews; they do not run new AC physics or produce new Lean certificates. The historical GREEN certificate is clearly marked as superseded by the firm N-1 review. See [the explorer README](viz/webgl/README.md) for setup, tests, data refresh, and the Vercel Python runtime.
 
 ## Demo: an earlier GREEN run (superseded)
 
