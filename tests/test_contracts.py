@@ -26,7 +26,7 @@ def test_pipeline_runs_end_to_end(tmp_path):
     assert problems == []
     assert out["certificate"]["result"] in {"GREEN", "RED"}
     assert sorted(p.name for p in run_dir.glob("*.json")) == sorted(
-        ["site.json", "grid_snapshot.json", "candidate_plan.json", "physics_result.json", "certificate.json", "sources.json"])
+        ["site.json", "grid_snapshot.json", "candidate_plan.json", "physics_result.json", "certificate.json", "sources.json", "rounds.json"])
 
 
 def test_live_stage_used_when_lane_module_exists(tmp_path, monkeypatch):
