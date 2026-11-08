@@ -37,5 +37,5 @@ def test_live_stage_used_when_lane_module_exists(tmp_path, monkeypatch):
     monkeypatch.setitem(sys.modules, "grid", types.ModuleType("grid"))
     monkeypatch.setitem(sys.modules, "grid.snapshot", fake)
     _, sources, problems, _ = pipeline.run(out_root=tmp_path)
-    assert sources["grid_snapshot"] == "live" and sources["candidate_plan"] == "FIXTURE"
+    assert sources["grid_snapshot"] == "live"  # later stages may be live too now that L3 exists
     assert problems == []
