@@ -1,0 +1,9 @@
+{
+  "id": "nsj-alviso-400-demo",
+  "name": "North San Jose / Alviso compute site (DEMO stress copy, 400 MW; not a real request)",
+  "lat": 37.4265,
+  "lon": -121.975,
+  "requested_mw": 400,
+  "deadline": "2028-06-30",
+  "iso": "CAISO"
+}

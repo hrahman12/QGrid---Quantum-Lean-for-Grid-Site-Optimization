@@ -1,0 +1,1824 @@
+{
+  "site_id": "nsj-alviso-150",
+  "site": {
+    "lat": 37.4265,
+    "lon": -121.975
+  },
+  "radius_km": 25.0,
+  "disclaimer": "Illustrative planning assumptions. Not real PG&E/SVP substation ratings and not a utility capacity determination. Every MVA, load and DLR number is SOURCED (quoted) or ASSUMED as labelled.",
+  "method": {
+    "assumed_mva": "banks_assumed x mva_per_bank_assumed for the substation's highest voltage class",
+    "headroom_mw": "assumed_mva x power_factor (0.95, ASSUMED) x (1 - existing_load_pct.mid/100)",
+    "headroom_mw_n1_firm": "capacity with the largest bank out, minus existing load (mid), floored at 0",
+    "dlr": "dlr_uplift_pct applies to line ratings (rating_mva) in grid_snapshot.lines, not to transformers"
+  },
+  "power_factor": {
+    "value": 0.95,
+    "status": "ASSUMED"
+  },
+  "voltage_classes": {
+    "500": {
+      "transformation": "500/230 kV",
+      "mva_per_bank": 1000,
+      "banks": 2,
+      "status": "ASSUMED",
+      "basis": "Order-of-magnitude placeholder. No 500 kV substation lies within 25 km of the site, so it does not enter the snapshot.",
+      "source": null
+    },
+    "230": {
+      "transformation": "230/115 kV",
+      "mva_per_bank": 420,
+      "banks": 3,
+      "status": "ASSUMED",
+      "basis": "Bank COUNT is sourced for Los Esteros (3 banks, 4th planned). Per-bank MVA is ASSUMED: no public per-bank rating found; 420 MVA is a planning placeholder for a large 230/115 kV bank.",
+      "source": "cpuc_losesteros"
+    },
+    "115": {
+      "transformation": "115/21 kV (distribution)",
+      "mva_per_bank": 45,
+      "banks": 2,
+      "status": "SOURCED",
+      "basis": "45 MVA per 115/21 kV bank quoted for PG&E Nortech (North San Jose, ~2 km from the site); 2 banks = initial install. Applied to every 115 kV substation, which is an ASSUMPTION outside Nortech.",
+      "source": "cpuc_nortech"
+    },
+    "60": {
+      "transformation": "60/12 kV (distribution)",
+      "mva_per_bank": 25,
+      "banks": 2,
+      "status": "ASSUMED",
+      "basis": "Placeholder: smaller than the sourced 115/21 kV 45 MVA bank. No public rating found.",
+      "source": null
+    }
+  },
+  "existing_load_pct": {
+    "low": 50,
+    "mid": 65,
+    "high": 80,
+    "status": "ASSUMED",
+    "basis": "Existing load as % of transformer rating. No public loading data; mid case is used for headroom_mw."
+  },
+  "dlr_uplift_pct": {
+    "low": 6,
+    "mid": 10,
+    "high": 14,
+    "status": "SOURCED-RANGE",
+    "basis": "Range from the Oncor DOE DLR case study (lines, not transformers). Applying it to lines near Alviso is ASSUMED.",
+    "source": "doe_oncor_dlr"
+  },
+  "sources": {
+    "osm": "OpenStreetMap power=substation via Overpass API, around:25000 of 37.4265,-121.9750, pulled 2026-11-08 (cache/osm_substations_alviso_25km.json), ODbL",
+    "cpuc_nortech": "CPUC Negative Declaration, PG&E Nortech Substation: 'three 45 MVA 115 kV - 21 kV transformers' at full build-out, two installed in 1999. https://ia.cpuc.ca.gov/Environment/Info/esa/nortech/nortech_negdec.htm",
+    "cpuc_losesteros": "CPUC Northeast San Jose Transmission Reinforcement project description: Los Esteros 'initially ... three 230/115 kV transmission transformers', 'ultimately, a fourth'; no MVA given. https://ia.cpuc.ca.gov/Environment/info/aspen/nesanjo/description.html",
+    "doe_oncor_dlr": "DOE Smart Grid case study, Oncor DLR: 6-14% capacity above ambient-adjusted rating on 345 kV lines, 8-12% on 138 kV, available 84-91% of the time. https://www.energy.gov/sites/prod/files/2014/08/f18/Oncor-SGIG-case-study-May2014.pdf"
+  },
+  "skipped_osm_elements": {
+    "unnamed": 68,
+    "no_voltage_or_below_60kv": 5,
+    "traction_or_rail": 8,
+    "outside_radius": 0
+  },
+  "substations": [
+    {
+      "id": "osm-way-539148054",
+      "name": "Nortech Substation",
+      "lat": 37.420558,
+      "lon": -121.959945,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 1.48,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "SOURCED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/539148054"
+    },
+    {
+      "id": "osm-way-52612640",
+      "name": "Northern Receiving Station",
+      "lat": 37.40204,
+      "lon": -121.966236,
+      "kv": 230.0,
+      "assumed_mva": 1260,
+      "distance_km": 2.83,
+      "headroom_mw": 418.9,
+      "voltages_kv": [
+        230.0,
+        115.0
+      ],
+      "operator": "Silicon Valley Power",
+      "voltage_class": "230",
+      "transformation": "230/115 kV",
+      "banks_assumed": 3,
+      "mva_per_bank_assumed": 420,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 19.9,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/52612640"
+    },
+    {
+      "id": "osm-way-39017429",
+      "name": "Los Esteros Substation",
+      "lat": 37.427237,
+      "lon": -121.93283,
+      "kv": 230.0,
+      "assumed_mva": 1260,
+      "distance_km": 3.72,
+      "headroom_mw": 418.9,
+      "voltages_kv": [
+        230.0,
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "230",
+      "transformation": "230/115 kV",
+      "banks_assumed": 3,
+      "mva_per_bank_assumed": 420,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 19.9,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/39017429"
+    },
+    {
+      "id": "osm-way-38084005",
+      "name": "Fair Oaks Substation",
+      "lat": 37.397182,
+      "lon": -122.010252,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 4.51,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": null,
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/38084005"
+    },
+    {
+      "id": "osm-way-120346267",
+      "name": "Scott Receiving Station",
+      "lat": 37.377078,
+      "lon": -121.954636,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 5.78,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0,
+        60.0
+      ],
+      "operator": null,
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/120346267"
+    },
+    {
+      "id": "osm-way-120342208",
+      "name": "Dixon Landing Substation",
+      "lat": 37.45755,
+      "lon": -121.921329,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 5.86,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/120342208"
+    },
+    {
+      "id": "osm-way-371055268",
+      "name": "Kenneth Substation",
+      "lat": 37.375804,
+      "lon": -121.954332,
+      "kv": 60.0,
+      "assumed_mva": 50,
+      "distance_km": 5.93,
+      "headroom_mw": 16.6,
+      "voltages_kv": [
+        60.0
+      ],
+      "operator": null,
+      "voltage_class": "60",
+      "transformation": "60/12 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 25,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/371055268"
+    },
+    {
+      "id": "osm-way-1272201645",
+      "name": "Kifer Receiving Station",
+      "lat": 37.37635,
+      "lon": -121.950973,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 5.97,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0,
+        60.0
+      ],
+      "operator": "Silicon Valley Power",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/1272201645"
+    },
+    {
+      "id": "osm-way-188689669",
+      "name": "Applied Materials Substation",
+      "lat": 37.377147,
+      "lon": -122.006367,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 6.15,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/188689669"
+    },
+    {
+      "id": "osm-way-120353461",
+      "name": "Trimble Substation",
+      "lat": 37.381952,
+      "lon": -121.927143,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 6.51,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/120353461"
+    },
+    {
+      "id": "osm-way-688096231",
+      "name": "Montague Substation",
+      "lat": 37.403389,
+      "lon": -121.905934,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 6.62,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/688096231"
+    },
+    {
+      "id": "osm-way-52098545",
+      "name": "Britton Substation",
+      "lat": 37.374469,
+      "lon": -122.016399,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 6.84,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/52098545"
+    },
+    {
+      "id": "osm-way-120347589",
+      "name": "Milpitas Substation",
+      "lat": 37.415405,
+      "lon": -121.888466,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 7.74,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/120347589"
+    },
+    {
+      "id": "osm-way-181560370",
+      "name": "N-225B",
+      "lat": 37.418193,
+      "lon": -122.063441,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 7.86,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": null,
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/181560370"
+    },
+    {
+      "id": "osm-way-842021526",
+      "name": "N-225",
+      "lat": 37.416768,
+      "lon": -122.063158,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 7.86,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": null,
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/842021526"
+    },
+    {
+      "id": "osm-way-842021525",
+      "name": "N-221C",
+      "lat": 37.41558,
+      "lon": -122.063775,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 7.93,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": null,
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/842021525"
+    },
+    {
+      "id": "osm-way-400341157",
+      "name": "NUMMI Substation",
+      "lat": 37.493681,
+      "lon": -121.939446,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 8.1,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/400341157"
+    },
+    {
+      "id": "osm-way-4630372",
+      "name": "Ames Substation",
+      "lat": 37.417814,
+      "lon": -122.067133,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 8.19,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/4630372"
+    },
+    {
+      "id": "osm-way-28875096",
+      "name": "Newark Substation",
+      "lat": 37.500822,
+      "lon": -121.986567,
+      "kv": 230.0,
+      "assumed_mva": 1260,
+      "distance_km": 8.33,
+      "headroom_mw": 418.9,
+      "voltages_kv": [
+        230.0,
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "230",
+      "transformation": "230/115 kV",
+      "banks_assumed": 3,
+      "mva_per_bank_assumed": 420,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 19.9,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/28875096"
+    },
+    {
+      "id": "osm-way-28875097",
+      "name": "Newark Distribution Substation",
+      "lat": 37.502723,
+      "lon": -121.98162,
+      "kv": 230.0,
+      "assumed_mva": 1260,
+      "distance_km": 8.5,
+      "headroom_mw": 418.9,
+      "voltages_kv": [
+        230.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "230",
+      "transformation": "230/115 kV",
+      "banks_assumed": 3,
+      "mva_per_bank_assumed": 420,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 19.9,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/28875097"
+    },
+    {
+      "id": "osm-way-120359075",
+      "name": "FMC Substation",
+      "lat": 37.347291,
+      "lon": -121.921986,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 9.98,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/120359075"
+    },
+    {
+      "id": "osm-way-116534901",
+      "name": "Wolfe Substation",
+      "lat": 37.334405,
+      "lon": -122.020566,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 11.0,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/116534901"
+    },
+    {
+      "id": "osm-way-24168995",
+      "name": "San Jose Substation B",
+      "lat": 37.340938,
+      "lon": -121.901466,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 11.52,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/24168995"
+    },
+    {
+      "id": "osm-way-112297084",
+      "name": "Palo Alto Switching Station",
+      "lat": 37.439013,
+      "lon": -122.114369,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 12.38,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/112297084"
+    },
+    {
+      "id": "osm-way-112297069",
+      "name": "Palo Alto Switching Station",
+      "lat": 37.439724,
+      "lon": -122.115124,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 12.46,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": null,
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/112297069"
+    },
+    {
+      "id": "osm-way-51710408",
+      "name": "Fremont Substation",
+      "lat": 37.541372,
+      "lon": -121.962,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 12.82,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/51710408"
+    },
+    {
+      "id": "osm-way-1430102610",
+      "name": "Markham Substation",
+      "lat": 37.336273,
+      "lon": -121.87819,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 13.18,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/1430102610"
+    },
+    {
+      "id": "osm-way-95912441",
+      "name": "McKee Substation",
+      "lat": 37.366178,
+      "lon": -121.843497,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 13.41,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": null,
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/95912441"
+    },
+    {
+      "id": "osm-way-27925546",
+      "name": "Monta Vista Substation",
+      "lat": 37.326132,
+      "lon": -122.075444,
+      "kv": 230.0,
+      "assumed_mva": 1260,
+      "distance_km": 14.26,
+      "headroom_mw": 418.9,
+      "voltages_kv": [
+        230.0,
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "230",
+      "transformation": "230/115 kV",
+      "banks_assumed": 3,
+      "mva_per_bank_assumed": 420,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 19.9,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/27925546"
+    },
+    {
+      "id": "osm-way-27925549",
+      "name": "Monta Vista Substation (lower yard)",
+      "lat": 37.324003,
+      "lon": -122.073262,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 14.33,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0,
+        60.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/27925549"
+    },
+    {
+      "id": "osm-way-48203963",
+      "name": "Cooley Landing Substation",
+      "lat": 37.47374,
+      "lon": -122.127988,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 14.49,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/48203963"
+    },
+    {
+      "id": "osm-way-117401235",
+      "name": "El Patio Substation",
+      "lat": 37.291664,
+      "lon": -121.93569,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 15.39,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/117401235"
+    },
+    {
+      "id": "osm-way-25793704",
+      "name": "Ravenswood Substation",
+      "lat": 37.492877,
+      "lon": -122.137873,
+      "kv": 230.0,
+      "assumed_mva": 1260,
+      "distance_km": 16.16,
+      "headroom_mw": 418.9,
+      "voltages_kv": [
+        230.0,
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "230",
+      "transformation": "230/115 kV",
+      "banks_assumed": 3,
+      "mva_per_bank_assumed": 420,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 19.9,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/25793704"
+    },
+    {
+      "id": "osm-way-59470569",
+      "name": "Dumbarton Substation",
+      "lat": 37.55707,
+      "lon": -122.057883,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 16.26,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/59470569"
+    },
+    {
+      "id": "osm-way-31369697",
+      "name": "Saratoga Substation",
+      "lat": 37.280946,
+      "lon": -122.015377,
+      "kv": 230.0,
+      "assumed_mva": 1260,
+      "distance_km": 16.57,
+      "headroom_mw": 418.9,
+      "voltages_kv": [
+        230.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "230",
+      "transformation": "230/115 kV",
+      "banks_assumed": 3,
+      "mva_per_bank_assumed": 420,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 19.9,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/31369697"
+    },
+    {
+      "id": "osm-way-48205182",
+      "name": "Belle Haven Substation",
+      "lat": 37.477635,
+      "lon": -122.168568,
+      "kv": 60.0,
+      "assumed_mva": 50,
+      "distance_km": 18.01,
+      "headroom_mw": 16.6,
+      "voltages_kv": [
+        60.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "60",
+      "transformation": "60/12 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 25,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/48205182"
+    },
+    {
+      "id": "osm-way-123020119",
+      "name": "Tyco Electronics",
+      "lat": 37.48035,
+      "lon": -122.167735,
+      "kv": 60.0,
+      "assumed_mva": 50,
+      "distance_km": 18.04,
+      "headroom_mw": 16.6,
+      "voltages_kv": [
+        60.0
+      ],
+      "operator": null,
+      "voltage_class": "60",
+      "transformation": "60/12 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 25,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/123020119"
+    },
+    {
+      "id": "osm-way-38653255",
+      "name": "Evergreen Substation",
+      "lat": 37.303178,
+      "lon": -121.840833,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 18.13,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/38653255"
+    },
+    {
+      "id": "osm-way-110419842",
+      "name": "SRI Substation",
+      "lat": 37.455351,
+      "lon": -122.178306,
+      "kv": 60.0,
+      "assumed_mva": 50,
+      "distance_km": 18.23,
+      "headroom_mw": 16.6,
+      "voltages_kv": [
+        60.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "60",
+      "transformation": "60/12 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 25,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/110419842"
+    },
+    {
+      "id": "osm-way-114438565",
+      "name": "Glenwood Substation",
+      "lat": 37.457165,
+      "lon": -122.186933,
+      "kv": 60.0,
+      "assumed_mva": 50,
+      "distance_km": 19.02,
+      "headroom_mw": 16.6,
+      "voltages_kv": [
+        60.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "60",
+      "transformation": "60/12 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 25,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/114438565"
+    },
+    {
+      "id": "osm-way-888505628",
+      "name": "Calaveras Substation",
+      "lat": 37.574691,
+      "lon": -121.865999,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 19.08,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "San Francisco Public Utilities Commission",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/888505628"
+    },
+    {
+      "id": "osm-way-112452159",
+      "name": "Jarvis Substation",
+      "lat": 37.59529,
+      "lon": -122.017636,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 19.14,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/112452159"
+    },
+    {
+      "id": "osm-way-114958126",
+      "name": "Vasona Substation",
+      "lat": 37.253868,
+      "lon": -121.966217,
+      "kv": 230.0,
+      "assumed_mva": 1260,
+      "distance_km": 19.21,
+      "headroom_mw": 418.9,
+      "voltages_kv": [
+        230.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "230",
+      "transformation": "230/115 kV",
+      "banks_assumed": 3,
+      "mva_per_bank_assumed": 420,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 19.9,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/114958126"
+    },
+    {
+      "id": "osm-way-119408726",
+      "name": "Swift Substation",
+      "lat": 37.322475,
+      "lon": -121.797009,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 19.52,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/119408726"
+    },
+    {
+      "id": "osm-way-166728685",
+      "name": "S. L. A. C. Substation",
+      "lat": 37.41576,
+      "lon": -122.205755,
+      "kv": 230.0,
+      "assumed_mva": 1260,
+      "distance_km": 20.41,
+      "headroom_mw": 418.9,
+      "voltages_kv": [
+        230.0
+      ],
+      "operator": null,
+      "voltage_class": "230",
+      "transformation": "230/115 kV",
+      "banks_assumed": 3,
+      "mva_per_bank_assumed": 420,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 19.9,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/166728685"
+    },
+    {
+      "id": "osm-way-30637312",
+      "name": "Redwood City Substation",
+      "lat": 37.490354,
+      "lon": -122.213111,
+      "kv": 60.0,
+      "assumed_mva": 50,
+      "distance_km": 22.18,
+      "headroom_mw": 16.6,
+      "voltages_kv": [
+        60.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "60",
+      "transformation": "60/12 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 25,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/30637312"
+    },
+    {
+      "id": "osm-way-112568707",
+      "name": "Hicks Substation",
+      "lat": 37.233648,
+      "lon": -121.900752,
+      "kv": 230.0,
+      "assumed_mva": 1260,
+      "distance_km": 22.43,
+      "headroom_mw": 418.9,
+      "voltages_kv": [
+        230.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "230",
+      "transformation": "230/115 kV",
+      "banks_assumed": 3,
+      "mva_per_bank_assumed": 420,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 19.9,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/112568707"
+    },
+    {
+      "id": "osm-way-30637327",
+      "name": "Bair Substation",
+      "lat": 37.497645,
+      "lon": -122.214108,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 22.54,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/30637327"
+    },
+    {
+      "id": "osm-way-240585981",
+      "name": "Las Pulgas Substation",
+      "lat": 37.462898,
+      "lon": -122.227866,
+      "kv": 60.0,
+      "assumed_mva": 50,
+      "distance_km": 22.69,
+      "headroom_mw": 16.6,
+      "voltages_kv": [
+        60.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "60",
+      "transformation": "60/12 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 25,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/240585981"
+    },
+    {
+      "id": "osm-way-27878203",
+      "name": "Woodside Substation",
+      "lat": 37.437057,
+      "lon": -122.242157,
+      "kv": 60.0,
+      "assumed_mva": 50,
+      "distance_km": 23.62,
+      "headroom_mw": 16.6,
+      "voltages_kv": [
+        60.0
+      ],
+      "operator": "Pacific Gas and Electric Company",
+      "voltage_class": "60",
+      "transformation": "60/12 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 25,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/27878203"
+    },
+    {
+      "id": "osm-way-119409662",
+      "name": "Piercy Substation",
+      "lat": 37.268928,
+      "lon": -121.787339,
+      "kv": 115.0,
+      "assumed_mva": 90,
+      "distance_km": 24.13,
+      "headroom_mw": 29.9,
+      "voltages_kv": [
+        115.0
+      ],
+      "operator": null,
+      "voltage_class": "115",
+      "transformation": "115/21 kV (distribution)",
+      "banks_assumed": 2,
+      "mva_per_bank_assumed": 45,
+      "mva_status": "ASSUMED",
+      "existing_load_pct": {
+        "low": 50,
+        "mid": 65,
+        "high": 80,
+        "status": "ASSUMED"
+      },
+      "headroom_mw_n1_firm": 0.0,
+      "dlr_uplift_pct": {
+        "low": 6,
+        "mid": 10,
+        "high": 14,
+        "status": "ASSUMED (range from source)"
+      },
+      "source": "osm",
+      "osm_url": "https://www.openstreetmap.org/way/119409662"
+    }
+  ]
+}

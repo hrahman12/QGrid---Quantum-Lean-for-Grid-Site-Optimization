@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QSiteProof Live Grid</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--ink:#0f2747;--mut:#5b6b82;--line:#dbe3ee;--purple:#6b4fd8;--teal:#1f7a99;--green:#2e8b57;--amber:#d98e04;--red:#c0392b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1424;--card:#13203a;--ink:#e6edf7;--mut:#9aabc4;--line:#24365a}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:1200px;margin:0 auto;padding:24px 16px}
+.eyebrow{color:var(--mut);font-weight:700;letter-spacing:.06em;font-size:12px;text-transform:uppercase}
+h1{margin:4px 0 2px;font-size:30px}.sub{color:var(--mut)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:20px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;border-top:4px solid var(--teal)}
+.kpi b{display:block;font-size:26px}.kpi span{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.card h3{margin:0 0 4px;font-size:16px}.card p{margin:0 0 10px;color:var(--mut);font-size:13px}
+.chart{position:relative;height:280px}
+.headroom{font-size:14px;margin-top:8px}.bar{height:16px;background:var(--line);border-radius:8px;overflow:hidden;display:flex}
+.bar i{display:block;height:100%}
+footer{color:var(--mut);font-size:12px;margin-top:18px}
+</style></head><body><div class="wrap">
+<div class="eyebrow">QSiteProof · Input stage · Live grid</div>
+<h1>CAISO live grid — North San Jose context</h1>
+<div class="sub" id="sub"></div>
+<div class="kpis" id="kpis"></div>
+<div class="grid">
+ <div class="card"><h3>System demand today</h3><p>5-min actual vs. day-ahead & hour-ahead forecast, plus net demand (demand minus solar & wind).</p><div class="chart"><canvas id="cDemand"></canvas></div></div>
+ <div class="card"><h3>NP15 real-time price</h3><p>5-min LMP at the NP15 hub (PG&E pricing zone covering San Jose), split into energy / congestion / losses.</p><div class="chart"><canvas id="cLmp"></canvas></div></div>
+ <div class="card"><h3>Supply mix</h3><p>Generation by fuel, stacked. Negative batteries = charging.</p><div class="chart"><canvas id="cFuel"></canvas></div></div>
+ <div class="card"><h3>Batteries & CO₂</h3><p>Battery discharge(+)/charge(−) and total CO₂ rate — signals for flexibility value.</p><div class="chart"><canvas id="cBat"></canvas></div></div>
+</div>
+<div class="card" style="margin-top:14px"><h3>What 150 MW looks like against today's system</h3><p>Proposed compute site vs. operating reserve margin and 1-hour unloaded capacity.</p><div id="headroom"></div></div>
+<footer>Sources: CAISO Today's Outlook (caiso.com/outlook) and CAISO OASIS PRC_INTVL_LMP. System-level data — not substation hosting capacity; that comes from PG&E GRIP/ICA in a later stage.</footer>
+</div>
+<script>
+const D=/*__DATA__*/null;
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+Chart.defaults.color=css('--mut');Chart.defaults.borderColor=css('--line');Chart.defaults.font.family='system-ui';
+const f=D.feeds,s=D.stats,fmt=v=>v==null?'—':Math.round(v).toLocaleString();
+const last=a=>{for(let i=a.length-1;i>=0;i--)if(a[i]!=null)return a[i];return null};
+const peakIdx=a=>a.reduce((b,v,i)=>v!=null&&v>(a[b]??-1e9)?i:b,0);
+document.getElementById('sub').textContent='Scraped '+D.scraped_at.replace('T',' ')+' Pacific · CAISO balancing area';
+const dem=f.demand['Current demand'],nd=f.netdemand['Net demand'];
+const lmpN=D.lmp&&D.lmp['TH_NP15_GEN-APND'],lmpT=lmpN?lmpN['LMP_PRC']||{}:{};
+const lmpVals=Object.values(lmpT);
+const kp=[['Demand now',fmt(last(dem))+' MW','--teal'],['Peak forecast today',fmt(s.todayForecastPeakDemand)+' MW','--purple'],
+['Net demand now',fmt(last(nd))+' MW','--teal'],['Solar now',fmt(s.currentSolar)+' MW','--amber'],
+['Batteries now',fmt(last(f.storage['Total batteries']))+' MW','--green'],
+['NP15 price now',lmpVals.length?'$'+lmpVals.at(-1).toFixed(2)+'/MWh':'n/a','--purple'],
+['Reserve margin',fmt(s.Current_reserve)+' MW','--green'],['1-h unloaded cap.',fmt(s.Unloaded_capacity_1H)+' MW','--green']];
+document.getElementById('kpis').innerHTML=kp.map(([l,v,c])=>`<div class="kpi" style="border-top-color:var(${c})"><span>${l}</span><b>${v}</b></div>`).join('');
+const opts=(y,stack)=>({responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},elements:{point:{radius:0}},
+ scales:{x:{ticks:{maxTicksLimit:12}},y:{stacked:!!stack,title:{display:true,text:y}}},plugins:{legend:{labels:{boxWidth:10}}}});
+new Chart(cDemand,{type:'line',data:{labels:f.demand.Time,datasets:[
+ {label:'Actual demand',data:dem,borderColor:css('--teal'),borderWidth:2.5},
+ {label:'Day-ahead fcst',data:f.demand['Day ahead forecast'],borderColor:css('--purple'),borderDash:[5,4],borderWidth:1.5},
+ {label:'Hour-ahead fcst',data:f.demand['Hour ahead forecast'],borderColor:css('--mut'),borderDash:[2,3],borderWidth:1.2},
+ {label:'Net demand',data:nd,borderColor:css('--amber'),borderWidth:2}]},options:opts('MW')});
+const lt=Object.keys(lmpT),it=k=>lt.map(t=>(lmpN[k]||{})[t]??null);
+new Chart(cLmp,{type:'line',data:{labels:lt,datasets:[
+ {label:'LMP',data:it('LMP_PRC'),borderColor:css('--purple'),borderWidth:2.5},
+ {label:'Energy',data:it('LMP_ENE_PRC'),borderColor:css('--teal'),borderWidth:1.2},
+ {label:'Congestion',data:it('LMP_CONG_PRC'),borderColor:css('--red'),borderWidth:1.2},
+ {label:'Losses',data:it('LMP_LOSS_PRC'),borderColor:css('--amber'),borderWidth:1.2}]},options:opts('$/MWh')});
+const fuels={'Solar':'#f2b705','Wind':'#5dade2','Geothermal':'#a0522d','Biomass':'#6b8e23','Biogas':'#8fbc8f','Small hydro':'#76d7c4','Large Hydro':'#1f7a99','Nuclear':'#8e44ad','Natural Gas':'#7f8c8d','Coal':'#34495e','Imports':'#c39bd3','Batteries':'#2e8b57','Other':'#bdc3c7'};
+new Chart(cFuel,{type:'line',data:{labels:f.fuelsource.Time,datasets:Object.entries(fuels).filter(([k])=>f.fuelsource[k]).map(([k,c])=>({label:k,data:f.fuelsource[k],borderColor:c,backgroundColor:c+'cc',fill:true,borderWidth:0.5}))},options:opts('MW',true)});
+const co2=f.co2.Time.map((_,i)=>Object.keys(f.co2).filter(k=>k!=='Time').reduce((a,k)=>a+(f.co2[k][i]||0),0));
+new Chart(cBat,{data:{labels:f.storage.Time,datasets:[
+ {type:'bar',label:'Batteries MW',data:f.storage['Total batteries'],backgroundColor:f.storage['Total batteries'].map(v=>v>=0?css('--green'):css('--red')),yAxisID:'y'},
+ {type:'line',label:'CO₂ (mTCO₂/h)',data:co2,borderColor:css('--mut'),borderWidth:2,yAxisID:'y2'}]},
+ options:{...opts('MW'),scales:{x:{ticks:{maxTicksLimit:12}},y:{title:{display:true,text:'MW'}},y2:{position:'right',grid:{drawOnChartArea:false},title:{display:true,text:'mTCO₂/h'}}}}});
+const site=150,res=s.Current_reserve||0,un=s.Unloaded_capacity_1H||0,max=Math.max(un,res,site)*1.05;
+const row=(lbl,v,c)=>`<div class="headroom">${lbl}: <b>${fmt(v)} MW</b></div><div class="bar"><i style="width:${v/max*100}%;background:var(${c})"></i></div>`;
+document.getElementById('headroom').innerHTML=row('Proposed North San Jose compute site',site,'--purple')+row('Current operating reserve',res,'--green')+row('Required reserve',s.Required_reserve,'--amber')+row('1-hour unloaded capacity',un,'--teal')+
+`<p style="margin-top:10px">150 MW = <b>${(site/(last(dem)||1)*100).toFixed(2)}%</b> of current system demand. System-wide it's small; the binding limits are local (substation transformers, 115 kV lines) — that's what the PsiQDK search + pandapower stages target.</p>`;
+</script></body></html>
