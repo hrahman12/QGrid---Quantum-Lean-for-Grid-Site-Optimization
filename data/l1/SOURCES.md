@@ -9,4 +9,8 @@ All files are cached responses so the demo runs offline. No API keys are stored 
 | iso_CAISO_latest.csv | gridstatus (CAISO OASIS / outlook) | latest system load MW and mean real-time 5-min hub LMP; overwritten on each live run |
 | sites.json, site.json | hand-built, see site/sites.py | requested_mw and deadline are assumed scenario inputs |
 
-Not yet cached: HIFLD transmission lines, WRI Aqueduct, EIA-860 plants (see PR for status).
+| hifld_transmission_alviso.geojson | HIFLD Electric Power Transmission Lines (ArcGIS FeatureServer) | bbox 25 km around (37.43, -121.97), max 500 records |
+
+Skipped, with reasons (checked 2026-11-08):
+- WRI Aqueduct: the SeaBridgeAI endpoint (`aqueduct40_baseline_annual_y2023m07d05`) now returns 400 Invalid URL; the service is no longer listed in that ArcGIS org.
+- EIA-860: the EIA v2 `operating-generator-capacity` API (works with a free key) has no county or lat/lon fields, so plants cannot be selected near Alviso from it. A plant list needs the EIA-860 plant file (lat/lon) instead.

@@ -22,8 +22,6 @@ OVERPASS = ("https://overpass-api.de/api/interpreter", "https://overpass.kumi.sy
             "https://overpass.private.coffee/api/interpreter")
 HIFLD_TRANSMISSION = ("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/"
                       "Electric_Power_Transmission_Lines/FeatureServer/0/query")
-WRI_AQUEDUCT = ("https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/"
-                "aqueduct40_baseline_annual_y2023m07d05/FeatureServer/0/query")
 KEEP = ("name", "operator", "power", "voltage", "substation", "circuits", "cables", "ref", "telecom", "building")
 
 
@@ -102,28 +100,12 @@ def fetch_hifld():
     _write("hifld_transmission_alviso.geojson", body["features"], "HIFLD Transmission Lines (ArcGIS FeatureServer)")
 
 
-def fetch_wri():
-    lat, lon = CENTER
-    params = {"where": "1=1", "geometry": f"{lon},{lat}", "geometryType": "esriGeometryPoint", "inSR": 4326,
-              "spatialRel": "esriSpatialRelIntersects", "outFields": "*", "returnGeometry": "false", "f": "json"}
-    r = requests.get(WRI_AQUEDUCT, params=params, headers=UA, timeout=60)
-    r.raise_for_status()
-    body = r.json()
-    if "features" not in body:
-        raise RuntimeError(f"WRI returned no features key: {str(body)[:200]}")
-    DATA.mkdir(parents=True, exist_ok=True)
-    out = {"point": {"lat": lat, "lon": lon}, "source": "WRI Aqueduct 4.0 baseline annual (ArcGIS FeatureServer)",
-           "fetched": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-           "attributes": [f["attributes"] for f in body["features"]]}
-    (DATA / "wri_aqueduct_alviso.json").write_text(json.dumps(out, indent=1), encoding="utf-8")
-    print(f"wrote data/l1/wri_aqueduct_alviso.json: {len(out['attributes'])} records")
-
-
-STEPS = {"osm": fetch_osm, "hifld": fetch_hifld, "wri": fetch_wri}
+STEPS = {"osm": fetch_osm, "hifld": fetch_hifld}
+# WRI Aqueduct (service gone from the ArcGIS org, 400 Invalid URL) and EIA-860 (v2 API has no county/lat-lon) skipped, see SOURCES.md
 
 if __name__ == "__main__":
     for step in sys.argv[1:] or STEPS:
         try:
             STEPS[step]()
         except Exception as e:  # keep going: one dead source must not block the others
-            print(f"{step} FAILED: {type(e).__name__}: {e}")
+            print(f"{step} FAILED: {type(e).__name__}: {str(e).split('api_key=')[0][:200]}")
