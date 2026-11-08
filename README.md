@@ -10,20 +10,20 @@
 
 QSiteProof is a proposed one-day hack prototype that combines PsiQDK search, pandapower physical checks, and Lean 4 formal certification. The goal is to find a connect-sooner path using flexibility and existing infrastructure before defaulting to a new transmission corridor.
 
-**Status:** Working prototype. All five pipeline stages run live on the real North San Jose / Alviso site: OpenStreetMap grid + live CAISO data, PsiQDK Grover search, pandapower power flow with N-1, and a compiled Lean 4 certificate.
+**Status:** Working prototype. The pipeline stages (OpenStreetMap grid + CAISO data, PsiQDK Grover search with a NumPy fallback, pandapower power flow with N-1, Lean 4 certificate with a Python mirror when Lean is not installed) run on the North San Jose / Alviso site; each run labels which engine actually ran. **Current results live in [STATUS.md](STATUS.md)**: since the firm N-1 transformer check (PR #21), 150 MW at transmission is RED (about 19.9 MW firm headroom per candidate substation); the YES-IF path is distribution edge sites plus curtailment. All grid numbers are conditional screening estimates from PG&E GRIP 2028 forecasts and assumed ratings, not utility approvals.
 
-## Demo: a real GREEN run
+## Demo: an earlier GREEN run (superseded)
 
 [![QSiteProof demo: 150 MW Alviso site found GREEN](docs/demo_green.gif)](docs/demo_green.mp4)
 
-*1920×1080. Click for the MP4.* Every frame comes from one real pipeline run ([docs/demo_run/](docs/demo_run/)), rendered by [docs/make_demo_video.py](docs/make_demo_video.py):
+*1920×1080. Click for the MP4.* Recorded at 14:10 PT, **before** the firm N-1 transformer and bank-cap checks landed; the same 150 MW request is RED today (see STATUS.md). Every frame comes from that one pipeline run ([docs/demo_run/](docs/demo_run/)), rendered by [docs/make_demo_video.py](docs/make_demo_video.py):
 
 | Step | What you see | Real result |
 | --- | --- | --- |
 | **In** | 150 MW data center, Alviso, needed by 2028-06-30 | `data/l1/site.json` |
 | **Find (quantum)** | Every hookup plan in superposition → phase flip on the plans that pass → interference amplifies them → measure | PsiQDK simulation: 10 qubits, 1,024 plan slots, 211 pass, 1 Grover iteration; fault-tolerant cost estimate Active Volume 82,770 |
 | **Check physics** | pandapower power flow + "what if any single line trips" | Converged, max loading 71.7%, voltage 0.993–1.02 pu, N-1 pass |
-| **Prove (Lean 4)** | 7 rules: capacity, thermal/voltage, N-1, flexibility, deadline, permit/ROW, penalty trigger | All pass; kernel-checked theorems; evidence SHA-256 bound into the certificate |
+| **Prove (Lean 4)** | 7 rules: capacity, thermal/voltage, N-1, flexibility, deadline, permit/ROW, penalty trigger | All pass; kernel-checked theorems; evidence SHA-256 recorded (it did not yet bind plan/site/snapshot ids, being fixed) |
 | **Out** | **GREEN**: 112.5 MW Northern Receiving + 37.5 MW Los Esteros, no new corridor | `docs/demo_run/certificate.json` |
 
 GREEN covers only the encoded rules over the supplied evidence; it is not a utility interconnection approval. The quantum search is a PsiQDK simulation of a fault-tolerant algorithm; no quantum advantage is claimed.

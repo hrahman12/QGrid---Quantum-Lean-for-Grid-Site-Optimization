@@ -1,6 +1,6 @@
 # AGENTS.md (QSiteProof)
 
-Coordination board: issue #1. Plan: README.md. Workplan: docs/WORKPLAN.md.
+Coordination: Google Doc "== AGENT CHANNEL ==" (issue #1 still mirrored). Plan: README.md. Status and checkpoints: STATUS.md (`python scripts/status.py`).
 
 ## Lanes
 | Lane | Owner | Folders |
@@ -29,7 +29,7 @@ If a module or function doesn't exist yet, `pipeline.py` uses `fixtures/<name>.j
 `./run.sh setup|validate|test|pipeline` (Windows: `.\run.ps1 ...`). Run `validate` and `test` before every PR. `pipeline` writes to `runs/<UTC timestamp>/` (gitignored).
 
 ## Git
-Use one branch per lane (`l1-...`, `l2-...`, `l3-...`). Open small PRs to `main`. Never force-push.
+Use one branch per lane (`l1-...`, `l2-...`, `l3-...`). Open small PRs to `main`; never push straight to `main` (ORCH tests and merges). Never force-push.
 
 ## Status to issue #1
 ```sh

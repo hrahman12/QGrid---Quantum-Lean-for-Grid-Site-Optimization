@@ -51,15 +51,26 @@ def _fetch_frame(days=DAYS):
     return df[df.index > cutoff].reset_index()
 
 
-def refresh_cache():
+LIVE = HERE / "cache" / "live" / "caiso_latest.csv"  # gitignored: live pulls never rewrite tracked files
+
+
+def refresh_cache(snapshot=False):
+    """Pull 7 days live. Writes the gitignored LIVE file; snapshot=True (CLI --refresh) also writes the
+    tracked dated data/l2/caiso_<date>.csv that ships with the repo for offline demos."""
     df = _fetch_frame()
-    path = HERE / f"caiso_{datetime.now(timezone.utc):%Y-%m-%d}.csv"
-    df.to_csv(path, index=False, float_format="%.3f")
+    LIVE.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(LIVE, index=False, float_format="%.3f")
+    path = LIVE
+    if snapshot:
+        path = HERE / f"caiso_{datetime.now(timezone.utc):%Y-%m-%d}.csv"
+        df.to_csv(path, index=False, float_format="%.3f")
     return path, df
 
 
 def _latest_cache():
     files = sorted(HERE.glob("caiso_*.csv"))
+    if LIVE.exists() and (not files or LIVE.stat().st_mtime >= files[-1].stat().st_mtime):
+        files.append(LIVE)
     if not files:
         raise FileNotFoundError("no data/l2/caiso_*.csv cache; run python data/l2/iso.py --refresh")
     df = pd.read_csv(files[-1], parse_dates=["interval_start_utc"])
@@ -138,7 +149,7 @@ def latest_signal(iso="CAISO", live=None, now=None):
             ex.shutdown(wait=False)  # don't block on a hung fetch
     if df is None:
         path, df = _latest_cache()
-        source = f"cache:data/l2/{path.name}"
+        source = f"cache:{path.relative_to(HERE.parent.parent).as_posix()}"
     df["interval_start_utc"] = pd.to_datetime(df["interval_start_utc"], utc=True)
     row = _point(df, now)
     ts = row["interval_start_utc"].strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -154,7 +165,7 @@ def latest_signal(iso="CAISO", live=None, now=None):
         "lmp_pge_dlap": None if pd.isna(row["lmp_pge_dlap_da"]) else round(float(row["lmp_pge_dlap_da"]), 2),
         "stress": stress_hours(df),
         "stress_2025": stress_2025(),
-        "cache_file": f"data/l2/{path.name}",
+        "cache_file": path.relative_to(HERE.parent.parent).as_posix(),
     }
     if note:
         out["note"] = note
@@ -165,6 +176,6 @@ if __name__ == "__main__":
 
 
     if "--refresh" in sys.argv:
-        p, d = refresh_cache()
+        p, d = refresh_cache(snapshot=True)
         print(f"wrote {p.relative_to(HERE.parent.parent)}: {len(d)} hourly rows")
     print(json.dumps(latest_signal("CAISO", live=False if "--offline" in sys.argv else None), indent=2))

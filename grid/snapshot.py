@@ -24,7 +24,7 @@ from pathlib import Path
 
 import requests
 
-from .distribution import edge_sites, load_grip
+from .distribution import edge_sites, load_bank_map, load_grip
 
 DATA = Path(__file__).resolve().parents[1] / "data" / "l1"
 OVERPASS = ("https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter",
@@ -199,11 +199,13 @@ def iso_signal(iso_name):
     if l2:
         return l2
     import gridstatus
-    cache = DATA / f"iso_{iso_name}_latest.csv"
+    tracked = DATA / f"iso_{iso_name}_latest.csv"            # shipped with the repo, read-only here
+    live_cache = DATA / "cache" / "live" / tracked.name       # gitignored: live pulls land here
+    cache = live_cache if live_cache.exists() else tracked
     live = None if offline or not hasattr(gridstatus, iso_name) else _with_timeout(lambda: _live_iso(iso_name), ISO_TIMEOUT_S)
     if live:
-        DATA.mkdir(parents=True, exist_ok=True)
-        with cache.open("w", newline="", encoding="utf-8") as f:
+        live_cache.parent.mkdir(parents=True, exist_ok=True)
+        with live_cache.open("w", newline="", encoding="utf-8") as f:
             w = csv.DictWriter(f, fieldnames=["timestamp", "load", "lmp", "source"])
             w.writeheader()
             w.writerow({**live, "source": f"gridstatus:{iso_name}"})
@@ -244,7 +246,7 @@ def get_snapshot(site):
         "site_id": site["id"], "substations": subs, "lines": infer_lines(subs) if len(subs) > 1 else [],
         "iso": iso_signal(site["iso"]),
         "dlr_uplift_pct": l2["dlr_uplift_pct"]["mid"] if l2 else DLR_UPLIFT_PCT_DEFAULT,
-        **({"distribution": edge_sites(grip, site["requested_mw"])} if grip else {}),
+        **({"distribution": edge_sites(grip, site["requested_mw"], load_bank_map())} if grip else {}),
         "assumptions": [
             f"substations: {osm_src}; (c) OpenStreetMap contributors (ODbL)",
             ("assumed_mva/headroom_mw from data/l2/substation_ratings.json (ASSUMED planning values, see its disclaimer); "

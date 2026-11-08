@@ -7,7 +7,11 @@ Model (all assumptions, none measured):
   each substation carries an existing load = assumed_mva*PF - headroom_mw, plus the plan's split.
 Flexibility: storage_mw and curtailment_mw cut the site load pro-rata across splits,
   dlr raises line ratings by snapshot['dlr_uplift_pct'] (default 15), reconductor by RECONDUCTOR_UPLIFT.
-Limits: normal <=100% loading, 0.95-1.05 pu; N-1 (every snapshot line; source transformers assumed firm/redundant, so assumed_mva is firm capacity) <=110% emergency, 0.90-1.10 pu.
+Limits: normal <=100% loading, 0.95-1.05 pu; N-1 <=110% emergency, 0.90-1.10 pu over two contingency sets:
+  every snapshot line out (power flow), and each substation's largest source bank out (firm check: the plan's MW at a
+  substation, after flex, must be <= its headroom_mw_n1_firm when the snapshot has it; substations without it are unchecked).
+shortcut: the bank outage is a capacity check, not a re-solved flow (XF-<sub> is one lumped transformer); upgrade by
+  modelling banks as parallel transformers if per-bank data reaches the snapshot.
 shortcut: site load sits on the substation bus (no LV site feeder), PQ only at constant PF; upgrade if Lean needs it.
 """
 from __future__ import annotations
@@ -84,7 +88,17 @@ def build_net(plan, snap):
             net, bus_at(ln["from"], ln["kv"]), bus_at(ln["to"], ln["kv"]), length_km=ln["length_km"],
             r_ohm_per_km=r, x_ohm_per_km=x, c_nf_per_km=c,
             max_i_ka=ln["rating_mva"] * uplift / (math.sqrt(3) * ln["kv"]), name=ln["id"])
+    net.substation_mw = {sid: v * scale for sid, v in mw.items()}  # plan MW after flex, per substation
     return net, unknown
+
+
+def _firm_violations(net, subs):
+    out = []
+    for sid, p in net.substation_mw.items():
+        firm = subs[sid].get("headroom_mw_n1_firm")
+        if firm is not None and p > firm + 1e-6:
+            out.append(f"N-1 transformer XF-{sid} largest bank out: plan {p:.1f} MW > firm headroom {firm:.1f} MW (headroom_mw_n1_firm)")
+    return out
 
 
 def _solve(net):
@@ -128,7 +142,7 @@ def check(plan, snapshot):
     vm = net.res_bus.vm_pu.dropna()
     violations = _violations(net, LOAD_LIMIT_PCT, V_NORMAL)
 
-    n1_viol = []
+    n1_viol = _firm_violations(net, {s["id"]: s for s in snapshot["substations"]})
     for i, name in net.line.name.items():
         net.line.at[i, "in_service"] = False
         if not _solve(net):
