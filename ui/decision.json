@@ -73,13 +73,13 @@
    "name": "Climate & resilience",
    "rag": "AMBER",
    "num": "Zone AE",
-   "text": "FEMA flood zone",
+   "text": "FEMA flood zone, 12 ft BFE",
    "bullets": [
-    "Site in FEMA zone AE, base flood elevation 12 ft.",
-    "Substations in flood zone: DIXON LANDING, NORTECH.",
-    "Not in a wildfire tier (nearest 8.74 km)."
+    "River flood 0 m now -> 0.19 m in 2050 (CLIMADA).",
+    "Days >35C: ~5.7 -> ~9.2/yr by 2036-2050.",
+    "Not in a fire-threat district."
    ],
-   "src": "data/l2/site_risk.json"
+   "src": "data/shared/climate/alviso.json"
   },
   {
    "id": "time",

@@ -30,6 +30,18 @@ def mw(x: float) -> str:
     return f"{x:.1f}".rstrip("0").rstrip(".")
 
 
+def climate_bullets(climate: dict | None, risk: dict) -> list[str]:
+    fire = "Not in a fire-threat district." if not risk.get("site_in_hftd") else "In a CPUC fire-threat district."
+    if not climate:
+        return [f"Site in FEMA zone {risk.get('site_flood_zone')}, BFE {risk.get('site_bfe_ft')} ft.", fire]
+    hz, heat = climate["hazards_climada"], climate["indicators"]["heat"]
+    return [f"River flood {hz['river_flood_depth_p50_baseline']['value']:g} m now -> "
+            f"{hz['river_flood_depth_p95_2050']['value']:.2f} m in 2050 (CLIMADA).",
+            f"Days >35C: ~{heat['days_tmax_gt_35C_baseline']['value']:g} -> "
+            f"~{heat['days_tmax_gt_35C_2050']['value']:g}/yr by 2036-2050.",
+            fire]
+
+
 def build() -> dict:
     d = load("ui/data.json")
     socio = load("data/shared/socio/alviso.json")
@@ -108,12 +120,9 @@ def build() -> dict:
                      f"Public posts: {stance.get('oppose', 0)} oppose, {stance.get('support', 0)} support, {stance.get('neutral', 0)} neutral."],
          "src": "data/shared/socio/alviso.json, data/shared/social/social_summary.json"},
         {"id": "climate", "name": "Climate & resilience", "rag": clim_rag, "num": f"Zone {zone}",
-         "text": "FEMA flood zone",
-         "bullets": [f"Site in FEMA zone {zone}, base flood elevation {risk.get('site_bfe_ft')} ft.",
-                     f"Substations in flood zone: {', '.join(risk.get('grip_substations_in_sfha') or []) or 'none'}.",
-                     f"Not in a wildfire tier (nearest {risk.get('site_nearest_hftd_km')} km)."]
-                    + ([climate["summary"]] if climate and climate.get("summary") else []),
-         "src": "data/l2/site_risk.json" + (", data/shared/climate/alviso.json" if climate else "")},
+         "text": f"FEMA flood zone, {risk.get('site_bfe_ft')} ft BFE",
+         "bullets": climate_bullets(climate, risk),
+         "src": "data/shared/climate/alviso.json" if climate else "data/l2/site_risk.json"},
         {"id": "time", "name": "Timeline", "rag": time_rag, "num": f"{ty[0]}-{ty[1]} yrs",
          "text": f"for transmission; {years_left:.1f} yrs left",
          "bullets": [f"Deadline {deadline}: {years_left:.1f} years left.",
