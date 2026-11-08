@@ -1,0 +1,634 @@
+{
+ "note": "stance in [-1,1] (negative = opposes siting), influence in [0,1]. All values are ASSUMED analyst judgments with one-line rationale. 'site' says which case the node belongs to.",
+ "nodes": [
+  {
+   "id": "alviso-in-action",
+   "name": "Alviso in Action (Marcos Espinoza)",
+   "type": "residents_group",
+   "site": "alviso",
+   "stance": -0.9,
+   "influence": 0.3,
+   "rationale": "ASSUMED: Named opponent with Alviso-specific complaints but small organisation and no legal action yet.",
+   "evidence_urls": [
+    "https://sanjosespotlight.com/residents-push-back-against-san-joses-data-center-plans/"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "dreaming-collaborative",
+   "name": "Dreaming Collaborative (Ellina Yin)",
+   "type": "residents_group",
+   "site": "alviso",
+   "stance": -0.9,
+   "influence": 0.4,
+   "rationale": "ASSUMED: Ran 800+ signature petition and co-led Oct 15 rallies; most visible organiser.",
+   "evidence_urls": [
+    "https://sanjosespotlight.com/residents-push-back-against-san-joses-data-center-plans/",
+    "https://www.kqed.org/news/12104561/as-san-jose-tries-to-regulate-data-centers-residents-want-to-ban-them"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "sv-council-nonprofits",
+   "name": "Silicon Valley Council of Nonprofits (Kylie Clark)",
+   "type": "residents_group",
+   "site": "alviso",
+   "stance": -0.7,
+   "influence": 0.35,
+   "rationale": "ASSUMED: Convenes nonprofit coalition and speaks at city meetings; broader than Alviso.",
+   "evidence_urls": [
+    "https://www.kqed.org/news/12104561/as-san-jose-tries-to-regulate-data-centers-residents-want-to-ban-them"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "amigos-de-guadalupe",
+   "name": "Amigos de Guadalupe (Misrayn Mendoza)",
+   "type": "residents_group",
+   "site": "alviso",
+   "stance": -0.6,
+   "influence": 0.25,
+   "rationale": "ASSUMED: Community org that joined moratorium call; stance inferred from attendance.",
+   "evidence_urls": [
+    "https://www.kqed.org/news/12104561/as-san-jose-tries-to-regulate-data-centers-residents-want-to-ban-them"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "alviso-residents",
+   "name": "Alviso residents (about 2,000 people, general)",
+   "type": "residents_group",
+   "site": "alviso",
+   "stance": -0.5,
+   "influence": 0.3,
+   "rationale": "ASSUMED: Say city has not contacted them; flood-prone neighbourhood next to Coyote Creek; low formal power, high moral weight.",
+   "evidence_urls": [
+    "https://sanjosespotlight.com/residents-push-back-against-san-joses-data-center-plans/",
+    "https://kioncentralcoast.com/news/top-stories/2026/10/15/san-jose-leaders-consider-new-rules-for-data-centers-amid-several-proposals/"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "mahan",
+   "name": "Mayor Matt Mahan",
+   "type": "elected",
+   "site": "alviso",
+   "stance": 0.4,
+   "influence": 0.85,
+   "rationale": "ASSUMED: Rejects an outright ban ('heads in the sand') but promises strictest standards.",
+   "evidence_urls": [
+    "https://www.kqed.org/news/12104561/as-san-jose-tries-to-regulate-data-centers-residents-want-to-ban-them"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "sj-council",
+   "name": "San Jose City Council",
+   "type": "elected",
+   "site": "alviso",
+   "stance": 0.3,
+   "influence": 0.9,
+   "rationale": "ASSUMED: Holds the December standards vote and rezoning power; has not directed staff to a moratorium; rejected an appeal.",
+   "evidence_urls": [
+    "https://www.kqed.org/news/12104561/as-san-jose-tries-to-regulate-data-centers-residents-want-to-ban-them",
+    "https://www.sierraclub.org/loma-prieta/blog/2026/09/san-jose-considering-wave-ai-data-center-developments"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "district4-cm",
+   "name": "District 4 councilmember (name not verified)",
+   "type": "elected",
+   "site": "alviso",
+   "stance": 0.0,
+   "influence": 0.5,
+   "rationale": "ASSUMED: Alviso is believed to be in District 4 (unverified); swing vote on local concerns.",
+   "evidence_urls": [],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "sj-planning",
+   "name": "San Jose Planning Division / Planning Director",
+   "type": "city_staff",
+   "site": "alviso",
+   "stance": 0.3,
+   "influence": 0.6,
+   "rationale": "ASSUMED: Can approve special use permits at a public hearing without Council; process-driven.",
+   "evidence_urls": [
+    "https://kioncentralcoast.com/news/top-stories/2026/10/15/san-jose-leaders-consider-new-rules-for-data-centers-amid-several-proposals/"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "sj-econ-dev",
+   "name": "San Jose data-center recruitment / economic development staff",
+   "type": "city_staff",
+   "site": "alviso",
+   "stance": 0.7,
+   "influence": 0.5,
+   "rationale": "ASSUMED: Dedicated staff and concierge support; city expects $3-7M/yr per large project.",
+   "evidence_urls": [
+    "https://www.kqed.org/news/12104561/as-san-jose-tries-to-regulate-data-centers-residents-want-to-ban-them",
+    "https://sanjosespotlight.com/residents-push-back-against-san-joses-data-center-plans/"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "pge",
+   "name": "PG&E",
+   "type": "utility",
+   "site": "alviso",
+   "stance": 0.6,
+   "influence": 0.8,
+   "rationale": "ASSUMED: Signed partnership for power to 12 projects by 2030; controls interconnection timing.",
+   "evidence_urls": [
+    "https://sanjosespotlight.com/residents-push-back-against-san-joses-data-center-plans/",
+    "https://www.cpuc.ca.gov/news-and-updates/all-news/cpuc-streamlines-electric-grid-connections-for-high-energy-users-like-data-centers-and-ev-chargers"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "cpuc",
+   "name": "California Public Utilities Commission",
+   "type": "regulator",
+   "site": "alviso",
+   "stance": 0.1,
+   "influence": 0.7,
+   "rationale": "ASSUMED: Sets Rule 30 and SB 57 cost-shift study; neutral gatekeeper on tariffs.",
+   "evidence_urls": [
+    "https://www.cpuc.ca.gov/news-and-updates/all-news/cpuc-streamlines-electric-grid-connections-for-high-energy-users-like-data-centers-and-ev-chargers",
+    "https://www.morganlewis.com/blogs/datacenterbytes/2026/01/california-takes-a-study-first-approach-to-data-center-regulation"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "cdfw",
+   "name": "California Dept. of Fish and Wildlife",
+   "type": "regulator",
+   "site": "alviso",
+   "stance": -0.2,
+   "influence": 0.4,
+   "rationale": "ASSUMED: Burrowing owl is a CESA candidate species (Oct 2024); comments on San Jose data-center EIRs (site match unconfirmed).",
+   "evidence_urls": [],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "baaqmd",
+   "name": "Bay Area Air Quality Management District",
+   "type": "regulator",
+   "site": "alviso",
+   "stance": 0.0,
+   "influence": 0.35,
+   "rationale": "ASSUMED: Permits backup diesel generators; no evidence fetched, role from general knowledge.",
+   "evidence_urls": [],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "prologis",
+   "name": "Prologis (159-acre STEM Park, wastewater-facility site)",
+   "type": "developer",
+   "site": "alviso",
+   "stance": 0.9,
+   "influence": 0.8,
+   "rationale": "ASSUMED: Has exclusive negotiating agreement (Nov 2025); large capital and city relationship.",
+   "evidence_urls": [
+    "https://sanjosespotlight.com/residents-push-back-against-san-joses-data-center-plans/"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "microsoft",
+   "name": "Microsoft (Alviso Way campus)",
+   "type": "developer",
+   "site": "alviso",
+   "stance": 0.8,
+   "influence": 0.6,
+   "rationale": "ASSUMED: Broke ground on Alviso campus; Planning Commission approval reported.",
+   "evidence_urls": [
+    "https://www.datacenterdynamics.com/en/news/microsoft-breaks-ground-on-alviso-data-center-campus-in-san-jose-california/"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "google-alviso",
+   "name": "Google (Alviso research facility, up to 250 MW)",
+   "type": "developer",
+   "site": "alviso",
+   "stance": 0.8,
+   "influence": 0.5,
+   "rationale": "ASSUMED: Described as research facility that could draw 250 MW; search snippet only.",
+   "evidence_urls": [
+    "https://kioncentralcoast.com/news/top-stories/2026/10/15/san-jose-leaders-consider-new-rules-for-data-centers-amid-several-proposals/"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "trades-unions",
+   "name": "Building trades / union laborers (local not named)",
+   "type": "labor",
+   "site": "alviso",
+   "stance": 0.8,
+   "influence": 0.5,
+   "rationale": "ASSUMED: Spoke in support of standards and projects for construction jobs; specific union not verified.",
+   "evidence_urls": [
+    "https://www.kqed.org/news/12104561/as-san-jose-tries-to-regulate-data-centers-residents-want-to-ban-them"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "scv-audubon",
+   "name": "Santa Clara Valley Audubon Society",
+   "type": "environmental",
+   "site": "alviso",
+   "stance": -0.5,
+   "influence": 0.45,
+   "rationale": "ASSUMED: Sued San Jose over Alviso Topgolf owl habitat (2017); likely CEQA commenter on Prologis EIR; no data-center statement found.",
+   "evidence_urls": [
+    "https://scvbirdalliance.org/conservation-corner-posts/conservation-corner-marchapril-2017"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "sierra-club-lp",
+   "name": "Sierra Club Loma Prieta",
+   "type": "environmental",
+   "site": "alviso",
+   "stance": -0.7,
+   "influence": 0.4,
+   "rationale": "ASSUMED: Publicly criticises council's rezoning push.",
+   "evidence_urls": [
+    "https://www.sierraclub.org/loma-prieta/blog/2026/09/san-jose-considering-wave-ai-data-center-developments"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "kqed",
+   "name": "KQED",
+   "type": "media",
+   "site": "alviso",
+   "stance": 0.0,
+   "influence": 0.45,
+   "rationale": "ASSUMED: Largest regional outlet covering the standards fight.",
+   "evidence_urls": [
+    "https://www.kqed.org/news/12104561/as-san-jose-tries-to-regulate-data-centers-residents-want-to-ban-them"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "sj-spotlight",
+   "name": "San Jose Spotlight",
+   "type": "media",
+   "site": "alviso",
+   "stance": 0.0,
+   "influence": 0.4,
+   "rationale": "ASSUMED: Local nonprofit newsroom that broke the Alviso residents story.",
+   "evidence_urls": [
+    "https://sanjosespotlight.com/residents-push-back-against-san-joses-data-center-plans/"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "muwekma",
+   "name": "Muwekma Ohlone Tribe",
+   "type": "tribal",
+   "site": "alviso",
+   "stance": 0.0,
+   "influence": 0.3,
+   "rationale": "ASSUMED: Alviso lies in Muwekma ancestral territory (general knowledge); consultation expected under CEQA/AB 52; no evidence fetched.",
+   "evidence_urls": [],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "novva",
+   "name": "NOVVA Data Centers (Colorado Springs)",
+   "type": "developer",
+   "site": "novva",
+   "stance": 0.9,
+   "influence": 0.5,
+   "rationale": "ASSUMED: Existing operator with waterless/ambient cooling claims; no local opposition found.",
+   "evidence_urls": [
+    "https://www.novva.com/data-center-facilities/colorado"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "raeden",
+   "name": "Raeden Corp (Project Taurus)",
+   "type": "developer",
+   "site": "novva",
+   "stance": 0.9,
+   "influence": 0.6,
+   "rationale": "ASSUMED: Adjacent 50 MW project drawing the opposition NOVVA could inherit.",
+   "evidence_urls": [
+    "https://www.coloradopolitics.com/2026/09/18/colorado-springs-city-council-punts-decision-on-project-taurus-data-center-to-april-2027-after-raucous-meeting-2/"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "integrity-matters",
+   "name": "Integrity Matters + Chelsea Glen residents",
+   "type": "residents_group",
+   "site": "novva",
+   "stance": -0.9,
+   "influence": 0.5,
+   "rationale": "ASSUMED: Lead appellants; forced a council hearing and delay.",
+   "evidence_urls": [
+    "https://www.coloradopolitics.com/2026/09/18/colorado-springs-city-council-punts-decision-on-project-taurus-data-center-to-april-2027-after-raucous-meeting-2/"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "cos-council",
+   "name": "Colorado Springs City Council (also utility board)",
+   "type": "elected",
+   "site": "novva",
+   "stance": 0.2,
+   "influence": 0.9,
+   "rationale": "ASSUMED: 7-2 delay; decides appeals and CSU large-load rate.",
+   "evidence_urls": [
+    "https://www.coloradopolitics.com/2026/09/18/colorado-springs-city-council-punts-decision-on-project-taurus-data-center-to-april-2027-after-raucous-meeting-2/",
+    "https://www.cpr.org/2025/10/30/colorado-springs-utilities-2026-large-load-power-users-requirements/"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "csu",
+   "name": "Colorado Springs Utilities",
+   "type": "utility",
+   "site": "novva",
+   "stance": 0.4,
+   "influence": 0.8,
+   "rationale": "ASSUMED: Large Load Rate (>10 MW) with 10-year minimum contracts; gatekeeper for new load.",
+   "evidence_urls": [
+    "https://www.cpr.org/2025/10/30/colorado-springs-utilities-2026-large-load-power-users-requirements/"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "cos-planning",
+   "name": "Colorado Springs Planning Dept / Planning Commission",
+   "type": "city_staff",
+   "site": "novva",
+   "stance": 0.3,
+   "influence": 0.6,
+   "rationale": "ASSUMED: Administratively approved Taurus; commission rejected appeals 6-2.",
+   "evidence_urls": [
+    "https://www.coloradopolitics.com/2026/09/18/colorado-springs-city-council-punts-decision-on-project-taurus-data-center-to-april-2027-after-raucous-meeting-2/"
+   ],
+   "stance_influence_status": "ASSUMED"
+  },
+  {
+   "id": "cos-mayor",
+   "name": "Mayor of Colorado Springs",
+   "type": "elected",
+   "site": "novva",
+   "stance": 0.1,
+   "influence": 0.6,
+   "rationale": "ASSUMED: Described as tight-lipped on Taurus; stance unknown.",
+   "evidence_urls": [
+    "https://gazette.com/?p=2024844"
+   ],
+   "stance_influence_status": "ASSUMED"
+  }
+ ],
+ "edges": [
+  {
+   "from": "dreaming-collaborative",
+   "to": "sj-council",
+   "kind": "pressures",
+   "weight": 0.7,
+   "rationale": "ASSUMED: Petition plus rallies demanding moratorium."
+  },
+  {
+   "from": "alviso-in-action",
+   "to": "sj-planning",
+   "kind": "pressures",
+   "weight": 0.4,
+   "rationale": "ASSUMED: Complaints on noise, air, owls."
+  },
+  {
+   "from": "sv-council-nonprofits",
+   "to": "sj-council",
+   "kind": "pressures",
+   "weight": 0.5,
+   "rationale": "ASSUMED: Coalition testimony at community meetings."
+  },
+  {
+   "from": "amigos-de-guadalupe",
+   "to": "sj-council",
+   "kind": "pressures",
+   "weight": 0.3,
+   "rationale": "ASSUMED: Joined moratorium call."
+  },
+  {
+   "from": "alviso-residents",
+   "to": "district4-cm",
+   "kind": "pressures",
+   "weight": 0.5,
+   "rationale": "ASSUMED: Constituent complaints."
+  },
+  {
+   "from": "dreaming-collaborative",
+   "to": "prologis",
+   "kind": "opposes",
+   "weight": 0.6,
+   "rationale": "ASSUMED: Opposes Alviso project."
+  },
+  {
+   "from": "alviso-in-action",
+   "to": "prologis",
+   "kind": "opposes",
+   "weight": 0.6,
+   "rationale": "ASSUMED: Opposes Alviso project."
+  },
+  {
+   "from": "sierra-club-lp",
+   "to": "sj-council",
+   "kind": "opposes",
+   "weight": 0.5,
+   "rationale": "ASSUMED: Criticises rezoning."
+  },
+  {
+   "from": "scv-audubon",
+   "to": "prologis",
+   "kind": "opposes",
+   "weight": 0.4,
+   "rationale": "ASSUMED: Likely CEQA owl comments; inferred from Topgolf precedent."
+  },
+  {
+   "from": "cdfw",
+   "to": "sj-planning",
+   "kind": "regulates",
+   "weight": 0.4,
+   "rationale": "ASSUMED: Comments on burrowing owl impacts in CEQA."
+  },
+  {
+   "from": "baaqmd",
+   "to": "prologis",
+   "kind": "regulates",
+   "weight": 0.4,
+   "rationale": "ASSUMED: Generator permits."
+  },
+  {
+   "from": "cpuc",
+   "to": "pge",
+   "kind": "regulates",
+   "weight": 0.9,
+   "rationale": "ASSUMED: Approves Rule 30 and tariffs."
+  },
+  {
+   "from": "pge",
+   "to": "prologis",
+   "kind": "regulates",
+   "weight": 0.5,
+   "rationale": "ASSUMED: Interconnection gatekeeper (contractual, not a regulator; edge kind approximated)."
+  },
+  {
+   "from": "sj-council",
+   "to": "sj-planning",
+   "kind": "regulates",
+   "weight": 0.7,
+   "rationale": "ASSUMED: Sets zoning and standards."
+  },
+  {
+   "from": "sj-planning",
+   "to": "prologis",
+   "kind": "regulates",
+   "weight": 0.8,
+   "rationale": "ASSUMED: Permits and CEQA."
+  },
+  {
+   "from": "mahan",
+   "to": "sj-council",
+   "kind": "pressures",
+   "weight": 0.5,
+   "rationale": "ASSUMED: Pushes strict-standards, no-ban line."
+  },
+  {
+   "from": "pge",
+   "to": "sj-econ-dev",
+   "kind": "funds",
+   "weight": 0.4,
+   "rationale": "ASSUMED: Funds six city staff positions under partnership."
+  },
+  {
+   "from": "sj-econ-dev",
+   "to": "prologis",
+   "kind": "endorses",
+   "weight": 0.7,
+   "rationale": "ASSUMED: Concierge support."
+  },
+  {
+   "from": "sj-council",
+   "to": "prologis",
+   "kind": "endorses",
+   "weight": 0.5,
+   "rationale": "ASSUMED: Exclusive negotiating agreement."
+  },
+  {
+   "from": "prologis",
+   "to": "trades-unions",
+   "kind": "funds",
+   "weight": 0.4,
+   "rationale": "ASSUMED: Construction jobs (indirect)."
+  },
+  {
+   "from": "trades-unions",
+   "to": "sj-council",
+   "kind": "pressures",
+   "weight": 0.5,
+   "rationale": "ASSUMED: Supported standards/projects at meetings."
+  },
+  {
+   "from": "trades-unions",
+   "to": "prologis",
+   "kind": "endorses",
+   "weight": 0.6,
+   "rationale": "ASSUMED: Jobs."
+  },
+  {
+   "from": "microsoft",
+   "to": "sj-planning",
+   "kind": "pressures",
+   "weight": 0.4,
+   "rationale": "ASSUMED: Pending entitlements."
+  },
+  {
+   "from": "kqed",
+   "to": "sj-council",
+   "kind": "reports_on",
+   "weight": 0.6,
+   "rationale": "ASSUMED: Coverage shapes council agenda."
+  },
+  {
+   "from": "sj-spotlight",
+   "to": "alviso-residents",
+   "kind": "reports_on",
+   "weight": 0.6,
+   "rationale": "ASSUMED: Amplified resident complaints."
+  },
+  {
+   "from": "sj-spotlight",
+   "to": "prologis",
+   "kind": "reports_on",
+   "weight": 0.5,
+   "rationale": "ASSUMED: Project coverage."
+  },
+  {
+   "from": "muwekma",
+   "to": "sj-planning",
+   "kind": "pressures",
+   "weight": 0.2,
+   "rationale": "ASSUMED: Consultation, if requested."
+  },
+  {
+   "from": "integrity-matters",
+   "to": "cos-council",
+   "kind": "pressures",
+   "weight": 0.8,
+   "rationale": "ASSUMED: Appeal forced hearing."
+  },
+  {
+   "from": "integrity-matters",
+   "to": "raeden",
+   "kind": "opposes",
+   "weight": 0.9,
+   "rationale": "ASSUMED: Primary appellant."
+  },
+  {
+   "from": "cos-planning",
+   "to": "raeden",
+   "kind": "endorses",
+   "weight": 0.5,
+   "rationale": "ASSUMED: Administrative approval."
+  },
+  {
+   "from": "cos-council",
+   "to": "csu",
+   "kind": "regulates",
+   "weight": 0.7,
+   "rationale": "ASSUMED: Council sits as utility board."
+  },
+  {
+   "from": "csu",
+   "to": "raeden",
+   "kind": "regulates",
+   "weight": 0.8,
+   "rationale": "ASSUMED: Large load contract required during delay."
+  },
+  {
+   "from": "csu",
+   "to": "novva",
+   "kind": "regulates",
+   "weight": 0.6,
+   "rationale": "ASSUMED: Large Load Rate applicability unverified."
+  },
+  {
+   "from": "cos-mayor",
+   "to": "cos-council",
+   "kind": "pressures",
+   "weight": 0.2,
+   "rationale": "ASSUMED: Silent so far."
+  }
+ ]
+}

@@ -1,0 +1,1630 @@
+[
+ {
+  "id_hash": "5fed93b32a59",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2025-07-11",
+  "title": "'AI boom' pits neighbor vs. neighbor Families flee data centers transform towns",
+  "url": "https://news.ycombinator.com/item?id=44532789",
+  "score": 5,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": []
+ },
+ {
+  "id_hash": "ad2f34422052",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2025-12-01",
+  "title": "Trump's push for more Al data centers faces backlash from his own voters",
+  "url": "https://news.ycombinator.com/item?id=46113196",
+  "score": 6,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "politics"
+  ]
+ },
+ {
+  "id_hash": "db1361c7269d",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2025-12-09",
+  "title": "Data center construction moratorium is gaining steam",
+  "url": "https://news.ycombinator.com/item?id=46208041",
+  "score": 2,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "61664596444f",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2025-12-09",
+  "title": "America's war on data centers is coming",
+  "url": "https://news.ycombinator.com/item?id=46202788",
+  "score": 2,
+  "num_comments": 1,
+  "stance": "oppose",
+  "topics": []
+ },
+ {
+  "id_hash": "9f0c485cb1e3",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2025-12-11",
+  "title": "Data center construction moratorium is gaining steam",
+  "url": "https://news.ycombinator.com/item?id=46238174",
+  "score": 8,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "676d3953cfa0",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2025-12-18",
+  "title": "Sanders: Pushing for a moratorium on AI data centers",
+  "url": "https://news.ycombinator.com/item?id=46307658",
+  "score": 2,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "moratorium",
+   "politics"
+  ]
+ },
+ {
+  "id_hash": "4573adf4c85b",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-01-07",
+  "title": "The data center rebellion is here, and it's reshaping the political landscape",
+  "url": "https://news.ycombinator.com/item?id=46521292",
+  "score": 3,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": []
+ },
+ {
+  "id_hash": "d955b2028814",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-01-08",
+  "title": "The data center rebellion is here, and it's reshaping the political landscape",
+  "url": "https://news.ycombinator.com/item?id=46540691",
+  "score": 1,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": []
+ },
+ {
+  "id_hash": "f1f37988c886",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-02-07",
+  "title": "NY lawmakers proposed statewide data center moratorium",
+  "url": "https://news.ycombinator.com/item?id=46929468",
+  "score": 4,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "1bde66ac6b6d",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-02-15",
+  "title": "Three year data center moratorium considered in New York State",
+  "url": "https://news.ycombinator.com/item?id=47028252",
+  "score": 1,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "736365d6398d",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-03-04",
+  "title": "WSJ Opinion: The A.I. Data Center Backlash",
+  "url": "https://news.ycombinator.com/item?id=47242985",
+  "score": 2,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": []
+ },
+ {
+  "id_hash": "c9e1735a8442",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-03-13",
+  "title": "Who is footing the AI energy bill? Debate over data center electricity costs",
+  "url": "https://news.ycombinator.com/item?id=47367486",
+  "score": 5,
+  "num_comments": 0,
+  "stance": "neutral",
+  "topics": [
+   "power",
+   "bills"
+  ]
+ },
+ {
+  "id_hash": "6b8de6656281",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-03-25",
+  "title": "Bernie Sanders, AOC announce AI data center moratorium bill [video]",
+  "url": "https://news.ycombinator.com/item?id=47524451",
+  "score": 3,
+  "num_comments": 2,
+  "stance": "oppose",
+  "topics": [
+   "bills",
+   "moratorium",
+   "politics"
+  ]
+ },
+ {
+  "id_hash": "034a5344f633",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-03-25",
+  "title": "Sanders and AOC unveil data center moratorium bill",
+  "url": "https://news.ycombinator.com/item?id=47520739",
+  "score": 6,
+  "num_comments": 2,
+  "stance": "oppose",
+  "topics": [
+   "bills",
+   "moratorium",
+   "politics"
+  ]
+ },
+ {
+  "id_hash": "57234ad20219",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-03-25",
+  "title": "A movement to ban data centers gains steam across the U.S.",
+  "url": "https://news.ycombinator.com/item?id=47517997",
+  "score": 1,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "2048fa0f48a1",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-03-27",
+  "title": "Lawmakers push a bill to impose an AI data center moratorium",
+  "url": "https://news.ycombinator.com/item?id=47542939",
+  "score": 4,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "bills",
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "f79e7e83360f",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-03-30",
+  "title": "Bernie Sanders, AOC announce AI data center moratorium bill [video]",
+  "url": "https://news.ycombinator.com/item?id=47578568",
+  "score": 4,
+  "num_comments": 1,
+  "stance": "oppose",
+  "topics": [
+   "bills",
+   "moratorium",
+   "politics"
+  ]
+ },
+ {
+  "id_hash": "4c69ce0d7f6b",
+  "platform": "reddit",
+  "kind": "post",
+  "scope": "local_sj",
+  "subreddit": "r/SanJose",
+  "date": "2026-04",
+  "date_note": "approximate; mirror says 198 days before 2026-04-24 snapshot which conflicts with the thread id; month inferred from search report of an April 2026 post",
+  "title": "Petition Against Data Centers in San Jose",
+  "url": "https://reddit.com/r/SanJose/comments/1su3dox/petition_against_data_centers_in_san_jose/",
+  "score": 45,
+  "num_comments": 54,
+  "stance": "oppose",
+  "topics": [
+   "power",
+   "bills",
+   "moratorium"
+  ],
+  "source": "reddit.sentinel-team.org archived snapshot"
+ },
+ {
+  "id_hash": "efc466e15e90",
+  "platform": "reddit",
+  "kind": "comment",
+  "scope": "local_sj",
+  "subreddit": "r/SanJose",
+  "date": "2026-04",
+  "title": "Data centers already exist mostly in Santa Clara; petition is late.",
+  "url": "https://reddit.com/r/SanJose/comments/1su3dox/petition_against_data_centers_in_san_jose/",
+  "score": 14,
+  "num_comments": 0,
+  "stance": "neutral",
+  "topics": [],
+  "source": "reddit.sentinel-team.org archived snapshot",
+  "text_is_paraphrase": true
+ },
+ {
+  "id_hash": "bd378e3e6138",
+  "platform": "reddit",
+  "kind": "comment",
+  "scope": "local_sj",
+  "subreddit": "r/SanJose",
+  "date": "2026-04",
+  "title": "Out-of-state data centers get cheaper power, raising local bills; grid already strained.",
+  "url": "https://reddit.com/r/SanJose/comments/1su3dox/petition_against_data_centers_in_san_jose/",
+  "score": 14,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "power",
+   "bills"
+  ],
+  "source": "reddit.sentinel-team.org archived snapshot",
+  "text_is_paraphrase": true
+ },
+ {
+  "id_hash": "fde609dfeff3",
+  "platform": "reddit",
+  "kind": "comment",
+  "scope": "local_sj",
+  "subreddit": "r/SanJose",
+  "date": "2026-04",
+  "title": "Asks where data centers should be built instead.",
+  "url": "https://reddit.com/r/SanJose/comments/1su3dox/petition_against_data_centers_in_san_jose/",
+  "score": 8,
+  "num_comments": 0,
+  "stance": "neutral",
+  "topics": [],
+  "source": "reddit.sentinel-team.org archived snapshot",
+  "text_is_paraphrase": true
+ },
+ {
+  "id_hash": "a14295993bbd",
+  "platform": "reddit",
+  "kind": "comment",
+  "scope": "local_sj",
+  "subreddit": "r/SanJose",
+  "date": "2026-04",
+  "title": "Will sign the petition (references 'Eddington'; context unclear).",
+  "url": "https://reddit.com/r/SanJose/comments/1su3dox/petition_against_data_centers_in_san_jose/",
+  "score": 7,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [],
+  "source": "reddit.sentinel-team.org archived snapshot",
+  "text_is_paraphrase": true
+ },
+ {
+  "id_hash": "751fe912d5ad",
+  "platform": "reddit",
+  "kind": "comment",
+  "scope": "local_sj",
+  "subreddit": "r/SanJose",
+  "date": "2026-04",
+  "title": "New data centers should wait until grid capacity grows.",
+  "url": "https://reddit.com/r/SanJose/comments/1su3dox/petition_against_data_centers_in_san_jose/",
+  "score": 7,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "power"
+  ],
+  "source": "reddit.sentinel-team.org archived snapshot",
+  "text_is_paraphrase": true
+ },
+ {
+  "id_hash": "252641bf37e3",
+  "platform": "reddit",
+  "kind": "comment",
+  "scope": "local_sj",
+  "subreddit": "r/SanJose",
+  "date": "2026-04",
+  "title": "Sarcastic: mocks opponents as following Reddit.",
+  "url": "https://reddit.com/r/SanJose/comments/1su3dox/petition_against_data_centers_in_san_jose/",
+  "score": 3,
+  "num_comments": 0,
+  "stance": "support",
+  "topics": [],
+  "source": "reddit.sentinel-team.org archived snapshot",
+  "text_is_paraphrase": true
+ },
+ {
+  "id_hash": "bf0e8e2f1a5c",
+  "platform": "reddit",
+  "kind": "comment",
+  "scope": "local_sj",
+  "subreddit": "r/SanJose",
+  "date": "2026-04",
+  "title": "Claims petition link is promoted by bots/new accounts.",
+  "url": "https://reddit.com/r/SanJose/comments/1su3dox/petition_against_data_centers_in_san_jose/",
+  "score": 2,
+  "num_comments": 0,
+  "stance": "neutral",
+  "topics": [],
+  "source": "reddit.sentinel-team.org archived snapshot",
+  "text_is_paraphrase": true
+ },
+ {
+  "id_hash": "8b52dd1d9f8f",
+  "platform": "reddit",
+  "kind": "comment",
+  "scope": "local_sj",
+  "subreddit": "r/SanJose",
+  "date": "2026-04",
+  "title": "Not enough knowledge to sign; asks where they should go.",
+  "url": "https://reddit.com/r/SanJose/comments/1su3dox/petition_against_data_centers_in_san_jose/",
+  "score": 2,
+  "num_comments": 0,
+  "stance": "neutral",
+  "topics": [],
+  "source": "reddit.sentinel-team.org archived snapshot",
+  "text_is_paraphrase": true
+ },
+ {
+  "id_hash": "9900ddc77cf5",
+  "platform": "reddit",
+  "kind": "comment",
+  "scope": "local_sj",
+  "subreddit": "r/SanJose",
+  "date": "2026-04",
+  "title": "San Jose is the tech capital; data centers are already here.",
+  "url": "https://reddit.com/r/SanJose/comments/1su3dox/petition_against_data_centers_in_san_jose/",
+  "score": 2,
+  "num_comments": 0,
+  "stance": "support",
+  "topics": [],
+  "source": "reddit.sentinel-team.org archived snapshot",
+  "text_is_paraphrase": true
+ },
+ {
+  "id_hash": "325eef733629",
+  "platform": "reddit",
+  "kind": "comment",
+  "scope": "local_sj",
+  "subreddit": "r/SanJose",
+  "date": "2026-04",
+  "title": "Asks for articles on specific planned data centers.",
+  "url": "https://reddit.com/r/SanJose/comments/1su3dox/petition_against_data_centers_in_san_jose/",
+  "score": 1,
+  "num_comments": 0,
+  "stance": "neutral",
+  "topics": [],
+  "source": "reddit.sentinel-team.org archived snapshot",
+  "text_is_paraphrase": true
+ },
+ {
+  "id_hash": "441bcedaa3cb",
+  "platform": "reddit",
+  "kind": "comment",
+  "scope": "local_sj",
+  "subreddit": "r/SanJose",
+  "date": "2026-04",
+  "title": "Expensive area needs housing; new facilities near Santa Teresa block hill views.",
+  "url": "https://reddit.com/r/SanJose/comments/1su3dox/petition_against_data_centers_in_san_jose/",
+  "score": 1,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [],
+  "source": "reddit.sentinel-team.org archived snapshot",
+  "text_is_paraphrase": true
+ },
+ {
+  "id_hash": "131b3b0632b1",
+  "platform": "reddit",
+  "kind": "comment",
+  "scope": "local_sj",
+  "subreddit": "r/SanJose",
+  "date": "2026-04",
+  "title": "Opposition is anti-progress.",
+  "url": "https://reddit.com/r/SanJose/comments/1su3dox/petition_against_data_centers_in_san_jose/",
+  "score": 1,
+  "num_comments": 0,
+  "stance": "support",
+  "topics": [],
+  "source": "reddit.sentinel-team.org archived snapshot",
+  "text_is_paraphrase": true
+ },
+ {
+  "id_hash": "d29747d0c792",
+  "platform": "reddit",
+  "kind": "comment",
+  "scope": "local_sj",
+  "subreddit": "r/SanJose",
+  "date": "2026-04",
+  "title": "Hopes San Jose keeps welcoming data centers; praises a project that uses waste heat to warm homes.",
+  "url": "https://reddit.com/r/SanJose/comments/1su3dox/petition_against_data_centers_in_san_jose/",
+  "score": -8,
+  "num_comments": 0,
+  "stance": "support",
+  "topics": [
+   "heat_reuse"
+  ],
+  "source": "reddit.sentinel-team.org archived snapshot",
+  "text_is_paraphrase": true
+ },
+ {
+  "id_hash": "b5f42844c3b3",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-04-10",
+  "title": "The AI Data Center Backlash Is Now Impossible to Ignore",
+  "url": "https://news.ycombinator.com/item?id=47723834",
+  "score": 2,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": []
+ },
+ {
+  "id_hash": "434c9637cf19",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-04-16",
+  "title": "Data center boom meets resistance in Maine as lawmakers pass a yearlong freeze",
+  "url": "https://news.ycombinator.com/item?id=47793089",
+  "score": 2,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "097735a8e085",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-04-17",
+  "title": "Maine Said No to New Data Centers. Other States Are Racing to Follow",
+  "url": "https://news.ycombinator.com/item?id=47811601",
+  "score": 40,
+  "num_comments": 25,
+  "stance": "oppose",
+  "topics": []
+ },
+ {
+  "id_hash": "57a083369766",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-04-24",
+  "title": "Maine governor vetoes statewide pause in new data centers",
+  "url": "https://news.ycombinator.com/item?id=47896593",
+  "score": 9,
+  "num_comments": 1,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "c36c20f07628",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-04-24",
+  "title": "AI data center backlash threatens Pennsylvania GOP incumbents in 2026 election",
+  "url": "https://news.ycombinator.com/item?id=47890436",
+  "score": 4,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "politics"
+  ]
+ },
+ {
+  "id_hash": "0cc20aae31a6",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-04-25",
+  "title": "Why Maine's Governor Just Killed a Pioneering Data Center Moratorium",
+  "url": "https://news.ycombinator.com/item?id=47903081",
+  "score": 4,
+  "num_comments": 1,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "80d5e708d99c",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-04-26",
+  "title": "Maine's governor vetoes data center moratorium",
+  "url": "https://news.ycombinator.com/item?id=47912204",
+  "score": 27,
+  "num_comments": 3,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "2b3f6f992aad",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-04-26",
+  "title": "Maine's governor vetoes data center moratorium",
+  "url": "https://news.ycombinator.com/item?id=47907371",
+  "score": 1,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "0c37a8f799cb",
+  "platform": "reddit",
+  "kind": "post",
+  "scope": "local_cos",
+  "subreddit": "r/ColoradoSprings",
+  "date": "2026-05",
+  "date_note": "approximate; community meeting held 2026-05-14",
+  "title": "Project Taurus/Data Center Community Meeting",
+  "url": "https://reddit.sentinel-team.org/posts/1tbkykd/snapshots/2026-05-14T04%3A35%3A09.042677Z",
+  "score": 241,
+  "num_comments": 77,
+  "stance": "oppose",
+  "topics": [
+   "water",
+   "noise",
+   "bills"
+  ],
+  "source": "reddit.sentinel-team.org archived snapshot"
+ },
+ {
+  "id_hash": "c8709c01e392",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-05-01",
+  "title": "Creative Ideas Emerge to Make Data Centers Beautiful Amid NIMBY Backlash",
+  "url": "https://news.ycombinator.com/item?id=47979393",
+  "score": 2,
+  "num_comments": 0,
+  "stance": "support",
+  "topics": []
+ },
+ {
+  "id_hash": "4ac8b7c48e6a",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-05-04",
+  "title": "Denmark faces data center reckoning as power grid overwhelmed",
+  "url": "https://news.ycombinator.com/item?id=48008499",
+  "score": 5,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "power"
+  ]
+ },
+ {
+  "id_hash": "8d6c6e8a5092",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-05-12",
+  "title": "New Jersey residents say they can't even wash their clothes due to data centers",
+  "url": "https://news.ycombinator.com/item?id=48111599",
+  "score": 20,
+  "num_comments": 8,
+  "stance": "oppose",
+  "topics": [
+   "water"
+  ]
+ },
+ {
+  "id_hash": "42702cf433e9",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-05-13",
+  "title": "Residents furious as Utah approves datacenter twice the size of Manhattan",
+  "url": "https://news.ycombinator.com/item?id=48123594",
+  "score": 70,
+  "num_comments": 37,
+  "stance": "oppose",
+  "topics": []
+ },
+ {
+  "id_hash": "0f68ed970a2f",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-05-14",
+  "title": "S.4214 – Artificial Intelligence Data Center Moratorium Act",
+  "url": "https://news.ycombinator.com/item?id=48136526",
+  "score": 3,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "bc3aa6061560",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-05-19",
+  "title": "Nancy Mace pushes for statewide data center moratorium",
+  "url": "https://news.ycombinator.com/item?id=48196583",
+  "score": 3,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "6d8bbef3e594",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-05-21",
+  "title": "Anti-Data Center Rebels in Texas Pray to Jesus to Keep Them Out",
+  "url": "https://news.ycombinator.com/item?id=48228076",
+  "score": 4,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": []
+ },
+ {
+  "id_hash": "84455be14867",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-05-23",
+  "title": "Data Centers Now Consume 6% of US Electricity–and the Backlash Has Begun",
+  "url": "https://news.ycombinator.com/item?id=48250712",
+  "score": 66,
+  "num_comments": 38,
+  "stance": "oppose",
+  "topics": [
+   "power"
+  ]
+ },
+ {
+  "id_hash": "ddb79130070d",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-05-25",
+  "title": "South Carolina county passes first reading on data center moratorium",
+  "url": "https://news.ycombinator.com/item?id=48266411",
+  "score": 4,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "ef21088c9fc3",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-06-02",
+  "title": "Americans don't know how to fight AI so they're fighting data centers",
+  "url": "https://news.ycombinator.com/item?id=48371592",
+  "score": 122,
+  "num_comments": 212,
+  "stance": "oppose",
+  "topics": []
+ },
+ {
+  "id_hash": "3255d51f4cce",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-06-04",
+  "title": "Google pushes water standards amid data center backlash",
+  "url": "https://news.ycombinator.com/item?id=48393050",
+  "score": 3,
+  "num_comments": 3,
+  "stance": "oppose",
+  "topics": [
+   "water"
+  ]
+ },
+ {
+  "id_hash": "c8b60f482663",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-06-07",
+  "title": "New York lawmakers pass one-year ban on new data centers",
+  "url": "https://news.ycombinator.com/item?id=48434236",
+  "score": 10,
+  "num_comments": 2,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "21ec109482d0",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-06-09",
+  "title": "Amazon employees ask Seattle to put the brakes on new data centers",
+  "url": "https://news.ycombinator.com/item?id=48463755",
+  "score": 38,
+  "num_comments": 25,
+  "stance": "oppose",
+  "topics": [
+   "jobs",
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "9d7194c17da9",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-06-18",
+  "title": "Amazon employees say they're facing termination for backing data center limits",
+  "url": "https://news.ycombinator.com/item?id=48587671",
+  "score": 6,
+  "num_comments": 1,
+  "stance": "oppose",
+  "topics": [
+   "jobs"
+  ]
+ },
+ {
+  "id_hash": "0cad285405aa",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-06-19",
+  "title": "Amazon employees say they're facing termination for backing data center limits",
+  "url": "https://news.ycombinator.com/item?id=48594893",
+  "score": 38,
+  "num_comments": 17,
+  "stance": "oppose",
+  "topics": [
+   "jobs"
+  ]
+ },
+ {
+  "id_hash": "47e6f4160a2f",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-06-22",
+  "title": "Data centers become the face of AI backlash",
+  "url": "https://news.ycombinator.com/item?id=48627730",
+  "score": 11,
+  "num_comments": 2,
+  "stance": "oppose",
+  "topics": []
+ },
+ {
+  "id_hash": "67db8a95e5f5",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-06-24",
+  "title": "Japan's AI goldrush faces backlash as data centers sprout up in urban areas",
+  "url": "https://news.ycombinator.com/item?id=48666763",
+  "score": 3,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": []
+ },
+ {
+  "id_hash": "fb0ecade3792",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-06-25",
+  "title": "Data center noise irks Virginia neighbors: 'You just want to curse'",
+  "url": "https://news.ycombinator.com/item?id=48671379",
+  "score": 2,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "noise"
+  ]
+ },
+ {
+  "id_hash": "dc44628c14cf",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-06-26",
+  "title": "Data centers trigger voter backlash",
+  "url": "https://news.ycombinator.com/item?id=48689275",
+  "score": 202,
+  "num_comments": 393,
+  "stance": "oppose",
+  "topics": [
+   "politics"
+  ]
+ },
+ {
+  "id_hash": "aee9af9f4a00",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-07-12",
+  "title": "Prince George's County Council passes 2-year moratorium on new data centers",
+  "url": "https://news.ycombinator.com/item?id=48881865",
+  "score": 3,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "88d722234cca",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-07-12",
+  "title": "Can a Prettier Data Center Curb the Community Backlash?",
+  "url": "https://news.ycombinator.com/item?id=48883816",
+  "score": 2,
+  "num_comments": 0,
+  "stance": "support",
+  "topics": []
+ },
+ {
+  "id_hash": "912623b73091",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-07-14",
+  "title": "New York blocks new hyperscale data centers for a year",
+  "url": "https://news.ycombinator.com/item?id=48911810",
+  "score": 4,
+  "num_comments": 1,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "baaa45aa02bd",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-07-14",
+  "title": "New York bans data center construction for a year, rattling AI industry",
+  "url": "https://news.ycombinator.com/item?id=48910770",
+  "score": 4,
+  "num_comments": 3,
+  "stance": "oppose",
+  "topics": []
+ },
+ {
+  "id_hash": "ce2d3ff7af6c",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-07-14",
+  "title": "New York to enact nation's first statewide data center moratorium",
+  "url": "https://news.ycombinator.com/item?id=48907923",
+  "score": 1,
+  "num_comments": 1,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "fca03874838a",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-07-14",
+  "title": "New York becomes the first state to impose a data center moratorium",
+  "url": "https://news.ycombinator.com/item?id=48907296",
+  "score": 161,
+  "num_comments": 233,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "0fb247abc576",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-07-15",
+  "title": "New York won't build big data centers for 12mos, weighs energy and climate risks",
+  "url": "https://news.ycombinator.com/item?id=48928302",
+  "score": 6,
+  "num_comments": 2,
+  "stance": "oppose",
+  "topics": [
+   "power"
+  ]
+ },
+ {
+  "id_hash": "62010e062af5",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-07-16",
+  "title": "New York blocks new AI data centers in first statewide moratorium",
+  "url": "https://news.ycombinator.com/item?id=48933522",
+  "score": 6,
+  "num_comments": 1,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "ae962fd70da5",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-07-18",
+  "title": "US data center protests go national as backlash grows",
+  "url": "https://news.ycombinator.com/item?id=48959075",
+  "score": 5,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": []
+ },
+ {
+  "id_hash": "4b21425fccf3",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-07-18",
+  "title": "Elon Musk's Memphis AI empire is the epicenter of the data center backlash",
+  "url": "https://news.ycombinator.com/item?id=48955633",
+  "score": 4,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": []
+ },
+ {
+  "id_hash": "eb3bdcde35fd",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-07-19",
+  "title": "Data center opponents stage 142 protests across 42 US states",
+  "url": "https://news.ycombinator.com/item?id=48968690",
+  "score": 47,
+  "num_comments": 37,
+  "stance": "oppose",
+  "topics": []
+ },
+ {
+  "id_hash": "11efdf922d6a",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-07-21",
+  "title": "New York blocks large data centers for a year",
+  "url": "https://news.ycombinator.com/item?id=48987373",
+  "score": 26,
+  "num_comments": 1,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "39c7efddc222",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-07-21",
+  "title": "Expect More Data Center Moratoriums – and Slower Growth",
+  "url": "https://news.ycombinator.com/item?id=48987106",
+  "score": 2,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "65c8db008158",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-07-22",
+  "title": "A growing political reckoning is coming for data centers, POLITICO Poll shows",
+  "url": "https://news.ycombinator.com/item?id=49002658",
+  "score": 3,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "politics"
+  ]
+ },
+ {
+  "id_hash": "4851ce925b8f",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-08-05",
+  "title": "Coming to a county near you: A data center moratorium",
+  "url": "https://news.ycombinator.com/item?id=49184217",
+  "score": 2,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "8570ba5db7a6",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-08-05",
+  "title": "Polling shows a growing political reckoning is coming for data centers",
+  "url": "https://news.ycombinator.com/item?id=49181191",
+  "score": 30,
+  "num_comments": 69,
+  "stance": "oppose",
+  "topics": [
+   "politics"
+  ]
+ },
+ {
+  "id_hash": "d7ef17f7f48d",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-08-05",
+  "title": "Backlash over Data Centers, Power Costs Tests GOP's Hold on Ohio",
+  "url": "https://news.ycombinator.com/item?id=49182439",
+  "score": 3,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "power",
+   "bills",
+   "politics"
+  ]
+ },
+ {
+  "id_hash": "2584abafedca",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-08-06",
+  "title": "Democratic lawmakers propose 3-year moratorium on new data centers in Oregon",
+  "url": "https://news.ycombinator.com/item?id=49191452",
+  "score": 3,
+  "num_comments": 3,
+  "stance": "oppose",
+  "topics": [
+   "moratorium",
+   "politics"
+  ]
+ },
+ {
+  "id_hash": "719460ce3728",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-08-06",
+  "title": "Texas commissioner: GOP will lose elections from data center backlash",
+  "url": "https://news.ycombinator.com/item?id=49202857",
+  "score": 3,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "politics"
+  ]
+ },
+ {
+  "id_hash": "3925bef15d0e",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-08-06",
+  "title": "After fierce backlash, Georgia freezes new data center projects through year",
+  "url": "https://news.ycombinator.com/item?id=49197304",
+  "score": 14,
+  "num_comments": 3,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "8b70294f743a",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-08-06",
+  "title": "Yukon mayor faces recall after data center backlash",
+  "url": "https://news.ycombinator.com/item?id=49197130",
+  "score": 3,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "politics"
+  ]
+ },
+ {
+  "id_hash": "d9c32072f0d0",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-08-06",
+  "title": "The left and right agree on one thing: no data centers",
+  "url": "https://news.ycombinator.com/item?id=49196990",
+  "score": 15,
+  "num_comments": 5,
+  "stance": "neutral",
+  "topics": []
+ },
+ {
+  "id_hash": "db0bc7940b29",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-08-13",
+  "title": "Over 70% of Americans oppose AI data centers; US protests intensify",
+  "url": "https://news.ycombinator.com/item?id=49282302",
+  "score": 1,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": []
+ },
+ {
+  "id_hash": "d8adbbd6e61c",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-08-16",
+  "title": "The 'Country Hicks' Who Refused $26M from an AI Data Center",
+  "url": "https://news.ycombinator.com/item?id=49318835",
+  "score": 15,
+  "num_comments": 3,
+  "stance": "oppose",
+  "topics": [
+   "bills"
+  ]
+ },
+ {
+  "id_hash": "ea6f28927e51",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-08-21",
+  "title": "Texas slams on the brakes for 1,800 data centers",
+  "url": "https://news.ycombinator.com/item?id=49385786",
+  "score": 1,
+  "num_comments": 3,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "7ed2d1651af4",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-08-24",
+  "title": "Greg Abbott says data centers:'basically dug their own grave'",
+  "url": "https://news.ycombinator.com/item?id=49424882",
+  "score": 43,
+  "num_comments": 15,
+  "stance": "oppose",
+  "topics": [
+   "politics"
+  ]
+ },
+ {
+  "id_hash": "3059f5abc6fb",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-08-25",
+  "title": "I think the data center backlash is mostly about data centers",
+  "url": "https://news.ycombinator.com/item?id=49441866",
+  "score": 43,
+  "num_comments": 29,
+  "stance": "neutral",
+  "topics": []
+ },
+ {
+  "id_hash": "c706582a7a8b",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-08-28",
+  "title": "The data center backlash is here – and Big Tech is spending big to combat it",
+  "url": "https://news.ycombinator.com/item?id=49482928",
+  "score": 12,
+  "num_comments": 0,
+  "stance": "neutral",
+  "topics": []
+ },
+ {
+  "id_hash": "d1849706bd73",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-08-28",
+  "title": "Big tech has itself to blame for the data center backlash",
+  "url": "https://news.ycombinator.com/item?id=49474731",
+  "score": 5,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": []
+ },
+ {
+  "id_hash": "a8997b8d38e7",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-08-29",
+  "title": "Microsoft-backed AI data center faces backlash over 62 unpermitted gas turbines",
+  "url": "https://news.ycombinator.com/item?id=49490016",
+  "score": 3,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "power"
+  ]
+ },
+ {
+  "id_hash": "9bec535dfeaf",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-08-29",
+  "title": "Backlash Against AI Data Centers Is Real, Organic, Widespread",
+  "url": "https://news.ycombinator.com/item?id=49489920",
+  "score": 6,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": []
+ },
+ {
+  "id_hash": "ae05f817c6fc",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-08-29",
+  "title": "America's data center revolt is getting a boost from China-linked bots",
+  "url": "https://news.ycombinator.com/item?id=49487203",
+  "score": 8,
+  "num_comments": 0,
+  "stance": "support",
+  "topics": []
+ },
+ {
+  "id_hash": "725c333f0968",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-08-29",
+  "title": "Tech tries a new message: You'd love data centers if China wasn't making you hat",
+  "url": "https://news.ycombinator.com/item?id=49486033",
+  "score": 8,
+  "num_comments": 9,
+  "stance": "support",
+  "topics": []
+ },
+ {
+  "id_hash": "1c1839ea24d5",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-08-30",
+  "title": "China is fueling America's data center rage",
+  "url": "https://news.ycombinator.com/item?id=49494853",
+  "score": 14,
+  "num_comments": 20,
+  "stance": "support",
+  "topics": []
+ },
+ {
+  "id_hash": "9a8bb5e59b91",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-09-05",
+  "title": "Data Center Backlash Floods Campaign Trail as Hill Action Stalls",
+  "url": "https://news.ycombinator.com/item?id=49578719",
+  "score": 5,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "politics"
+  ]
+ },
+ {
+  "id_hash": "732b929e9988",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-09-08",
+  "title": "Q&A with Mark Zuckerberg on Muse, the data center backlash",
+  "url": "https://news.ycombinator.com/item?id=49618166",
+  "score": 1,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": []
+ },
+ {
+  "id_hash": "5db1d3f8bdf7",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-09-16",
+  "title": "Everyone Says Datacenter Moratoriums Are Killing the US Buildout. We Disagree",
+  "url": "https://news.ycombinator.com/item?id=49724038",
+  "score": 3,
+  "num_comments": 1,
+  "stance": "neutral",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "88bfe0d7a994",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-09-17",
+  "title": "Wisconsin GOP Candidate Is Exploiting Data Center Backlash to Attack Solar, Wind",
+  "url": "https://news.ycombinator.com/item?id=49741344",
+  "score": 1,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "politics"
+  ]
+ },
+ {
+  "id_hash": "037918ee4f3a",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-09-19",
+  "title": "Democrats try to ride data center backlash to election victory rural US Midwest",
+  "url": "https://news.ycombinator.com/item?id=49766200",
+  "score": 4,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "politics"
+  ]
+ },
+ {
+  "id_hash": "e9ce4e27744a",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-09-25",
+  "title": "After the Data Centers",
+  "url": "https://news.ycombinator.com/item?id=49845385",
+  "score": 1,
+  "num_comments": 0,
+  "stance": "neutral",
+  "topics": []
+ },
+ {
+  "id_hash": "fd7d03597504",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-10-02",
+  "title": "Amazon to invest $1B into data center communities amid backlash",
+  "url": "https://news.ycombinator.com/item?id=49937467",
+  "score": 1,
+  "num_comments": 1,
+  "stance": "support",
+  "topics": [
+   "bills"
+  ]
+ },
+ {
+  "id_hash": "12b282f30ffc",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-10-03",
+  "title": "America's data center fight a preview of what's to come for rest of the world",
+  "url": "https://news.ycombinator.com/item?id=49948269",
+  "score": 2,
+  "num_comments": 0,
+  "stance": "neutral",
+  "topics": []
+ },
+ {
+  "id_hash": "1f5f386d0198",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-10-04",
+  "title": "Amazon responds to data center backlash, says it no longer uses NDAs",
+  "url": "https://news.ycombinator.com/item?id=49950827",
+  "score": 3,
+  "num_comments": 1,
+  "stance": "neutral",
+  "topics": [
+   "transparency"
+  ]
+ },
+ {
+  "id_hash": "0b0a5a8a0467",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-10-07",
+  "title": "San Francisco hits pause on data centers",
+  "url": "https://news.ycombinator.com/item?id=49986944",
+  "score": 17,
+  "num_comments": 6,
+  "stance": "oppose",
+  "topics": [
+   "moratorium"
+  ]
+ },
+ {
+  "id_hash": "459c631078dc",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-10-07",
+  "title": "America Turned on Data Centers",
+  "url": "https://news.ycombinator.com/item?id=49995244",
+  "score": 13,
+  "num_comments": 12,
+  "stance": "oppose",
+  "topics": []
+ },
+ {
+  "id_hash": "d5a8372cfca8",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-10-29",
+  "title": "Show HN: We mapped data center regulations across 50 states and 1,462 localities",
+  "url": "https://news.ycombinator.com/item?id=50293153",
+  "score": 4,
+  "num_comments": 1,
+  "stance": "neutral",
+  "topics": []
+ },
+ {
+  "id_hash": "41ef29d9602a",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-10-29",
+  "title": "Texas Data Center Boom Collides with Backlash Ahead of Midterms",
+  "url": "https://news.ycombinator.com/item?id=50289361",
+  "score": 2,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "politics"
+  ]
+ },
+ {
+  "id_hash": "3874dbd67a9a",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-11-02",
+  "title": "Google's Minnesota data center approved after it drops $80M tax break ask",
+  "url": "https://news.ycombinator.com/item?id=50338281",
+  "score": 3,
+  "num_comments": 0,
+  "stance": "neutral",
+  "topics": [
+   "bills",
+   "taxes"
+  ]
+ },
+ {
+  "id_hash": "4c279ec66bcb",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-11-03",
+  "title": "OpenAI considers rebranding data centers to 'AI compute campuses\"",
+  "url": "https://news.ycombinator.com/item?id=50346759",
+  "score": 6,
+  "num_comments": 0,
+  "stance": "neutral",
+  "topics": []
+ },
+ {
+  "id_hash": "2a3fc8431be0",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-11-06",
+  "title": "Meta Warns Midterm Backlash Threatens AI Data Centers",
+  "url": "https://news.ycombinator.com/item?id=50387927",
+  "score": 3,
+  "num_comments": 3,
+  "stance": "neutral",
+  "topics": [
+   "politics"
+  ]
+ },
+ {
+  "id_hash": "a19059dc87cd",
+  "platform": "hackernews",
+  "kind": "story",
+  "scope": "national",
+  "date": "2026-11-07",
+  "title": "Data centers backlash fueled historic blue wave",
+  "url": "https://news.ycombinator.com/item?id=50403022",
+  "score": 3,
+  "num_comments": 0,
+  "stance": "oppose",
+  "topics": [
+   "politics"
+  ]
+ }
+]
