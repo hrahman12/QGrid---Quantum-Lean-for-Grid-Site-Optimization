@@ -1,3 +1,5 @@
+![QGrid - Quantum-Lean for Grid Site Optimization. Find quantumly. Check physically. Prove formally.](assets/qgrid-banner.png)
+
 # QGrid - Quantum-Lean for Grid Site Optimization
 
 ## QSiteProof
