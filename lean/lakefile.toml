@@ -1,0 +1,10 @@
+name = "qsiteproof"
+version = "0.1.0"
+defaultTargets = ["QSiteProof", "qsiteproof"]
+
+[[lean_lib]]
+name = "QSiteProof"
+
+[[lean_exe]]
+name = "qsiteproof"
+root = "Main"

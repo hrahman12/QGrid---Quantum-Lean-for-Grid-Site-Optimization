@@ -1,0 +1,2072 @@
+{
+ "_meta": {
+  "title": "QSiteProof equipment specifications (Alviso / North San Jose)",
+  "built": "2026-11-08",
+  "site": {
+   "lat": 37.4275,
+   "lon": -121.965
+  },
+  "rules": "Every leaf has value (units in key), source URL, source_detail (table/page/quote), status SOURCED|ASSUMED. SOURCED = quoted from the fetched document (unit conversions allowed and stated). ASSUMED = engineering judgement or derived; reason given. Nothing here is a utility rating or approval.",
+  "unreachable_sources": {
+   "RUS Bulletin 1724E-300 (Design Guide for Rural Substations)": "https://www.rd.usda.gov/files/UEP_Bulletin_1724E-300.pdf -> HTTP 403",
+   "Silicon Valley Power published documents (Northern-Kifer 115 kV IS/MND etc.)": "https://www.siliconvalleypower.com/home/showpublisheddocument/... -> HTTP 403",
+   "Hubbell Hi-Lite porcelain catalog": "https://hubbellcdn.com/catalogfull/CA08051E_Insulators_HiLiteSuspension.pdf -> HTTP 404"
+  },
+  "sources": {
+   "GO95_T1": {
+    "url": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "what": "CPUC General Order 95, Table 1: Basic Minimum Allowable Vertical Clearance of Wires above ... Ground ... (and notes kk, ll)"
+   },
+   "GO95_T2": {
+    "url": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_2.html",
+    "what": "CPUC General Order 95, Table 2: Basic Minimum Allowable Clearance of Wires from Other Wires (and notes ff, gg, hh)"
+   },
+   "GO95_R37": {
+    "url": "https://ia.cpuc.ca.gov/gos/GO95/go_95_rule_37.html",
+    "what": "CPUC General Order 95, Rule 37 (Table 1 basis: 60 F, no wind; allowed reductions for temperature/loading)"
+   },
+   "GO95_R38": {
+    "url": "https://ia.cpuc.ca.gov/gos/GO95/go_95_rule_38.html",
+    "what": "CPUC General Order 95, Rule 38 (Table 2 basis: 60 F, no wind; max 10% reduction)"
+   },
+   "PSB_DEIR": {
+    "url": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "what": "CPUC, Power the South Bay Project (A.24-05-014) Draft EIR, June 2025, Ch. 2 Project Description (Newark-NRS 230 kV, LS Power Grid California). Overhead segment crosses San Jose RWF ponds at Alviso."
+   },
+   "PSB_IDX": {
+    "url": "https://ia.cpuc.ca.gov/environment/info/esa/psb/index.html",
+    "what": "CPUC Power the South Bay project page"
+   },
+   "NORTECH": {
+    "url": "https://ia.cpuc.ca.gov/Environment/Info/esa/nortech/nortech_negdec.htm",
+    "what": "CPUC Negative Declaration, PG&E Nortech Substation and Kifer-Nortech / Trimble-Nortech 115 kV lines (North San Jose)"
+   },
+   "NESJ": {
+    "url": "https://ia.cpuc.ca.gov/Environment/info/aspen/nesanjo/description.html",
+    "what": "CPUC Northeast San Jose Transmission Reinforcement (Los Esteros Substation) project description"
+   },
+   "JM_CH2": {
+    "url": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/002.pdf",
+    "what": "PG&E Jefferson-Martin 230 kV Final PEA, Chapter 2 Project Description, Table 2-5 Summary of Project Facilities (pp. 2-58 to 2-60)"
+   },
+   "JM_F27": {
+    "url": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/2-7%20TYP1.PDF",
+    "what": "Jefferson-Martin PEA Figure 2-7, Typical Heavy Angle Lattice Steel Tower (not to scale)"
+   },
+   "JM_F28": {
+    "url": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/2-8%20TypTangent%20Steel%20Tower.pdf",
+    "what": "Jefferson-Martin PEA Figure 2-8, Typical Tangent Lattice Steel Tower (not to scale; labelled dims)"
+   },
+   "JM_F29": {
+    "url": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/2-9%20TypTangent%20Steel%20Pole.pdf",
+    "what": "Jefferson-Martin PEA Figure 2-9, Typical Tangent Tubular Steel Pole (not to scale; labelled dims)"
+   },
+   "TRIVALLEY": {
+    "url": "https://ia.cpuc.ca.gov/Environment/info/aspen/tri-valley/projdesc.pdf",
+    "what": "CPUC, PG&E Tri-Valley 2002 Capacity Increase project description, Table 1 Summary of Project Facilities"
+   },
+   "VASONA": {
+    "url": "https://ia.cpuc.ca.gov/environment/info/esa/vasona/vasona_initial.htm",
+    "what": "CPUC Initial Study, PG&E Vasona Substation (Los Gatos, Santa Clara County), 230/12 kV"
+   },
+   "HOLLISTER": {
+    "url": "https://ia.cpuc.ca.gov/Environment/info/esa/hollister/dmnd/2_Project_Description.pdf",
+    "what": "CPUC IS/MND (A.09-11-016) PG&E Hollister 115 kV Power Line Reconductoring, Ch. 2, Summary of Project Components + Table 2-2"
+   },
+   "SW80100": {
+    "url": "https://cabletechsupport.southwire.com/tile/23/spec/80100/?country=US",
+    "what": "Southwire SPEC 80100 ACSR, table 'Weights, Measurements, Electrical and Engineering Data' (rev 1.000.022, Oct 2026)"
+   },
+   "PRYSMIAN": {
+    "url": "https://co.prysmian.com/sites/co.prysmian.com/files/media/documents/04%20ACSR%20ALUMINIUM%20CONDUCTOR%20STEEL%20REINFORCED_0.pdf",
+    "what": "Prysmian (Colombia) ACSR datasheet, ASTM sizes; ampacity footnote: sun + wind 0.61 m/s, 25 C ambient, 75 C conductor, 1033.3 W/m2, emissivity = absorptivity = 0.5, sea level"
+   },
+   "IEEE738": {
+    "url": "https://arxiv.org/abs/2607.23536",
+    "what": "Singh et al., 'Sensitivity Analysis of Dynamic Line Rating for ACSR Conductors using IEEE-738', arXiv 2607.23536, Table I (parameters taken from IEEE Std 738-2023 [ref 2])"
+   },
+   "WIKI_INS": {
+    "url": "https://en.wikipedia.org/wiki/Insulator_(electricity)",
+    "what": "Wikipedia 'Insulator (electricity)', table 'Typical number of disc insulator units for standard line voltages', citing Diesendorf, Insulation Coordination in High Voltage Power Systems (Butterworth, 1974)"
+   },
+   "YOJIU": {
+    "url": "https://www.yojiuelec.com/52-series-ball-socket-and-clevis-tongue-type-product",
+    "what": "Yojiu Electric, ANSI C29.2 52-series suspension insulator dimension table"
+   },
+   "VICTOR": {
+    "url": "https://www.victorinsulators.com/products/transmission-products/glass-suspensions/",
+    "what": "Victor Insulators toughened-glass suspension, VI 52-3H TG"
+   },
+   "HUBBELL_QSIL": {
+    "url": "https://hubbellcdn.com/catalogfull/CA08051E_Insulators_QSilSuspension.pdf",
+    "what": "Hubbell Quadri*Sil polymer suspension catalog (Jan 2019), p. 3-36 Corona Performance"
+   },
+   "DOE_LPT": {
+    "url": "https://www.energy.gov/sites/prod/files/2014/04/f15/LPTStudyUpdate-040914.pdf",
+    "what": "US DOE OE/ISER, Large Power Transformers and the U.S. Electric Grid (Apr 2014), Table 2 'Estimated Magnitude of LPTs in 2011' (source: NERC Spare Equipment Database 2011)"
+   },
+   "WEG_LISTING": {
+    "url": "https://surplusrecord.com/listing/30-56-mva-115000-delta-primary-12470y-secondary-weg-2017-280984/",
+    "what": "Surplus Record listing JVT-3879: WEG 2017 substation transformer 30/40/50/56 MVA ONAN/ONAF, 115 kV delta / 12.47Y kV (a real unit's nameplate data, secondary-market listing)"
+   },
+   "PJM": {
+    "url": "https://pjm.com/-/media/committees-groups/subcommittees/dedss/20160719/20160719-pjm-ts-std-sec-3.ashx",
+    "what": "PJM TSDS Technical Requirements Section III, Substation Bus Configurations and Design Requirements (5/20/2002 text, 2016 markup)"
+   },
+   "CEC_APP": {
+    "url": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "what": "CEC Docket 19-SPPE-04, Microsoft San Jose City Data Center (SJC02) SPPE Application TN 230741, Sections 2.1-2.2, Figs 2-3a, 2-6, Land Use p. on height"
+   },
+   "CEC_ORDER": {
+    "url": "https://efiling.energy.ca.gov/getdocument.aspx?tn=232773",
+    "what": "CEC Docket 19-SPPE-04 TN 232773, Notice of Committee Conference (project summary)"
+   },
+   "CEC_PAGE": {
+    "url": "https://www.energy.ca.gov/powerplant/reciprocating-engine/san-jose-data-center",
+    "what": "CEC project page, San Jose Data Center (99 MW, exempted)"
+   }
+  },
+  "counts": {
+   "leaves": 263,
+   "SOURCED": 223,
+   "ASSUMED": 40
+  }
+ },
+ "structures": {
+  "230kV_tubular_steel_pole_PSB_local": {
+   "_what": {
+    "value": "Self-supported tubular steel poles (TSPs), delta conductor configuration on tangents, vertical on dead-ends, two OPGW. 11 structures NN-5..NN-15 span SCVWD land and San Jose RWF drying ponds (Alviso), ~1.9 mi; 4 more NN-1..NN-4 at Newark.",
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Sec. 2.6.1.1 Overhead Transmission Line, p. 2-14",
+    "status": "SOURCED"
+   },
+   "tangent_height_m": {
+    "value": 32.004,
+    "range": [
+     27.432,
+     45.72
+    ],
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Fig. 2-4 'Tangent Pole NNAC-M-TAN01' labelled 90'-105'; Table 2-2 max 150 ft",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "angle_height_m": {
+    "value": 36.576,
+    "range": [
+     36.576,
+     45.72
+    ],
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Fig. 2-4 'Angle Pole NNAC-M-ANG15' 120'; Table 2-2 max 150 ft",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "deadend_height_m": {
+    "value": 42.672,
+    "range": [
+     41.148,
+     42.672
+    ],
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Fig. 2-4 'Deadend Pole NNAC-M-VD' 140'; Table 2-2 max 135 ft (table and figure differ; figure value used)",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "cable_riser_height_m": {
+    "value": 33.528,
+    "range": [
+     33.528,
+     42.672
+    ],
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Fig. 2-4 'Cable Pole NNAC-M-TRNS' 110'; Table 2-2 Cable Riser max 140 ft",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "switch_pole_height_m": {
+    "value": 39.624,
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Table 2-2 Tubular Steel Switch Pole 130 ft",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "three_pole_deadend_height_m": {
+    "value": 22.86,
+    "range": [
+     19.812,
+     22.86
+    ],
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Fig. 2-4 '3-Pole Structure NNAC-3P-DE30' 65'-75'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "substation_termination_riser_height_m": {
+    "value": 7.62,
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Sec 2.6.1: 230 kV AC termination/riser structures 'approximately 25 feet tall'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "tangent_base_diameter_m": {
+    "value": 1.829,
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Table 2-2: Tangent avg base diameter at grade 6 ft, tip 14 in",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "tangent_tip_diameter_m": {
+    "value": 0.3556,
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Table 2-2: 14 in",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "angle_base_diameter_m": {
+    "value": 2.438,
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Table 2-2: Angle 8 ft base, 14 in tip",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "deadend_base_diameter_m": {
+    "value": 2.438,
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Table 2-2: Dead-End 8 ft base, 32 in tip",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "deadend_tip_diameter_m": {
+    "value": 0.8128,
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Table 2-2: 32 in",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "riser_base_diameter_m": {
+    "value": 3.658,
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Table 2-2: Cable Riser 12 ft base, 32 in tip",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "span_m": {
+    "value": 274.32,
+    "range": [
+     76.2,
+     396.24
+    ],
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "p. 2-16: 'span segments ranging from 250 feet to 1,300 feet'",
+    "status": "SOURCED",
+    "reason": "range SOURCED; central value 900 ft is ASSUMED representative"
+   },
+   "foundation_max_depth_m": {
+    "value": 18.288,
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "p. 2-16: max foundation depth ~60 ft, max diameter ~12 ft",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "foundation_max_diameter_m": {
+    "value": 3.658,
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "p. 2-16",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "foundation_reveal_above_grade_m": {
+    "value": 0.762,
+    "range": [
+     0.61,
+     0.914
+    ],
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "p. 2-16: 'foundations may add an additional two to three feet above ground level'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "san_jose_height_limit_m": {
+    "value": 45.72,
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "footnote 7: within San Jose, transmission structure heights limited to 150 ft in nonresidential/non-urban designations",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "line_rating_MVA": {
+    "value": 1000,
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Sec 2.6: 'rated at approximately 1,000 megavolt-amperes'",
+    "status": "SOURCED"
+   },
+   "shield_wires_count": {
+    "value": 2,
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Sec 2.6.1.1: 'two overhead optical ground wires'",
+    "status": "SOURCED"
+   },
+   "arm_length_pole_cl_to_attachment_m": {
+    "value": 3.0,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "status": "ASSUMED",
+    "reason": "Not dimensioned in Fig. 2-4. Derived floor: GO95 conductor-to-structure 0.775 m + horizontal swing of a 2.56 m string at 35 deg (1.47 m) + pole radius at arm height ~0.5 m = 2.75 m; rounded up to 3.0 m. Swing angle 35 deg is an engineering assumption."
+   },
+   "delta_vertical_phase_spacing_m": {
+    "value": 6.0,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_2.html",
+    "status": "ASSUMED",
+    "reason": "Not dimensioned. Floor = GO95 vertical separation at 230 kV (3.10 m) + suspension string length (2.56 m, JM Fig 2-8) = 5.66 m; rounded to 6.0 m."
+   }
+  },
+  "230kV_lattice_tower_PGE": {
+   "height_m": {
+    "value": 37.338,
+    "range": [
+     28.956,
+     45.72
+    ],
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/002.pdf",
+    "source_detail": "Table 2-5: 'Structure heights: approximately 95 feet to 150 feet'; Figs 2-7/2-8 '95-150 feet'",
+    "status": "SOURCED",
+    "reason": "range SOURCED; midpoint is the drawn value"
+   },
+   "height_range_alt_m": {
+    "value": [
+     24.384,
+     45.72
+    ],
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/tri-valley/projdesc.pdf",
+    "source_detail": "Table 1: lattice towers and TSPs 'Structure heights: 80 feet to 150 feet'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "span_m": {
+    "value": 335.28,
+    "range": [
+     213.36,
+     457.2
+    ],
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/002.pdf",
+    "source_detail": "Table 2-5: 'Approximate distance between structures: 700 to 1,500 feet'",
+    "status": "SOURCED",
+    "reason": "range SOURCED; midpoint ASSUMED representative"
+   },
+   "span_range_alt_m": {
+    "value": [
+     243.84,
+     609.6
+    ],
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/tri-valley/projdesc.pdf",
+    "source_detail": "Table 1: 800 to 2,000 feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "design_min_ground_clearance_m": {
+    "value": 9.754,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/tri-valley/projdesc.pdf",
+    "source_detail": "Table 1: 'Minimum ground clearance: 32 feet' (PG&E design, > GO95 30 ft)",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "row_width_double_circuit_m": {
+    "value": 33.528,
+    "range": [
+     30.48,
+     36.576
+    ],
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/tri-valley/projdesc.pdf",
+    "source_detail": "'An easement of between 100 to 120 feet wide is required for 230 kV double-circuit'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "configuration": {
+    "value": "double-circuit, three crossarms (vertical phase stack each side), single OPGW at peak",
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/2-8%20TypTangent%20Steel%20Tower.pdf",
+    "source_detail": "Fig 2-8 in-line view (230 kV one side, 60 kV other side), OPGW on peak",
+    "status": "SOURCED"
+   },
+   "crossarm_half_width_m": {
+    "value": 4.0,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "status": "ASSUMED",
+    "reason": "Not dimensioned (figure 'Not to Scale'). Floor = GO95 230 kV conductor-to-steel 0.775 m + string swing 1.47 m (35 deg) + half tower-body width at arm level ~1.5 m = 3.75 m, rounded to 4.0 m."
+   },
+   "arm_vertical_spacing_m": {
+    "value": 6.0,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_2.html",
+    "status": "ASSUMED",
+    "reason": "Same derivation as 230 kV TSP: GO95 vertical 3.10 m + string 2.56 m = 5.66 m -> 6.0 m."
+   },
+   "base_square_side_m": {
+    "value": 8.0,
+    "source": null,
+    "status": "ASSUMED",
+    "reason": "No sourced footprint. Typical 230 kV double-circuit lattice base width ~ height/5 for a 37 m tower (~7.5 m); rounded to 8 m. Mark as illustrative."
+   },
+   "peak_height_above_top_arm_m": {
+    "value": 3.0,
+    "source": null,
+    "status": "ASSUMED",
+    "reason": "OPGW shield angle geometry not sourced; 3 m gives roughly 30 deg shielding over the outer top phase for a 4 m half-arm. Illustrative."
+   }
+  },
+  "230kV_tubular_steel_pole_double_circuit_PGE": {
+   "height_m": {
+    "value": 33.528,
+    "range": [
+     30.48,
+     36.576
+    ],
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/2-9%20TypTangent%20Steel%20Pole.pdf",
+    "source_detail": "Fig 2-9 'Typical Tangent Tubular Steel Pole' labelled '100-120 feet'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "configuration": {
+    "value": "three davit-style crossarms each side (230 kV one side, 60 kV other in JM), OPGW on top",
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/002.pdf",
+    "source_detail": "Sec 2.5 Construction, Tubular Steel Poles paragraph: 'double-circuit tubular steel pole structures will also have three cross arms, each supporting a phase conductor on each side'",
+    "status": "SOURCED"
+   }
+  },
+  "230kV_wood_pole_existing_PGE": {
+   "height_m": {
+    "value": 27.432,
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/vasona/vasona_initial.htm",
+    "source_detail": "Metcalf-Monta Vista 230 kV: replacement TSPs 'approximately ten feet higher than the existing wood poles, for a total height of approximately 100 feet' -> existing ~90 ft",
+    "status": "SOURCED",
+    "reason": "computed (100 - 10 ft); unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "replacement_tsp_height_m": {
+    "value": 30.48,
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/vasona/vasona_initial.htm",
+    "source_detail": "same sentence",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   }
+  },
+  "115kV_tubular_steel_pole_Nortech_local": {
+   "single_circuit_height_m": {
+    "value": 22.86,
+    "range": [
+     18.288,
+     27.432
+    ],
+    "source": "https://ia.cpuc.ca.gov/Environment/Info/esa/nortech/nortech_negdec.htm",
+    "source_detail": "Kifer-Nortech 115 kV: light-duty steel and self-supporting TSPs 60 to 90 feet tall",
+    "status": "SOURCED",
+    "reason": "range SOURCED; midpoint drawn"
+   },
+   "double_circuit_height_m": {
+    "value": 26.67,
+    "range": [
+     24.384,
+     28.956
+    ],
+    "source": "https://ia.cpuc.ca.gov/Environment/Info/esa/nortech/nortech_negdec.htm",
+    "source_detail": "Trimble-Nortech 115 kV double-circuit self-supporting TSPs 80 to 95 feet tall",
+    "status": "SOURCED",
+    "reason": "range SOURCED; midpoint drawn"
+   },
+   "span_light_duty_m": {
+    "value": 114.3,
+    "range": [
+     91.44,
+     137.16
+    ],
+    "source": "https://ia.cpuc.ca.gov/Environment/Info/esa/nortech/nortech_negdec.htm",
+    "source_detail": "spans ~300-450 ft (light-duty)",
+    "status": "SOURCED",
+    "reason": "midpoint ASSUMED representative"
+   },
+   "span_self_supporting_m": {
+    "value": 167.64,
+    "range": [
+     152.4,
+     182.88
+    ],
+    "source": "https://ia.cpuc.ca.gov/Environment/Info/esa/nortech/nortech_negdec.htm",
+    "source_detail": "spans ~500-600 ft (self-supporting, Kifer-Nortech)",
+    "status": "SOURCED",
+    "reason": "midpoint"
+   },
+   "span_double_circuit_m": {
+    "value": 205.74,
+    "range": [
+     167.64,
+     243.84
+    ],
+    "source": "https://ia.cpuc.ca.gov/Environment/Info/esa/nortech/nortech_negdec.htm",
+    "source_detail": "Trimble-Nortech spans 550-800 ft",
+    "status": "SOURCED",
+    "reason": "midpoint"
+   },
+   "tsp_foundation_diameter_m": {
+    "value": 1.524,
+    "source": "https://ia.cpuc.ca.gov/Environment/Info/esa/nortech/nortech_negdec.htm",
+    "source_detail": "self-supporting foundations ~5 ft diameter, 16 ft deep",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "tsp_foundation_depth_m": {
+    "value": 4.877,
+    "source": "https://ia.cpuc.ca.gov/Environment/Info/esa/nortech/nortech_negdec.htm",
+    "source_detail": "same",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "lds_foundation_diameter_m": {
+    "value": 0.914,
+    "source": "https://ia.cpuc.ca.gov/Environment/Info/esa/nortech/nortech_negdec.htm",
+    "source_detail": "light-duty ~3 ft diameter, 9-12 ft deep",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "arm_length_pole_cl_to_attachment_m": {
+    "value": 2.0,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "status": "ASSUMED",
+    "reason": "Not sourced. Floor: GO95 115 kV conductor-to-structure 0.483 m + swing of 1.46 m string at 35 deg (0.84 m) + pole radius ~0.4 m = 1.72 m -> 2.0 m."
+   },
+   "arm_vertical_spacing_m": {
+    "value": 3.5,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_2.html",
+    "status": "ASSUMED",
+    "reason": "Floor: GO95 115 kV vertical 1.93 m + string 1.46 m = 3.39 m -> 3.5 m."
+   }
+  },
+  "115kV_lattice_tower_PGE": {
+   "height_m": {
+    "value": 24.994,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/esa/hollister/dmnd/2_Project_Description.pdf",
+    "source_detail": "Moss Landing-Salinas-Soledad 115 kV double-circuit LSTs: 'Structure heights: Similar to existing; averaging 82 feet above ground surface'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "span_m": {
+    "value": 259.08,
+    "range": [
+     15.545,
+     562.966
+    ],
+    "source": "https://ia.cpuc.ca.gov/Environment/info/esa/hollister/dmnd/2_Project_Description.pdf",
+    "source_detail": "'Span lengths: Between 51 feet to 1,847 feet, averaging approximately 850 feet'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "design_min_ground_clearance_m": {
+    "value": 9.144,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/esa/hollister/dmnd/2_Project_Description.pdf",
+    "source_detail": "'The minimum ground to conductor clearance would be 30 feet'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "footings": {
+    "value": "four drilled-pier concrete footings, ~3 ft above ground",
+    "source": "https://ia.cpuc.ca.gov/Environment/info/esa/hollister/dmnd/2_Project_Description.pdf",
+    "source_detail": "Summary of Project Components",
+    "status": "SOURCED"
+   },
+   "footing_reveal_m": {
+    "value": 0.914,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/esa/hollister/dmnd/2_Project_Description.pdf",
+    "source_detail": "'typical footing would be approximately three feet aboveground'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "crossarm_half_width_m": {
+    "value": 2.6,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "status": "ASSUMED",
+    "reason": "Not sourced. Floor: GO95 0.483 m + swing 0.84 m + half body ~1.0 m = 2.32 m -> 2.6 m."
+   },
+   "note": {
+    "value": "Central Coast PG&E line (not Alviso); used because no North San Jose 115 kV lattice dimensions were found.",
+    "source": "https://ia.cpuc.ca.gov/Environment/info/esa/hollister/dmnd/2_Project_Description.pdf",
+    "source_detail": "n/a",
+    "status": "SOURCED"
+   }
+  },
+  "115kV_steel_pole_PGE_alt": {
+   "height_m": {
+    "value": 25.146,
+    "range": [
+     21.336,
+     28.956
+    ],
+    "source": "https://ia.cpuc.ca.gov/Environment/info/esa/hollister/dmnd/2_Project_Description.pdf",
+    "source_detail": "TSP/LDS 'approximately 70 to 95 feet in height'",
+    "status": "SOURCED",
+    "reason": "midpoint"
+   },
+   "base_diameter_m": {
+    "value": 1.372,
+    "range": [
+     0.61,
+     2.134
+    ],
+    "source": "https://ia.cpuc.ca.gov/Environment/info/esa/hollister/dmnd/2_Project_Description.pdf",
+    "source_detail": "'approximately two to seven feet in diameter at the base'",
+    "status": "SOURCED",
+    "reason": "midpoint"
+   },
+   "span_m": {
+    "value": 89.916,
+    "range": [
+     28.651,
+     284.988
+    ],
+    "source": "https://ia.cpuc.ca.gov/Environment/info/esa/hollister/dmnd/2_Project_Description.pdf",
+    "source_detail": "spans 94-935 ft, average ~295 ft",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "existing_wood_pole_height_range_m": {
+    "value": [
+     18.288,
+     27.432
+    ],
+    "source": "https://ia.cpuc.ca.gov/Environment/info/esa/hollister/dmnd/2_Project_Description.pdf",
+    "source_detail": "Table 2-2 single-circuit wood poles 60 to 90 feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   }
+  },
+  "60kV_PGE": {
+   "on_shared_230kV_structures": {
+    "value": "PG&E 60 kV circuit carried on the same lattice/TSP as 230 kV, insulated at 115 kV",
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/002.pdf",
+    "source_detail": "Sec 2.3.2.2: 'The eastern-most circuit will remain energized at 60 kV and will utilize 115 kV insulators and support hardware'",
+    "status": "SOURCED"
+   },
+   "design_min_ground_clearance_m": {
+    "value": 9.144,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/002.pdf",
+    "source_detail": "Table 2-5 60 kV: 'Minimum ground clearance: 30 feet'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "wood_pole_height_m": {
+    "value": 18.288,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/esa/hollister/dmnd/2_Project_Description.pdf",
+    "status": "ASSUMED",
+    "reason": "No sourced 60 kV wood-pole height for SVP/PG&E North San Jose (SVP documents returned HTTP 403). 60 ft is a placeholder at the low end of the PG&E wood-pole range quoted for 115 kV (60-90 ft, Hollister). Do not draw as sourced."
+   },
+   "span_m": {
+    "value": 76.2,
+    "source": null,
+    "status": "ASSUMED",
+    "reason": "No source; typical urban sub-transmission wood-pole span, below Hollister pole-line average (295 ft at 115 kV)."
+   }
+  },
+  "ruling_span_assumptions": {
+   "230kV_ruling_span_m": {
+    "value": 274.32,
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "status": "ASSUMED",
+    "reason": "No ruling span published in the CEQA filings; 900 ft lies inside PSB (250-1300 ft) and JM (700-1500 ft) span ranges. Needed only for sag/DLR illustration."
+   },
+   "115kV_ruling_span_m": {
+    "value": 182.88,
+    "source": "https://ia.cpuc.ca.gov/Environment/Info/esa/nortech/nortech_negdec.htm",
+    "status": "ASSUMED",
+    "reason": "Inside Nortech TSP spans (500-800 ft)."
+   }
+  },
+  "500kV": {
+   "value": null,
+   "source": null,
+   "status": "ASSUMED",
+   "reason": "Not drawn. No 500 kV line/substation within the 25 km study radius in OSM data; no 500 kV structure dimensions were researched to sourced standard."
+  }
+ },
+ "conductors": {
+  "ACSR_Drake_795_26_7": {
+   "outer_diameter_mm": {
+    "value": 28.14,
+    "source": "https://cabletechsupport.southwire.com/tile/23/spec/80100/?country=US",
+    "source_detail": "Drake row: complete conductor diameter 1.108 in",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "outer_diameter_mm_IEEE738": {
+    "value": 28.14,
+    "source": "https://arxiv.org/abs/2607.23536",
+    "source_detail": "Table I: Outer diameter D = 0.02814 m",
+    "status": "SOURCED"
+   },
+   "aluminum_area_mm2": {
+    "value": 403.0,
+    "source": "https://cabletechsupport.southwire.com/tile/23/spec/80100/?country=US",
+    "source_detail": "Al area 0.6247 in2 (total 0.7264 in2)",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "total_area_mm2": {
+    "value": 468.6,
+    "source": "https://cabletechsupport.southwire.com/tile/23/spec/80100/?country=US",
+    "source_detail": "Total area 0.7264 in2",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "stranding": {
+    "value": "26 Al / 7 St; Al strand 0.1749 in, St strand 0.1360 in, core 0.4080 in",
+    "source": "https://cabletechsupport.southwire.com/tile/23/spec/80100/?country=US",
+    "source_detail": "Drake row",
+    "status": "SOURCED"
+   },
+   "weight_kg_per_m": {
+    "value": 1.6281,
+    "source": "https://cabletechsupport.southwire.com/tile/23/spec/80100/?country=US",
+    "source_detail": "Total weight 1094 lb/1000 ft",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "weight_kg_per_m_prysmian": {
+    "value": 1.627,
+    "source": "https://co.prysmian.com/sites/co.prysmian.com/files/media/documents/04%20ACSR%20ALUMINIUM%20CONDUCTOR%20STEEL%20REINFORCED_0.pdf",
+    "source_detail": "Masa total 1627 kg/km",
+    "status": "SOURCED"
+   },
+   "rated_tensile_strength_kN": {
+    "value": 140.1,
+    "source": "https://cabletechsupport.southwire.com/tile/23/spec/80100/?country=US",
+    "source_detail": "Rated breaking strength, standard steel: 31,500 lb (HS 33,500; UHS 35,400)",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "rated_tensile_strength_kN_prysmian": {
+    "value": 140.2,
+    "source": "https://co.prysmian.com/sites/co.prysmian.com/files/media/documents/04%20ACSR%20ALUMINIUM%20CONDUCTOR%20STEEL%20REINFORCED_0.pdf",
+    "source_detail": "Carga de rotura 14292 kgf",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "R_dc_20C_ohm_per_km": {
+    "value": 0.07015,
+    "source": "https://cabletechsupport.southwire.com/tile/23/spec/80100/?country=US",
+    "source_detail": "DC resistance @20C 0.1129 ohm/mile",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "R_ac_25C_ohm_per_km": {
+    "value": 0.07283,
+    "source": "https://arxiv.org/abs/2607.23536",
+    "source_detail": "Table I: R(25C) = 7.283e-5 ohm/m (IEEE Std 738 Drake example)",
+    "status": "SOURCED"
+   },
+   "R_ac_75C_ohm_per_km": {
+    "value": 0.08688,
+    "source": "https://arxiv.org/abs/2607.23536",
+    "source_detail": "Table I: R(75C) = 8.688e-5 ohm/m",
+    "status": "SOURCED"
+   },
+   "R_ac_75C_ohm_per_km_prysmian": {
+    "value": 0.0865,
+    "source": "https://co.prysmian.com/sites/co.prysmian.com/files/media/documents/04%20ACSR%20ALUMINIUM%20CONDUCTOR%20STEEL%20REINFORCED_0.pdf",
+    "source_detail": "Resistencia AC a 75C 0.0865 ohm/km",
+    "status": "SOURCED"
+   },
+   "R_ac_200C_ohm_per_km": {
+    "value": 0.122,
+    "source": "https://arxiv.org/abs/2607.23536",
+    "source_detail": "Table I: R(200C) = 1.220e-4 ohm/m",
+    "status": "SOURCED"
+   },
+   "emissivity": {
+    "value": 0.8,
+    "source": "https://arxiv.org/abs/2607.23536",
+    "source_detail": "Table I: Emissivity 0.8 (IEEE 738 example value)",
+    "status": "SOURCED"
+   },
+   "solar_absorptivity": {
+    "value": 0.8,
+    "source": "https://arxiv.org/abs/2607.23536",
+    "source_detail": "Table I: Solar absorptivity 0.8",
+    "status": "SOURCED"
+   },
+   "max_conductor_temp_C_IEEE738_example": {
+    "value": 100,
+    "source": "https://arxiv.org/abs/2607.23536",
+    "source_detail": "Table I: Max temp 100 C",
+    "status": "SOURCED"
+   },
+   "continuous_operating_temp_C": {
+    "value": 75,
+    "source": "https://cabletechsupport.southwire.com/tile/23/spec/80100/?country=US",
+    "source_detail": "'Continuous operating temperature - 75C'; emergency 100C",
+    "status": "SOURCED"
+   },
+   "emergency_operating_temp_C": {
+    "value": 100,
+    "source": "https://cabletechsupport.southwire.com/tile/23/spec/80100/?country=US",
+    "source_detail": "'Emergency operating temperature - 100C'",
+    "status": "SOURCED"
+   },
+   "static_ampacity_A": {
+    "value": 907,
+    "source": "https://co.prysmian.com/sites/co.prysmian.com/files/media/documents/04%20ACSR%20ALUMINIUM%20CONDUCTOR%20STEEL%20REINFORCED_0.pdf",
+    "source_detail": "Ampacity 907 A at 25C ambient, 75C conductor, wind 0.61 m/s, sun 1033.3 W/m2, emissivity=absorptivity=0.5, sea level",
+    "status": "SOURCED"
+   },
+   "static_ampacity_conditions": {
+    "value": {
+     "ambient_C": 25,
+     "conductor_C": 75,
+     "wind_m_s": 0.61,
+     "solar_W_m2": 1033.3,
+     "emissivity": 0.5,
+     "absorptivity": 0.5,
+     "elevation_m": 0
+    },
+    "source": "https://co.prysmian.com/sites/co.prysmian.com/files/media/documents/04%20ACSR%20ALUMINIUM%20CONDUCTOR%20STEEL%20REINFORCED_0.pdf",
+    "source_detail": "ampacity footnote",
+    "status": "SOURCED"
+   },
+   "note_emissivity_choice": {
+    "value": "Use 0.8/0.8 (IEEE 738 example, conservative for aged conductor in solar gain) for the live DLR solver; 0.5/0.5 only reproduces the Prysmian static table.",
+    "source": "https://arxiv.org/abs/2607.23536",
+    "status": "ASSUMED",
+    "reason": "Choice between two sourced conventions; not itself a sourced fact."
+   }
+  },
+  "ACSR_Dove_556p5_26_7": {
+   "outer_diameter_mm": {
+    "value": 23.55,
+    "source": "https://cabletechsupport.southwire.com/tile/23/spec/80100/?country=US",
+    "source_detail": "Dove row: 0.927 in",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "aluminum_area_mm2": {
+    "value": 282.0,
+    "source": "https://cabletechsupport.southwire.com/tile/23/spec/80100/?country=US",
+    "source_detail": "Al 0.4371 in2",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "total_area_mm2": {
+    "value": 327.9,
+    "source": "https://cabletechsupport.southwire.com/tile/23/spec/80100/?country=US",
+    "source_detail": "Total 0.5083 in2",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "weight_kg_per_m": {
+    "value": 1.1387,
+    "source": "https://cabletechsupport.southwire.com/tile/23/spec/80100/?country=US",
+    "source_detail": "765.2 lb/1000 ft",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "rated_tensile_strength_kN": {
+    "value": 100.5,
+    "source": "https://cabletechsupport.southwire.com/tile/23/spec/80100/?country=US",
+    "source_detail": "22,600 lb (std)",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "R_dc_20C_ohm_per_km": {
+    "value": 0.10023,
+    "source": "https://cabletechsupport.southwire.com/tile/23/spec/80100/?country=US",
+    "source_detail": "0.1613 ohm/mile",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "R_ac_75C_ohm_per_km": {
+    "value": 0.123,
+    "source": "https://co.prysmian.com/sites/co.prysmian.com/files/media/documents/04%20ACSR%20ALUMINIUM%20CONDUCTOR%20STEEL%20REINFORCED_0.pdf",
+    "source_detail": "Dove: R_AC 75C 0.123 ohm/km (R_DC20 0.0998)",
+    "status": "SOURCED"
+   },
+   "R_ac_25C_ohm_per_km": {
+    "value": 0.1019,
+    "source": "https://co.prysmian.com/sites/co.prysmian.com/files/media/documents/04%20ACSR%20ALUMINIUM%20CONDUCTOR%20STEEL%20REINFORCED_0.pdf",
+    "status": "ASSUMED",
+    "reason": "Linear interpolation between sourced R_DC(20C)=0.0998 (Prysmian) and R_AC(75C)=0.123 ohm/km; skin effect at 20C neglected. Check: the same method gives Drake R(25C) = 0.0700+0.0165*5/55 = 0.0715 vs IEEE 738 0.07283 ohm/km, i.e. ~2% low, so expect Dove R(25C) ~2% low as well."
+   },
+   "static_ampacity_A": {
+    "value": 726,
+    "source": "https://co.prysmian.com/sites/co.prysmian.com/files/media/documents/04%20ACSR%20ALUMINIUM%20CONDUCTOR%20STEEL%20REINFORCED_0.pdf",
+    "source_detail": "Dove ampacity 726 A, same conditions as Drake row",
+    "status": "SOURCED"
+   },
+   "emissivity": {
+    "value": 0.8,
+    "source": "https://arxiv.org/abs/2607.23536",
+    "status": "ASSUMED",
+    "reason": "Same IEEE 738 default as Drake (no Dove-specific value)."
+   },
+   "solar_absorptivity": {
+    "value": 0.8,
+    "source": "https://arxiv.org/abs/2607.23536",
+    "status": "ASSUMED",
+    "reason": "Same IEEE 738 default."
+   }
+  },
+  "conductors_used_in_local_Bay_Area_projects": {
+   "ACSS_954_54_7_diameter_mm": {
+    "value": 30.38,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/002.pdf",
+    "source_detail": "Table 2-5 230 kV: '954 kcmil ACSS ... Conductor diameter: 1.196 inches'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "ACSS_477_24_7_diameter_mm": {
+    "value": 21.49,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/002.pdf",
+    "source_detail": "Table 2-5 60 kV: 477 kcmil ACSS, 0.846 inches",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "SSAC_477_115kV_diameter_mm": {
+    "value": 21.49,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/esa/hollister/dmnd/2_Project_Description.pdf",
+    "source_detail": "477 kcmil SSAC, 0.846 inch, 115 kV",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "AAC_1113_230kV_diameter_mm": {
+    "value": 30.99,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/tri-valley/projdesc.pdf",
+    "source_detail": "Table 1: double-circuit 1113 kcmil AAC, 1.22 inches",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "OPGW_diameter_mm": {
+    "value": 17.65,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/002.pdf",
+    "source_detail": "OPGW diameter 0.695 in (approximate)",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "shield_wire_diameter_mm": {
+    "value": 9.78,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/tri-valley/projdesc.pdf",
+    "source_detail": "Shield wire diameter 0.385 in",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "ACCR_715_double_bundle_230kV_rating_MVA": {
+    "value": 310,
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "source_detail": "Sec 2.2: SJC02 230 kV lines 'will include a 715 double-bundle Aluminum Conductor Composite Reinforced with a current carrying capacity of 310 Mega Volt-Amps'",
+    "status": "SOURCED"
+   },
+   "PSB_underground_cable": {
+    "value": "six 2,500 mm2 copper single-core XLPE 230 kV cables (single circuit), duct bank of 12 ducts; splice vaults ~30 x 12 x 10 ft every 1,500-3,000 ft",
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Sec 2.6.1.2",
+    "status": "SOURCED"
+   }
+  }
+ },
+ "insulators": {
+  "string_length_from_PGE_drawings": {
+   "230kV_suspension_string_length_m": {
+    "value": 2.56,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/2-8%20TypTangent%20Steel%20Tower.pdf",
+    "source_detail": "Figs 2-8 and 2-9: dimension 8.4' bracketing the dashed 230 kV insulator string",
+    "status": "SOURCED",
+    "reason": "read from labelled dimension on a 'Not to Scale' figure; unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "115kV_class_suspension_string_length_m": {
+    "value": 1.463,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/2-8%20TypTangent%20Steel%20Tower.pdf",
+    "source_detail": "Figs 2-8/2-9: 4.8' on the 60 kV circuit, which uses 115 kV insulators and hardware (Ch. 2 text)",
+    "status": "SOURCED",
+    "reason": "string is 115 kV class; unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "60kV_suspension_string_length_m": {
+    "value": 1.463,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/002.pdf",
+    "status": "ASSUMED",
+    "reason": "PG&E JM 60 kV circuit is insulated at 115 kV, so the same 4.8 ft string is used; a pure 60 kV string would be shorter."
+   }
+  },
+  "ANSI_52_3_disc": {
+   "unit_spacing_mm": {
+    "value": 146,
+    "source": "https://www.yojiuelec.com/52-series-ball-socket-and-clevis-tongue-type-product",
+    "source_detail": "52-3: Unit Spacing H 146 mm",
+    "status": "SOURCED"
+   },
+   "shell_diameter_mm": {
+    "value": 254,
+    "source": "https://www.yojiuelec.com/52-series-ball-socket-and-clevis-tongue-type-product",
+    "source_detail": "52-3: Shell diameter D 254 mm",
+    "status": "SOURCED"
+   },
+   "leakage_distance_mm": {
+    "value": 292,
+    "source": "https://www.yojiuelec.com/52-series-ball-socket-and-clevis-tongue-type-product",
+    "source_detail": "52-3: leakage 292 mm (Victor VI 52-3H TG lists 12.5 in = 317.5 mm for its high-leakage variant)",
+    "status": "SOURCED"
+   },
+   "combined_ME_strength_kN": {
+    "value": 70,
+    "source": "https://www.yojiuelec.com/52-series-ball-socket-and-clevis-tongue-type-product",
+    "source_detail": "52-3: 70 kN (Victor 52-3H: 20,000 lb = 89 kN)",
+    "status": "SOURCED"
+   }
+  },
+  "disc_count_typical": {
+   "69kV_discs": {
+    "value": 4,
+    "source": "https://en.wikipedia.org/wiki/Insulator_(electricity)",
+    "source_detail": "table row 69 kV: 4",
+    "status": "SOURCED"
+   },
+   "115kV_discs": {
+    "value": 6,
+    "source": "https://en.wikipedia.org/wiki/Insulator_(electricity)",
+    "source_detail": "115 kV: 6",
+    "status": "SOURCED"
+   },
+   "138kV_discs": {
+    "value": 8,
+    "source": "https://en.wikipedia.org/wiki/Insulator_(electricity)",
+    "source_detail": "138 kV: 8",
+    "status": "SOURCED"
+   },
+   "230kV_discs": {
+    "value": 14,
+    "source": "https://en.wikipedia.org/wiki/Insulator_(electricity)",
+    "source_detail": "230 kV: 14",
+    "status": "SOURCED"
+   },
+   "345kV_discs": {
+    "value": 18,
+    "source": "https://en.wikipedia.org/wiki/Insulator_(electricity)",
+    "source_detail": "345 kV: 18",
+    "status": "SOURCED"
+   },
+   "500kV_discs": {
+    "value": 34,
+    "source": "https://en.wikipedia.org/wiki/Insulator_(electricity)",
+    "source_detail": "500 kV: 34",
+    "status": "SOURCED"
+   },
+   "60kV_discs": {
+    "value": 4,
+    "source": "https://en.wikipedia.org/wiki/Insulator_(electricity)",
+    "status": "ASSUMED",
+    "reason": "Nearest tabulated class is 69 kV (4 discs)."
+   },
+   "note": {
+    "value": "Generic (Diesendorf 1974) counts give 14 x 146 mm = 2.04 m for 230 kV, shorter than the PG&E drawn 2.56 m string (which includes hardware and possibly extra units for coastal/bay contamination). For 3D drawing use the PG&E string lengths; disc count drawn = round((L - 0.30 m hardware)/0.146) = 15 at 230 kV, 8 at 115 kV class.",
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/2-8%20TypTangent%20Steel%20Tower.pdf",
+    "status": "ASSUMED",
+    "reason": "Hardware allowance 0.30 m is assumed."
+   }
+  },
+  "polymer_option": {
+   "corona_ring_required_from_kV": {
+    "value": 220,
+    "source": "https://hubbellcdn.com/catalogfull/CA08051E_Insulators_QSilSuspension.pdf",
+    "source_detail": "p. 3-36: 'The use of an external corona shielding ring is required at 220 / 230 kV and above'",
+    "status": "SOURCED"
+   },
+   "230kV_line_end_ring_diameter_mm": {
+    "value": 203,
+    "source": "https://hubbellcdn.com/catalogfull/CA08051E_Insulators_QSilSuspension.pdf",
+    "source_detail": "Recommended Corona Ring table: 220/230 kV ground end None, line end 8\" (203 mm)",
+    "status": "SOURCED"
+   },
+   "500kV_line_end_ring_diameter_mm": {
+    "value": 381,
+    "source": "https://hubbellcdn.com/catalogfull/CA08051E_Insulators_QSilSuspension.pdf",
+    "source_detail": "500 kV: ground end 8\" (203 mm), line end 15\" (381 mm)",
+    "status": "SOURCED"
+   }
+  }
+ },
+ "transformers": {
+  "230_115kV_300MVA_three_phase_DOE": {
+   "length_m": {
+    "value": 8.23,
+    "source": "https://www.energy.gov/sites/prod/files/2014/04/f15/LPTStudyUpdate-040914.pdf",
+    "source_detail": "Table 2: 230-115 kV, 300 MVA three-phase: 170 tons (340,000 lb), 21ft W x 27ft L x 25ft H",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "width_m": {
+    "value": 6.401,
+    "source": "https://www.energy.gov/sites/prod/files/2014/04/f15/LPTStudyUpdate-040914.pdf",
+    "source_detail": "same row",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "height_m": {
+    "value": 7.62,
+    "source": "https://www.energy.gov/sites/prod/files/2014/04/f15/LPTStudyUpdate-040914.pdf",
+    "source_detail": "same row",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "weight_t": {
+    "value": 154.2,
+    "source": "https://www.energy.gov/sites/prod/files/2014/04/f15/LPTStudyUpdate-040914.pdf",
+    "source_detail": "170 short tons = 340,000 lb",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "note": {
+    "value": "Table cells in the PDF text layer are offset by one line; pairing of weight/dimensions to the 230-115 kV row was checked against the ordering of the four transmission rows (170/335/410/235 tons).",
+    "source": "https://www.energy.gov/sites/prod/files/2014/04/f15/LPTStudyUpdate-040914.pdf",
+    "source_detail": "Table 2",
+    "status": "SOURCED",
+    "reason": "extraction caveat"
+   }
+  },
+  "230_115kV_420MVA_PGE_bank": {
+   "rating_MVA": {
+    "value": 420,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/002.pdf",
+    "source_detail": "Martin Substation: 'the new 230/115 kV, 420 MVA, transformer bank'; Table 2-5 also lists 'three, 134 MVA, 230/115 kV transformers' (single-phase units, 3 x 134 = 402 MVA)",
+    "status": "SOURCED"
+   },
+   "Los_Esteros_bank_count": {
+    "value": "3 x 230/115 kV banks initially, 4th planned; plus 4 x 230/21 kV banks",
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/nesanjo/description.html",
+    "source_detail": "Los Esteros Substation description",
+    "status": "SOURCED"
+   },
+   "length_m": {
+    "value": 8.952,
+    "source": "https://www.energy.gov/sites/prod/files/2014/04/f15/LPTStudyUpdate-040914.pdf",
+    "status": "ASSUMED",
+    "reason": "Scaled from DOE 300 MVA unit with linear dimension ~ S^0.25 (mass ~ S^0.75 transformer scaling law). Not a datasheet value."
+   },
+   "width_m": {
+    "value": 6.963,
+    "source": "https://www.energy.gov/sites/prod/files/2014/04/f15/LPTStudyUpdate-040914.pdf",
+    "status": "ASSUMED",
+    "reason": "Same scaling."
+   },
+   "height_m": {
+    "value": 8.289,
+    "source": "https://www.energy.gov/sites/prod/files/2014/04/f15/LPTStudyUpdate-040914.pdf",
+    "status": "ASSUMED",
+    "reason": "Same scaling (tank+bushings envelope uncertain)."
+   },
+   "weight_t": {
+    "value": 198.5,
+    "source": "https://www.energy.gov/sites/prod/files/2014/04/f15/LPTStudyUpdate-040914.pdf",
+    "status": "ASSUMED",
+    "reason": "Mass ~ S^0.75 from 154.2 t at 300 MVA."
+   }
+  },
+  "115_21kV_45MVA_distribution_bank": {
+   "rating_MVA": {
+    "value": 45,
+    "source": "https://ia.cpuc.ca.gov/Environment/Info/esa/nortech/nortech_negdec.htm",
+    "source_detail": "'three 45 MVA 115 kV - 21 kV transformers' at build-out, two installed",
+    "status": "SOURCED"
+   },
+   "reference_unit": {
+    "value": "WEG 2017, 30/40/50/56 MVA ONAN/ONAF, 115 kV delta / 12.47Y kV, Z = 9%, HV BIL 550 kV, LV BIL 110 kV",
+    "source": "https://surplusrecord.com/listing/30-56-mva-115000-delta-primary-12470y-secondary-weg-2017-280984/",
+    "source_detail": "listing JVT-3879",
+    "status": "SOURCED"
+   },
+   "length_m": {
+    "value": 4.0386,
+    "source": "https://surplusrecord.com/listing/30-56-mva-115000-delta-primary-12470y-secondary-weg-2017-280984/",
+    "source_detail": "Dimensions 111\"W x 140\"H x 159\"L (listing does not say whether shipping or overall)",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "width_m": {
+    "value": 2.8194,
+    "source": "https://surplusrecord.com/listing/30-56-mva-115000-delta-primary-12470y-secondary-weg-2017-280984/",
+    "source_detail": "same",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "height_m": {
+    "value": 3.556,
+    "source": "https://surplusrecord.com/listing/30-56-mva-115000-delta-primary-12470y-secondary-weg-2017-280984/",
+    "source_detail": "same",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "total_weight_t": {
+    "value": 49.8,
+    "source": "https://surplusrecord.com/listing/30-56-mva-115000-delta-primary-12470y-secondary-weg-2017-280984/",
+    "source_detail": "Total weight 109,807 lb (shipping weight 97,807 lb; oil 24,927 lb / 3,434 gal; listing figures not mutually consistent)",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "installed_envelope_note": {
+    "value": "The 2.8 x 4.0 m plan is a tank envelope; radiators, conservator and HV bushings typically add 1.5-2.5 m in plan and ~2 m in height. Draw a 4.5 x 6.0 x 5.5 m installed envelope if showing bushings.",
+    "source": null,
+    "status": "ASSUMED",
+    "reason": "Engineering assumption, no outline drawing found."
+   }
+  },
+  "230_21kV_45MVA_distribution_bank": {
+   "rating_MVA": {
+    "value": 45,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/tri-valley/projdesc.pdf",
+    "source_detail": "'four 230/21 kV, 45 MVA transformers' per station; also Vasona 230/12 kV 45 MVA and Los Esteros/SJC02 one-line '(2) 230/21kV 45MVA XFMR's'",
+    "status": "SOURCED"
+   }
+  },
+  "115_13p8kV_75MVA_GSU_DOE": {
+   "length_m": {
+    "value": 7.62,
+    "source": "https://www.energy.gov/sites/prod/files/2014/04/f15/LPTStudyUpdate-040914.pdf",
+    "source_detail": "Table 2 GSU 115-13.8 kV 75 MVA: 110 tons (220,000 lb), 16ft W x 25ft L x 20ft H",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "width_m": {
+    "value": 4.877,
+    "source": "https://www.energy.gov/sites/prod/files/2014/04/f15/LPTStudyUpdate-040914.pdf",
+    "source_detail": "same",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "height_m": {
+    "value": 6.096,
+    "source": "https://www.energy.gov/sites/prod/files/2014/04/f15/LPTStudyUpdate-040914.pdf",
+    "source_detail": "same",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "weight_t": {
+    "value": 99.8,
+    "source": "https://www.energy.gov/sites/prod/files/2014/04/f15/LPTStudyUpdate-040914.pdf",
+    "source_detail": "220,000 lb",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   }
+  },
+  "NRS_230_115kV_additions": {
+   "value": "two new 230/115 kV transformers in parallel with one existing (ratings not disclosed for security)",
+   "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+   "source_detail": "Sec 2.6.2.2",
+   "status": "SOURCED"
+  }
+ },
+ "substation_layout": {
+  "230kV_PGE_Newark": {
+   "max_structure_height_in_yard_m": {
+    "value": 19.812,
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Sec 2.6.2.1: new structures within Newark 230 kV perimeter 'up to approximately 65 feet above grade (... existing structures are also up to 65 feet)'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "max_structure_height_outside_perimeter_m": {
+    "value": 48.768,
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "existing structures outside perimeter on PG&E property up to 160 ft; new up to 150 ft",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   }
+  },
+  "230kV_SVP_NRS": {
+   "max_structure_height_m": {
+    "value": 17.374,
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Sec 2.6.2.2: 'up to approximately 57 feet above grade (... existing structures are also approximately 57 feet)'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "fence": {
+    "value": "8 ft chain-link (N, W); 10 ft concrete post-and-panel (S, E)",
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Sec 2.6.2.2",
+    "status": "SOURCED"
+   }
+  },
+  "230kV_bay": {
+   "breaker_bay_centerline_spacing_m": {
+    "value": 19.812,
+    "source": "https://pjm.com/-/media/committees-groups/subcommittees/dedss/20160719/20160719-pjm-ts-std-sec-3.ashx",
+    "source_detail": "Sec III: 'Typical breaker bay centerline to adjacent bay breaker centerline distances is 65' for 230kV and 110' for 500kV'",
+    "status": "SOURCED",
+    "reason": "PJM (eastern US) practice, not PG&E; unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "500kV_breaker_bay_spacing_m": {
+    "value": 33.528,
+    "source": "https://pjm.com/-/media/committees-groups/subcommittees/dedss/20160719/20160719-pjm-ts-std-sec-3.ashx",
+    "source_detail": "same sentence",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "perimeter_corridor_m": {
+    "value": 6.096,
+    "range": [
+     4.572,
+     7.62
+    ],
+    "source": "https://pjm.com/-/media/committees-groups/subcommittees/dedss/20160719/20160719-pjm-ts-std-sec-3.ashx",
+    "source_detail": "'A corridor, typically 15 - 25 feet in width, must be provided around the inside perimeter'",
+    "status": "SOURCED",
+    "reason": "midpoint"
+   },
+   "rigid_bus_phase_spacing_m": {
+    "value": 4.6,
+    "source": null,
+    "status": "ASSUMED",
+    "reason": "RUS Bulletin 1724E-300 (the usual public reference) returned HTTP 403 and was not read. 4.6 m (15 ft) is an assumed 230 kV (900-1050 kV BIL) centerline spacing; verify against IEEE 605 / RUS before treating as fact."
+   },
+   "low_bus_height_m": {
+    "value": 6.1,
+    "source": null,
+    "status": "ASSUMED",
+    "reason": "Assumed 20 ft equipment/low-bus level; must exceed personnel safety clearance. Upper bound of all 230 kV yard steel is the SOURCED 57-65 ft."
+   },
+   "high_bus_or_deadend_height_m": {
+    "value": 17.374,
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "status": "ASSUMED",
+    "reason": "Taken equal to the SOURCED NRS max structure height (dead-end gantries are typically the tallest yard steel)."
+   }
+  },
+  "115kV_bay": {
+   "breaker_height_m": {
+    "value": 7.62,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/002.pdf",
+    "source_detail": "Martin 115 kV yard: 'Two new breakers ... would be approximately 25 feet in height'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "bus_conductor": {
+    "value": "4-inch aluminum tubing and bundled 2300 kcmil AL cable",
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/002.pdf",
+    "source_detail": "Martin 115 kV bus reconductor",
+    "status": "SOURCED"
+   },
+   "breaker_bay_centerline_spacing_m": {
+    "value": 12.192,
+    "source": "https://pjm.com/-/media/committees-groups/subcommittees/dedss/20160719/20160719-pjm-ts-std-sec-3.ashx",
+    "status": "ASSUMED",
+    "reason": "No public 115 kV bay spacing found (PJM gives 230/500 kV only). 40 ft assumed by scaling PJM 230 kV 65 ft roughly with BIL (550 vs 900 kV)."
+   },
+   "rigid_bus_phase_spacing_m": {
+    "value": 2.4,
+    "source": null,
+    "status": "ASSUMED",
+    "reason": "Assumed 8 ft centerline for 550 kV BIL; RUS 1724E-300 not reachable (HTTP 403)."
+   },
+   "low_bus_height_m": {
+    "value": 4.9,
+    "source": null,
+    "status": "ASSUMED",
+    "reason": "Assumed 16 ft."
+   }
+  },
+  "dead_end_and_misc_PGE": {
+   "230kV_transition_deadend_height_m": {
+    "value": 14.326,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/002.pdf",
+    "source_detail": "Transition Structure: 'post and beam steel, full-tension dead-end ... Structure height: 47 feet'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "230kV_cable_termination_height_m": {
+    "value": 2.743,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/002.pdf",
+    "source_detail": "'Cable terminations ... about 9 feet in height'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "lightning_arrester_height_m": {
+    "value": 1.829,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/002.pdf",
+    "source_detail": "'metal oxide varistor type, one per phase, about 6 feet in height'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "yard_lighting_structure_height_m": {
+    "value": 7.62,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/jefferson_martin/pdf/002.pdf",
+    "source_detail": "'low-intensity wattage mounted on approximately 25' structures'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   }
+  },
+  "substation_footprints_local": {
+   "Nortech_115_21kV_site_acres": {
+    "value": 3.3,
+    "source": "https://ia.cpuc.ca.gov/Environment/Info/esa/nortech/nortech_negdec.htm",
+    "source_detail": "'The site occupies 3.3 acres' (3 x 45 MVA ultimate, 9 feeders)",
+    "status": "SOURCED"
+   },
+   "Nortech_fence_height_m": {
+    "value": 2.438,
+    "source": "https://ia.cpuc.ca.gov/Environment/Info/esa/nortech/nortech_negdec.htm",
+    "source_detail": "7 ft chain link + 1 ft barbed-wire outrigger",
+    "status": "SOURCED",
+    "reason": "computed 7+1 ft; unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "Nortech_microwave_tower_height_m": {
+    "value": 30.48,
+    "source": "https://ia.cpuc.ca.gov/Environment/Info/esa/nortech/nortech_negdec.htm",
+    "source_detail": "'100-foot-tall steel lattice microwave tower with two microwave dishes'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "Nortech_pad_elevation_m_NGVD": {
+    "value": 1.829,
+    "source": "https://ia.cpuc.ca.gov/Environment/Info/esa/nortech/nortech_negdec.htm",
+    "source_detail": "site raised to ~6 ft; operates with floodwater at 9 ft NGVD",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "Vasona_230_12kV_two_bank_plan_m": {
+    "value": [
+     76.2,
+     45.72
+    ],
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/vasona/vasona_initial.htm",
+    "source_detail": "'two-transformer bank, low profile facility occupying an area approximately 250 feet by 150 feet'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "TriValley_230_21kV_four_bank_site_acres": {
+    "value": 5,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/tri-valley/projdesc.pdf",
+    "source_detail": "'Developed acreage: 5 acres, fenced' for four 230/21 kV 45 MVA banks",
+    "status": "SOURCED"
+   },
+   "TriValley_switchgear_building_plan_m": {
+    "value": [
+     6.401,
+     10.973
+    ],
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/tri-valley/projdesc.pdf",
+    "source_detail": "'Four 21-foot by 36-foot metal-clad switchgear buildings'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "TriValley_ring_road_width_m": {
+    "value": 6.096,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/tri-valley/projdesc.pdf",
+    "source_detail": "'20-foot wide ring road'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "Los_Esteros_site_acres": {
+    "value": 24,
+    "source": "https://ia.cpuc.ca.gov/Environment/info/aspen/nesanjo/description.html",
+    "source_detail": "'would occupy the northern 24 acres of a 54-acre property'",
+    "status": "SOURCED"
+   }
+  },
+  "data_center_onsite_230kV_substation_SJC02": {
+   "scheme": {
+    "value": "New 2-bay, 6-breaker 230 kV breaker-and-a-half (BAAH) substation, terminals for two 230 kV lines; 230/13.8 kV transformers; ~1,100 ft of 230 kV line to Los Esteros; Los Esteros adds 2 bays with dead-ends, 4 CBs, 10 disconnects",
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "source_detail": "Figure 2-6 interconnection one-line (text layer)",
+    "status": "SOURCED"
+   },
+   "supply_lines": {
+    "value": "two 230 kV lines, ~0.2 mi (1,000 ft) each, along west fence adjacent to LECEF, to PG&E Los Esteros",
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "source_detail": "Sec 2.1.5",
+    "status": "SOURCED"
+   },
+   "plan_area_m2": {
+    "value": 6967.728,
+    "source": "https://pjm.com/-/media/committees-groups/subcommittees/dedss/20160719/20160719-pjm-ts-std-sec-3.ashx",
+    "status": "ASSUMED",
+    "reason": "Plan area not disclosed. Assumed 250 x 300 ft: a 2-bay BAAH at PJM 65 ft bay pitch (130 ft) plus transformer row and 20 ft perimeter corridor; compare Vasona 2-bank 250 x 150 ft."
+   }
+  }
+ },
+ "data_center": {
+  "Microsoft_SJC02_Alviso_reference": {
+   "location": {
+    "value": "1657 Alviso-Milpitas Road, San Jose; adjacent (east) of PG&E Los Esteros Substation and LECEF",
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "source_detail": "Sec 2.1; CEC order TN 232773",
+    "status": "SOURCED"
+   },
+   "max_load_MW": {
+    "value": 99,
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "source_detail": "'maximum electrical load ... 99 MW, although the estimated load is 92 MW'",
+    "status": "SOURCED"
+   },
+   "expected_load_MW": {
+    "value": 92,
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "source_detail": "same",
+    "status": "SOURCED"
+   },
+   "site_area_acres": {
+    "value": 64.5,
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "source_detail": "'approximately 64.5-acre project site'",
+    "status": "SOURCED"
+   },
+   "building_count": {
+    "value": 2,
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "source_detail": "two single-story buildings SJC02 (north) and SJC03 (south)",
+    "status": "SOURCED"
+   },
+   "north_building_area_m2": {
+    "value": 22455.0,
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "source_detail": "SJC02 ~241,705 sq ft",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "south_building_area_m2": {
+    "value": 22043.0,
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "source_detail": "SJC03 ~237,268 sq ft",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "total_gross_area_m2": {
+    "value": 44501.0,
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=232773",
+    "source_detail": "'approximately 479,000 gross square feet'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "building_height_m": {
+    "value": 8.23,
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "source_detail": "Land Use fn 2: 'approximately 27 feet tall, with some mechanical equipment extending to a max height of 31 feet'; elevations: T.O. ROOF 26'-10 1/2\"",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "max_height_with_mechanical_m": {
+    "value": 9.449,
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "source_detail": "same",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "generator_count": {
+    "value": 40,
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "source_detail": "40 x 3.0 MW Cummins QSK95 diesel standby + 2 admin (1.25, 0.5 MW)",
+    "status": "SOURCED"
+   },
+   "generator_enclosure_LxWxH_m": {
+    "value": [
+     17.221,
+     3.962,
+     7.62
+    ],
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "source_detail": "Sec 2.2.1: each 3-MW generator ~13 ft wide, 56.5 ft long, 25 ft tall to top of DPF/SCR",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "generator_stack_height_m": {
+    "value": 9.144,
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "source_detail": "'separate exhaust stack approximately 30 feet above grade'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "ups_battery_minutes": {
+    "value": 10,
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "source_detail": "'each bank capable of providing up to 10 minutes of backup at 100 percent load'",
+    "status": "SOURCED"
+   },
+   "site_grade_elevation_m_amsl": {
+    "value": [
+     3.962,
+     5.182
+    ],
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "source_detail": "'elevation of the project site ranges between 13 and 17 feet above mean sea level'",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "FAA_height_limit_m_amsl": {
+    "value": 64.618,
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "source_detail": "ALUC/FAA limit 212 ft amsl at the site",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "zoning_height_limit_m": {
+    "value": 30.48,
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "source_detail": "Alviso Master Plan allows heights up to 100 ft on this site",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "utility_supply": {
+    "value": "on-site 230 kV substation, 2 x 230 kV lines to PG&E Los Esteros, 715 kcmil double-bundle ACCR, 310 MVA",
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "source_detail": "Sec 2.2",
+    "status": "SOURCED"
+   },
+   "internal_distribution": {
+    "value": "34.5 kV to 480 V unit substation transformers feeding 480 V critical buses and parallel UPS modules",
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "source_detail": "Sec 2.2",
+    "status": "SOURCED"
+   }
+  },
+  "other_local_data_center_data_points": {
+   "237_Industrial_Center_option2": {
+    "value": "436,880 sq ft data center, 49.5 MW, with a PG&E substation, on ~26.5 acres (same 1657 Alviso-Milpitas Rd parcel, earlier option)",
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Ch. 3 cumulative projects table, item 32",
+    "status": "SOURCED"
+   },
+   "Santa_Clara_1231_Comstock": {
+    "value": "four-story 122,000 sq ft data center, six 3,000 kW diesel generators",
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "cumulative projects table, item 75",
+    "status": "SOURCED"
+   },
+   "San_Jose_area_load_forecast_MW": {
+    "value": {
+     "TPP_2021_22": 2100,
+     "TPP_2024_25_base": 3400,
+     "TPP_2024_25_sensitivity": 4200
+    },
+    "source": "https://ia.cpuc.ca.gov/environment/info/esa/psb/pdfs/Power_the_South_Bay_DEIR_June2025_508_ADA.pdf",
+    "source_detail": "Ch. 4 Alternatives: load forecast increase 'Mostly driven by new data center load projections'",
+    "status": "SOURCED"
+   }
+  },
+  "site_150MW_scaled_ASSUMED": {
+   "load_MW": {
+    "value": 150,
+    "source": null,
+    "status": "ASSUMED",
+    "reason": "Scenario input from the QSiteProof project question; not a real application or interconnection request."
+   },
+   "building_gross_area_m2": {
+    "value": 67425.0,
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "status": "ASSUMED",
+    "reason": "Linear MW scaling of SJC02 (479,000 gsf per 99 MW max). Hyperscale density varies 2x with rack density; illustrative only."
+   },
+   "building_height_m": {
+    "value": 8.23,
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "status": "ASSUMED",
+    "reason": "Same single-story form as SJC02."
+   },
+   "building_footprint_two_halls_LxW_m": {
+    "value": [
+     180.0,
+     125.0
+    ],
+    "source": null,
+    "status": "ASSUMED",
+    "reason": "Two halls; 2 x 180 x 125 m = 45,000 m2 ~= 0.67 x scaled gross area if mechanical yards are outside; chosen to fit a ~40 ha parcel. Illustrative."
+   },
+   "site_area_acres": {
+    "value": 97.7,
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "status": "ASSUMED",
+    "reason": "Linear scaling of SJC02 site area."
+   },
+   "onsite_substation": {
+    "value": "230 kV BAAH, 2 lines, 2-3 x 230/34.5 kV transformers ~ 100 MVA each",
+    "source": "https://efiling.energy.ca.gov/getdocument.aspx?tn=230741",
+    "status": "ASSUMED",
+    "reason": "SJC02 used 230 kV with two supply lines; transformer MVA for 150 MW (N-1 with 2 of 3 units carrying load) is an engineering assumption."
+   }
+  }
+ },
+ "clearances_go95": {
+  "_basis": {
+   "value": "Clearances apply at 60 F conductor temperature, no wind (Rule 37 for Table 1, Rule 38 for Table 2). Table 1 columns F = 22.5-300 kV (covers 60, 115, 230 kV), G = 300-550 kV (500 kV).",
+   "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_rule_37.html",
+   "source_detail": "Rule 37 text; Rule 38 text",
+   "status": "SOURCED"
+  },
+  "_voltage_convention": {
+   "value": "nominal phase-to-phase kV used for the 'per kV in excess of' increments",
+   "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_2.html",
+   "status": "ASSUMED",
+   "reason": "GO 95 voltage classes are nominal circuit voltages; interpretation, not quoted"
+  },
+  "60kV": {
+   "ground_rural_vehicle_areas_m": {
+    "value": 9.144,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 4, col F: 30 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "ground_urban_thoroughfare_m": {
+    "value": 9.144,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 3, col F: 30 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "ground_pedestrian_only_m": {
+    "value": 7.62,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 5, col F: 25 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "railroad_freight_crossing_m": {
+    "value": 10.363,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 1, col F: 34 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "above_walkable_building_surface_m": {
+    "value": 3.658,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 6, col F: 12 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "horizontal_from_buildings_m": {
+    "value": 1.829,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 7, col F: 6 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "water_not_sailboating_m": {
+    "value": 7.62,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 11, col F: 25 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "conductor_to_pole_centerline_min_m": {
+    "value": 0.4572,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 8, col F: 18 inches",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "conductor_to_structure_surface_min_m": {
+    "value": 0.3048,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 9, col F: 1/4 of Table 2 Case 15 pin spacing = 12.0 in at 60 kV",
+    "status": "SOURCED",
+    "reason": "computed from quoted rule + Table 2 value; unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "radial_to_vegetation_min_m": {
+    "value": 0.3048,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 13, col F: 1/4 pin spacing (Table 2 Case 15) = 12.0 in",
+    "status": "SOURCED",
+    "reason": "computed; unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "phase_to_phase_horizontal_min_m": {
+    "value": 1.2192,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_2.html",
+    "source_detail": "Table 2 Case 15 (pin spacing, same crossarm) at 60 kV = 48.0 in",
+    "status": "SOURCED",
+    "reason": "computed with notes ff/gg/hh (+0.40 in per kV over 75/150/300 kV); unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "phase_to_phase_vertical_min_m": {
+    "value": 1.2192,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_2.html",
+    "source_detail": "Table 2 Case 12 col H (vertical separation, separate crossarms) = 48.0 in",
+    "status": "SOURCED",
+    "reason": "computed; unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "max_reduction_for_temperature_and_loading_cases2to6_frac": {
+    "value": 0.1,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_rule_37.html",
+    "source_detail": "Rule 37: Table 1 Cases 2-6 'shall in no case be reduced more than 10% below the tabular values because of temperature and loading'",
+    "status": "SOURCED"
+   },
+   "min_ground_clearance_at_max_sag_rural_m": {
+    "value": 8.23,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_rule_37.html",
+    "source_detail": "0.9 x Table 1 Case 4 value (Rule 37 10% allowance)",
+    "status": "SOURCED",
+    "reason": "computed: use as the hard floor for thermal-sag/DLR checks"
+   }
+  },
+  "115kV": {
+   "ground_rural_vehicle_areas_m": {
+    "value": 9.144,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 4, col F: 30 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "ground_urban_thoroughfare_m": {
+    "value": 9.144,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 3, col F: 30 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "ground_pedestrian_only_m": {
+    "value": 7.62,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 5, col F: 25 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "railroad_freight_crossing_m": {
+    "value": 10.363,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 1, col F: 34 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "above_walkable_building_surface_m": {
+    "value": 3.658,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 6, col F: 12 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "horizontal_from_buildings_m": {
+    "value": 1.829,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 7, col F: 6 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "water_not_sailboating_m": {
+    "value": 7.62,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 11, col F: 25 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "conductor_to_pole_centerline_min_m": {
+    "value": 0.4572,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 8, col F: 18 inches",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "conductor_to_structure_surface_min_m": {
+    "value": 0.4826,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 9, col F: 1/4 of Table 2 Case 15 pin spacing = 19.0 in at 115 kV",
+    "status": "SOURCED",
+    "reason": "computed from quoted rule + Table 2 value; unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "radial_to_vegetation_min_m": {
+    "value": 0.4826,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 13, col F: 1/4 pin spacing (Table 2 Case 15) = 19.0 in",
+    "status": "SOURCED",
+    "reason": "computed; unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "phase_to_phase_horizontal_min_m": {
+    "value": 1.9304,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_2.html",
+    "source_detail": "Table 2 Case 15 (pin spacing, same crossarm) at 115 kV = 76.0 in",
+    "status": "SOURCED",
+    "reason": "computed with notes ff/gg/hh (+0.40 in per kV over 75/150/300 kV); unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "phase_to_phase_vertical_min_m": {
+    "value": 1.9304,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_2.html",
+    "source_detail": "Table 2 Case 13 (vertical separation, separate crossarms) = 76.0 in",
+    "status": "SOURCED",
+    "reason": "computed; unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "max_reduction_for_temperature_and_loading_cases2to6_frac": {
+    "value": 0.1,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_rule_37.html",
+    "source_detail": "Rule 37: Table 1 Cases 2-6 'shall in no case be reduced more than 10% below the tabular values because of temperature and loading'",
+    "status": "SOURCED"
+   },
+   "min_ground_clearance_at_max_sag_rural_m": {
+    "value": 8.23,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_rule_37.html",
+    "source_detail": "0.9 x Table 1 Case 4 value (Rule 37 10% allowance)",
+    "status": "SOURCED",
+    "reason": "computed: use as the hard floor for thermal-sag/DLR checks"
+   }
+  },
+  "230kV": {
+   "ground_rural_vehicle_areas_m": {
+    "value": 9.144,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 4, col F: 30 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "ground_urban_thoroughfare_m": {
+    "value": 9.144,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 3, col F: 30 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "ground_pedestrian_only_m": {
+    "value": 7.62,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 5, col F: 25 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "railroad_freight_crossing_m": {
+    "value": 10.363,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 1, col F: 34 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "above_walkable_building_surface_m": {
+    "value": 3.658,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 6, col F: 12 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "horizontal_from_buildings_m": {
+    "value": 1.829,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 7, col F: 6 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "water_not_sailboating_m": {
+    "value": 7.62,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 11, col F: 25 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "conductor_to_pole_centerline_min_m": {
+    "value": 0.4572,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 8, col F: 18 inches",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "conductor_to_structure_surface_min_m": {
+    "value": 0.7747,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 9, col F: 1/4 of Table 2 Case 15 pin spacing = 30.5 in at 230 kV",
+    "status": "SOURCED",
+    "reason": "computed from quoted rule + Table 2 value; unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "radial_to_vegetation_min_m": {
+    "value": 0.7747,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 13, col F: 1/4 pin spacing (Table 2 Case 15) = 30.5 in",
+    "status": "SOURCED",
+    "reason": "computed; unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "phase_to_phase_horizontal_min_m": {
+    "value": 3.0988,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_2.html",
+    "source_detail": "Table 2 Case 15 (pin spacing, same crossarm) at 230 kV = 122.0 in",
+    "status": "SOURCED",
+    "reason": "computed with notes ff/gg/hh (+0.40 in per kV over 75/150/300 kV); unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "phase_to_phase_vertical_min_m": {
+    "value": 3.0988,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_2.html",
+    "source_detail": "Table 2 Case 13 (vertical separation, separate crossarms) = 122.0 in",
+    "status": "SOURCED",
+    "reason": "computed; unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "max_reduction_for_temperature_and_loading_cases2to6_frac": {
+    "value": 0.1,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_rule_37.html",
+    "source_detail": "Rule 37: Table 1 Cases 2-6 'shall in no case be reduced more than 10% below the tabular values because of temperature and loading'",
+    "status": "SOURCED"
+   },
+   "min_ground_clearance_at_max_sag_rural_m": {
+    "value": 8.23,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_rule_37.html",
+    "source_detail": "0.9 x Table 1 Case 4 value (Rule 37 10% allowance)",
+    "status": "SOURCED",
+    "reason": "computed: use as the hard floor for thermal-sag/DLR checks"
+   }
+  },
+  "500kV": {
+   "ground_rural_vehicle_areas_m": {
+    "value": 10.668,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 4, col G: 30 Feet (kk) + 0.025 ft/kV over 300 kV = 35.0 ft",
+    "status": "SOURCED",
+    "reason": "computed; unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "ground_urban_thoroughfare_m": {
+    "value": 10.668,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 3, col G: 30 Feet (kk) -> 35.0 ft",
+    "status": "SOURCED",
+    "reason": "computed; unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "ground_pedestrian_only_m": {
+    "value": 9.144,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 5, col G: 25 Feet (kk) -> 30.0 ft",
+    "status": "SOURCED",
+    "reason": "computed; unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "above_walkable_building_surface_m": {
+    "value": 8.534,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 6, col G: 20 Feet (ll: +0.04 ft/kV over 300 kV)",
+    "status": "SOURCED",
+    "reason": "computed; unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "horizontal_from_buildings_m": {
+    "value": 4.572,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 7, col G: 15 Feet",
+    "status": "SOURCED",
+    "reason": "unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "conductor_to_structure_surface_min_m": {
+    "value": 2.921,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+    "source_detail": "Table 1 Case 9, col G: 1/2 pin spacing = 115.0 in",
+    "status": "SOURCED",
+    "reason": "computed; unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "phase_to_phase_horizontal_min_m": {
+    "value": 5.842,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_2.html",
+    "source_detail": "Table 2 Case 15 (pin spacing, same crossarm) at 500 kV = 230.0 in",
+    "status": "SOURCED",
+    "reason": "computed with notes ff/gg/hh (+0.40 in per kV over 75/150/300 kV); unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "phase_to_phase_vertical_min_m": {
+    "value": 5.842,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_2.html",
+    "source_detail": "Table 2 Case 13 (vertical separation, separate crossarms) = 230.0 in",
+    "status": "SOURCED",
+    "reason": "computed; unit conversion only (1 ft = 0.3048 m, 1 in = 0.0254 m, 1 lb = 0.45359 kg, 1 kgf = 9.80665 N, 1 mile = 1.609344 km)"
+   },
+   "max_reduction_for_temperature_and_loading_cases2to6_frac": {
+    "value": 0.1,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_rule_37.html",
+    "source_detail": "Rule 37: Table 1 Cases 2-6 'shall in no case be reduced more than 10% below the tabular values because of temperature and loading'",
+    "status": "SOURCED"
+   },
+   "min_ground_clearance_at_max_sag_rural_m": {
+    "value": 9.601,
+    "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_rule_37.html",
+    "source_detail": "0.9 x Table 1 Case 4 value (Rule 37 10% allowance)",
+    "status": "SOURCED",
+    "reason": "computed: use as the hard floor for thermal-sag/DLR checks"
+   }
+  },
+  "note_500kV": {
+   "value": "No 500 kV substation within 25 km of the site (per substation_ratings.json / OSM); 500 kV values given for completeness only, no 500 kV structure is drawn.",
+   "source": "https://ia.cpuc.ca.gov/gos/GO95/go_95_table_1.html",
+   "source_detail": "n/a",
+   "status": "SOURCED",
+   "reason": "cross-reference to teammate data"
+  }
+ }
+}
