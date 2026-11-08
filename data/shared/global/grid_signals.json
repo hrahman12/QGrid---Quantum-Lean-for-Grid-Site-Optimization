@@ -1,0 +1,15 @@
+{
+  "_note": "Static per-country fallback for grid/adapters global_osm. Annual figures, not live. status CITED-APPROX = public figure from the named source, recalled not re-fetched on 2026-11-08 (verify before external use); ASSUMED = our planning value. lmp converted EUR->USD at 1.08 (2024 ECB average, approx).",
+  "countries": {
+    "DE": {
+      "lmp_usd_mwh": 84.3, "load_mw": 52700, "carbon_g_per_kwh": 344, "timestamp": "2024-12-31T23:00:00Z",
+      "status": "CITED-APPROX",
+      "source": "DE-LU day-ahead 2024 average ~78 EUR/MWh and ~462 TWh consumption (Bundesnetzagentur SMARD 2024 review); carbon intensity Ember Yearly Electricity Data 2024"
+    },
+    "MY": {
+      "lmp_usd_mwh": null, "load_mw": 19000, "carbon_g_per_kwh": 580, "timestamp": "2024-12-31T23:00:00Z",
+      "status": "ASSUMED",
+      "source": "no wholesale LMP (Peninsular Malaysia single-buyer, TNB); load = ASSUMED ~19 GW Peninsular peak (TNB/Suruhanjaya Tenaga reported ~19-20 GW 2024); carbon ~Ember Yearly Electricity Data 2024, approx"
+    }
+  }
+}

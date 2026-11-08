@@ -34,5 +34,27 @@
     "requested_mw": 60,
     "deadline": "2027-09-30",
     "iso": "ERCOT"
+  },
+  {
+    "id": "frankfurt-de-120",
+    "name": "Frankfurt am Main data-center cluster (approx, assumed 120 MW request)",
+    "lat": 50.115,
+    "lon": 8.73,
+    "requested_mw": 120,
+    "deadline": "2028-12-31",
+    "iso": "ENTSOE:DE-LU",
+    "country": "DE",
+    "grid_operator": "Amprion / TenneT (TSO), Mainova/Syna (DSO)"
+  },
+  {
+    "id": "johor-my-100",
+    "name": "Johor Sedenak/Kulai data-center corridor (approx, assumed 100 MW request)",
+    "lat": 1.63,
+    "lon": 103.58,
+    "requested_mw": 100,
+    "deadline": "2028-06-30",
+    "iso": "TNB:Peninsular",
+    "country": "MY",
+    "grid_operator": "Tenaga Nasional Berhad (TNB)"
   }
 ]

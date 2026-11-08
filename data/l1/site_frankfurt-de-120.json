@@ -1,0 +1,11 @@
+{
+  "id": "frankfurt-de-120",
+  "name": "Frankfurt am Main data-center cluster (approx, assumed 120 MW request)",
+  "lat": 50.115,
+  "lon": 8.73,
+  "requested_mw": 120,
+  "deadline": "2028-12-31",
+  "iso": "ENTSOE:DE-LU",
+  "country": "DE",
+  "grid_operator": "Amprion / TenneT (TSO), Mainova/Syna (DSO)"
+}

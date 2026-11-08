@@ -55,13 +55,13 @@ def _parse_kv(voltage):
     return max(vals) / 1000 if vals else None
 
 
-def _fetch_osm_substations(site):
-    """Overpass substations within RADIUS_KM -> GeoJSON FeatureCollection; cached in data/l1/."""
-    cache = DATA / f"osm_substations_{site['id']}.geojson"
+def _fetch_osm_substations(site, cache=None, tag_filter=""):
+    """Overpass substations within RADIUS_KM -> GeoJSON FeatureCollection; cached in data/l1/ (or `cache`)."""
+    cache = cache or DATA / f"osm_substations_{site['id']}.geojson"
     dlat = RADIUS_KM / 111.0
     dlon = RADIUS_KM / (111.0 * math.cos(math.radians(site["lat"])))
     box = f"({site['lat']-dlat},{site['lon']-dlon},{site['lat']+dlat},{site['lon']+dlon})"
-    query = f'[out:json][timeout:25];nwr["power"="substation"]{box};out center tags 400;'
+    query = f'[out:json][timeout:25];nwr["power"="substation"]{tag_filter}{box};out center tags 400;'
     for url in OVERPASS:
         try:
             r = requests.post(url, data={"data": query}, headers=UA, timeout=40)
@@ -80,7 +80,7 @@ def _fetch_osm_substations(site):
                   "properties": {"source": "OpenStreetMap (Overpass API)", "license": "ODbL-1.0",
                                  "attribution": "(c) OpenStreetMap contributors",
                                  "fetched": datetime.now(timezone.utc).isoformat(timespec="seconds")}}
-            DATA.mkdir(parents=True, exist_ok=True)
+            cache.parent.mkdir(parents=True, exist_ok=True)
             cache.write_text(json.dumps(fc), encoding="utf-8")
             return fc, f"overpass:{url.split('/')[2]}"
         except (requests.RequestException, ValueError):
@@ -232,6 +232,9 @@ def _l2_as_fc(l2):
 
 def get_snapshot(site):
     """site -> grid_snapshot (contracts/grid_snapshot.schema.json), plus an `assumptions` list."""
+    if site.get("country", "US") != "US":  # non-US: region adapter (grid/adapters); US path below is unchanged
+        from .adapters import get_adapter
+        return get_adapter(site).snapshot(site)
     l2 = _l2_ratings(site)
     if os.environ.get("QSITE_OFFLINE") == "1" or l2:  # L2 already holds the OSM pool for its site; no network needed
         cache = DATA / f"osm_substations_{site['id']}.geojson"
