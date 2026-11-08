@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "npm ci --prefix viz/webgl",
+  "buildCommand": "npm run build --prefix viz/webgl",
+  "outputDirectory": "viz/webgl/dist",
+  "functions": {
+    "api/quantum.py": {
+      "maxDuration": 120,
+      "includeFiles": "{quantum/**,viz/webgl/server/**,viz/webgl/public/data/run.json}",
+      "excludeFiles": "{.venv/**,viz/webgl/node_modules/**,viz/data/**,docs/**,data/**,grid/**,lean/**,report/**}"
+    }
+  }
+}
