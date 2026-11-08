@@ -41,9 +41,31 @@ from pathlib import Path
 
 LEAN_DIR = Path(__file__).resolve().parent
 ROOT = LEAN_DIR.parent
+import sys as _sys  # noqa: E402
+if str(ROOT) not in _sys.path:
+    _sys.path.insert(0, str(ROOT))
+from quantum.load_model import net_split  # noqa: E402  (Astra #6: one net-load model for oracle + certify)
 OUT_DIR = LEAN_DIR / "out"
 EVIDENCE_FORMAT = "qsiteproof-evidence/1"
 ORDER = ["capacity", "thermal_voltage", "n1", "flex_commitment", "deadline", "permit_row", "penalty_trigger"]
+# Astra #2/#4/#5: checks added in this python layer AFTER the Lean/mirror report. They are NOT yet in
+# lean/QSiteProof/*.lean (lake is not installed on the dev PC; the Lean side is unbuilt for them), so they
+# run for both engines here. Tag: "hard" -> RED; "negotiable" -> AMBER with conditions[] (see _verdict).
+EXTRA_ORDER = ["bank", "storage_relief", "firm_n1", "evidence_binding"]
+ALL_ORDER = ORDER + EXTRA_ORDER
+TAGS = {"capacity": "hard", "thermal_voltage": "hard", "n1": "hard", "deadline": "hard",
+        "flex_commitment": "negotiable",   # storage / curtailment commitment can be contracted
+        "permit_row": "negotiable",        # DLR/reconductor ROW permit can be obtained
+        "penalty_trigger": "negotiable",   # curtailment window / penalty terms can be negotiated
+        "bank": "hard", "storage_relief": "hard", "evidence_binding": "hard",
+        "firm_n1": "hard"}  # firm_n1 becomes negotiable per certificate when flex can close the gap (_verdict)
+CONDITIONS = {"flex_commitment": "obtain a signed storage/curtailment commitment covering the plan's MW",
+              "permit_row": "obtain the ROW/permit for the DLR/reconductor work before the deadline",
+              "n1": "physics N-1 fails only on firm transformer headroom; close it with the firm_n1 levers",
+              "firm_n1": "commit the extra storage/curtailment named in the detail so every split is within firm N-1",
+              "penalty_trigger": "negotiate the curtailment window / penalty cap so the plan's curtailment is inside it"}
+RULE_VERSION = "qsiteproof-rules/2: lean7 + bank,storage_relief,evidence_binding; quantum/load_model.py net_split; DLR lines-only"
+L3_INPUTS = ROOT / "data" / "l2" / "l3_inputs.json"
 THEOREMS = ["verdict_green_iff_all", "verdict_red_blocking_sound", "blocking_is_first",
             "verdict_extensional", "certify_deterministic", "report_pass_sound"]
 
@@ -55,6 +77,8 @@ DEFAULTS = {
     "loading_limit_permille": 1000,  # 100% (grid/physics.py LOAD_LIMIT_PCT)
     "v_lo_pu4": 9500, "v_hi_pu4": 10500,  # 0.95-1.05 pu (grid/physics.py V_NORMAL)
     "dlr_headroom_uplift_permille": 0,
+    "storage_duration_h": 4,       # ASSUMED storage duration (Astra #5): energy obligation = MW * 4 h
+    "max_storage_mw": 50,          # ASSUMED largest storage lever (data/l2/l3_inputs.json search_space battery_mw)
 }
 SCOPE_TAIL = ("GREEN covers only the encoded rules over the supplied evidence; "
               "it is not a utility interconnection approval.")
@@ -129,13 +153,15 @@ def build_evidence(plan, physics, site, snapshot=None, *, as_of=None, commitment
     """Plan/physics/site/snapshot -> (evidence dict for the Lean checker, notes list)."""
     p = {**DEFAULTS, **(params or {})}
     heads, head_src = _headroom_source(plan, site, snapshot)
+    flex = plan["flex"]
     splits = []
     for s in plan["splits"]:
         h = heads.get(s["substation_id"])
-        splits.append({"substation_id": s["substation_id"], "kw": _kw_round(s["mw"]),
+        # net_kw: Astra #6 shared net-load model (quantum/load_model.py), same as the search oracle
+        net = net_split(s["mw"], site["requested_mw"], flex["storage_mw"], flex["curtailment_mw"])
+        splits.append({"substation_id": s["substation_id"], "kw": _kw_round(s["mw"]), "net_kw": _kw_ceil(net),
                        "headroom_known": h is not None, "headroom_kw": _kw_floor(h) if h is not None else 0})
 
-    flex = plan["flex"]
     commit = commitment if commitment is not None else site.get("flex_commitment")
     if commit is not None:
         c_store, c_curt = _kw_floor(commit.get("storage_mw", 0)), _kw_floor(commit.get("curtailment_mw", 0))
@@ -170,6 +196,7 @@ def build_evidence(plan, physics, site, snapshot=None, *, as_of=None, commitment
         "n1_pass": bool(physics["n1_pass"]),
         "violation_count": len(viol),
         "first_violation": viol[0] if viol else "",
+        "firm_only_violations": bool(viol) and all("headroom_mw_n1_firm" in str(v) for v in viol),
         "committed_storage_kw": c_store,
         "committed_curtailment_kw": c_curt,
         "commitment_source": c_src,
@@ -180,8 +207,98 @@ def build_evidence(plan, physics, site, snapshot=None, *, as_of=None, commitment
         "lead_reconductor_days": int(p["lead_reconductor_days"]),
         "row_permit_granted": bool(perm.get("row_granted", False)),
         "curtail_cap_permille": int(p["curtail_cap_permille"]),
+        "storage_duration_h": int(p["storage_duration_h"]),
+        "max_storage_kw": _kw_floor(p["max_storage_mw"]),
     }
+    ev.update(_firm_evidence(plan, snapshot))
+    ev.update(_bank_evidence(plan, site, snapshot))
+    # Astra #4: bind the canonical plan (site_id, every split id incl. feeder/bank ids, flex), the snapshot
+    # used, the physics result and the rule/model version into the hashed evidence.
+    ev.update({
+        "plan_site_id": str(plan.get("site_id", "")),
+        "plan_sha256": _sha({k: v for k, v in plan.items() if k != "search"}),
+        "snapshot_sha256": _sha(snapshot) if snapshot is not None else "",
+        "headroom_ids": sorted(str(i) for i in heads if i in {s["substation_id"] for s in plan["splits"]}),
+        "physics_sha256": _sha(physics),
+        "rule_version": RULE_VERSION,
+    })
     return ev
+
+
+def _firm_evidence(plan, snapshot):
+    """N-1 firm headroom per split (snapshot kwarg first, else the candidate_plan split copy)."""
+    firm = {}
+    if snapshot is not None:
+        firm = {s["id"]: s.get("headroom_mw_n1_firm") for s in snapshot.get("substations", [])}
+    out = []
+    for s in plan["splits"]:
+        f = firm.get(s["substation_id"], s.get("headroom_mw_n1_firm"))
+        out.append({"substation_id": s["substation_id"], "firm_known": f is not None,
+                    "firm_kw": _kw_floor(f) if f is not None else 0})
+    return {"firm": out}
+
+
+def _firm_gap(e):
+    """-> (net kW over firm across splits, extra relief kW needed to close it, negotiable relief kW available)."""
+    req = e["requested_kw"]
+    over, need = 0, 0
+    for s, f in zip(e["splits"], e.get("firm", [])):
+        if not f["firm_known"] or s["kw"] == 0:
+            continue
+        over += max(0, s.get("net_kw", s["kw"]) - f["firm_kw"])
+        # relief R scales each split by (1 - R/req): need kw*(1-R/req) <= firm  ->  R >= req*(1-firm/kw)
+        need = max(need, math.ceil(req * (1 - f["firm_kw"] / s["kw"])))
+    have = e["storage_kw"] + e["curtailment_kw"]
+    avail = max(0, min(req * e["curtail_cap_permille"] // 1000, req) - e["curtailment_kw"]) \
+        + max(0, e.get("max_storage_kw", 0) - e["storage_kw"])
+    return over, max(0, need - have), avail
+
+
+def _sha(obj):
+    return hashlib.sha256(json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=True,
+                                     default=str).encode("ascii")).hexdigest()
+
+
+def _bank_evidence(plan, site, snapshot):
+    """Astra #2 BANK rule inputs: MW on feeders sharing a transformer bank vs that bank's cap.
+
+    Splits that name a feeder_id or bank_id are distribution splits. Bank/feeder data come from
+    snapshot['banks'/'feeders'] when present, else data/l2/l3_inputs.json. The feeder's sourced bank_id
+    wins over a plan-claimed one. Gross split MW is compared, because cap_mw_by_curtailment_pct already
+    credits curtailment c (subtracting it again would double count)."""
+    dist = [s for s in plan["splits"] if s.get("feeder_id") or s.get("bank_id")]
+    if not dist:
+        return {"banks": [], "bank_source": "none (no distribution splits)", "bank_curtail_pct": 0}
+    src = snapshot if snapshot is not None and snapshot.get("banks") else None
+    label = "snapshot banks"
+    if src is None:
+        try:
+            src = json.loads(L3_INPUTS.read_text(encoding="utf-8"))
+            label = L3_INPUTS.relative_to(ROOT).as_posix()
+        except (OSError, ValueError):
+            src, label = {}, "none (no bank data found)"
+    feeders = {str(f["feeder_id"]): f for f in src.get("feeders", [])}
+    caps = {str(b["bank_id"]): b.get("cap_mw_by_curtailment_pct") or {} for b in src.get("banks", [])}
+    flex = plan["flex"]
+    pct = flex.get("curtailment_pct")
+    if pct is None:
+        req = float(site["requested_mw"])
+        pct = 100.0 * float(flex["curtailment_mw"]) / req if req > 0 else 0.0
+    by_bank = {}
+    for s in dist:
+        f = feeders.get(str(s.get("feeder_id", "")))
+        bid = str((f or {}).get("bank_id") or s.get("bank_id") or f"unknown-bank(feeder {s.get('feeder_id')})")
+        by_bank[bid] = by_bank.get(bid, 0) + _kw_round(s["mw"])
+    banks = []
+    for bid, kw in sorted(by_bank.items()):
+        table = caps.get(bid, {})
+        # conservative: the largest listed curtailment level not above the plan's curtailment
+        keys = [k for k in table if float(k) <= float(pct) + 1e-9]
+        key = max(keys, key=float) if keys else None
+        known = key is not None and table[key] is not None
+        banks.append({"bank_id": bid, "kw": kw, "cap_known": known,
+                      "cap_kw": _kw_floor(table[key]) if known else 0, "cap_curtail_pct": key or ""})
+    return {"banks": banks, "bank_source": label, "bank_curtail_pct": round(float(pct), 3)}
 
 
 def canonical(evidence):
@@ -211,7 +328,9 @@ def _uplift(e):
 
 
 def _split_fits(e, s):
-    return s["headroom_known"] and s["kw"] * 1000 <= s["headroom_kw"] * (1000 + _uplift(e))
+    # Astra #6: net load (quantum/load_model.net_split) vs substation headroom; DLR uplifts lines only, so no
+    # uplift here. PYTHON-ONLY change: lean/QSiteProof/Basic.lean still checks gross kw with uplift (unbuilt).
+    return s["headroom_known"] and s.get("net_kw", s["kw"]) <= s["headroom_kw"]
 
 
 def _distinct(ids):
@@ -343,6 +462,80 @@ def _detail(name, e):
     raise KeyError(name)
 
 
+def _extra_holds(name, e):
+    if name == "bank":
+        return all(b["cap_known"] and b["kw"] <= b["cap_kw"] for b in e.get("banks", []))
+    if name == "storage_relief":
+        return e["storage_kw"] + e["curtailment_kw"] <= e["requested_kw"]
+    if name == "evidence_binding":
+        return e.get("plan_site_id", "") in ("", e["site_id"])
+    if name == "firm_n1":
+        return _firm_gap(e)[0] == 0
+    raise KeyError(name)
+
+
+def _extra_detail(name, e):
+    if name == "bank":
+        for b in e.get("banks", []):
+            if not b["cap_known"]:
+                return f"bank {b['bank_id']} has no cap at curtailment {e['bank_curtail_pct']}% ({e['bank_source']})"
+            if b["kw"] > b["cap_kw"]:
+                return (f"bank {b['bank_id']} feeders carry {_mw(b['kw'])} > bank cap {_mw(b['cap_kw'])} "
+                        f"at curtailment {b['cap_curtail_pct']}% ({e['bank_source']})")
+        if not e.get("banks"):
+            return "no feeder/bank splits; bank rule not applicable (transmission splits only)"
+        return f"{len(e['banks'])} bank(s): MW on shared-bank feeders <= bank cap ({e['bank_source']})"
+    if name == "storage_relief":
+        relief = e["storage_kw"] + e["curtailment_kw"]
+        mwh = e["storage_kw"] * e["storage_duration_h"]
+        energy = (f"; storage energy obligation {_mw(mwh).replace(' MW', ' MWh')} "
+                  f"({_mw(e['storage_kw'])} x {e['storage_duration_h']} h ASSUMED duration, charged before each window)"
+                  if e["storage_kw"] else "; no storage")
+        if relief > e["requested_kw"]:
+            return f"storage+curtailment relief {_mw(relief)} > requested load {_mw(e['requested_kw'])}{energy}"
+        return f"relief {_mw(relief)} <= requested load {_mw(e['requested_kw'])}{energy}"
+    if name == "firm_n1":
+        over, extra, avail = _firm_gap(e)
+        if over == 0:
+            return "every split's net MW <= its N-1 firm headroom (headroom_mw_n1_firm), where known"
+        if extra <= avail:
+            return (f"net load exceeds firm N-1 capacity by {_mw(over)}; closable with {_mw(extra)} more "
+                    f"storage/curtailment (negotiable levers available {_mw(avail)}: curtailment within "
+                    f"{_pct(e['curtail_cap_permille'])} cap, storage within {_mw(e.get('max_storage_kw', 0))} ASSUMED)")
+        return (f"exceeds firm N-1 capacity of the candidate substations by {_mw(over)}; closing it needs "
+                f"{_mw(extra)} more relief > {_mw(avail)} negotiable levers available")
+    if name == "evidence_binding":
+        if not _extra_holds(name, e):
+            return f"plan site_id {e['plan_site_id']!r} != site id {e['site_id']!r}"
+        return (f"plan sha256 {e['plan_sha256'][:12]}, physics sha256 {e['physics_sha256'][:12]}, "
+                f"snapshot sha256 {e['snapshot_sha256'][:12] or 'n/a'}, {e['rule_version'].split(':')[0]}")
+    raise KeyError(name)
+
+
+def _verdict(checks, e=None):
+    """Astra #2: GREEN if all pass; AMBER if every failing check is negotiable (conditions[] say what turns
+    it GREEN); RED if any hard check fails (blocking_condition = first failing hard check)."""
+    firm_ok = e is not None and _firm_gap(e)[0] > 0 and _firm_gap(e)[1] <= _firm_gap(e)[2]
+    for c in checks:
+        c["tag"] = TAGS.get(c["name"], "hard")
+        # firm-N-1 gap closable by negotiable flex -> firm_n1 negotiable; physics n1 too, but only when every
+        # physics violation is a firm transformer (headroom_mw_n1_firm) one
+        if firm_ok and c["name"] == "firm_n1":
+            c["tag"] = "negotiable"
+        if firm_ok and c["name"] == "n1" and e["violation_count"] > 0 and e.get("firm_only_violations"):
+            c["tag"] = "negotiable"
+    fails = [c for c in checks if not c["pass"]]
+    hard = [c for c in fails if c["tag"] == "hard"]
+    if not fails:
+        return "GREEN", None, []
+    first = hard[0] if hard else fails[0]
+    if e is not None and first["name"] == "n1" and e.get("firm_only_violations"):
+        # physics N-1 failed only on firm transformer headroom: name the quantified firm gap instead
+        first = next((c for c in hard if c["name"] == "firm_n1"), first)
+    conds = [f"{c['name']}: {CONDITIONS.get(c['name'], 'resolve')} ({c['detail']})" for c in fails if c["tag"] != "hard"]
+    return ("RED" if hard else "AMBER"), f"{first['name']}: {first['detail']}", conds
+
+
 def mirror_report(e):
     """Python mirror of `QSiteProof.report` + `reportJson` (without engine/lean_version)."""
     checks = [{"name": n, "pass": bool(_holds(n, e)), "detail": _detail(n, e)} for n in ORDER]
@@ -410,7 +603,8 @@ def _assumption_note(ev):
             f"of requested; loading limit {_pct(ev['loading_limit_permille'])}, voltage band "
             f"{_pu(ev['v_lo_pu4'])}-{_pu(ev['v_hi_pu4'])} pu; DLR headroom uplift {_pct(ev['dlr_headroom_uplift_permille'])}; "
             f"flex commitment: {ev['commitment_source']}; ROW permit granted: {str(ev['row_permit_granted']).lower()}; "
-            f"as-of {ev['as_of']}; headroom from {ev['headroom_source']}.")
+            f"as-of {ev['as_of']}; headroom from {ev['headroom_source']}; storage duration {ev['storage_duration_h']} h "
+            f"(energy obligation = storage MW x duration); net load per quantum/load_model.py; rules {ev['rule_version']}.")
 
 
 def certify(plan, physics, site, snapshot=None, *, as_of=None, commitment=None, permits=None,
@@ -452,9 +646,13 @@ def certify(plan, physics, site, snapshot=None, *, as_of=None, commitment=None, 
             (OUT_DIR / f"evidence-{digest[:16]}.json").write_text(canonical(ev), encoding="ascii")
         except OSError:
             pass
-    scope = (f"{how} Obligations in order: {', '.join(ORDER)}. Evidence sha256: {digest} "
+    checks = [dict(c) for c in rep["checks"]] + [
+        {"name": n, "pass": bool(_extra_holds(n, ev)), "detail": _extra_detail(n, ev)} for n in EXTRA_ORDER]
+    result, blocking, conds = _verdict(checks, ev)
+    scope = (f"{how} Obligations in order: {', '.join(ORDER)}; then (python layer, not yet in Lean) "
+             f"{', '.join(EXTRA_ORDER)}. Verdict: RED if a hard rule fails, AMBER if only negotiable rules fail. Evidence sha256: {digest} "
              f"(canonical JSON, sorted keys). {_assumption_note(ev)} {SCOPE_TAIL}")
-    return {"checks": rep["checks"], "result": rep["result"], "blocking_condition": rep["blocking_condition"],
+    return {"checks": checks, "result": result, "blocking_condition": blocking, "conditions": conds,
             "scope_note": scope, "engine": engine_used, "evidence_sha256": digest, "evidence": ev}
 
 

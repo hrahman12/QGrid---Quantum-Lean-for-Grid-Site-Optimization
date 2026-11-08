@@ -1,18 +1,15 @@
 """Cheap feasibility predicate over the plan space: the 'marking' rule that Grover's phase oracle flips.
 
-    marked(plan)  <=>  for every candidate substation i:
-                           split_i * net_factor  <=  headroom_mw_i * dlr_factor
+    marked(plan)  <=>  storage + curtailment <= requested, and for every candidate substation i:
+                           net_split(split_i)  <=  headroom_mw_i      (quantum/load_model.py, shared with certify)
                        and the plan does not violate any constraint fed back from Lean.
 
     net_factor  = max(0, 1 - (storage_mw + curtailment_mw) / requested_mw)
                   (storage and curtailment cut the site load pro rata across splits, same convention as
                   grid/physics.py)
-    dlr_factor  = 1 + dlr_uplift_pct/100 when the plan uses DLR, else 1. dlr_uplift_pct is taken from the
-                  substation entry if it has one, else from snapshot['dlr_uplift_pct'], else 0 (and the
-                  oracle says so in `notes`).
-                  CAUTION: data/l2 defines DLR as an uplift on LINE ratings, not on transformer headroom.
-                  Raising substation headroom by it here is a deliberately optimistic screening shortcut;
-                  the pandapower check is what decides.
+    DLR: dlr_uplift_pct is still recorded (substation entry, else snapshot['dlr_uplift_pct'], else 0) but,
+                  since Astra #6, it is NOT applied to substation headroom: data/l2 defines DLR on LINE
+                  ratings only, and lean/certify.py uses the same rule. The pandapower check decides lines.
 
 This predicate is the cheap screen only. The expensive 'verification cycle' runs afterwards on the one
 chosen plan: grid.physics.check (pandapower AC power flow incl. N-1) and then lean.certify. A marked plan
@@ -33,12 +30,16 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field
 
+from .load_model import net_split
 from .space import Plan, PlanSpace
 
 
 @dataclass
 class ConstraintSet:
     excluded_substations: set[str] = field(default_factory=set)
+    # substation id -> MW cap taken from a blocking condition ("> firm headroom 19.9 MW"): restricts the
+    # offending allocation instead of excluding the whole substation (orchestrator, firm N-1 caps)
+    capped_substations: dict[str, float] = field(default_factory=dict)
     require_dlr: bool = False
     forbid_dlr: bool = False
     forbid_storage: bool = False
@@ -62,6 +63,12 @@ def parse_constraints(constraints, substations) -> ConstraintSet:
     for c in constraints or []:
         text = str(c)
         hit = [s["id"] for s in substations if _mentions(text, s)]
+        cap = re.search(r">\s*(?:firm\s+)?headroom\s+([\d.]+)\s*MW", text)
+        if hit and cap:
+            for h in hit:
+                cs.capped_substations[h] = min(float(cap.group(1)), cs.capped_substations.get(h, float("inf")))
+            cs.interpretations.append({"constraint": text, "effect": f"cap net MW on {hit} at {cap.group(1)} MW"})
+            continue
         if hit:
             cs.excluded_substations.update(hit)
             cs.interpretations.append({"constraint": text, "effect": f"exclude plans loading {hit}"})
@@ -107,18 +114,30 @@ class Oracle:
         if src is None:
             self.notes.append("snapshot has no dlr_uplift_pct: DLR uplift taken as 0% (DLR plans gain nothing)")
         else:
-            self.notes.append(f"DLR uplift {sorted(set(self.dlr_uplift_pct))}% from {src}; applied to substation "
-                              "headroom as a screening shortcut (L2 defines it on line ratings)")
+            self.notes.append(f"DLR uplift {sorted(set(self.dlr_uplift_pct))}% from {src}; NOT applied to substation "
+                              "headroom (L2 defines it on line ratings; shared quantum/load_model.py semantics)")
         self.calls = 0
+
+    def limit_mw(self, s: dict) -> float:
+        """Per-substation MW limit: headroom, the N-1 firm headroom when the snapshot has it (grid/physics.py
+        fails N-1 above it), and any cap fed back from a blocking condition -- whichever is smallest."""
+        lims = [float(s["headroom_mw"])]
+        if s.get("headroom_mw_n1_firm") is not None:
+            lims.append(float(s["headroom_mw_n1_firm"]))
+        if s["id"] in self.constraints.capped_substations:
+            lims.append(self.constraints.capped_substations[s["id"]])
+        return min(lims)
 
     def margins(self, plan: Plan) -> list[float]:
         """Per candidate substation: (effective capacity - effective load) / effective capacity."""
         sp = self.space
-        net = max(0.0, 1.0 - (plan.storage_mw + sp.curtail_mw(plan)) / sp.requested_mw)
         out = []
-        for s, mw, up in zip(sp.substations, sp.split_mw(plan), self.dlr_uplift_pct):
-            cap = float(s["headroom_mw"]) * ((1 + up / 100.0) if plan.dlr else 1.0)
-            out.append((cap - mw * net) / cap if cap > 0 else float("-inf"))
+        for s, mw in zip(sp.substations, sp.split_mw(plan)):
+            # Astra #6: shared net-load model with lean/certify.py; DLR uplifts line ratings only, so
+            # substation headroom is NOT raised by DLR here (was an optimistic screening shortcut).
+            cap = self.limit_mw(s)
+            load = net_split(mw, sp.requested_mw, plan.storage_mw, sp.curtail_mw(plan))
+            out.append((cap - load) / cap if cap > 0 else float("-inf"))
         return out
 
     def __call__(self, plan_or_index) -> bool:
@@ -128,6 +147,9 @@ class Oracle:
         if (cs.require_dlr and not plan.dlr) or (cs.forbid_dlr and plan.dlr):
             return False
         if (cs.forbid_storage and plan.storage_mw > 0) or (cs.forbid_curtailment and plan.curtail_pct > 0):
+            return False
+        # Astra #5: storage + curtailment relief above the requested load is not credible (certify fails it)
+        if plan.storage_mw + self.space.curtail_mw(plan) > self.space.requested_mw + 1e-9:
             return False
         for s, q in zip(self.space.substations, plan.quarters):
             if q and s["id"] in cs.excluded_substations:
