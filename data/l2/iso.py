@@ -16,6 +16,7 @@ budget) and falls back to the newest cache file; set QSP_OFFLINE=1 to skip the l
 CLI: python data/l2/iso.py [--refresh] [--offline]
 """
 import concurrent.futures as cf
+import json
 import os
 import sys
 from datetime import datetime, timezone
@@ -73,6 +74,23 @@ def stress_hours(df, col=PRICE_COL, q=0.9):
             "mean_hours_per_day": round(float(per_day.mean()), 2)}
 
 
+def stress_2025(window="net_load_top2pct"):
+    """2025 CISO curtailment window from data/l2/ciso_2025_stress.json (EIA-930, event pack).
+
+    Default is net load (demand - solar - wind) top 2%: the evening-ramp hours, ~98% availability.
+    Returns None if the file is missing so latest_signal still works.
+    """
+    p = HERE / "ciso_2025_stress.json"
+    if not p.exists():
+        return None
+    d = json.loads(p.read_text(encoding="utf-8"))
+    w = d["curtailment_windows"][window]
+    return {"window": window, "availability_if_curtailed_pct": w["availability_if_curtailed_pct"],
+            "hours_per_year": w["hours_per_year"], "threshold_mw": w["threshold_mw"],
+            "hours_by_month": w["hours_by_month"], "time_convention": d["time_convention"],
+            "source": "data/l2/ciso_2025_stress.json"}
+
+
 def _point(df, now=None):
     now = pd.Timestamp(now or datetime.now(timezone.utc))
     now = now.tz_localize("UTC") if now.tzinfo is None else now.tz_convert("UTC")
@@ -113,6 +131,7 @@ def latest_signal(iso="CAISO", live=None, now=None):
         "lmp_node": NODES[PRICE_COL] + " (day-ahead hourly)",
         "lmp_pge_dlap": None if pd.isna(row["lmp_pge_dlap_da"]) else round(float(row["lmp_pge_dlap_da"]), 2),
         "stress": stress_hours(df),
+        "stress_2025": stress_2025(),
         "cache_file": f"data/l2/{path.name}",
     }
     if note:
@@ -121,7 +140,7 @@ def latest_signal(iso="CAISO", live=None, now=None):
 
 
 if __name__ == "__main__":
-    import json
+
 
     if "--refresh" in sys.argv:
         p, d = refresh_cache()

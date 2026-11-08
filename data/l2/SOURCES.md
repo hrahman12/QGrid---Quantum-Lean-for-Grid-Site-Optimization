@@ -55,3 +55,15 @@ Caveat: the CAISO queue holds generation and storage requests only. Data-center 
 | Stress hours = hours per day above the 7-day 90th-percentile NP15 price | Derived | from the cached CSV |
 
 Refresh: `.venv/bin/python data/l2/iso.py --refresh`. Cache pulled 2026-11-08: 168 hourly rows (2026-11-02 to 2026-11-08 PT).
+
+## ciso_2025_stress.json (2025 curtailment windows)
+
+Rebuild offline with `.venv/bin/python data/l2/build_ciso_stress.py`. `iso.latest_signal()` returns the default window as `stress_2025`.
+
+| What | Status | Source |
+|---|---|---|
+| CAISO (CISO) hourly demand, solar and wind, 2025 | SOURCED | US EIA Form 930 through the hack-day event pack, [`us_grid_hourly_2025.csv`](https://github.com/arhamshah08/energy-hack/blob/main/data/grid-hourly-2025/us_grid_hourly_2025.csv), `ba == CISO`, 8,760 rows; cached in `cache/ciso_hourly_2025_eia930.csv` (public domain) |
+| Stress = top 2% (and 5%) of 2025 hours by demand and by net load (demand - solar - wind) | Derived | Top 2% = 176 h/yr = 97.99% availability, matching the organizers' "~98% availability" framing |
+| Month and hour cells | Derived | Local (Pacific) month 1-12 and hour-beginning 0-23, the same convention as GRIP `limiting_month` / `limiting_hour` |
+
+2025 result: the net-load top 2% falls on evenings from May to September (mostly 18:00-23:00, peaking in August and September). The demand top 2% falls in July to September, 17:00-21:00. This is system-level CAISO stress; pair it with the GRIP feeder limiting hour for local stress. EIA-930 has no prices, so these windows come from load, not price.

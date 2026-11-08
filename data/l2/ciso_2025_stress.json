@@ -1,0 +1,696 @@
+{
+  "ba": "CISO",
+  "year": 2025,
+  "source": "US EIA Form 930 via the SF x MIT Hack Day Energy pack, https://github.com/arhamshah08/energy-hack/blob/main/data/grid-hourly-2025/us_grid_hourly_2025.csv (ba == CISO), cached as data/l2/cache/ciso_hourly_2025_eia930.csv",
+  "time_convention": "month 1-12 and hour 0-23 are local (Pacific) hour-beginning, matching GRIP limiting_month/limiting_hour",
+  "stress_definition": "hours in the top X% of the year by the metric; no prices in EIA-930",
+  "demand_mw_percentiles": {
+    "50": 24886.5,
+    "90": 31205.3,
+    "95": 33780.8,
+    "98": 36425.4,
+    "99": 38013.5
+  },
+  "demand_peak_mw": 43860.0,
+  "curtailment_windows": {
+    "demand_top2pct": {
+      "metric": "demand_mw",
+      "top_share": 0.02,
+      "availability_if_curtailed_pct": 97.99,
+      "hours_per_year": 176,
+      "threshold_mw": 36429.0,
+      "days_with_stress": 35,
+      "max_stress_hours_in_one_day": 13,
+      "months": [
+        7,
+        8,
+        9
+      ],
+      "hours_by_month": {
+        "7": [
+          18,
+          19,
+          20,
+          21,
+          22
+        ],
+        "8": [
+          11,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22
+        ],
+        "9": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22
+        ]
+      },
+      "cells": [
+        {
+          "month": 8,
+          "hour": 19,
+          "hours": 20
+        },
+        {
+          "month": 8,
+          "hour": 18,
+          "hours": 19
+        },
+        {
+          "month": 8,
+          "hour": 20,
+          "hours": 18
+        },
+        {
+          "month": 8,
+          "hour": 21,
+          "hours": 13
+        },
+        {
+          "month": 8,
+          "hour": 17,
+          "hours": 12
+        },
+        {
+          "month": 9,
+          "hour": 18,
+          "hours": 11
+        },
+        {
+          "month": 9,
+          "hour": 19,
+          "hours": 10
+        },
+        {
+          "month": 9,
+          "hour": 20,
+          "hours": 8
+        },
+        {
+          "month": 9,
+          "hour": 16,
+          "hours": 7
+        },
+        {
+          "month": 9,
+          "hour": 17,
+          "hours": 7
+        },
+        {
+          "month": 8,
+          "hour": 16,
+          "hours": 7
+        },
+        {
+          "month": 8,
+          "hour": 22,
+          "hours": 6
+        },
+        {
+          "month": 9,
+          "hour": 21,
+          "hours": 5
+        },
+        {
+          "month": 9,
+          "hour": 15,
+          "hours": 4
+        },
+        {
+          "month": 7,
+          "hour": 19,
+          "hours": 4
+        },
+        {
+          "month": 9,
+          "hour": 13,
+          "hours": 3
+        },
+        {
+          "month": 7,
+          "hour": 20,
+          "hours": 3
+        },
+        {
+          "month": 9,
+          "hour": 22,
+          "hours": 3
+        },
+        {
+          "month": 7,
+          "hour": 18,
+          "hours": 2
+        },
+        {
+          "month": 8,
+          "hour": 14,
+          "hours": 2
+        },
+        {
+          "month": 9,
+          "hour": 11,
+          "hours": 2
+        },
+        {
+          "month": 9,
+          "hour": 14,
+          "hours": 2
+        },
+        {
+          "month": 9,
+          "hour": 12,
+          "hours": 2
+        },
+        {
+          "month": 8,
+          "hour": 15,
+          "hours": 2
+        },
+        {
+          "month": 8,
+          "hour": 11,
+          "hours": 1
+        },
+        {
+          "month": 7,
+          "hour": 22,
+          "hours": 1
+        },
+        {
+          "month": 7,
+          "hour": 21,
+          "hours": 1
+        },
+        {
+          "month": 9,
+          "hour": 10,
+          "hours": 1
+        }
+      ]
+    },
+    "net_load_top2pct": {
+      "metric": "net_load_mw",
+      "top_share": 0.02,
+      "availability_if_curtailed_pct": 97.99,
+      "hours_per_year": 176,
+      "threshold_mw": 30671.0,
+      "days_with_stress": 52,
+      "max_stress_hours_in_one_day": 7,
+      "months": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "hours_by_month": {
+        "5": [
+          20,
+          21,
+          22
+        ],
+        "6": [
+          20,
+          21
+        ],
+        "7": [
+          20,
+          21,
+          22
+        ],
+        "8": [
+          0,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ],
+        "9": [
+          0,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ]
+      },
+      "cells": [
+        {
+          "month": 8,
+          "hour": 21,
+          "hours": 22
+        },
+        {
+          "month": 8,
+          "hour": 20,
+          "hours": 21
+        },
+        {
+          "month": 9,
+          "hour": 21,
+          "hours": 16
+        },
+        {
+          "month": 8,
+          "hour": 22,
+          "hours": 16
+        },
+        {
+          "month": 9,
+          "hour": 20,
+          "hours": 16
+        },
+        {
+          "month": 9,
+          "hour": 19,
+          "hours": 14
+        },
+        {
+          "month": 8,
+          "hour": 19,
+          "hours": 14
+        },
+        {
+          "month": 9,
+          "hour": 22,
+          "hours": 13
+        },
+        {
+          "month": 8,
+          "hour": 23,
+          "hours": 10
+        },
+        {
+          "month": 7,
+          "hour": 21,
+          "hours": 8
+        },
+        {
+          "month": 9,
+          "hour": 23,
+          "hours": 5
+        },
+        {
+          "month": 6,
+          "hour": 21,
+          "hours": 5
+        },
+        {
+          "month": 9,
+          "hour": 18,
+          "hours": 3
+        },
+        {
+          "month": 8,
+          "hour": 18,
+          "hours": 3
+        },
+        {
+          "month": 7,
+          "hour": 20,
+          "hours": 2
+        },
+        {
+          "month": 9,
+          "hour": 0,
+          "hours": 2
+        },
+        {
+          "month": 5,
+          "hour": 20,
+          "hours": 1
+        },
+        {
+          "month": 5,
+          "hour": 21,
+          "hours": 1
+        },
+        {
+          "month": 5,
+          "hour": 22,
+          "hours": 1
+        },
+        {
+          "month": 6,
+          "hour": 20,
+          "hours": 1
+        },
+        {
+          "month": 7,
+          "hour": 22,
+          "hours": 1
+        },
+        {
+          "month": 8,
+          "hour": 0,
+          "hours": 1
+        }
+      ]
+    },
+    "demand_top5pct": {
+      "metric": "demand_mw",
+      "top_share": 0.05,
+      "availability_if_curtailed_pct": 95.0,
+      "hours_per_year": 438,
+      "threshold_mw": 33796.0,
+      "days_with_stress": 66,
+      "max_stress_hours_in_one_day": 15,
+      "months": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "hours_by_month": {
+        "5": [
+          17,
+          18,
+          19,
+          20,
+          21
+        ],
+        "6": [
+          17,
+          18,
+          19,
+          20,
+          21,
+          22
+        ],
+        "7": [
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ],
+        "8": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ],
+        "9": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ]
+      },
+      "cells": [
+        {
+          "month": 8,
+          "hour": 19,
+          "hours": 27
+        },
+        {
+          "month": 8,
+          "hour": 20,
+          "hours": 27
+        },
+        {
+          "month": 8,
+          "hour": 18,
+          "hours": 27
+        },
+        {
+          "month": 8,
+          "hour": 21,
+          "hours": 24
+        },
+        {
+          "month": 8,
+          "hour": 17,
+          "hours": 22
+        },
+        {
+          "month": 8,
+          "hour": 22,
+          "hours": 20
+        },
+        {
+          "month": 9,
+          "hour": 19,
+          "hours": 16
+        },
+        {
+          "month": 9,
+          "hour": 18,
+          "hours": 16
+        },
+        {
+          "month": 8,
+          "hour": 16,
+          "hours": 15
+        },
+        {
+          "month": 9,
+          "hour": 20,
+          "hours": 15
+        },
+        {
+          "month": 9,
+          "hour": 17,
+          "hours": 14
+        },
+        {
+          "month": 7,
+          "hour": 20,
+          "hours": 14
+        },
+        {
+          "month": 7,
+          "hour": 19,
+          "hours": 14
+        },
+        {
+          "month": 9,
+          "hour": 21,
+          "hours": 12
+        },
+        {
+          "month": 9,
+          "hour": 16,
+          "hours": 11
+        },
+        {
+          "month": 8,
+          "hour": 10,
+          "hours": 11
+        },
+        {
+          "month": 8,
+          "hour": 15,
+          "hours": 10
+        },
+        {
+          "month": 8,
+          "hour": 12,
+          "hours": 9
+        },
+        {
+          "month": 9,
+          "hour": 14,
+          "hours": 8
+        },
+        {
+          "month": 9,
+          "hour": 15,
+          "hours": 8
+        },
+        {
+          "month": 8,
+          "hour": 11,
+          "hours": 8
+        },
+        {
+          "month": 8,
+          "hour": 13,
+          "hours": 7
+        },
+        {
+          "month": 9,
+          "hour": 12,
+          "hours": 7
+        },
+        {
+          "month": 9,
+          "hour": 22,
+          "hours": 7
+        },
+        {
+          "month": 9,
+          "hour": 13,
+          "hours": 7
+        },
+        {
+          "month": 6,
+          "hour": 20,
+          "hours": 7
+        },
+        {
+          "month": 6,
+          "hour": 19,
+          "hours": 7
+        },
+        {
+          "month": 7,
+          "hour": 21,
+          "hours": 7
+        },
+        {
+          "month": 8,
+          "hour": 14,
+          "hours": 7
+        },
+        {
+          "month": 8,
+          "hour": 23,
+          "hours": 6
+        },
+        {
+          "month": 7,
+          "hour": 18,
+          "hours": 6
+        },
+        {
+          "month": 9,
+          "hour": 11,
+          "hours": 5
+        },
+        {
+          "month": 6,
+          "hour": 21,
+          "hours": 4
+        },
+        {
+          "month": 7,
+          "hour": 22,
+          "hours": 4
+        },
+        {
+          "month": 8,
+          "hour": 9,
+          "hours": 4
+        },
+        {
+          "month": 6,
+          "hour": 18,
+          "hours": 3
+        },
+        {
+          "month": 7,
+          "hour": 17,
+          "hours": 3
+        },
+        {
+          "month": 9,
+          "hour": 23,
+          "hours": 3
+        },
+        {
+          "month": 9,
+          "hour": 10,
+          "hours": 3
+        },
+        {
+          "month": 5,
+          "hour": 19,
+          "hours": 2
+        },
+        {
+          "month": 7,
+          "hour": 16,
+          "hours": 2
+        },
+        {
+          "month": 5,
+          "hour": 20,
+          "hours": 2
+        },
+        {
+          "month": 6,
+          "hour": 22,
+          "hours": 1
+        },
+        {
+          "month": 5,
+          "hour": 21,
+          "hours": 1
+        },
+        {
+          "month": 6,
+          "hour": 17,
+          "hours": 1
+        },
+        {
+          "month": 5,
+          "hour": 17,
+          "hours": 1
+        },
+        {
+          "month": 5,
+          "hour": 18,
+          "hours": 1
+        },
+        {
+          "month": 7,
+          "hour": 23,
+          "hours": 1
+        },
+        {
+          "month": 9,
+          "hour": 9,
+          "hours": 1
+        }
+      ]
+    }
+  },
+  "note": "System-level CAISO stress, not feeder-level. Pair with GRIP feeder limiting month/hour for local stress. Directional, not a utility curtailment agreement."
+}
