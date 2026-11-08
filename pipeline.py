@@ -71,7 +71,8 @@ def plan_summary(plan):
 
 
 def run(site_path=None, out_root=None, rounds=5):
-    site = json.loads(Path(site_path).read_text(encoding="utf-8")) if site_path else fixture("site")
+    site_path = site_path or ("data/l1/site.json" if (ROOT / "data/l1/site.json").exists() else None)
+    site = json.loads((ROOT / site_path).read_text(encoding="utf-8")) if site_path else fixture("site")
     sources = {"site": site_path or "FIXTURE"}
     out = {"site": site}
 
