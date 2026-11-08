@@ -110,7 +110,8 @@ def main():
                         "top_argument": r["top_opposition_arguments"][0]["item"]})
     (out / "summary.json").write_text(json.dumps({"engine": "MiroFish-style fallback, not MiroFish",
                                                   "repo_baseline_consent": seed["consent_score_repo"],
-                                                  "social_files_used": seed["social_files_used"],
+                                                  "social_files_found_not_used": seed["social_files_found_not_used"],
+                                                  "compare_against": "S0 (S0 drifts from the repo 0.469 because averaging pulls opposed groups toward the middle)",
                                                   "scenarios": summary}, indent=1), encoding="utf-8")
     print("| scenario | support/neutral/oppose | mean | residents | council | env | PG&E | approval proxy | top argument |")
     print("|---|---|---|---|---|---|---|---|---|")

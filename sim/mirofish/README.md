@@ -34,7 +34,7 @@ Standard library only. The RNG seed is fixed, so runs are deterministic.
 - `data/shared/socio/alviso.json`: 11 consent items covering news, policy and public sentiment.
 - `data/l2/site_risk.json`: flood zone AE.
 - The `STATUS.md` grid headline: 150 MW at transmission is RED; 16 to 38.7 MW fits at distribution.
-- `data/shared/social/*.json` is picked up when present. It was not on `main` or `origin/orch-social` at build time, so this run uses `alviso.json` only. See `social_files_used` in `summary.json`.
+- `data/shared/social/*.json` was not on `main`, `origin/orch-social` or `origin/orch-socio` at build time, so this run uses `alviso.json` only. If those files exist, `build_seed.py` copies them into `seed.json` for provenance (`social_files_found_not_used`), but `run_sim.py` does not use them yet because their schema was unknown at build time. Next step: load `ACTORS` and `LISTENS` from `stakeholders.json`.
 
 **Agents**
 - 38 agents in 10 stakeholder groups: residents, environmental/water advocates, r/sanjose commenters, City Council, Mayor, Planning, PG&E, CPUC/ratepayer advocates, labor and the developer.
@@ -90,6 +90,8 @@ All 38 agents. The group columns show each group's mean final stance on a scale 
 - S1 does the most for residents and labor.
 - Only S4 (all levers) removes every opposing agent. The remaining top argument in S4 is the national opposition backdrop, which is context the local levers cannot change.
 
+Compare scenarios against S0, not against the repo's 0.469. With no engagement, S0 still drifts to 0.475 because the averaging pulls opposed groups toward the middle.
+
 ## LLM used
 
 None. No API key is used, read or stored by this code.
@@ -98,5 +100,6 @@ None. No API key is used, read or stored by this code.
 
 - These agents are rule-following numbers, not people, and not LLM personas either. This is a scenario-exploration tool, **not a forecast** of any vote or of public opinion.
 - Every stance, influence weight and lever shift is an ASSUMED analyst judgment. Change them in `build_seed.py` and re-run.
+- Lever effects are counted twice: a lever changes item weights directly, and it also moves the stances that scale those same items. S4 clearing 0.65 (0.668) depends on this, so do not read "GREEN-leaning" as a solid result.
 - The approval proxy inherits the heuristic consent formula. It is not a validated model.
 - 38 agents, 50 steps and one site. The results are sensitive to the `LISTENS` weights and stubbornness values; no sensitivity sweep was run.

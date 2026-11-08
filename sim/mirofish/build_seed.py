@@ -115,7 +115,7 @@ def main():
         "item_actors": ITEM_ACTORS,
         "levers": LEVERS,
         "scenarios": SCENARIOS,
-        "social_files_used": sorted(social),
+        "social_files_found_not_used": sorted(social),  # copied for provenance; run_sim.py does not consume them yet
         "social": social,
     }
     (HERE / "seed.json").write_text(json.dumps(seed, indent=1, ensure_ascii=False), encoding="utf-8")

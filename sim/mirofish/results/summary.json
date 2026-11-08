@@ -1,7 +1,8 @@
 {
  "engine": "MiroFish-style fallback, not MiroFish",
  "repo_baseline_consent": 0.469,
- "social_files_used": [],
+ "social_files_found_not_used": [],
+ "compare_against": "S0 (S0 drifts from the repo 0.469 because averaging pulls opposed groups toward the middle)",
  "scenarios": [
   {
    "scenario": "S0_baseline",
