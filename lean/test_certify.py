@@ -102,7 +102,7 @@ def test_green_case(engine):
         pytest.skip("Lean unavailable")
     cert = run(engine=engine)
     assert cert["result"] == "GREEN" and cert["blocking_condition"] is None
-    assert [c["name"] for c in cert["checks"]] == C.ORDER and all(c["pass"] for c in cert["checks"])
+    assert [c["name"] for c in cert["checks"]] == C.ALL_ORDER and all(c["pass"] for c in cert["checks"])
     assert cert["engine"] == ("lean4" if engine == "auto" else "python-mirror")
     assert not list(VALIDATOR.iter_errors(cert))
 
@@ -113,7 +113,9 @@ def test_red_blocking(label, kw, blocker, fragment, engine):
     if engine == "auto" and not LEAN:
         pytest.skip("Lean unavailable")
     cert = run(engine=engine, **kw)
-    assert cert["result"] == "RED"
+    # Astra #2: a lone negotiable failure (storage/permit/curtailment terms) is AMBER, not RED
+    assert cert["result"] == ("AMBER" if C.TAGS[blocker] == "negotiable" else "RED")
+    assert cert["result"] != "AMBER" or cert["conditions"]
     assert cert["blocking_condition"].startswith(blocker + ": "), cert["blocking_condition"]
     assert fragment in cert["blocking_condition"], cert["blocking_condition"]
     first_fail = next(c for c in cert["checks"] if not c["pass"])
@@ -219,3 +221,92 @@ def test_theorems_use_only_standard_axioms():
     assert "sorry" not in r.stdout
     src = " ".join(p.read_text(encoding="utf-8") for p in (C.LEAN_DIR / "QSiteProof").glob("*.lean"))
     assert "sorry" not in src and "native_decide" not in src and not re.search(r"^\s*axiom ", src, re.M)
+
+
+# ---------- Astra #2 #4 #5 #6 (python layer; not yet in lean/QSiteProof) ----------
+
+L3 = json.loads((ROOT / "data" / "l2" / "l3_inputs.json").read_text(encoding="utf-8"))
+
+
+def _bank_with_cap():
+    for b in L3["banks"]:
+        cap = b["cap_mw_by_curtailment_pct"].get("0")
+        feeds = [f for f in L3["feeders"] if f.get("bank_id") == b["bank_id"]]
+        if cap and cap > 1 and len(feeds) >= 2:
+            return b, cap, feeds
+    pytest.skip("no bank with >=2 feeders and positive cap in l3_inputs.json")
+
+
+def test_bank_rule_shared_bank_cap_is_hard():
+    b, cap, feeds = _bank_with_cap()
+    site = {**SITE, "requested_mw": round(cap + 2, 3)}
+    snap = {**SNAP, "substations": SNAP["substations"] + [
+        {"id": f["substation_id"], "name": "x", "lat": 0, "lon": 0, "kv": 12, "assumed_mva": 50, "distance_km": 1,
+         "headroom_mw": 1000.0} for f in feeds[:2]]}
+    half = round((cap + 2) / 2, 3)
+    splits = [{"substation_id": feeds[0]["substation_id"], "feeder_id": feeds[0]["feeder_id"], "mw": half},
+              {"substation_id": feeds[1]["substation_id"],
+               "feeder_id": feeds[1]["feeder_id"], "mw": round(cap + 2 - half, 3)}]
+    if splits[0]["substation_id"] == splits[1]["substation_id"]:
+        splits[1]["substation_id"] = "A"  # capacity rule forbids duplicate substations; bank is via feeder_id
+    plan = {**PLAN, "splits": splits}
+    cert = C.certify(plan, PHYS, site, snapshot=snap, as_of=AS_OF, engine="python", write_evidence=False)
+    bank = next(c for c in cert["checks"] if c["name"] == "bank")
+    assert not bank["pass"] and bank["tag"] == "hard" and b["bank_id"] in bank["detail"], bank
+    assert cert["result"] == "RED"
+    # each feeder alone under its bank cap -> bank check passes
+    small = {**plan, "splits": [dict(splits[0], mw=1.0)]}
+    cert2 = C.certify(small, PHYS, {**site, "requested_mw": 1.0}, snapshot=snap, as_of=AS_OF, engine="python",
+                      write_evidence=False)
+    assert next(c for c in cert2["checks"] if c["name"] == "bank")["pass"]
+
+
+def test_amber_lists_conditions_and_red_only_on_hard():
+    cert = run(engine="python", plan=mod(PLAN, flex__storage_mw=10))
+    assert cert["result"] == "AMBER" and cert["conditions"] and "flex_commitment" in cert["conditions"][0]
+    assert not list(VALIDATOR.iter_errors(cert))
+    # negotiable + hard failure together -> RED, blocking = the hard one
+    cert = run(engine="python", plan=mod(PLAN, flex__storage_mw=10), phys=mod(PHYS, n1_pass=False))
+    assert cert["result"] == "RED" and cert["blocking_condition"].startswith("n1: ")
+
+
+def test_storage_relief_bounded_by_load():
+    site = {**SITE, "requested_mw": 1.0}
+    plan = {**PLAN, "splits": [{"substation_id": "A", "mw": 1.0}],
+            "flex": {"dlr": False, "storage_mw": 50, "curtailment_mw": 0, "reconductor": False}}
+    cert = C.certify(plan, PHYS, site, snapshot=SNAP, as_of="2024-01-01", engine="python", write_evidence=False,
+                     commitment={"storage_mw": 50, "curtailment_mw": 0, "source": "test"})
+    assert cert["result"] == "RED" and cert["blocking_condition"].startswith("storage_relief: ")
+    ok = run(engine="python", plan=mod(PLAN, flex__storage_mw=10), as_of="2024-01-01",
+             commitment={"storage_mw": 10, "curtailment_mw": 0, "source": "test"})
+    relief = next(c for c in ok["checks"] if c["name"] == "storage_relief")
+    assert relief["pass"] and "40.000 MWh" in relief["detail"] and "4 h" in relief["detail"]
+
+
+def test_net_load_shared_with_oracle():
+    # Astra #6 repro: 100 MW load, 25 MW storage, 80 MW headroom -> both oracle and certify say fits
+    from quantum.load_model import net_split
+    assert net_split(100, 100, 25, 0) == 75.0
+    site = {**SITE, "requested_mw": 100.0}
+    snap = {**SNAP, "substations": [dict(SNAP["substations"][0], headroom_mw=80.0)]}
+    plan = {**PLAN, "splits": [{"substation_id": "A", "mw": 100.0}],
+            "flex": {"dlr": False, "storage_mw": 25, "curtailment_mw": 0, "reconductor": False}}
+    cert = C.certify(plan, PHYS, site, snapshot=snap, as_of="2024-01-01", engine="python", write_evidence=False,
+                     commitment={"storage_mw": 25, "curtailment_mw": 0, "source": "test"})
+    assert next(c for c in cert["checks"] if c["name"] == "capacity")["pass"], cert["checks"]
+    # DLR does not raise substation headroom (lines only)
+    over = {**plan, "flex": {"dlr": True, "storage_mw": 0, "curtailment_mw": 0, "reconductor": False}}
+    cert = C.certify(over, PHYS, site, snapshot=snap, as_of="2024-01-01", engine="python", write_evidence=False,
+                     params={"dlr_headroom_uplift_permille": 300})
+    assert cert["blocking_condition"].startswith("capacity: ")
+
+
+def test_evidence_hash_binds_plan_ids():
+    base = run()["evidence_sha256"]
+    assert run(plan=mod(PLAN, site_id="other-site"))["evidence_sha256"] != base
+    assert run(plan=mod(PLAN, site_id="other-site"))["blocking_condition"].startswith("evidence_binding: ")
+    fe = mod(PLAN, splits__0__feeder_id="F1")
+    h1 = run(plan=fe)["evidence_sha256"]
+    assert h1 != base and run(plan=mod(fe, splits__0__feeder_id="F2"))["evidence_sha256"] != h1
+    assert run(plan=mod(PLAN, splits__1__bank_id="BANK-9"))["evidence_sha256"] != base
+    assert run(phys=mod(PHYS, max_line_loading_pct=71.2))["evidence_sha256"] != base

@@ -82,9 +82,9 @@ def test_oracle_marking_rule():
     # 25 MW on S2 (headroom 10): DLR alone gives 11 < 25; storage 50 + curtail 10% cut the load to 25*0.4 = 10
     assert not o(sp.encode((3, 1, 0, 0), True, 0, 0))
     assert o(sp.encode((3, 1, 0, 0), False, 50, 10))
-    # DLR raises S4 headroom to 44: curtail 10% leaves 45 > 44 (unmarked); storage 25 leaves 37.5 (marked)
+    # DLR does not raise substation headroom (lines only): curtail 10% leaves 45 > 40; storage 25 leaves 37.5
     assert not o(sp.encode((2, 0, 0, 2), True, 0, 10))
-    assert o(sp.encode((2, 0, 0, 2), True, 25, 0))           # 50*0.75 = 37.5 <= 44
+    assert o(sp.encode((2, 0, 0, 2), True, 25, 0))           # 50*0.75 = 37.5 <= 40
     marked = o.marked_indices()
     assert marked and all(o(i) for i in marked) and max(marked) < sp.size
 

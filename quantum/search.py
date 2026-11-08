@@ -165,7 +165,7 @@ def propose(site, snapshot, constraints=None, *, exclude=(), k=DEFAULT_K, shots=
         "honesty": HONESTY,
         "site_id": site["id"],
         "space": space.describe(),
-        "oracle": {"rule": "split_i*(1-(storage+curtail)/requested) <= headroom_i*(1+dlr_uplift if dlr)",
+        "oracle": {"rule": "storage+curtail <= requested and split_i*(1-(storage+curtail)/requested) <= headroom_i (DLR: lines only)",
                    "notes": oracle.notes, "constraints": oracle.constraints.interpretations,
                    "excluded_plan_indices": sorted(set(exclude)), "M": info.get("M", 0),
                    "classical_enumeration_calls": space.size, "widened": widened},

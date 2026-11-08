@@ -24,7 +24,7 @@ def test_pipeline_runs_end_to_end(tmp_path):
     import pipeline
     out, sources, problems, run_dir = pipeline.run(out_root=tmp_path)
     assert problems == []
-    assert out["certificate"]["result"] in {"GREEN", "RED"}
+    assert out["certificate"]["result"] in {"GREEN", "AMBER", "RED"}  # AMBER: only negotiable rules fail (Astra #2)
     assert sorted(p.name for p in run_dir.glob("*.json")) == sorted(
         ["site.json", "grid_snapshot.json", "candidate_plan.json", "physics_result.json", "certificate.json", "sources.json", "rounds.json"])
 
