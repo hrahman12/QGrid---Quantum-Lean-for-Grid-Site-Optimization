@@ -169,11 +169,17 @@ def _random_evidence(rng):
     kws = [rng.randint(0, req) for _ in range(n - 1)]
     kws.append(max(0, req - sum(kws)) if rng.random() < 0.7 else rng.randint(0, req))
     ids = [rng.choice(["A", "B", "C", "D", "É-sub"]) for _ in range(n)]
-    splits = [{"substation_id": i, "kw": k, "headroom_known": rng.random() < 0.9,
+    splits = [{"substation_id": i, "kw": k, "net_kw": max(0, k - rng.choice([0, 0, 3000])),
+               "headroom_known": rng.random() < 0.9,
                "headroom_kw": max(0, k + rng.randint(-5000, 20000))} for i, k in zip(ids, kws)]
+    firm = [{"substation_id": s["substation_id"], "firm_known": rng.random() < 0.5,
+             "firm_kw": max(0, s["net_kw"] + rng.choice([-2000, 5000, 30000]))} for s in splits]
+    banks = [{"bank_id": f"BK{j}", "kw": k, "cap_known": rng.random() < 0.95, "cap_kw": max(0, k + rng.choice([-1000, 0, 9000]))}
+             for j, k in enumerate(rng.sample([5000, 12000, 20000], rng.choice([0, 0, 1, 2])))]
     a = rng.randint(20000, 21000)
     return {
         "format": C.EVIDENCE_FORMAT, "site_id": "rand", "requested_kw": req, "splits": splits,
+        "firm": firm, "banks": banks, "plan_site_bound": rng.random() < 0.95,
         "headroom_source": "random", "dlr": rng.random() < 0.4,
         "dlr_headroom_uplift_permille": rng.choice([0, 0, 150]),
         "storage_kw": rng.choice([0, 0, 5000, 20000]), "curtailment_kw": rng.choice([0, 0, 10000, 20000]),
@@ -196,6 +202,7 @@ def test_mirror_agrees_with_lean():
     rng = random.Random(20261108)
     cases = [run()["evidence"]] + [run(**kw)["evidence"] for _, kw, _, _ in RED_CASES]
     cases += [_random_evidence(rng) for _ in range(60)]
+    cases.append({**cases[0], "storage_kw": cases[0]["requested_kw"] + 1})  # storage_relief fails
     results = set()
     for ev in cases:
         lean = C.run_lean(ev)
@@ -204,6 +211,8 @@ def test_mirror_agrees_with_lean():
         assert lean == C.mirror_report(ev), json.dumps(ev)
         results.add(lean["blocking_condition"].split(":")[0] if lean["blocking_condition"] else "GREEN")
     assert {"GREEN", *C.ORDER} <= results  # the sample exercises every outcome
+    fails = {c["name"] for ev in cases for c in C.mirror_report(ev)["checks"] if not c["pass"]}
+    assert set(C.EXTRA_ORDER) <= fails  # each Lean-decided extra rule fails somewhere in the sample
 
 
 @needs_lean

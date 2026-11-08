@@ -10,7 +10,8 @@ record, rounding every value in the conservative direction (headroom and v_min d
 loading, v_max, storage and curtailment up).
 
 Scope: a GREEN verdict means only that every obligation below holds for the supplied
-evidence. It is not a utility interconnection approval.
+evidence. It is not a utility interconnection approval. Hard/negotiable tags and the AMBER
+verdict are composed from these pass flags in `lean/certify.py` (`_verdict`), not here.
 -/
 
 namespace QSiteProof
@@ -19,15 +20,36 @@ namespace QSiteProof
 structure Split where
   id : String
   kw : Nat
+  /-- net load after storage / curtailment relief (quantum/load_model.py net_split, rounded up) -/
+  netKw : Nat
   /-- false when the snapshot has no headroom for this substation -/
   known : Bool
   headroomKw : Nat
+  deriving Repr
+
+/-- Gross kW on the feeders that share one transformer bank, and that bank's cap. -/
+structure Bank where
+  id : String
+  kw : Nat
+  capKnown : Bool
+  capKw : Nat
+  deriving Repr
+
+/-- N-1 firm headroom for the split at the same position in `splits`. -/
+structure Firm where
+  id : String
+  known : Bool
+  firmKw : Nat
   deriving Repr
 
 /-- Everything the checker sees; built by `build_evidence` in `lean/certify.py` (JSON keys are snake_case). -/
 structure Evidence where
   requestedKw : Nat
   splits : List Split
+  banks : List Bank
+  firm : List Firm
+  /-- plan site_id is empty or equals the site id (computed by the Python evidence builder) -/
+  planSiteBound : Bool
   dlr : Bool
   dlrHeadroomUpliftPermille : Nat
   storageKw : Nat
@@ -80,9 +102,9 @@ instance decDistinct : (l : List String) → Decidable (Distinct l)
     have := decDistinct xs
     inferInstanceAs (Decidable (x ∉ xs ∧ Distinct xs))
 
-/-- split <= headroom * (1 + uplift), multiplied out to stay in ℕ. -/
-def SplitFits (e : Evidence) (s : Split) : Prop :=
-  s.known = true ∧ s.kw * 1000 ≤ s.headroomKw * (1000 + effUplift e)
+/-- net split <= substation headroom (DLR uplifts lines only, not transformer headroom). -/
+def SplitFits (_e : Evidence) (s : Split) : Prop :=
+  s.known = true ∧ s.netKw ≤ s.headroomKw
 
 instance (e : Evidence) (s : Split) : Decidable (SplitFits e s) := by
   unfold SplitFits; infer_instance
@@ -135,10 +157,38 @@ def PenaltyTriggered (e : Evidence) : Prop :=
 instance (e : Evidence) : Decidable (PenaltyTriggered e) := by
   unfold PenaltyTriggered; infer_instance
 
+/-- bank: every shared transformer bank has a known cap and its feeders' MW stay within it. -/
+def BankOk (e : Evidence) : Prop := ∀ b ∈ e.banks, b.capKnown = true ∧ b.kw ≤ b.capKw
+
+instance (e : Evidence) : Decidable (BankOk e) := by unfold BankOk; infer_instance
+
+/-- storage relief: storage + curtailment cannot exceed the requested load. -/
+def StorageReliefOk (e : Evidence) : Prop := e.storageKw + e.curtailmentKw ≤ e.requestedKw
+
+instance (e : Evidence) : Decidable (StorageReliefOk e) := by
+  unfold StorageReliefOk; infer_instance
+
+/-- A split with known firm headroom and nonzero load has net kW within that firm headroom. -/
+def FirmFits (p : Split × Firm) : Prop := p.2.known = true → p.1.kw ≠ 0 → p.1.netKw ≤ p.2.firmKw
+
+instance (p : Split × Firm) : Decidable (FirmFits p) := by unfold FirmFits; infer_instance
+
+/-- firm N-1: every split's net kW <= its N-1 firm headroom, where known. -/
+def FirmN1Ok (e : Evidence) : Prop := ∀ p ∈ e.splits.zip e.firm, FirmFits p
+
+instance (e : Evidence) : Decidable (FirmN1Ok e) := by unfold FirmN1Ok; infer_instance
+
+/-- evidence binding: the plan names this site (or no site). -/
+def EvidenceBound (e : Evidence) : Prop := e.planSiteBound = true
+
+instance (e : Evidence) : Decidable (EvidenceBound e) := by
+  unfold EvidenceBound; infer_instance
+
 /-! ## Obligations, fixed order, verdict -/
 
 inductive Obligation where
   | capacity | thermalVoltage | n1 | flexCommitment | deadline | permitRow | penaltyTrigger
+  | bank | storageRelief | firmN1 | evidenceBinding
   deriving DecidableEq, Repr
 
 def Obligation.name : Obligation → String
@@ -149,6 +199,10 @@ def Obligation.name : Obligation → String
   | .deadline => "deadline"
   | .permitRow => "permit_row"
   | .penaltyTrigger => "penalty_trigger"
+  | .bank => "bank"
+  | .storageRelief => "storage_relief"
+  | .firmN1 => "firm_n1"
+  | .evidenceBinding => "evidence_binding"
 
 /-- What it means for obligation `o` to hold on evidence `e`. -/
 def Holds : Obligation → Evidence → Prop
@@ -159,13 +213,18 @@ def Holds : Obligation → Evidence → Prop
   | .deadline, e => DeadlineMet e
   | .permitRow, e => PermitOk e
   | .penaltyTrigger, e => ¬ PenaltyTriggered e
+  | .bank, e => BankOk e
+  | .storageRelief, e => StorageReliefOk e
+  | .firmN1, e => FirmN1Ok e
+  | .evidenceBinding, e => EvidenceBound e
 
 instance (o : Obligation) (e : Evidence) : Decidable (Holds o e) := by
   cases o <;> unfold Holds <;> infer_instance
 
 /-- The fixed check order; the first failing one is the blocking condition. -/
 def order : List Obligation :=
-  [.capacity, .thermalVoltage, .n1, .flexCommitment, .deadline, .permitRow, .penaltyTrigger]
+  [.capacity, .thermalVoltage, .n1, .flexCommitment, .deadline, .permitRow, .penaltyTrigger,
+   .bank, .storageRelief, .firmN1, .evidenceBinding]
 
 theorem order_complete (o : Obligation) : o ∈ order := by
   cases o <;> simp [order]
