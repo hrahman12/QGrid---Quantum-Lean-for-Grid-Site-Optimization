@@ -191,7 +191,7 @@ def build(roots):
     qroots = ([cert_p.parent.parent.parent] if cert_p else []) + roots
     rich = lambda p: (load(p).get("oracle") or {}).get("M") and (load(p).get("grover") or {}).get("per_iteration") \
         and load(p).get("site_id") == l3["site"]["id"]
-    qs_p = first_root(qroots, "quantum/out/last_search.json", rich) or first_root(qroots, "quantum/out/last_search.json")
+    qs_p = first_root(qroots[:1] or roots, "quantum/out/last_search.json")  # same checkout only, never a stale one
     quantum = None
     if qs_p:
         q = load(qs_p); src.append(qs_p)
@@ -229,7 +229,7 @@ def build(roots):
     if cert_p:
         run = cert_p.parent
         files = {n: (run / f"{n}.json") for n in ("site", "candidate_plan", "physics_result", "certificate",
-                                                  "sources", "grid_snapshot", "loop")}
+                                                  "sources", "grid_snapshot", "loop", "rounds")}
         got = {n: load(p) for n, p in files.items() if p.exists()}
         src.extend(p for p in files.values() if p.exists())
         names = {s["id"]: s for s in (got.get("grid_snapshot") or {}).get("substations", [])}
@@ -242,7 +242,17 @@ def build(roots):
                      "flex": plan.get("flex"), "search": plan.get("search")},
             "physics": got.get("physics_result"),
             "certificate": got.get("certificate"),
+            "rounds": got.get("rounds"),
+            "distribution": (got.get("grid_snapshot") or {}).get("distribution"),
         }
+        lab_p = ROOT / "report" / "labels.py"
+        if lab_p.exists():
+            lab = import_file("qsp_labels", lab_p); src.append(lab_p)
+            pipeline["labels"] = {"cert_engine": lab.cert_engine(got.get("certificate") or {}),
+                                  "search_engine": lab.search_engine(plan),
+                                  "round_search_engine": {str(r["round"]): lab.search_engine({"search": {"method": r.get("search")}})
+                                                          for r in (got.get("rounds") or [])},
+                                  "data": lab.DATA_LABEL, "rules": lab.RULES_LABEL}
         # plan space as defined in quantum/space.py on this run's snapshot; marked set from quantum/oracle.py
         if (ROOT / "quantum" / "space.py").exists() and got.get("site") and got.get("grid_snapshot"):
             try:
