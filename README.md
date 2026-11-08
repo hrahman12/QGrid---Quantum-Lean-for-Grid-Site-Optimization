@@ -12,6 +12,33 @@ QSiteProof is a proposed one-day hack prototype that combines PsiQDK search, pan
 
 [Read the original one-page concept plan (PDF)](docs/QSiteProof_Final_Plan_Updated.pdf).
 
+## Case study: North San Jose, Santa Clara County, California
+
+**Selected study area: North San Jose / Alviso.**
+
+> Can a new high-density compute site connect sooner by splitting its requested load across multiple substations and combining existing-grid flexibility, while satisfying formally encoded interconnection and permitting constraints?
+
+### Why this location
+
+- **PG&E capacity screening:** PG&E lists San Jose and Alviso in its service area. Use PG&E GRIP / ICA data to screen candidate connections within PG&E electric territory. Sources: [PG&E service area](https://www.pge.com/en/featured/pge-service-area.html), [PG&E GRIP](https://grip.pge.com/).
+- **CAISO signals:** Use live / near-live demand, prices, and congestion context from [GridStatus.io's CAISO dashboard](https://www.gridstatus.io/live/CAISO).
+- **Real compute geography:** San Jose's published data-center applications include projects in the Alviso area, providing a concrete setting for a large compute-load study. Source: [City of San Jose data-center and large energy-use projects](https://www.sanjoseca.gov/your-government/departments-offices/planning-building-code-enforcement/planning-division/data-center-and-other-large-energy-use-projects).
+- **Substation-splitting question:** Evaluate multiple candidate substations and load allocations against a single-connection baseline, directly addressing **RFQ 2.2: split one large load across several substations**. Candidate connection points and their feasibility will be established during the study.
+- **Permitting layer:** Encode the site's applicable zoning, hazard, right-of-way (ROW), deadline, and interconnection conditions as Lean obligations, using San Jose-specific evidence and rules.
+- **Nearby comparison case:** The [Energy Hack Track 1 resources](https://github.com/arhamshah08/energy-hack/blob/main/tracks/1-sites/README.md) include City of Santa Clara data-center zoning and permitting material. Use that as a comparison with its own jurisdiction and utility context.
+
+### Utility and jurisdiction boundary
+
+**Santa Clara County** identifies the county containing this North San Jose case study. The **City of Santa Clara** is a separate municipality whose municipal utility, **Silicon Valley Power**, supplies electricity within its city boundaries. A City of Santa Clara comparison requires its own utility data and permitting rules. Source: [California Energy Commission review of Silicon Valley Power's Integrated Resource Plan](https://efiling.energy.ca.gov/GetDocument.aspx?DocumentContentId=102957&tn=265948).
+
+The primary electrical-capacity layer for the North San Jose / Alviso study is PG&E GRIP / ICA. Treat its hosting-capacity values as screening estimates; establish site-specific connection feasibility through the grid model and utility study process. See the [Energy Hack Track 2 capacity-data guidance](https://github.com/arhamshah08/energy-hack/blob/main/tracks/2-grid-capacity/README.md).
+
+### Proposed 150 MW demo
+
+**150 MW North San Jose compute site** → **PsiQDK searches substation splits / flexibility** → **pandapower verifies grid feasibility** → **Lean 4 certifies the encoded obligations** → **SITE INTEGRABLE 🟢**, if all required checks pass.
+
+The 150 MW request is an illustrative scenario input. A rejected candidate returns its blocking condition for the next search iteration.
+
 ## One wrapper - three engines
 
 | Stage | Engine / inputs | Role |
