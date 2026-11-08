@@ -70,16 +70,16 @@
   },
   {
    "id": "climate",
-   "name": "Climate & resilience",
-   "rag": "AMBER",
-   "num": "Zone AE",
-   "text": "FEMA flood zone, 12 ft BFE",
+   "name": "Nature & climate",
+   "rag": "RED",
+   "num": "0.28 km",
+   "text": "Refuge beside site; very high flood",
    "bullets": [
-    "River flood 0 m now -> 0.19 m in 2050 (CLIMADA).",
-    "Days >35C: ~5.7 -> ~9.2/yr by 2036-2050.",
-    "Not in a fire-threat district."
+    "RED: The nearest protected area, Don Edwards San Francisco Bay National Wildlife Refuge, is 0.28 km away.",
+    "RED: About 209.8 acres of mapped wetland lie within 500 m, so wetland permits and buffers are likely.",
+    "RED: Coastal flooding (storm surge, high tides): FEMA rates the risk for this neighbourhood as very high, a serious issue for this site."
    ],
-   "src": "data/shared/climate/alviso.json"
+   "src": "data/shared/nature/alviso.json"
   },
   {
    "id": "time",
@@ -112,7 +112,7 @@
    "to": "GREEN"
   },
   {
-   "text": "Community benefit agreement + local hiring",
+   "text": "Community benefit agreement + local hiring (consent 0.47 -> 0.51, S1)",
    "flips": "consent",
    "to": "AMBER"
   },

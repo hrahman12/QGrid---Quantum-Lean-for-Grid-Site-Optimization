@@ -1,0 +1,167 @@
+{
+ "alviso": {
+  "gee": {
+   "embedding_2017_2024": {
+    "changed": 0.022845482259032657,
+    "cos": 0.9290701888050201
+   },
+   "worldcover_1km": {
+    "Map": {
+     "10": 1123.5098039215686,
+     "20": 27,
+     "30": 8436.443137254899,
+     "40": 149,
+     "50": 14495.564705882347,
+     "60": 930.6666666666666,
+     "80": 12073.725490196071,
+     "90": 1938.278431372549
+    }
+   },
+   "ndvi_500m": {
+    "ndvi": 0.2557009792351695
+   },
+   "lst_summer_day_c": {
+    "LST_Day_1km": 30.077571116989233
+   },
+   "wdpa_20km": {
+    "desig": "Marine Protected Area",
+    "dist_m": 279.9613393481595,
+    "iucn": "IV",
+    "n": 32,
+    "name": "Don Edwards San Francisco Bay National Wildlife Refuge"
+   }
+  },
+  "nwi_500m": {
+   "n": 27,
+   "acres_by_type": {
+    "Estuarine and Marine Wetland": 209.6,
+    "Freshwater Pond": 0.2,
+    "Estuarine and Marine Deepwater": 253102.1
+   },
+   "exceeded": false
+  },
+  "nwi_2km": {
+   "n": 260,
+   "acres_by_type": {
+    "Estuarine and Marine Wetland": 950.3,
+    "Lake": 1804.0,
+    "Freshwater Emergent Wetland": 19.1,
+    "Freshwater Pond": 36.7,
+    "Riverine": 8.7,
+    "Estuarine and Marine Deepwater": 253102.1
+   },
+   "exceeded": false
+  },
+  "aqueduct": {
+   "error": "Not assessed: local Aqueduct file not configured (NATURE_AQUEDUCT_LOCAL_GDB is unset and no verified Aqueduct 4.0 file was found under NATURE_PUBLIC_DATA_DIR)."
+  },
+  "nri": {
+   "TRACTFIPS": "06085504602",
+   "NRI_VER": "December 2025",
+   "RISK_RATNG": "Very High",
+   "RISK_SCORE": 99.9155696669164,
+   "HWAV_RISKR": "Relatively Low",
+   "HWAV_RISKS": 26.503884837218173,
+   "DRGT_RISKR": "Relatively High",
+   "DRGT_RISKS": 98.52306375084727,
+   "IFLD_RISKR": "Very High",
+   "IFLD_RISKS": 99.58855077117002,
+   "CFLD_RISKR": "Very High",
+   "CFLD_RISKS": 99.83891664618997,
+   "HRCN_RISKR": "Not Applicable",
+   "HRCN_RISKS": null,
+   "WFIR_RISKR": "Very Low",
+   "WFIR_RISKS": 46.071611192370355,
+   "HAIL_RISKR": "Very Low",
+   "HAIL_RISKS": 31.654239948628305,
+   "LNDS_RISKR": "Relatively Low",
+   "LNDS_RISKS": 82.48248962458231,
+   "ERQK_RISKR": "Very High",
+   "ERQK_RISKS": 99.94529865743878,
+   "SWND_RISKR": "Very Low",
+   "SWND_RISKS": 6.249033807808022,
+   "TRND_RISKR": "Very Low",
+   "TRND_RISKS": 26.01286670709809
+  }
+ },
+ "novva": {
+  "gee": {
+   "embedding_2017_2024": {
+    "changed": 0.050480402862161246,
+    "cos": 0.9196923699014254
+   },
+   "worldcover_1km": {
+    "Map": {
+     "10": 4306.058823529411,
+     "30": 18871.07843137254,
+     "40": 105,
+     "50": 13718.498039215687,
+     "60": 2954.0862745098057,
+     "80": 83
+    }
+   },
+   "ndvi_500m": {
+    "ndvi": 0.23925840549893093
+   },
+   "lst_summer_day_c": {
+    "LST_Day_1km": 35.575479921645474
+   },
+   "wdpa_20km": {
+    "desig": "Open Space",
+    "dist_m": 7669.913554915812,
+    "iucn": "Not Assigned",
+    "n": 14,
+    "name": "Tudor Trail & Greenway"
+   }
+  },
+  "nwi_500m": {
+   "n": 4,
+   "acres_by_type": {
+    "Freshwater Pond": 0.2,
+    "Riverine": 6.1
+   },
+   "exceeded": false
+  },
+  "nwi_2km": {
+   "n": 115,
+   "acres_by_type": {
+    "Freshwater Pond": 19.5,
+    "Freshwater Emergent Wetland": 17.2,
+    "Freshwater Forested/Shrub Wetland": 15.7,
+    "Riverine": 127.6
+   },
+   "exceeded": false
+  },
+  "aqueduct": {
+   "error": "Not assessed: local Aqueduct file not configured (NATURE_AQUEDUCT_LOCAL_GDB is unset and no verified Aqueduct 4.0 file was found under NATURE_PUBLIC_DATA_DIR)."
+  },
+  "nri": {
+   "TRACTFIPS": "08041007205",
+   "NRI_VER": "December 2025",
+   "RISK_RATNG": "Relatively Low",
+   "RISK_SCORE": 50.639173296231554,
+   "HWAV_RISKR": "Very Low",
+   "HWAV_RISKS": 13.502788502788501,
+   "DRGT_RISKR": "No Rating",
+   "DRGT_RISKS": 0,
+   "IFLD_RISKR": "Relatively Low",
+   "IFLD_RISKS": 28.32578216974064,
+   "CFLD_RISKR": "Not Applicable",
+   "CFLD_RISKS": null,
+   "HRCN_RISKR": "Not Applicable",
+   "HRCN_RISKS": null,
+   "WFIR_RISKR": "Relatively High",
+   "WFIR_RISKS": 98.18653157813372,
+   "HAIL_RISKR": "Relatively High",
+   "HAIL_RISKS": 94.47516440131758,
+   "LNDS_RISKR": "Very Low",
+   "LNDS_RISKS": 19.857776509340848,
+   "ERQK_RISKR": "Very Low",
+   "ERQK_RISKS": 29.79082682268441,
+   "SWND_RISKR": "Relatively Moderate",
+   "SWND_RISKS": 54.98079507212253,
+   "TRND_RISKR": "Relatively Moderate",
+   "TRND_RISKS": 70.84418441487401
+  }
+ }
+}
