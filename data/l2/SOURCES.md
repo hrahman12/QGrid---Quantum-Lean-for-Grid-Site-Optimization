@@ -100,3 +100,14 @@ Rebuild offline with `.venv/bin/python data/l2/build_site_risk.py`.
 | High Fire-Threat Districts | SOURCED | PG&E GRIP layer 18 (CPUC HFTD, Cal Fire v22_3), `data/shared/grip/raw/layer_18.geojson`, GRIP bbox only |
 
 Result: the Alviso site is in **Zone AE (SFHA, 1% annual chance, BFE 12 ft)**, as are the Nortech and Dixon Landing substations. No point is inside a fire-threat district (the nearest polygon is 8.7 km from the site, and both polygons in the bbox are CPUC Tier 1). Suggested rule: an SFHA location is a permit and cost condition (elevate equipment above the BFE), not an automatic RED.
+
+## l3_inputs.json (joined input for L3 search and Lean rules)
+
+Rebuild offline with `.venv/bin/python data/l2/build_l3_inputs.py`. It joins GRIP banks and feeders, `flex_headroom.json`, `site_risk.json`, `substation_ratings.json` (transmission candidates) and `ciso_2025_stress.json`, and adds the discrete search space and the rule inputs (`rule_inputs`).
+
+| What | Status | Source |
+|---|---|---|
+| Feeder -> bank | ASSUMED | PG&E circuit numbering: the first digit of the 4-digit circuit number is the bank (LAWRENCE 1102 -> bank 0834201). It matches an existing bank id for 81 of 82 feeders; GRIP does not publish this link |
+| Everything else | as in the sections above | |
+
+Key fact for the Lean bank rule: the edge-site maxima of the 73 eligible feeders sum to 430.6 MW, but the bank caps sum to 38.8 MW (0% curtailment). Feeder hosting is not additive, and some high-hosting feeders (e.g. MONTAGUE 2101) sit on banks with 0 MW headroom.
