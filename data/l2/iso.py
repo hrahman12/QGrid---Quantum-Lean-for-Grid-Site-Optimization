@@ -11,7 +11,7 @@ Data (gridstatus, CAISO OASIS):
   - Day-ahead hourly LMP at TH_NP15_GEN-APND (NP15 trading hub) and DLAP_PGAE-APND (PG&E load zone,
     the closest public price for a San Jose load; no single public node is "the" Alviso node)
 Cache: data/l2/caiso_<YYYY-MM-DD>.csv, last 7 days hourly. latest_signal() tries live first (60 s
-budget) and falls back to the newest cache file; set QSP_OFFLINE=1 to skip the live call.
+budget) and falls back to the newest cache file; set QSITE_OFFLINE=1 (same switch as grid/) or QSP_OFFLINE=1 to skip the live call.
 
 CLI: python data/l2/iso.py [--refresh] [--offline]
 """
@@ -104,7 +104,7 @@ def latest_signal(iso="CAISO", live=None, now=None):
     if iso.upper() != "CAISO":
         raise ValueError(f"only CAISO is wired, got {iso}")
     if live is None:
-        live = os.environ.get("QSP_OFFLINE") != "1"
+        live = "1" not in (os.environ.get("QSITE_OFFLINE"), os.environ.get("QSP_OFFLINE"))
     source, df, note = None, None, None
     if live:
         try:

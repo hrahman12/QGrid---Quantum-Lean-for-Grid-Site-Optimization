@@ -44,7 +44,7 @@ Caveat: the CAISO queue holds generation and storage requests only. Data-center 
 
 ## iso.py and caiso_<date>.csv
 
-`latest_signal("CAISO")` returns `{lmp, load, load_mw, timestamp, source, ...}`, matching `grid_snapshot.iso`. It tries a live gridstatus pull (60 s budget) and falls back to the newest `data/l2/caiso_*.csv`. `QSP_OFFLINE=1` forces the cache, and `source` says which one was used (`gridstatus:CAISO` or `cache:data/l2/...`).
+`latest_signal("CAISO")` returns `{lmp, load, load_mw, timestamp, source, ...}`, matching `grid_snapshot.iso`. It tries a live gridstatus pull (60 s budget) and falls back to the newest `data/l2/caiso_*.csv`. `QSITE_OFFLINE=1` (or `QSP_OFFLINE=1`) forces the cache, and `source` says which one was used (`gridstatus:CAISO` or `cache:data/l2/...`).
 
 | What | Status | Source |
 |---|---|---|
