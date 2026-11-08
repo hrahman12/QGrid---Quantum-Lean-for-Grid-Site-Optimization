@@ -1,0 +1,258 @@
+{
+ "note": "Evidence strength is a judgment (ASSUMED). Evidence from other places is analogy, not proof of effect in Alviso.",
+ "levers": [
+  {
+   "id": "cba",
+   "name": "Community benefit agreement (binding, enforceable)",
+   "description": "Binding agreement with residents/nonprofits: funding, monitoring, local priorities, no NDAs.",
+   "addresses_stakeholders": [
+    "alviso-in-action",
+    "dreaming-collaborative",
+    "sv-council-nonprofits",
+    "amigos-de-guadalupe",
+    "alviso-residents",
+    "sj-council"
+   ],
+   "topics_addressed": [
+    "bills",
+    "jobs",
+    "taxes"
+   ],
+   "evidence": [
+    {
+     "claim": "Brookings argues CBAs are necessary for data centers",
+     "url": "https://www.brookings.edu/articles/why-community-benefit-agreements-are-necessary-for-data-centers/"
+    },
+    {
+     "claim": "Lancaster PA draft CBA includes closed-loop cooling requirement",
+     "url": "https://www.cityoflancasterpa.gov/data-center/community-benefits-agreement/"
+    },
+    {
+     "claim": "QTS announced $28.75M community investment, Blakely GA (developer-announced)",
+     "url": "https://www.constructionowners.com/news/qts-announces-28-75m-community-investment-for-georgia-data-center-development"
+    },
+    {
+     "claim": "Amazon says it will invest $1B in data-center communities and drop NDAs amid backlash (headlines)",
+     "url": "https://news.ycombinator.com/item?id=49937467"
+    }
+   ],
+   "evidence_strength": "medium",
+   "caveat": "Mostly developer-announced or draft terms; no verified case here of opposition dropping. Money alone failed elsewhere (HN 49318835: landowners refused $26M)."
+  },
+  {
+   "id": "closed-loop-cooling",
+   "name": "Recycled-water or closed-loop/air cooling commitment",
+   "description": "Contractual zero or low potable water use; matches San Jose draft standards.",
+   "addresses_stakeholders": [
+    "alviso-residents",
+    "dreaming-collaborative",
+    "sj-planning",
+    "sj-council",
+    "mahan"
+   ],
+   "topics_addressed": [
+    "water"
+   ],
+   "evidence": [
+    {
+     "claim": "San Jose draft standards require recycled water or air/closed-loop cooling",
+     "url": "https://www.kqed.org/news/12104561/as-san-jose-tries-to-regulate-data-centers-residents-want-to-ban-them"
+    },
+    {
+     "claim": "St. Louis panel approved with closed-loop, air-cooled chillers condition",
+     "url": "https://spectrumlocalnews.com/mo/st-louis/news/2026/04/21/city-panel-ok-s-data-center"
+    },
+    {
+     "claim": "Festus MO plan smaller with closed-loop cooling, company says shaped by community feedback",
+     "url": "https://themissouritimes.com/press-release-crg-unveils-refined-conceptual-design-for-proposed-festus-data-center-launches-community-information-website/"
+    },
+    {
+     "claim": "Google pushing water standards amid backlash (headline)",
+     "url": "https://news.ycombinator.com/item?id=48393050"
+    }
+   ],
+   "evidence_strength": "medium",
+   "caveat": "Becomes table stakes if the Dec 2026 standards pass; value as differentiator drops. Alviso drought concern is real but site-level water data not collected here."
+  },
+  {
+   "id": "heat-reuse",
+   "name": "Waste-heat reuse to district/community facilities",
+   "description": "Feed recovered heat to district heating, housing, or community buildings.",
+   "addresses_stakeholders": [
+    "sj-econ-dev",
+    "sj-council",
+    "alviso-residents",
+    "pge"
+   ],
+   "topics_addressed": [
+    "heat_reuse",
+    "power"
+   ],
+   "evidence": [
+    {
+     "claim": "Ericsson/Fortum Kirkkonummi: waste heat covers ~20% of district heat network (~1,000 homes)",
+     "url": "https://iifiir.org/en/news/data-centre-in-finland-recovers-waste-heat"
+    },
+    {
+     "claim": "Equinix/A2A Milan: ~225 GWh/yr heat into district heating",
+     "url": "https://baxtel.com/news/equinix-to-reuse-data-center-heat-to-warm-homes-in-milan"
+    },
+    {
+     "claim": "Microsoft notes many DCs are too far from communities for heat reuse to pay off",
+     "url": "https://datacenters.microsoft.com/wp-content/uploads/2026/03/FINAL_Azure_HeatReUse_Infographic.pdf"
+    },
+    {
+     "claim": "r/SanJose commenter praises a local heat-to-homes project (unverified project)",
+     "url": "https://reddit.com/r/SanJose/comments/1su3dox/petition_against_data_centers_in_san_jose/"
+    }
+   ],
+   "evidence_strength": "low",
+   "caveat": "No heat network near the Alviso/wastewater site is known; evidence is European. Needs a heat offtaker (ASSUMED absent). KQED coverage did not mention heat reuse."
+  },
+  {
+   "id": "power-sharing",
+   "name": "Surplus / backup power sharing and grid-support commitments",
+   "description": "Offer backup generation or flexible load to relieve local grid stress; cost-allocation guarantees so residents do not subsidise upgrades.",
+   "addresses_stakeholders": [
+    "pge",
+    "cpuc",
+    "alviso-residents",
+    "sj-econ-dev"
+   ],
+   "topics_addressed": [
+    "power",
+    "bills"
+   ],
+   "evidence": [
+    {
+     "claim": "CPUC Rule 30: applicants pay upfront for transmission upgrades",
+     "url": "https://www.cpuc.ca.gov/news-and-updates/all-news/cpuc-streamlines-electric-grid-connections-for-high-energy-users-like-data-centers-and-ev-chargers"
+    },
+    {
+     "claim": "SB 57 orders CPUC study of cost shift to residential ratepayers",
+     "url": "https://www.morganlewis.com/blogs/datacenterbytes/2026/01/california-takes-a-study-first-approach-to-data-center-regulation"
+    },
+    {
+     "claim": "Ratepayer cost debate dominates national discourse (HN headlines)",
+     "url": "https://news.ycombinator.com/item?id=47367486"
+    },
+    {
+     "claim": "r/SanJose commenters fear data centers raise local bills",
+     "url": "https://reddit.com/r/SanJose/comments/1su3dox/petition_against_data_centers_in_san_jose/"
+    }
+   ],
+   "evidence_strength": "medium",
+   "caveat": "Backup-generator sharing conflicts with the generator-testing and air-quality limits; diesel sharing likely unacceptable to residents."
+  },
+  {
+   "id": "local-hiring",
+   "name": "Local hiring and training pipeline",
+   "description": "Hiring/apprenticeship commitments for Alviso and North San Jose residents; union labor agreements.",
+   "addresses_stakeholders": [
+    "trades-unions",
+    "alviso-residents",
+    "amigos-de-guadalupe",
+    "sj-council"
+   ],
+   "topics_addressed": [
+    "jobs"
+   ],
+   "evidence": [
+    {
+     "claim": "Union laborers and business groups supported San Jose standards",
+     "url": "https://www.kqed.org/news/12104561/as-san-jose-tries-to-regulate-data-centers-residents-want-to-ban-them"
+    }
+   ],
+   "evidence_strength": "low",
+   "caveat": "Few permanent jobs per MW; opposition has not engaged on jobs. Only KQED evidence of labor support; no outcome evidence from elsewhere gathered."
+  },
+  {
+   "id": "noise-generator-limits",
+   "name": "Noise and backup-generator limits beyond code",
+   "description": "Cap generator testing (draft 25 h/yr vs state 50), noise monitoring, lower-noise cooling, setbacks.",
+   "addresses_stakeholders": [
+    "alviso-in-action",
+    "alviso-residents",
+    "baaqmd",
+    "sj-planning"
+   ],
+   "topics_addressed": [
+    "noise",
+    "power"
+   ],
+   "evidence": [
+    {
+     "claim": "San Jose draft: generator testing 25 h/yr vs 50, noise and sewer monitoring, 1,500 ft notice",
+     "url": "https://www.kqed.org/news/12104561/as-san-jose-tries-to-regulate-data-centers-residents-want-to-ban-them"
+    },
+    {
+     "claim": "Jefferson County CO 1,500 ft setback (snippet)",
+     "url": "https://www.coloradopolitics.com/2026/05/19/denver-stops-new-data-centers-for-12-months/"
+    },
+    {
+     "claim": "Virginia neighbours irked by data center noise (headline)",
+     "url": "https://news.ycombinator.com/item?id=48671379"
+    }
+   ],
+   "evidence_strength": "medium",
+   "caveat": "Cheap for developer; but may be mandated by standards anyway, so only exceeding them counts as an engagement."
+  },
+  {
+   "id": "habitat-mitigation",
+   "name": "Burrowing-owl habitat mitigation and monitoring",
+   "description": "On-site or adjacent habitat protection and surveys beyond fee payment; independent monitor; early engagement with Audubon.",
+   "addresses_stakeholders": [
+    "scv-audubon",
+    "cdfw",
+    "alviso-in-action",
+    "sj-planning"
+   ],
+   "topics_addressed": [
+    "wildlife"
+   ],
+   "evidence": [
+    {
+     "claim": "Audubon sued San Jose over Alviso Topgolf owl-habitat mitigation (2017)",
+     "url": "https://scvbirdalliance.org/conservation-corner-posts/conservation-corner-marchapril-2017"
+    },
+    {
+     "claim": "Burrowing owl designated CESA candidate species in Oct 2024",
+     "url": "https://www.allenmatkins.com/real-ideas/luenr-update-2024-california-considers-endangered-species-protection-for-burrowing-owls.html"
+    }
+   ],
+   "evidence_strength": "medium",
+   "caveat": "Evidence is for litigation risk, not for a mitigation that defused it. No filing on the Prologis site found."
+  },
+  {
+   "id": "early-engagement",
+   "name": "Early notice and direct engagement with Alviso residents",
+   "description": "Developer/city outreach before entitlement; wider notice radius; transparent reporting.",
+   "addresses_stakeholders": [
+    "alviso-residents",
+    "alviso-in-action",
+    "dreaming-collaborative",
+    "sj-spotlight",
+    "district4-cm"
+   ],
+   "topics_addressed": [
+    "transparency"
+   ],
+   "evidence": [
+    {
+     "claim": "Residents say city has not contacted them about Prologis project",
+     "url": "https://sanjosespotlight.com/residents-push-back-against-san-joses-data-center-plans/"
+    },
+    {
+     "claim": "Draft standards extend mailed notice to 1,500 ft",
+     "url": "https://www.kqed.org/news/12104561/as-san-jose-tries-to-regulate-data-centers-residents-want-to-ban-them"
+    },
+    {
+     "claim": "Amazon says it no longer uses NDAs (headline)",
+     "url": "https://news.ycombinator.com/item?id=49950827"
+    }
+   ],
+   "evidence_strength": "medium",
+   "caveat": "Costs little; the stated complaint is process, not only impacts."
+  }
+ ]
+}
