@@ -28,3 +28,17 @@ Rebuild offline with `.venv/bin/python data/l2/build_substation_ratings.py`. It 
 ## Skipped OSM elements
 
 Unnamed substations, elements without a voltage tag or below 60 kV, and rail traction substations (Caltrain, BART) are dropped. The counts are in `skipped_osm_elements`. Ids are `osm-<type>-<id>`, so they can be joined to L1's OSM export once `data/l1/` lands.
+
+## iso.py and caiso_<date>.csv
+
+`latest_signal("CAISO")` returns `{lmp, load, load_mw, timestamp, source, ...}`, matching `grid_snapshot.iso`. It tries a live gridstatus pull (60 s budget) and falls back to the newest `data/l2/caiso_*.csv`. `QSP_OFFLINE=1` forces the cache, and `source` says which one was used (`gridstatus:CAISO` or `cache:data/l2/...`).
+
+| What | Status | Source |
+|---|---|---|
+| CAISO system load, 5-min averaged to hourly | SOURCED | CAISO via `gridstatus` 0.37.0 `CAISO().get_load()` |
+| Day-ahead hourly LMP, `TH_NP15_GEN-APND` (NP15 hub, reported as `lmp`) | SOURCED | CAISO OASIS `PRC_LMP` DAM via `gridstatus` `get_lmp(market="DAY_AHEAD_HOURLY")` |
+| Day-ahead hourly LMP, `DLAP_PGAE-APND` (PG&E load zone) | SOURCED | same |
+| NP15 / DLAP as the price for an Alviso load | ASSUMED | No public nodal price is defined for the site; these are the nearest public hub and zone |
+| Stress hours = hours per day above the 7-day 90th-percentile NP15 price | Derived | from the cached CSV |
+
+Refresh: `.venv/bin/python data/l2/iso.py --refresh`. Cache pulled 2026-11-08: 168 hourly rows (2026-11-02 to 2026-11-08 PT).
