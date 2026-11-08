@@ -3,7 +3,7 @@
 Reads only repo files: ui/data.json (run of ui/build_data.py, which already embeds the
 pipeline certificate, rounds, edge loop, flex headroom, growth scenario and site risk),
 data/shared/socio/alviso.json, data/shared/social/social_summary.json,
-sim/mirofish/results/summary.json and data/shared/climate/alviso.json if present.
+sim/mirofish/results/summary.json and data/shared/nature/alviso.json if present.
 Every number shown comes from those files; RAG mapping rules are in this file.
 
 Usage: python ui/build_decision.py
@@ -30,16 +30,12 @@ def mw(x: float) -> str:
     return f"{x:.1f}".rstrip("0").rstrip(".")
 
 
-def climate_bullets(climate: dict | None, risk: dict) -> list[str]:
-    fire = "Not in a fire-threat district." if not risk.get("site_in_hftd") else "In a CPUC fire-threat district."
-    if not climate:
+def nature_bullets(nature: dict | None, risk: dict) -> list[str]:
+    if not nature:
+        fire = "Not in a fire-threat district." if not risk.get("site_in_hftd") else "In a CPUC fire-threat district."
         return [f"Site in FEMA zone {risk.get('site_flood_zone')}, BFE {risk.get('site_bfe_ft')} ft.", fire]
-    hz, heat = climate["hazards_climada"], climate["indicators"]["heat"]
-    return [f"River flood {hz['river_flood_depth_p50_baseline']['value']:g} m now -> "
-            f"{hz['river_flood_depth_p95_2050']['value']:.2f} m in 2050 (CLIMADA).",
-            f"Days >35C: ~{heat['days_tmax_gt_35C_baseline']['value']:g} -> "
-            f"~{heat['days_tmax_gt_35C_2050']['value']:g}/yr by 2036-2050.",
-            fire]
+    by = {i["name"]: i for i in nature["indicators"]}
+    return [f"{by[n]['rag']}: {by[n]['line']}" for n in nature["top3"]]
 
 
 def build() -> dict:
@@ -47,7 +43,7 @@ def build() -> dict:
     socio = load("data/shared/socio/alviso.json")
     social = load("data/shared/social/social_summary.json")
     sim = load("sim/mirofish/results/summary.json")
-    climate = load("data/shared/climate/alviso.json")
+    nature = load("data/shared/nature/alviso.json")
 
     site, p, edge = d["site"], d["pipeline"], d["edge"]
     cert, dist, labels = p["certificate"], p["distribution"], p["labels"]
@@ -78,10 +74,15 @@ def build() -> dict:
     hard_items = [i for i in socio["items"] if i["effect"] == "hard"]
     stance = social["all"]["by_stance"] if social else {}
 
-    # Climate & resilience
+    # Nature & climate (data/shared/nature: AlphaGeo + open-access nature layer; falls back to FEMA/HFTD)
     risk = d["risk"]["summary"]
     zone = risk.get("site_flood_zone")
     clim_rag = "AMBER" if risk.get("site_in_sfha") or risk.get("site_in_hftd") else "GREEN"
+    if nature:
+        pa = next(i for i in nature["indicators"] if i["name"] == "Distance to nearest protected area")
+        nat_rag, nat_num, nat_text = nature["nature_rag"], f"{pa['value']} km", nature["headline"]
+    else:
+        nat_rag, nat_num, nat_text = clim_rag, f"Zone {zone}", f"FEMA flood zone, {risk.get('site_bfe_ft')} ft BFE"
 
     # Timeline: transmission lead time vs years left
     ty = d["l3"]["transmission_years"]
@@ -119,10 +120,10 @@ def build() -> dict:
                      "San Jose draft standards: recycled-water cooling, carbon-neutral power, generator limits.",
                      f"Public posts: {stance.get('oppose', 0)} oppose, {stance.get('support', 0)} support, {stance.get('neutral', 0)} neutral."],
          "src": "data/shared/socio/alviso.json, data/shared/social/social_summary.json"},
-        {"id": "climate", "name": "Climate & resilience", "rag": clim_rag, "num": f"Zone {zone}",
-         "text": f"FEMA flood zone, {risk.get('site_bfe_ft')} ft BFE",
-         "bullets": climate_bullets(climate, risk),
-         "src": "data/shared/climate/alviso.json" if climate else "data/l2/site_risk.json"},
+        {"id": "climate", "name": "Nature & climate", "rag": nat_rag, "num": nat_num,
+         "text": nat_text,
+         "bullets": nature_bullets(nature, risk),
+         "src": "data/shared/nature/alviso.json" if nature else "data/l2/site_risk.json"},
         {"id": "time", "name": "Timeline", "rag": time_rag, "num": f"{ty[0]}-{ty[1]} yrs",
          "text": f"for transmission; {years_left:.1f} yrs left",
          "bullets": [f"Deadline {deadline}: {years_left:.1f} years left.",
@@ -138,11 +139,14 @@ def build() -> dict:
               else f"Yes to {req} MW." if overall == "GREEN" else f"No: not {req} MW, no edge capacity.")
 
     s4 = next((x for x in (sim or {}).get("scenarios", []) if x["scenario"].startswith("S4")), None)
+    s1 = next((x for x in (sim or {}).get("scenarios", []) if x["scenario"].startswith("S1")), None)
     actions = [
         {"text": f"Phase 16-{mw(now_mw)} MW at edge sites first", "flips": "time", "to": "GREEN"},
         {"text": "Commit 25-50 MW battery storage", "flips": "grid", "to": "AMBER"},
         {"text": f"Accept 2% curtailment ({mw(flex2)} MW)", "flips": "flex", "to": "GREEN"},
-        {"text": "Community benefit agreement + local hiring", "flips": "consent", "to": "AMBER"},
+        {"text": "Community benefit agreement + local hiring"
+                 + (f" (consent {cs:.2f} -> {s1['approval_proxy']:.2f}, S1)" if s1 else ""),
+         "flips": "consent", "to": "GREEN" if s1 and s1["approval_proxy"] >= 0.65 else "AMBER"},
         {"text": "Recycled-water cooling + all levers"
                  + (f" (sim {s4['approval_proxy']:.2f})" if s4 else ""),
          "flips": "consent", "to": "GREEN" if s4 and s4["approval_proxy"] >= 0.65 else "AMBER"},
