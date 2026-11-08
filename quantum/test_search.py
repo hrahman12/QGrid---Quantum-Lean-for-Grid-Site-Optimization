@@ -146,8 +146,8 @@ def test_numpy_grover_matches_theory():
 @pytest.mark.parametrize("n,marked", [(5, [0, 7, 19]), (10, None)])
 def test_psiqdk_amplitudes_match_numpy(n, marked, real_snapshot):
     from quantum.grover_psiqdk import run_grover
-    if marked is None:  # the real plan space for the real site
-        sp = build_space(SITE, real_snapshot)
+    if marked is None:  # the real plan space on the real snapshot (SITE_FIRM: 150 MW marks nothing under N-1)
+        sp = build_space(SITE_FIRM, real_snapshot)
         marked = Oracle(sp, real_snapshot).marked_indices()
         n = sp.n_qubits
     res = run_grover(n, marked, shots=8, seed=1, return_states=True)
@@ -185,7 +185,7 @@ def test_propose_numpy_fallback_validates(real_snapshot, tmp_path):
 
 def test_propose_auto_backend_labels_honestly(real_snapshot, tmp_path):
     out = tmp_path / "last_search.json"
-    plan = propose(SITE, real_snapshot, [], out_path=out)
+    plan = propose(SITE_FIRM, real_snapshot, [], out_path=out)  # 150 MW marks nothing, so PsiQDK would never run
     _valid(plan)
     rec = json.loads(out.read_text(encoding="utf-8"))
     assert (plan["search"]["method"] == "psiqdk") == (rec["backend"] == "psiqdk")
