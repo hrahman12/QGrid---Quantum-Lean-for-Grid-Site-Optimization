@@ -1,0 +1,1983 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-08T21:11:51Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 4630372,
+  "center": {
+    "lat": 37.4178138,
+    "lon": -122.0671333
+  },
+  "tags": {
+    "barrier": "fence",
+    "name": "Ames Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "ref": "N-225A",
+    "substation": "transition",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 24168995,
+  "center": {
+    "lat": 37.3409379,
+    "lon": -121.9014665
+  },
+  "tags": {
+    "name": "San Jose Substation B",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 25793704,
+  "center": {
+    "lat": 37.4928765,
+    "lon": -122.1378730
+  },
+  "tags": {
+    "name": "Ravenswood Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "substation": "transmission",
+    "voltage": "230000;115000"
+  }
+},
+{
+  "type": "way",
+  "id": 27878203,
+  "center": {
+    "lat": 37.4370572,
+    "lon": -122.2421566
+  },
+  "tags": {
+    "barrier": "fence",
+    "name": "Woodside Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 27925546,
+  "center": {
+    "lat": 37.3261316,
+    "lon": -122.0754437
+  },
+  "tags": {
+    "barrier": "fence",
+    "location": "outdoor",
+    "name": "Monta Vista Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "substation": "distribution",
+    "voltage": "230000;115000"
+  }
+},
+{
+  "type": "way",
+  "id": 27925549,
+  "center": {
+    "lat": 37.3240031,
+    "lon": -122.0732623
+  },
+  "tags": {
+    "barrier": "fence",
+    "location": "outdoor",
+    "name": "Monta Vista Substation (lower yard)",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "substation": "distribution",
+    "voltage": "115000;60000"
+  }
+},
+{
+  "type": "way",
+  "id": 28875096,
+  "center": {
+    "lat": 37.5008218,
+    "lon": -121.9865669
+  },
+  "tags": {
+    "gnis:feature_id": "1732464",
+    "name": "Newark Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "substation": "transmission",
+    "voltage": "230000;115000"
+  }
+},
+{
+  "type": "way",
+  "id": 28875097,
+  "center": {
+    "lat": 37.5027226,
+    "lon": -121.9816204
+  },
+  "tags": {
+    "name": "Newark Distribution Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "substation": "transmission",
+    "voltage": "230000"
+  }
+},
+{
+  "type": "way",
+  "id": 30637312,
+  "center": {
+    "lat": 37.4903537,
+    "lon": -122.2131107
+  },
+  "tags": {
+    "name": "Redwood City Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:wikidata": "Q1815011",
+    "power": "substation",
+    "substation": "minor_distribution",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 30637327,
+  "center": {
+    "lat": 37.4976451,
+    "lon": -122.2141085
+  },
+  "tags": {
+    "barrier": "fence",
+    "name": "Bair Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "substation": "minor_distribution",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 30637353,
+  "center": {
+    "lat": 37.5114178,
+    "lon": -122.2075817
+  },
+  "tags": {
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 31369697,
+  "center": {
+    "lat": 37.2809465,
+    "lon": -122.0153775
+  },
+  "tags": {
+    "location": "outdoor",
+    "name": "Saratoga Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "voltage": "230000"
+  }
+},
+{
+  "type": "way",
+  "id": 38084005,
+  "center": {
+    "lat": 37.3971817,
+    "lon": -122.0102520
+  },
+  "tags": {
+    "name": "Fair Oaks Substation",
+    "owner": "Pacific Gas & Electric",
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 38653255,
+  "center": {
+    "lat": 37.3031783,
+    "lon": -121.8408334
+  },
+  "tags": {
+    "addr:city": "San Jose",
+    "addr:housenumber": "2630",
+    "addr:postcode": "95111",
+    "addr:street": "Senter Road",
+    "name": "Evergreen Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:wikidata": "Q1815011",
+    "power": "substation",
+    "substation": "minor_distribution",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 39017429,
+  "center": {
+    "lat": 37.4272373,
+    "lon": -121.9328297
+  },
+  "tags": {
+    "location": "outdoor",
+    "name": "Los Esteros Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "voltage": "230000;115000"
+  }
+},
+{
+  "type": "way",
+  "id": 42330936,
+  "center": {
+    "lat": 37.2600109,
+    "lon": -121.8900095
+  },
+  "tags": {
+    "addr:city": "San Jose",
+    "addr:housenumber": "4446",
+    "addr:postcode": "95118",
+    "addr:street": "Jarvis Avenue",
+    "name": "Almaden Substation",
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 42391155,
+  "center": {
+    "lat": 37.4049970,
+    "lon": -122.0685428
+  },
+  "tags": {
+    "addr:city": "Mountain View",
+    "addr:housenumber": "700",
+    "addr:postcode": "94043",
+    "addr:state": "CA",
+    "addr:street": "Moffett Boulevard",
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 48203963,
+  "center": {
+    "lat": 37.4737395,
+    "lon": -122.1279877
+  },
+  "tags": {
+    "name": "Cooley Landing Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 48205182,
+  "center": {
+    "lat": 37.4776350,
+    "lon": -122.1685678
+  },
+  "tags": {
+    "name": "Belle Haven Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 51710408,
+  "center": {
+    "lat": 37.5413724,
+    "lon": -121.9619995
+  },
+  "tags": {
+    "building": "yes",
+    "name": "Fremont Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "substation": "distribution",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 52098545,
+  "center": {
+    "lat": 37.3744687,
+    "lon": -122.0163991
+  },
+  "tags": {
+    "name": "Britton Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:wikidata": "Q1815011",
+    "power": "substation",
+    "substation": "minor_distribution",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 52612640,
+  "center": {
+    "lat": 37.4020399,
+    "lon": -121.9662358
+  },
+  "tags": {
+    "name": "Northern Receiving Station",
+    "operator": "Silicon Valley Power",
+    "power": "substation",
+    "voltage": "230000;115000"
+  }
+},
+{
+  "type": "way",
+  "id": 59470569,
+  "center": {
+    "lat": 37.5570702,
+    "lon": -122.0578829
+  },
+  "tags": {
+    "name": "Dumbarton Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 74951883,
+  "center": {
+    "lat": 37.4443112,
+    "lon": -122.1401257
+  },
+  "tags": {
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 95912441,
+  "center": {
+    "lat": 37.3661783,
+    "lon": -121.8434970
+  },
+  "tags": {
+    "addr:city": "San Jose",
+    "addr:housenumber": "2521",
+    "addr:postcode": "95127",
+    "addr:street": "Mueller Avenue",
+    "name": "McKee Substation",
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 97234188,
+  "center": {
+    "lat": 37.3769953,
+    "lon": -121.9978726
+  },
+  "tags": {
+    "barrier": "fence",
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 110419842,
+  "center": {
+    "lat": 37.4553512,
+    "lon": -122.1783056
+  },
+  "tags": {
+    "name": "SRI Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "source": "bing",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 112297069,
+  "center": {
+    "lat": 37.4397244,
+    "lon": -122.1151239
+  },
+  "tags": {
+    "name": "Palo Alto Switching Station",
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 112297084,
+  "center": {
+    "lat": 37.4390130,
+    "lon": -122.1143688
+  },
+  "tags": {
+    "name": "Palo Alto Switching Station",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:wikidata": "Q1815011",
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 112452159,
+  "center": {
+    "lat": 37.5952900,
+    "lon": -122.0176363
+  },
+  "tags": {
+    "name": "Jarvis Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "substation": "distribution",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 112568707,
+  "center": {
+    "lat": 37.2336481,
+    "lon": -121.9007517
+  },
+  "tags": {
+    "addr:city": "San Jose",
+    "addr:housenumber": "1552",
+    "addr:postcode": "95118",
+    "addr:street": "Singletree Way",
+    "name": "Hicks Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "source": "Bing",
+    "voltage": "230000"
+  }
+},
+{
+  "type": "way",
+  "id": 114438565,
+  "center": {
+    "lat": 37.4571649,
+    "lon": -122.1869329
+  },
+  "tags": {
+    "name": "Glenwood Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 114958126,
+  "center": {
+    "lat": 37.2538677,
+    "lon": -121.9662167
+  },
+  "tags": {
+    "name": "Vasona Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "voltage": "230000"
+  }
+},
+{
+  "type": "way",
+  "id": 116534901,
+  "center": {
+    "lat": 37.3344053,
+    "lon": -122.0205664
+  },
+  "tags": {
+    "barrier": "fence",
+    "name": "Wolfe Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "source": "Bing;USGS Ortho;survey",
+    "substation": "minor_distribution",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 117401235,
+  "center": {
+    "lat": 37.2916636,
+    "lon": -121.9356896
+  },
+  "tags": {
+    "name": "El Patio Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 119408726,
+  "center": {
+    "lat": 37.3224752,
+    "lon": -121.7970091
+  },
+  "tags": {
+    "name": "Swift Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "substation": "minor_distribution",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 119409662,
+  "center": {
+    "lat": 37.2689282,
+    "lon": -121.7873391
+  },
+  "tags": {
+    "addr:city": "San Jose",
+    "addr:housenumber": "5298",
+    "addr:postcode": "95138",
+    "addr:street": "Hellyer Avenue",
+    "barrier": "fence",
+    "location": "outdoor",
+    "name": "Piercy Substation",
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 120342208,
+  "center": {
+    "lat": 37.4575500,
+    "lon": -121.9213290
+  },
+  "tags": {
+    "name": "Dixon Landing Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:wikidata": "Q1815011",
+    "power": "substation",
+    "substation": "minor_distribution",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 120346267,
+  "center": {
+    "lat": 37.3770777,
+    "lon": -121.9546359
+  },
+  "tags": {
+    "name": "Scott Receiving Station",
+    "power": "substation",
+    "voltage": "115000;60000"
+  }
+},
+{
+  "type": "way",
+  "id": 120347589,
+  "center": {
+    "lat": 37.4154050,
+    "lon": -121.8884658
+  },
+  "tags": {
+    "name": "Milpitas Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:wikidata": "Q1815011",
+    "power": "substation",
+    "substation": "minor_distribution",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 120353461,
+  "center": {
+    "lat": 37.3819522,
+    "lon": -121.9271433
+  },
+  "tags": {
+    "addr:city": "San Jose",
+    "addr:housenumber": "1901",
+    "addr:postcode": "95131",
+    "addr:street": "Charcot Avenue",
+    "name": "Trimble Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 120359075,
+  "center": {
+    "lat": 37.3472911,
+    "lon": -121.9219860
+  },
+  "tags": {
+    "addr:city": "San Jose",
+    "addr:housenumber": "1095",
+    "addr:postcode": "95110",
+    "addr:street": "Stockton Avenue",
+    "name": "FMC Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 123020119,
+  "center": {
+    "lat": 37.4803496,
+    "lon": -122.1677347
+  },
+  "tags": {
+    "barrier": "fence",
+    "location": "outdoor",
+    "name": "Tyco Electronics",
+    "power": "substation",
+    "substation": "industrial",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 129559299,
+  "center": {
+    "lat": 37.4411599,
+    "lon": -122.1699559
+  },
+  "tags": {
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 160564126,
+  "center": {
+    "lat": 37.3419429,
+    "lon": -121.9033597
+  },
+  "tags": {
+    "power": "substation",
+    "substation": "transition",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 166728685,
+  "center": {
+    "lat": 37.4157602,
+    "lon": -122.2057550
+  },
+  "tags": {
+    "name": "S. L. A. C. Substation",
+    "power": "substation",
+    "substation": "yes",
+    "voltage": "230000"
+  }
+},
+{
+  "type": "way",
+  "id": 181560370,
+  "center": {
+    "lat": 37.4181928,
+    "lon": -122.0634407
+  },
+  "tags": {
+    "name": "N-225B",
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 188689669,
+  "center": {
+    "lat": 37.3771474,
+    "lon": -122.0063670
+  },
+  "tags": {
+    "name": "Applied Materials Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:wikidata": "Q1815011",
+    "power": "substation",
+    "substation": "minor_distribution",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 189168387,
+  "center": {
+    "lat": 37.3816943,
+    "lon": -121.9783587
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 207285497,
+  "center": {
+    "lat": 37.2264142,
+    "lon": -121.9773801
+  },
+  "tags": {
+    "addr:city": "Los Gatos",
+    "addr:country": "US",
+    "addr:housenumber": "31",
+    "addr:postcode": "95030",
+    "addr:state": "CA",
+    "addr:street": "Miles Avenue",
+    "barrier": "fence",
+    "height": "4",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 231507000,
+  "center": {
+    "lat": 37.4234564,
+    "lon": -122.1145152
+  },
+  "tags": {
+    "operator": "City of Palo Alto Utilities",
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 240585981,
+  "center": {
+    "lat": 37.4628980,
+    "lon": -122.2278663
+  },
+  "tags": {
+    "barrier": "wall",
+    "name": "Las Pulgas Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 258564462,
+  "center": {
+    "lat": 37.3938331,
+    "lon": -122.1147241
+  },
+  "tags": {
+    "power": "substation",
+    "source": "photograph"
+  }
+},
+{
+  "type": "way",
+  "id": 324097501,
+  "center": {
+    "lat": 37.5563374,
+    "lon": -121.9752668
+  },
+  "tags": {
+    "description": "BART train power substation",
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 349473821,
+  "center": {
+    "lat": 37.3562294,
+    "lon": -121.9398956
+  },
+  "tags": {
+    "addr:city": "Santa Clara",
+    "addr:housenumber": "349",
+    "addr:state": "CA",
+    "addr:street": "West Brokaw Road",
+    "name": "Brokaw Substation",
+    "operator": "Silicon Valley Power",
+    "operator:type": "public",
+    "operator:wikidata": "Q7515002",
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 351439556,
+  "center": {
+    "lat": 37.3282172,
+    "lon": -121.9023160
+  },
+  "tags": {
+    "addr:city": "San Jose",
+    "addr:housenumber": "630",
+    "addr:postcode": "95110",
+    "addr:street": "West San Fernando Street",
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 356886950,
+  "center": {
+    "lat": 37.3945337,
+    "lon": -121.9575617
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 358455180,
+  "center": {
+    "lat": 37.3630345,
+    "lon": -121.9435961
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 359267178,
+  "center": {
+    "lat": 37.3709530,
+    "lon": -121.9762962
+  },
+  "tags": {
+    "power": "substation",
+    "substation": "distribution"
+  }
+},
+{
+  "type": "way",
+  "id": 367132254,
+  "center": {
+    "lat": 37.3825121,
+    "lon": -122.0698964
+  },
+  "tags": {
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 367151071,
+  "center": {
+    "lat": 37.3800274,
+    "lon": -122.0221481
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 371055268,
+  "center": {
+    "lat": 37.3758043,
+    "lon": -121.9543324
+  },
+  "tags": {
+    "addr:city": "Santa Clara",
+    "addr:housenumber": "1234",
+    "addr:state": "CA",
+    "addr:street": "Space Park Drive",
+    "name": "Kenneth Substation",
+    "power": "substation",
+    "substation": "distribution",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 392311411,
+  "center": {
+    "lat": 37.3273332,
+    "lon": -121.9961505
+  },
+  "tags": {
+    "name": "Lawrence Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "substation": "minor_distribution"
+  }
+},
+{
+  "type": "way",
+  "id": 396269147,
+  "center": {
+    "lat": 37.3360204,
+    "lon": -122.0431687
+  },
+  "tags": {
+    "name": "Stelling Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "substation": "distribution"
+  }
+},
+{
+  "type": "way",
+  "id": 400340186,
+  "center": {
+    "lat": 37.5124400,
+    "lon": -121.9444360
+  },
+  "tags": {
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "substation": "minor_distribution",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 400341157,
+  "center": {
+    "lat": 37.4936806,
+    "lon": -121.9394459
+  },
+  "tags": {
+    "name": "NUMMI Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "substation": "industrial",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 405724122,
+  "center": {
+    "lat": 37.6092409,
+    "lon": -121.8426772
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 431423358,
+  "center": {
+    "lat": 37.2982548,
+    "lon": -121.9313384
+  },
+  "tags": {
+    "building": "service",
+    "ele": "56.54",
+    "height": "3.53",
+    "operator:wikidata": "Q1456861",
+    "power": "substation",
+    "substation": "traction",
+    "utility": "power"
+  }
+},
+{
+  "type": "way",
+  "id": 460076758,
+  "center": {
+    "lat": 37.3630553,
+    "lon": -121.9458494
+  },
+  "tags": {
+    "power": "substation",
+    "substation": "distribution"
+  }
+},
+{
+  "type": "way",
+  "id": 460159948,
+  "center": {
+    "lat": 37.3740121,
+    "lon": -121.9740162
+  },
+  "tags": {
+    "power": "substation",
+    "substation": "distribution"
+  }
+},
+{
+  "type": "way",
+  "id": 503304011,
+  "center": {
+    "lat": 37.4096963,
+    "lon": -122.0315528
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 525643961,
+  "center": {
+    "lat": 37.4857953,
+    "lon": -121.9466562
+  },
+  "tags": {
+    "building": "tech_cab",
+    "height": "1.9",
+    "power": "substation",
+    "ref": "SW61373/SW61372",
+    "substation": "minor_distribution"
+  }
+},
+{
+  "type": "way",
+  "id": 525643963,
+  "center": {
+    "lat": 37.4843827,
+    "lon": -121.9463540
+  },
+  "tags": {
+    "building": "tech_cab",
+    "power": "substation",
+    "ref": "SW61338/SW1339",
+    "substation": "minor_distribution"
+  }
+},
+{
+  "type": "way",
+  "id": 525643965,
+  "center": {
+    "lat": 37.4845928,
+    "lon": -121.9459176
+  },
+  "tags": {
+    "building": "tech_cab",
+    "power": "substation",
+    "ref": "SW61338/SW1339",
+    "substation": "minor_distribution"
+  }
+},
+{
+  "type": "way",
+  "id": 526361284,
+  "center": {
+    "lat": 37.5036366,
+    "lon": -121.9110529
+  },
+  "tags": {
+    "addr:housenumber": "670",
+    "addr:street": "Stanford Avenue",
+    "building": "yes",
+    "building:material": "metal",
+    "height": "1.8",
+    "power": "substation",
+    "ref": "SW-15439/SW-15440",
+    "roof:material": "metal",
+    "substation": "minor_distribution"
+  }
+},
+{
+  "type": "way",
+  "id": 539148054,
+  "center": {
+    "lat": 37.4205581,
+    "lon": -121.9599446
+  },
+  "tags": {
+    "name": "Nortech Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 584286402,
+  "center": {
+    "lat": 37.4328124,
+    "lon": -122.2027904
+  },
+  "tags": {
+    "barrier": "wall",
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 608820923,
+  "center": {
+    "lat": 37.6353725,
+    "lon": -122.0578297
+  },
+  "tags": {
+    "operator": "San Francisco Bay Area Rapid Transit District",
+    "power": "substation",
+    "substation": "traction",
+    "voltage": "34500;1000"
+  }
+},
+{
+  "type": "way",
+  "id": 677526238,
+  "center": {
+    "lat": 37.3913679,
+    "lon": -121.9676676
+  },
+  "tags": {
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 688096231,
+  "center": {
+    "lat": 37.4033888,
+    "lon": -121.9059343
+  },
+  "tags": {
+    "name": "Montague Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "substation": "minor_distribution",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 697217127,
+  "center": {
+    "lat": 37.3750469,
+    "lon": -121.9731511
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 697224334,
+  "center": {
+    "lat": 37.3694303,
+    "lon": -121.9444595
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 713538613,
+  "center": {
+    "lat": 37.3693318,
+    "lon": -121.9564048
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 713645970,
+  "center": {
+    "lat": 37.3719584,
+    "lon": -121.9507171
+  },
+  "tags": {
+    "barrier": "fence",
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 713652632,
+  "center": {
+    "lat": 37.3865904,
+    "lon": -121.9675161
+  },
+  "tags": {
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 733504424,
+  "center": {
+    "lat": 37.4310407,
+    "lon": -122.1056771
+  },
+  "tags": {
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 733504426,
+  "center": {
+    "lat": 37.4240566,
+    "lon": -122.1343242
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 733504430,
+  "center": {
+    "lat": 37.4094918,
+    "lon": -122.1473355
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 737024086,
+  "center": {
+    "lat": 37.4300375,
+    "lon": -121.9514652
+  },
+  "tags": {
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 741753437,
+  "center": {
+    "lat": 37.4229452,
+    "lon": -122.0784848
+  },
+  "tags": {
+    "construction": "yes",
+    "name": "Central Utility Plant",
+    "power": "substation",
+    "substation": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 763129562,
+  "center": {
+    "lat": 37.5131820,
+    "lon": -122.2062503
+  },
+  "tags": {
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 763130469,
+  "center": {
+    "lat": 37.5142663,
+    "lon": -122.2059490
+  },
+  "tags": {
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 805637707,
+  "center": {
+    "lat": 37.4186596,
+    "lon": -122.0394125
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 805637708,
+  "center": {
+    "lat": 37.4160857,
+    "lon": -122.0308803
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 842021525,
+  "center": {
+    "lat": 37.4155805,
+    "lon": -122.0637752
+  },
+  "tags": {
+    "name": "N-221C",
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 842021526,
+  "center": {
+    "lat": 37.4167683,
+    "lon": -122.0631577
+  },
+  "tags": {
+    "alt_name": "Substation West",
+    "barrier": "fence",
+    "name": "N-225",
+    "note": "Not included in Wind Tunnel Historic District, NRHP Ref# 100000470.",
+    "power": "substation",
+    "protection_title": "National Aeronautics and Space Administration",
+    "source_ref": "https://npgallery.nps.gov/NRHP/AssetDetail/186aea8f-60ce-402b-b8f8-3f0b8b961219",
+    "start_date": "1940",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 861173735,
+  "center": {
+    "lat": 37.4985813,
+    "lon": -121.9372984
+  },
+  "tags": {
+    "building": "service",
+    "power": "substation",
+    "substation": "traction",
+    "utility": "power"
+  }
+},
+{
+  "type": "way",
+  "id": 879148252,
+  "center": {
+    "lat": 37.3851710,
+    "lon": -121.9565778
+  },
+  "tags": {
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 885674733,
+  "center": {
+    "lat": 37.3042054,
+    "lon": -121.8674805
+  },
+  "tags": {
+    "addr:city": "San Jose",
+    "addr:housenumber": "2175",
+    "addr:postcode": "95125",
+    "addr:street": "Monterey Road",
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 888505628,
+  "center": {
+    "lat": 37.5746906,
+    "lon": -121.8659990
+  },
+  "tags": {
+    "barrier": "fence",
+    "name": "Calaveras Substation",
+    "operator": "San Francisco Public Utilities Commission",
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 891687196,
+  "center": {
+    "lat": 37.4281383,
+    "lon": -122.1858722
+  },
+  "tags": {
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 923767038,
+  "center": {
+    "lat": 37.4188421,
+    "lon": -122.0600562
+  },
+  "tags": {
+    "barrier": "fence",
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 924671890,
+  "center": {
+    "lat": 37.3608675,
+    "lon": -121.8641462
+  },
+  "tags": {
+    "addr:city": "San Jose",
+    "addr:housenumber": "455",
+    "addr:postcode": "95133",
+    "addr:street": "North King Road",
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 929397167,
+  "center": {
+    "lat": 37.3611319,
+    "lon": -122.0997665
+  },
+  "tags": {
+    "addr:housenumber": "1190",
+    "addr:street": "Border Road",
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 935821342,
+  "center": {
+    "lat": 37.4177438,
+    "lon": -122.1411348
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 1028521626,
+  "center": {
+    "lat": 37.3076199,
+    "lon": -121.8803304
+  },
+  "tags": {
+    "barrier": "fence",
+    "name": "Paralleling Station 7",
+    "operator": "Caltrain",
+    "power": "substation",
+    "substation": "traction"
+  }
+},
+{
+  "type": "way",
+  "id": 1028522822,
+  "center": {
+    "lat": 37.3460776,
+    "lon": -121.9208217
+  },
+  "tags": {
+    "name": "Traction Power Facility 2",
+    "operator": "Caltrain",
+    "operator:wikidata": "Q166817",
+    "power": "substation",
+    "substation": "traction",
+    "voltage": "115000;25000"
+  }
+},
+{
+  "type": "way",
+  "id": 1028556921,
+  "center": {
+    "lat": 37.3787202,
+    "lon": -122.0316538
+  },
+  "tags": {
+    "barrier": "wall",
+    "name": "Paralleling Station 6",
+    "operator": "Caltrain",
+    "power": "substation",
+    "substation": "traction"
+  }
+},
+{
+  "type": "way",
+  "id": 1028561169,
+  "center": {
+    "lat": 37.4267967,
+    "lon": -122.1382112
+  },
+  "tags": {
+    "name": "Paralleling Station 5",
+    "operator": "Caltrain",
+    "power": "substation",
+    "substation": "traction"
+  }
+},
+{
+  "type": "way",
+  "id": 1073230921,
+  "center": {
+    "lat": 37.4013928,
+    "lon": -121.9688374
+  },
+  "tags": {
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 1169278170,
+  "center": {
+    "lat": 37.3541099,
+    "lon": -121.9126605
+  },
+  "tags": {
+    "power": "substation",
+    "substation": "transition",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 1215763173,
+  "center": {
+    "lat": 37.4164852,
+    "lon": -122.0603969
+  },
+  "tags": {
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 1250036872,
+  "center": {
+    "lat": 37.5868947,
+    "lon": -121.8697598
+  },
+  "tags": {
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:website": "https://www.pge.com",
+    "operator:wikidata": "Q1815011",
+    "operator:wikipedia": "en:Pacific Gas and Electric Company",
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 1272201645,
+  "center": {
+    "lat": 37.3763503,
+    "lon": -121.9509727
+  },
+  "tags": {
+    "name": "Kifer Receiving Station",
+    "operator": "Silicon Valley Power",
+    "power": "substation",
+    "voltage": "115000;60000"
+  }
+},
+{
+  "type": "way",
+  "id": 1273559624,
+  "center": {
+    "lat": 37.3178555,
+    "lon": -122.0933086
+  },
+  "tags": {
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 1273559628,
+  "center": {
+    "lat": 37.3163744,
+    "lon": -122.0916280
+  },
+  "tags": {
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 1273559631,
+  "center": {
+    "lat": 37.3152089,
+    "lon": -122.0927438
+  },
+  "tags": {
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 1274482083,
+  "center": {
+    "lat": 37.4326889,
+    "lon": -121.9419553
+  },
+  "tags": {
+    "power": "substation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 1274520172,
+  "center": {
+    "lat": 37.3852797,
+    "lon": -121.9572498
+  },
+  "tags": {
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 1274695685,
+  "center": {
+    "lat": 37.4256683,
+    "lon": -121.9336105
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 1274695690,
+  "center": {
+    "lat": 37.4104772,
+    "lon": -122.1249290
+  },
+  "tags": {
+    "power": "substation",
+    "voltage": "60000"
+  }
+},
+{
+  "type": "way",
+  "id": 1309467397,
+  "center": {
+    "lat": 37.3849831,
+    "lon": -122.0130071
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 1408922585,
+  "center": {
+    "lat": 37.3390870,
+    "lon": -121.9784407
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 1430102610,
+  "center": {
+    "lat": 37.3362735,
+    "lon": -121.8781896
+  },
+  "tags": {
+    "name": "Markham Substation",
+    "operator": "Pacific Gas and Electric Company",
+    "operator:short": "PG&E",
+    "operator:wikidata": "Q1815011",
+    "power": "substation",
+    "substation": "generation",
+    "voltage": "115000"
+  }
+},
+{
+  "type": "way",
+  "id": 1460846254,
+  "center": {
+    "lat": 37.3910457,
+    "lon": -121.9665032
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 1460847457,
+  "center": {
+    "lat": 37.3835720,
+    "lon": -121.9666216
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 1460850087,
+  "center": {
+    "lat": 37.3691992,
+    "lon": -121.9447947
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 1460853729,
+  "center": {
+    "lat": 37.3634393,
+    "lon": -121.9475601
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 1460855149,
+  "center": {
+    "lat": 37.3605346,
+    "lon": -121.9515302
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 1485095132,
+  "center": {
+    "lat": 37.4112742,
+    "lon": -121.9277039
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 1485095133,
+  "center": {
+    "lat": 37.4551103,
+    "lon": -121.9357645
+  },
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "relation",
+  "id": 13764643,
+  "center": {
+    "lat": 37.4787801,
+    "lon": -122.2195323
+  },
+  "tags": {
+    "name": "Switching Station 1",
+    "operator": "Caltrain",
+    "power": "substation",
+    "substation": "traction",
+    "type": "multipolygon"
+  }
+}
+
+  ]
+}
