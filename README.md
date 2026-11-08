@@ -10,7 +10,23 @@
 
 QSiteProof is a proposed one-day hack prototype that combines PsiQDK search, pandapower physical checks, and Lean 4 formal certification. The goal is to find a connect-sooner path using flexibility and existing infrastructure before defaulting to a new transmission corridor.
 
-**Status:** Concept and prototype plan. The architecture, certificate, and evaluation below describe the intended workflow, not completed implementation or measured results.
+**Status:** Working prototype. All five pipeline stages run live on the real North San Jose / Alviso site: OpenStreetMap grid + live CAISO data, PsiQDK Grover search, pandapower power flow with N-1, and a compiled Lean 4 certificate.
+
+## Demo: a real GREEN run
+
+[![QSiteProof demo: 150 MW Alviso site found GREEN](docs/demo_green.gif)](docs/demo_green.mp4)
+
+*Click for the full-resolution MP4.* Every frame comes from one real pipeline run ([docs/demo_run/](docs/demo_run/)), rendered by [docs/make_demo_video.py](docs/make_demo_video.py):
+
+| Step | What you see | Real result |
+| --- | --- | --- |
+| **In** | 150 MW data center, Alviso, needed by 2028-06-30 | `data/l1/site.json` |
+| **Find (quantum)** | Every hookup plan in superposition → phase flip on the plans that pass → interference amplifies them → measure | PsiQDK simulation: 10 qubits, 1,024 plan slots, 211 pass, 1 Grover iteration; fault-tolerant cost estimate Active Volume 82,770 |
+| **Check physics** | pandapower power flow + "what if any single line trips" | Converged, max loading 71.7%, voltage 0.993–1.02 pu, N-1 pass |
+| **Prove (Lean 4)** | 7 rules: capacity, thermal/voltage, N-1, flexibility, deadline, permit/ROW, penalty trigger | All pass; kernel-checked theorems; evidence SHA-256 bound into the certificate |
+| **Out** | **GREEN**: 112.5 MW Northern Receiving + 37.5 MW Los Esteros, no new corridor | `docs/demo_run/certificate.json` |
+
+GREEN covers only the encoded rules over the supplied evidence; it is not a utility interconnection approval. The quantum search is a PsiQDK simulation of a fault-tolerant algorithm; no quantum advantage is claimed.
 
 [![QSiteProof one-page concept plan](docs/QSiteProof_Final_Plan.png)](docs/QSiteProof_Final_Plan_Updated.pdf)
 

@@ -1,0 +1,94 @@
+{
+  "checks": [
+    {
+      "detail": "2 splits sum to requested 150.000 MW; every split <= substation headroom",
+      "name": "capacity",
+      "pass": true
+    },
+    {
+      "detail": "converged; max loading 71.7% <= 100.0%; voltage 0.9934-1.0200 pu within 0.9500-1.0500 pu",
+      "name": "thermal_voltage",
+      "pass": true
+    },
+    {
+      "detail": "N-1 pass; no violations",
+      "name": "n1",
+      "pass": true
+    },
+    {
+      "detail": "storage 0.000 MW <= 0.000 MW; curtailment 0.000 MW <= 0.000 MW (ASSUMED: no site commitment evidence, none committed)",
+      "name": "flex_commitment",
+      "pass": true
+    },
+    {
+      "detail": "no flex option with a lead time used; 600 d left before deadline 2028-06-30 (as of 2026-11-08)",
+      "name": "deadline",
+      "pass": true
+    },
+    {
+      "detail": "no reconductor or new ROW used; no ROW permit needed",
+      "name": "permit_row",
+      "pass": true
+    },
+    {
+      "detail": "penalty trigger FALSE: curtailment 0.000 MW <= cap 10.0% of requested; deadline met",
+      "name": "penalty_trigger",
+      "pass": true
+    }
+  ],
+  "result": "GREEN",
+  "blocking_condition": null,
+  "scope_note": "Rules checked by the Lean 4 decision procedure QSiteProof (Lean 4.35.0, compiled `lake exe qsiteproof`); its correctness theorems are kernel-checked: QSiteProof.verdict_green_iff_all, QSiteProof.verdict_red_blocking_sound, QSiteProof.blocking_is_first, QSiteProof.verdict_extensional, QSiteProof.certify_deterministic, QSiteProof.report_pass_sound. Obligations in order: capacity, thermal_voltage, n1, flex_commitment, deadline, permit_row, penalty_trigger. Evidence sha256: 11feadc757ca66d2be6c76efaedb4ce22140cf14ac143eddfb84d7a6e004130e (canonical JSON, sorted keys). ASSUMED: lead times DLR 365 d, storage 547 d, reconductor 1095 d; curtailment penalty cap 10.0% of requested; loading limit 100.0%, voltage band 0.9500-1.0500 pu; DLR headroom uplift 0.0%; flex commitment: ASSUMED: no site commitment evidence, none committed; ROW permit granted: false; as-of 2026-11-08; headroom from candidate_plan splits.headroom_mw. GREEN covers only the encoded rules over the supplied evidence; it is not a utility interconnection approval.",
+  "engine": "lean4",
+  "evidence_sha256": "11feadc757ca66d2be6c76efaedb4ce22140cf14ac143eddfb84d7a6e004130e",
+  "evidence": {
+    "format": "qsiteproof-evidence/1",
+    "site_id": "nsj-alviso-150",
+    "requested_kw": 150000,
+    "splits": [
+      {
+        "substation_id": "osm-way-52612640",
+        "kw": 112500,
+        "headroom_known": true,
+        "headroom_kw": 418900
+      },
+      {
+        "substation_id": "osm-way-39017429",
+        "kw": 37500,
+        "headroom_known": true,
+        "headroom_kw": 418900
+      }
+    ],
+    "headroom_source": "candidate_plan splits.headroom_mw",
+    "dlr": false,
+    "dlr_headroom_uplift_permille": 0,
+    "storage_kw": 0,
+    "curtailment_kw": 0,
+    "reconductor": false,
+    "new_row": false,
+    "converged": true,
+    "has_loading": true,
+    "max_loading_permille": 717,
+    "loading_limit_permille": 1000,
+    "has_voltage": true,
+    "v_min_pu4": 9934,
+    "v_max_pu4": 10200,
+    "v_lo_pu4": 9500,
+    "v_hi_pu4": 10500,
+    "n1_pass": true,
+    "violation_count": 0,
+    "first_violation": "",
+    "committed_storage_kw": 0,
+    "committed_curtailment_kw": 0,
+    "commitment_source": "ASSUMED: no site commitment evidence, none committed",
+    "as_of": "2026-11-08",
+    "as_of_day": 20765,
+    "deadline": "2028-06-30",
+    "deadline_day": 21365,
+    "lead_dlr_days": 365,
+    "lead_storage_days": 547,
+    "lead_reconductor_days": 1095,
+    "row_permit_granted": false,
+    "curtail_cap_permille": 100
+  }
+}

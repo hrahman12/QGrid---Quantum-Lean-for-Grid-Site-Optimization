@@ -1,0 +1,306 @@
+{
+ "generated_utc": "2026-11-08T22:08:39Z",
+ "honesty": "Grover here is a classical simulation (PsiQDK workbench simulator, or numpy fallback) of a fault-tolerant quantum search circuit. No quantum hardware ran and no quantum advantage is claimed: the phase oracle is compiled from a marked list found by evaluating the classical predicate on all N plans. A marked plan is only a candidate; grid.physics.check (pandapower, N-1) and lean.certify decide.",
+ "site_id": "nsj-alviso-150",
+ "space": {
+  "site_id": "nsj-alviso-150",
+  "requested_mw": 150.0,
+  "candidate_substations": [
+   {
+    "id": "osm-way-539148054",
+    "name": "Nortech Substation",
+    "distance_km": 1.48,
+    "headroom_mw": 29.9
+   },
+   {
+    "id": "osm-way-52612640",
+    "name": "Northern Receiving Station",
+    "distance_km": 2.83,
+    "headroom_mw": 418.9
+   },
+   {
+    "id": "osm-way-39017429",
+    "name": "Los Esteros Substation",
+    "distance_km": 3.72,
+    "headroom_mw": 418.9
+   },
+   {
+    "id": "osm-way-38084005",
+    "name": "Fair Oaks Substation",
+    "distance_km": 4.51,
+    "headroom_mw": 29.9
+   }
+  ],
+  "k": 4,
+  "split_steps": "25% of requested_mw",
+  "n_splits": 35,
+  "dlr": [
+   false,
+   true
+  ],
+  "storage_mw": [
+   0,
+   25,
+   50
+  ],
+  "curtailment_pct": [
+   0,
+   5,
+   10
+  ],
+  "N": 630,
+  "n_qubits": 10,
+  "padded_N": 1024,
+  "index_layout": "((split_idx*2 + dlr_idx)*3 + storage_idx)*3 + curtail_idx; padding indices never marked"
+ },
+ "oracle": {
+  "rule": "split_i*(1-(storage+curtail)/requested) <= headroom_i*(1+dlr_uplift if dlr)",
+  "notes": [
+   "DLR uplift [10.0]% from snapshot['dlr_uplift_pct']; applied to substation headroom as a screening shortcut (L2 defines it on line ratings)"
+  ],
+  "constraints": [],
+  "excluded_plan_indices": [],
+  "M": 211,
+  "classical_enumeration_calls": 630,
+  "widened": []
+ },
+ "backend": "psiqdk",
+ "method": "psiqdk",
+ "fallback_reasons": [],
+ "iterations": 1,
+ "iterations_expected": 1,
+ "evals": 64,
+ "evals_definition": "grover_iterations*shots (in-circuit oracle queries) + shots (classical check of each measured sample); excludes the N classical calls that compiled the lookup oracle",
+ "picked_from": "measured shots",
+ "objective": "min (flex resources used, flex MW, -worst-case headroom margin, index)",
+ "chosen_plan_index": 378,
+ "chosen_plan": {
+  "site_id": "nsj-alviso-150",
+  "splits": [
+   {
+    "substation_id": "osm-way-52612640",
+    "mw": 112.5,
+    "headroom_mw": 418.9
+   },
+   {
+    "substation_id": "osm-way-39017429",
+    "mw": 37.5,
+    "headroom_mw": 418.9
+   }
+  ],
+  "flex": {
+   "dlr": false,
+   "storage_mw": 0.0,
+   "curtailment_mw": 0.0,
+   "reconductor": false
+  },
+  "search": {
+   "method": "psiqdk",
+   "evals": 64
+  }
+ },
+ "grover": {
+  "backend": "psiqdk",
+  "simulation_note": "PsiQDK workbench statevector SIMULATION of a fault-tolerant Grover circuit; not a hardware run; no quantum advantage claimed (oracle compiled from a classically enumerated marked list).",
+  "versions": {
+   "psiqdk": "2.5.0",
+   "psiqdk-workbench": "4.55.3",
+   "psiqdk-algorithms": "1.24.4",
+   "workbench-sim-native": "0.3.0"
+  },
+  "n_qubits": 10,
+  "padded_N": 1024,
+  "M": 211,
+  "iterations": 1,
+  "iteration_rule": "floor(pi/4*sqrt(padded_N/M))",
+  "per_iteration": [
+   {
+    "iteration": 0,
+    "p_marked": 0.20605468749999967,
+    "top": [
+     {
+      "index": 0,
+      "p": 0.0009765624999999985
+     },
+     {
+      "index": 1,
+      "p": 0.0009765624999999985
+     },
+     {
+      "index": 2,
+      "p": 0.0009765624999999985
+     },
+     {
+      "index": 3,
+      "p": 0.0009765624999999985
+     },
+     {
+      "index": 4,
+      "p": 0.0009765624999999985
+     },
+     {
+      "index": 5,
+      "p": 0.0009765624999999985
+     },
+     {
+      "index": 6,
+      "p": 0.0009765624999999985
+     },
+     {
+      "index": 7,
+      "p": 0.0009765624999999985
+     }
+    ],
+    "rest": 0.9921875
+   },
+   {
+    "iteration": 1,
+    "p_marked": 0.9754678457975339,
+    "top": [
+     {
+      "index": 481,
+      "p": 0.004623070359230022
+     },
+     {
+      "index": 304,
+      "p": 0.004623070359230021
+     },
+     {
+      "index": 305,
+      "p": 0.004623070359230021
+     },
+     {
+      "index": 312,
+      "p": 0.004623070359230021
+     },
+     {
+      "index": 313,
+      "p": 0.004623070359230021
+     },
+     {
+      "index": 318,
+      "p": 0.004623070359230021
+     },
+     {
+      "index": 319,
+      "p": 0.004623070359230021
+     },
+     {
+      "index": 367,
+      "p": 0.004623070359230021
+     }
+    ],
+    "rest": 0.9630154371261599
+   }
+  ],
+  "shots": 32,
+  "seed": 7,
+  "samples": [
+   259,
+   311,
+   574,
+   379,
+   305,
+   292,
+   211,
+   371,
+   186,
+   395,
+   543,
+   313,
+   366,
+   437,
+   437,
+   445,
+   320,
+   556,
+   292,
+   475,
+   268,
+   509,
+   241,
+   483,
+   562,
+   378,
+   364,
+   322,
+   248,
+   214,
+   385,
+   420
+  ],
+  "samples_marked": 31,
+  "numpy_crosscheck_max_abs_diff_per_iteration": [
+   2.42861286636753e-17,
+   2.0816681711721685e-16
+  ],
+  "numpy_crosscheck_ok": true,
+  "resources": {
+   "qpu_metrics": {
+    "qubit_highwater_lower_bound": 17,
+    "qubit_highwater_upper_bound": 24,
+    "toffoli_count": 1696,
+    "measurement_count": 1484,
+    "rotation_count": 0,
+    "t_count": 0,
+    "active_volume": 82770,
+    "total_num_ops": 3183
+   },
+   "resource_estimator": {
+    "active_volume": 82770,
+    "gidney_lelbows": 1484,
+    "gidney_relbows": 1484,
+    "measurements": 0,
+    "rotations": 0,
+    "pprs": 0,
+    "ppms": 0,
+    "t_gates": 0,
+    "toffs": 212,
+    "qubit_highwater": 10
+   }
+  },
+  "resources_note": "qc.metrics() of the simulated circuit (state prep + k Grover iterations, no reads). The oracle is a lookup: one (n-1)-controlled Z per marked index, so its cost grows with M; an arithmetic comparator oracle would be the cheaper fault-tolerant design.",
+  "amplitude_amplified_qubrick": {
+   "p_marked": 0.9999999999999915,
+   "note": "vanilla exact AA (arXiv:quant-ph/0005055) via AmplitudeAmplifiedQubrick(UniformPrep, GroverDiffuser, MarkedPhaseOracle); last step uses fractional reflection angles",
+   "qpu_metrics": {
+    "qubit_highwater_lower_bound": 18,
+    "qubit_highwater_upper_bound": 26,
+    "toffoli_count": 3392,
+    "measurement_count": 3180,
+    "rotation_count": 636,
+    "t_count": 0,
+    "active_volume": 722858,
+    "total_num_ops": 7637
+   },
+   "resource_estimator": {
+    "active_volume": 722858,
+    "gidney_lelbows": 3180,
+    "gidney_relbows": 3180,
+    "measurements": 0,
+    "rotations": 636,
+    "pprs": 0,
+    "ppms": 0,
+    "t_gates": 0,
+    "toffs": 212,
+    "qubit_highwater": 10
+   }
+  },
+  "api_used": [
+   "psiqdk.workbench.QPU",
+   "psiqdk.workbench.Qubits",
+   "psiqdk.workbench.Qubrick",
+   "Qubits.had",
+   "(Qubits == m).reflect(theta)",
+   "Qubits.read",
+   "QPU.pull_state",
+   "QPU.push_state",
+   "QPU.metrics",
+   "psiqdk.algorithms.GroverDiffuser",
+   "psiqdk.algorithms.AmplitudeAmplifiedQubrick",
+   "psiqdk.workbench.qre.resource_estimator"
+  ],
+  "wall_s": 0.419
+ },
+ "wall_s": 2.629
+}
