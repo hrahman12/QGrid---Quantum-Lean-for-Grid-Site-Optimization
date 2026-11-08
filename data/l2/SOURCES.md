@@ -68,3 +68,24 @@ Rebuild offline with `.venv/bin/python data/l2/build_ciso_stress.py`. `iso.lates
 | Month and hour cells | Derived | Local (Pacific) month 1-12 and hour-beginning 0-23, the same convention as GRIP `limiting_month` / `limiting_hour` |
 
 2025 result: the net-load top 2% falls on evenings from May to September (mostly 18:00-23:00, peaking in August and September). The demand top 2% falls in July to September, 17:00-21:00. This is system-level CAISO stress; pair it with the GRIP feeder limiting hour for local stress. EIA-930 has no prices, so these windows come from load, not price.
+
+## flex_headroom.json (distribution MW vs curtailment hours)
+
+Rebuild offline with `.venv/bin/python data/l2/build_flex_headroom.py`. It reads `data/shared/grip/` and `ciso_2025_stress.json`.
+
+| What | Status | Source |
+|---|---|---|
+| Bank rating and 2028 forecast | SOURCED (directional) | `data/shared/grip/grip_capacity.json` (PG&E GRIP layer 31) |
+| Substation load shape by month and hour (`high`) | SOURCED, units undocumented, so only the shape is used | `data/shared/grip/raw/layer_25.json` (GRIP SubstationLoadProfile) |
+| Each month's `high` day repeats on every day of that month | ASSUMED (conservative: overstates curtailment hours) | |
+| The substation's shape applies to each of its banks | ASSUMED | |
+
+Method: curtail the highest month-hour cells up to a budget of X% of 2028 hours. Then flex headroom = rating - forecast_2028 × (highest remaining shape value), floored at 0. With X = 0 this reproduces GRIP firm headroom (38.79 MW).
+
+Result (directional, an upper bound because GRIP pending load is withheld):
+
+| Curtailment (% of hours) | 0 | 1 | 2 | 5 | 10 |
+|---|---|---|---|---|---|
+| Distribution MW near Alviso | 38.8 | 40.7 | 47.6 | 66.2 | 90.6 |
+
+Local bank peaks fall on August-September afternoons (13:00-18:00). The 2025 CAISO net-load stress falls in the evenings (18:00-23:00), and the two windows barely overlap.
