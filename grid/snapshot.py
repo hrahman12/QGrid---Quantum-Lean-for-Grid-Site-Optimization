@@ -199,11 +199,13 @@ def iso_signal(iso_name):
     if l2:
         return l2
     import gridstatus
-    cache = DATA / f"iso_{iso_name}_latest.csv"
+    tracked = DATA / f"iso_{iso_name}_latest.csv"            # shipped with the repo, read-only here
+    live_cache = DATA / "cache" / "live" / tracked.name       # gitignored: live pulls land here
+    cache = live_cache if live_cache.exists() else tracked
     live = None if offline or not hasattr(gridstatus, iso_name) else _with_timeout(lambda: _live_iso(iso_name), ISO_TIMEOUT_S)
     if live:
-        DATA.mkdir(parents=True, exist_ok=True)
-        with cache.open("w", newline="", encoding="utf-8") as f:
+        live_cache.parent.mkdir(parents=True, exist_ok=True)
+        with live_cache.open("w", newline="", encoding="utf-8") as f:
             w = csv.DictWriter(f, fieldnames=["timestamp", "load", "lmp", "source"])
             w.writeheader()
             w.writerow({**live, "source": f"gridstatus:{iso_name}"})
