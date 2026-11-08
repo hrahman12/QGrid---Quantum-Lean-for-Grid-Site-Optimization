@@ -1,0 +1,82 @@
+{
+ "engine": "MiroFish-style fallback, not MiroFish",
+ "repo_baseline_consent": 0.469,
+ "social_files_used": [],
+ "scenarios": [
+  {
+   "scenario": "S0_baseline",
+   "label": "150 MW, gas backup, no engagement",
+   "support": 13,
+   "neutral": 1,
+   "oppose": 24,
+   "mean_stance": -0.167,
+   "residents": -0.376,
+   "council": 0.186,
+   "env": -0.526,
+   "pge": 0.239,
+   "approval_proxy": 0.475,
+   "band": "AMBER",
+   "top_argument": "a-sj-draft-standards"
+  },
+  {
+   "scenario": "S1_cba_hiring",
+   "label": "S0 + community benefit agreement + local hiring",
+   "support": 14,
+   "neutral": 9,
+   "oppose": 15,
+   "mean_stance": -0.027,
+   "residents": -0.139,
+   "council": 0.323,
+   "env": -0.464,
+   "pge": 0.251,
+   "approval_proxy": 0.511,
+   "band": "AMBER",
+   "top_argument": "a-pge-rule30"
+  },
+  {
+   "scenario": "S2_water_heat",
+   "label": "S0 + recycled-water/closed-loop cooling + heat reuse",
+   "support": 14,
+   "neutral": 1,
+   "oppose": 23,
+   "mean_stance": -0.028,
+   "residents": -0.219,
+   "council": 0.327,
+   "env": -0.226,
+   "pge": 0.253,
+   "approval_proxy": 0.521,
+   "band": "AMBER",
+   "top_argument": "a-pge-rule30"
+  },
+  {
+   "scenario": "S3_edge_phase",
+   "label": "16-38 MW edge phase at distribution + generator limits",
+   "support": 14,
+   "neutral": 2,
+   "oppose": 22,
+   "mean_stance": -0.063,
+   "residents": -0.235,
+   "council": 0.209,
+   "env": -0.382,
+   "pge": 0.48,
+   "approval_proxy": 0.552,
+   "band": "AMBER",
+   "top_argument": "a-alviso-opposition"
+  },
+  {
+   "scenario": "S4_all_levers",
+   "label": "All levers",
+   "support": 22,
+   "neutral": 16,
+   "oppose": 0,
+   "mean_stance": 0.215,
+   "residents": 0.159,
+   "council": 0.486,
+   "env": -0.02,
+   "pge": 0.505,
+   "approval_proxy": 0.668,
+   "band": "GREEN-leaning",
+   "top_argument": "dcw-q1-2026"
+  }
+ ]
+}

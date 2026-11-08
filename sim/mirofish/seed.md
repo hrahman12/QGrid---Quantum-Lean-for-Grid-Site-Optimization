@@ -1,0 +1,37 @@
+# Data-center proposal: North San Jose / Alviso, CA (San Jose; Santa Clara County; PG&E)
+
+A developer proposes a 150 MW data center in Alviso / North San Jose with gas backup generators.
+
+Grid screening: (PG&E GRIP 2028 forecast; conditional screening estimates, directional): 150 MW at transmission is **RED** today (N-1 firm capacity: 19.9 MW firm at each candidate substation). At distribution, **38.7 MW** fits across 9 edge sites with every transformer bank within its cap; **47.6 MW** with ~2% curtailment (98% availability); only **7.4 MW** if load grows 20% beyond the utility forecast. Edge loop demo: RED (Nortech bank full) -> RED (Lawrence bank 1 full) -> GREEN 16 MW. Consent layer: Alviso 0.47 and NOVVA 0.43, both AMBER (heuristic score). Site is in FEMA flood zone AE.
+
+Site risk: FEMA flood zone AE (in SFHA: True).
+
+## Stakeholders
+- Alviso residents & neighborhood groups: asked for a pause at the Oct 15 2026 meeting
+- Environmental / water advocates: water, carbon, gas-backup concerns
+- r/sanjose petition commenters: mostly negative: grid, rates, water
+- San Jose City Council: pro-growth, drafting standards; vote Dec 2026
+- Mayor of San Jose: opposes a ban
+- Planning department: special use permit pathway
+- PG&E: Rule 30 interim; 150 MW at transmission RED per grid result
+- CPUC / ratepayer advocates: SB 57 cost-shift study
+- Building trades / local labor: ASSUMED, no item in alviso.json
+- Developer (150 MW proposal): proposer
+
+## Evidence (news, policy, public sentiment)
+- [ordinance, negotiable] Draft San Jose standards: recycled water or air/closed-loop cooling; fully carbon-neutral electricity; backup generator testing limited to 25 h/yr (state limit 50); regular water/power reporting with third-party verification every 5 yrs; noise/sewer monitoring; developer fees for affordable housing; mailed notice radius 1,500 ft (from 1,000). Final list expected at a council vote in December 2026 (second reading reported Dec 15 per search snippet of KION). (https://www.kqed.org/news/12104561/as-san-jose-tries-to-regulate-data-centers-residents-want-to-ban-them)
+- [moratorium, negotiable] At the Oct 15, 2026 community meeting residents and groups asked for a pause on all data-center approvals/applications. City says Council has not directed staff toward a moratorium; Mayor Matt Mahan likened an outright ban to 'our heads in the sand'. SF, Oakland, Richmond, Gilroy and Oakley have moved toward temporary moratoriums. (https://www.kqed.org/news/12104561/as-san-jose-tries-to-regulate-data-centers-residents-want-to-ban-them)
+- [opposition_group, negotiable] Prologis proposes >1M sq ft across 4 buildings on a 159-acre wastewater-facility site (Alviso); council approved an exclusive negotiating agreement in Nov 2025. Dreaming Collaborative (Ellina Yin) ran a petition with 800+ signatures; Alviso in Action (Marcos Espinoza) opposes; concerns: noise, air pollution, burrowing owl habitat; residents say the city has not contacted them. Other groups at the Oct 2026 meeting: Silicon Valley Council of Nonprofits, Amigos de Guadalupe (KQED). (https://sanjosespotlight.com/residents-push-back-against-san-joses-data-center-plans/)
+- [incentive, supportive] City estimates each large data center yields roughly $3M-$7M/yr in utility and property taxes. KQED: San Jose created dedicated recruitment staff and 'concierge-style support'. Per search snippets only (pages not read in full): council rejected an appeal against reclassifying a North San Jose research facility as a data center and moved ahead with rezoning the former IBM property (Sierra Club, Sep 2026). (https://sanjosespotlight.com/residents-push-back-against-san-joses-data-center-plans/)
+- [permit_rule, negotiable] Permit pathway reported in a search snippet only (page not fetched): special use permit approved by planning director at a public hearing; PC/Council meeting not required. City reportedly has 11 data-center applications under review (Reddit/search summary). (https://kioncentralcoast.com/news/top-stories/2026/10/15/san-jose-leaders-consider-new-rules-for-data-centers-amid-several-proposals/)
+- [utility_policy, negotiable] CPUC approved PG&E Electric Rule 30 on an interim basis (D.25-07-039): accelerated transmission-level connection for large loads (data centers, EV charging) for applicants who agree to pay for needed transmission work upfront; refund terms/cost allocation to be set by a later CPUC decision (final decision still pending per Stoel Rives / search; 50-230 kV scope per a CAISO slide). Thresholds not on the fetched page. (https://www.cpuc.ca.gov/news-and-updates/all-news/cpuc-streamlines-electric-grid-connections-for-high-energy-users-like-data-centers-and-ev-chargers)
+- [utility_policy, supportive] July 2025 San Jose-PG&E partnership: PG&E to provide power and grid upgrades for 12 projects by 2030 and fund six city staff positions; city hopes to use 2,000 MW from two LS Power Grid transmission projects. Santa Clara (city) reportedly turned away new data centers after reaching its grid limits. (https://sanjosespotlight.com/residents-push-back-against-san-joses-data-center-plans/)
+- [state_bill, negotiable] SB 57 (signed Oct 11 2025 per search; Ch. 647) directs CPUC to study whether data-center grid costs shift to residential/small-business ratepayers; 'does not impose new charges, special rate classes, or operational requirements'. AB 222 (energy/PUE reporting to CEC) not enacted as of Jan 2026. Search snippet (Mar 2026 analysis): SB 886 (Padilla, new CPUC tariff framework) and SB 978 (Perez, special rate for >=75 MW users) proposed; final status NOT verified. (https://www.morganlewis.com/blogs/datacenterbytes/2026/01/california-takes-a-study-first-approach-to-data-center-regulation)
+- [state_bill, supportive] Same article lists mandatory efficiency standards, special rate structures and expansive water disclosures as proposals not advanced or narrowed. Outcome of the rest of the 2026 CA session NOT verified. (https://www.morganlewis.com/blogs/datacenterbytes/2026/01/california-takes-a-study-first-approach-to-data-center-regulation)
+- [news_sentiment, negotiable] 'Petition Against Data Centers in San Jose': 45 pts, 54 comments (16 captured). Mostly negative (grid already stretched, 'awful buildings' in South San Jose), a few supportive (a heat-reuse project praised) and dismissive of opposition; one commenter alleges the petition is bot-promoted. (https://reddit.sentinel-team.org/posts/1su3dox/snapshots/2026-04-24T06%3A52%3A30.067072Z)
+- [opposition_group, negotiable] At least 75 US projects, ~$130B blocked or delayed in the quarter; opposition active in 49 states; 300+ state data-center bills filed in first six weeks of 2026; statewide moratorium proposals in 14 states (none enacted per page). The '833 opposition groups' figure was supplied by the requester and is NOT visible on the fetched page (page says groups 'more than doubled' since Q4 2025). Page text does not mention California or Colorado. (https://www.datacenterwatch.org/q1-2026)
+
+## Engagement options under discussion
+- Community benefit agreement + local hiring: addresses 'what does Alviso get'; draft standards already ask for housing fees
+- Recycled-water / closed-loop cooling + heat reuse: meets the draft San Jose cooling condition; water was a top petition complaint
+- Edge phase 16-38 MW at distribution + generator limits (25 h/yr): grid result: 150 MW transmission RED, 16 MW GREEN / 38.7 MW fits at distribution; meets 25 h/yr generator-testing draft limit

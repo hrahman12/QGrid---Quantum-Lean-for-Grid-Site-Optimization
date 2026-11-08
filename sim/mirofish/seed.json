@@ -1,0 +1,398 @@
+{
+ "site": "North San Jose / Alviso, CA (San Jose; Santa Clara County; PG&E)",
+ "consent_formula": "S = 1 - prod(1 - w_i) over supportive items; O = 1 - prod(1 - w_i*m_i) over opposition items with m=1.0 (hard) or 0.6 (negotiable); consent_score = clamp(0.5 + 0.5*(S - O), 0, 1). Bands: >=0.65 GREEN-leaning, 0.35-0.65 AMBER, <0.35 RED-leaning; override: any hard item with weight>=0.8 and applies_to 'site' forces RED regardless of score. Weights are ASSUMED analyst judgments (each has a one-line rationale); this is a heuristic, not a validated model.",
+ "consent_score_repo": 0.469,
+ "items": [
+  {
+   "id": "a-sj-draft-standards",
+   "type": "ordinance",
+   "effect": "negotiable",
+   "weight": 0.6,
+   "applies_to": "site",
+   "summary": "Draft San Jose standards: recycled water or air/closed-loop cooling; fully carbon-neutral electricity; backup generator testing limited to 25 h/yr (state limit 50); regular water/power reporting with third-party verification every 5 yrs; noise/sewer monitoring; developer fees for affordable housing; mailed notice radius 1,500 ft (from 1,000). Final list expected at a council vote in December 2026 (second reading reported Dec 15 per search snippet of KION).",
+   "url": "https://www.kqed.org/news/12104561/as-san-jose-tries-to-regulate-data-centers-residents-want-to-ban-them"
+  },
+  {
+   "id": "a-sj-moratorium-calls",
+   "type": "moratorium",
+   "effect": "negotiable",
+   "weight": 0.5,
+   "applies_to": "site",
+   "summary": "At the Oct 15, 2026 community meeting residents and groups asked for a pause on all data-center approvals/applications. City says Council has not directed staff toward a moratorium; Mayor Matt Mahan likened an outright ban to 'our heads in the sand'. SF, Oakland, Richmond, Gilroy and Oakley have moved toward temporary moratoriums.",
+   "url": "https://www.kqed.org/news/12104561/as-san-jose-tries-to-regulate-data-centers-residents-want-to-ban-them"
+  },
+  {
+   "id": "a-alviso-opposition",
+   "type": "opposition_group",
+   "effect": "negotiable",
+   "weight": 0.55,
+   "applies_to": "site",
+   "summary": "Prologis proposes >1M sq ft across 4 buildings on a 159-acre wastewater-facility site (Alviso); council approved an exclusive negotiating agreement in Nov 2025. Dreaming Collaborative (Ellina Yin) ran a petition with 800+ signatures; Alviso in Action (Marcos Espinoza) opposes; concerns: noise, air pollution, burrowing owl habitat; residents say the city has not contacted them. Other groups at the Oct 2026 meeting: Silicon Valley Council of Nonprofits, Amigos de Guadalupe (KQED).",
+   "url": "https://sanjosespotlight.com/residents-push-back-against-san-joses-data-center-plans/"
+  },
+  {
+   "id": "a-sj-council-pro-growth",
+   "type": "incentive",
+   "effect": "supportive",
+   "weight": 0.55,
+   "applies_to": "site",
+   "summary": "City estimates each large data center yields roughly $3M-$7M/yr in utility and property taxes. KQED: San Jose created dedicated recruitment staff and 'concierge-style support'. Per search snippets only (pages not read in full): council rejected an appeal against reclassifying a North San Jose research facility as a data center and moved ahead with rezoning the former IBM property (Sierra Club, Sep 2026).",
+   "url": "https://sanjosespotlight.com/residents-push-back-against-san-joses-data-center-plans/"
+  },
+  {
+   "id": "a-sj-permit-pathway",
+   "type": "permit_rule",
+   "effect": "negotiable",
+   "weight": 0.3,
+   "applies_to": "site",
+   "summary": "Permit pathway reported in a search snippet only (page not fetched): special use permit approved by planning director at a public hearing; PC/Council meeting not required. City reportedly has 11 data-center applications under review (Reddit/search summary).",
+   "url": "https://kioncentralcoast.com/news/top-stories/2026/10/15/san-jose-leaders-consider-new-rules-for-data-centers-amid-several-proposals/"
+  },
+  {
+   "id": "a-pge-rule30",
+   "type": "utility_policy",
+   "effect": "negotiable",
+   "weight": 0.5,
+   "applies_to": "site",
+   "summary": "CPUC approved PG&E Electric Rule 30 on an interim basis (D.25-07-039): accelerated transmission-level connection for large loads (data centers, EV charging) for applicants who agree to pay for needed transmission work upfront; refund terms/cost allocation to be set by a later CPUC decision (final decision still pending per Stoel Rives / search; 50-230 kV scope per a CAISO slide). Thresholds not on the fetched page.",
+   "url": "https://www.cpuc.ca.gov/news-and-updates/all-news/cpuc-streamlines-electric-grid-connections-for-high-energy-users-like-data-centers-and-ev-chargers"
+  },
+  {
+   "id": "a-sj-pge-partnership",
+   "type": "utility_policy",
+   "effect": "supportive",
+   "weight": 0.5,
+   "applies_to": "site",
+   "summary": "July 2025 San Jose-PG&E partnership: PG&E to provide power and grid upgrades for 12 projects by 2030 and fund six city staff positions; city hopes to use 2,000 MW from two LS Power Grid transmission projects. Santa Clara (city) reportedly turned away new data centers after reaching its grid limits.",
+   "url": "https://sanjosespotlight.com/residents-push-back-against-san-joses-data-center-plans/"
+  },
+  {
+   "id": "a-ca-sb57",
+   "type": "state_bill",
+   "effect": "negotiable",
+   "weight": 0.15,
+   "applies_to": "site",
+   "summary": "SB 57 (signed Oct 11 2025 per search; Ch. 647) directs CPUC to study whether data-center grid costs shift to residential/small-business ratepayers; 'does not impose new charges, special rate classes, or operational requirements'. AB 222 (energy/PUE reporting to CEC) not enacted as of Jan 2026. Search snippet (Mar 2026 analysis): SB 886 (Padilla, new CPUC tariff framework) and SB 978 (Perez, special rate for >=75 MW users) proposed; final status NOT verified.",
+   "url": "https://www.morganlewis.com/blogs/datacenterbytes/2026/01/california-takes-a-study-first-approach-to-data-center-regulation"
+  },
+  {
+   "id": "a-ca-no-statewide-moratorium",
+   "type": "state_bill",
+   "effect": "supportive",
+   "weight": 0.2,
+   "applies_to": "site",
+   "summary": "Same article lists mandatory efficiency standards, special rate structures and expansive water disclosures as proposals not advanced or narrowed. Outcome of the rest of the 2026 CA session NOT verified.",
+   "url": "https://www.morganlewis.com/blogs/datacenterbytes/2026/01/california-takes-a-study-first-approach-to-data-center-regulation"
+  },
+  {
+   "id": "a-reddit-sanjose",
+   "type": "news_sentiment",
+   "effect": "negotiable",
+   "weight": 0.2,
+   "applies_to": "site",
+   "summary": "'Petition Against Data Centers in San Jose': 45 pts, 54 comments (16 captured). Mostly negative (grid already stretched, 'awful buildings' in South San Jose), a few supportive (a heat-reuse project praised) and dismissive of opposition; one commenter alleges the petition is bot-promoted.",
+   "url": "https://reddit.sentinel-team.org/posts/1su3dox/snapshots/2026-04-24T06%3A52%3A30.067072Z"
+  },
+  {
+   "id": "dcw-q1-2026",
+   "type": "opposition_group",
+   "effect": "negotiable",
+   "weight": 0.25,
+   "applies_to": "context",
+   "summary": "At least 75 US projects, ~$130B blocked or delayed in the quarter; opposition active in 49 states; 300+ state data-center bills filed in first six weeks of 2026; statewide moratorium proposals in 14 states (none enacted per page). The '833 opposition groups' figure was supplied by the requester and is NOT visible on the fetched page (page says groups 'more than doubled' since Q4 2025). Page text does not mention California or Colorado.",
+   "url": "https://www.datacenterwatch.org/q1-2026"
+  }
+ ],
+ "site_risk": {
+  "site_flood_zone": "AE",
+  "site_in_sfha": true,
+  "site_bfe_ft": 12,
+  "site_in_hftd": false,
+  "site_nearest_hftd_km": 8.74,
+  "grip_substations_in_sfha": [
+   "DIXON LANDING",
+   "NORTECH"
+  ],
+  "grip_substations_in_hftd_tier2_3": []
+ },
+ "grid_headline": "(PG&E GRIP 2028 forecast; conditional screening estimates, directional): 150 MW at transmission is **RED** today (N-1 firm capacity: 19.9 MW firm at each candidate substation). At distribution, **38.7 MW** fits across 9 edge sites with every transformer bank within its cap; **47.6 MW** with ~2% curtailment (98% availability); only **7.4 MW** if load grows 20% beyond the utility forecast. Edge loop demo: RED (Nortech bank full) -> RED (Lawrence bank 1 full) -> GREEN 16 MW. Consent layer: Alviso 0.47 and NOVVA 0.43, both AMBER (heuristic score). Site is in FEMA flood zone AE.",
+ "actors": {
+  "residents": {
+   "label": "Alviso residents & neighborhood groups",
+   "n": 10,
+   "stance": -0.6,
+   "stubborn": 0.3,
+   "items": [
+    "a-alviso-opposition",
+    "a-sj-moratorium-calls"
+   ],
+   "note": "asked for a pause at the Oct 15 2026 meeting"
+  },
+  "env": {
+   "label": "Environmental / water advocates",
+   "n": 6,
+   "stance": -0.7,
+   "stubborn": 0.4,
+   "items": [
+    "a-sj-draft-standards",
+    "a-sj-moratorium-calls"
+   ],
+   "note": "water, carbon, gas-backup concerns"
+  },
+  "online": {
+   "label": "r/sanjose petition commenters",
+   "n": 6,
+   "stance": -0.5,
+   "stubborn": 0.2,
+   "items": [
+    "a-reddit-sanjose"
+   ],
+   "note": "mostly negative: grid, rates, water"
+  },
+  "council": {
+   "label": "San Jose City Council",
+   "n": 5,
+   "stance": 0.2,
+   "stubborn": 0.3,
+   "items": [
+    "a-sj-council-pro-growth",
+    "a-sj-draft-standards"
+   ],
+   "note": "pro-growth, drafting standards; vote Dec 2026"
+  },
+  "mayor": {
+   "label": "Mayor of San Jose",
+   "n": 1,
+   "stance": 0.5,
+   "stubborn": 0.5,
+   "items": [
+    "a-sj-moratorium-calls"
+   ],
+   "note": "opposes a ban"
+  },
+  "planning": {
+   "label": "Planning department",
+   "n": 2,
+   "stance": 0.0,
+   "stubborn": 0.5,
+   "items": [
+    "a-sj-permit-pathway"
+   ],
+   "note": "special use permit pathway"
+  },
+  "pge": {
+   "label": "PG&E",
+   "n": 2,
+   "stance": 0.3,
+   "stubborn": 0.6,
+   "items": [
+    "a-pge-rule30",
+    "a-sj-pge-partnership"
+   ],
+   "note": "Rule 30 interim; 150 MW at transmission RED per grid result"
+  },
+  "ratepayer": {
+   "label": "CPUC / ratepayer advocates",
+   "n": 2,
+   "stance": -0.2,
+   "stubborn": 0.5,
+   "items": [
+    "a-ca-sb57"
+   ],
+   "note": "SB 57 cost-shift study"
+  },
+  "labor": {
+   "label": "Building trades / local labor",
+   "n": 3,
+   "stance": 0.2,
+   "stubborn": 0.4,
+   "items": [],
+   "note": "ASSUMED, no item in alviso.json"
+  },
+  "developer": {
+   "label": "Developer (150 MW proposal)",
+   "n": 1,
+   "stance": 0.9,
+   "stubborn": 0.9,
+   "items": [
+    "a-alviso-opposition"
+   ],
+   "note": "proposer"
+  }
+ },
+ "listens": {
+  "residents": {
+   "env": 3,
+   "online": 3,
+   "mayor": 1,
+   "council": 1,
+   "labor": 1,
+   "developer": 0.5
+  },
+  "env": {
+   "residents": 3,
+   "online": 1,
+   "ratepayer": 1,
+   "council": 1
+  },
+  "online": {
+   "residents": 3,
+   "env": 2,
+   "ratepayer": 1
+  },
+  "council": {
+   "residents": 2,
+   "mayor": 3,
+   "planning": 1,
+   "labor": 1,
+   "env": 1,
+   "pge": 1,
+   "developer": 1
+  },
+  "mayor": {
+   "council": 2,
+   "labor": 1,
+   "developer": 1,
+   "residents": 1
+  },
+  "planning": {
+   "council": 3,
+   "pge": 1,
+   "mayor": 1
+  },
+  "pge": {
+   "ratepayer": 1,
+   "developer": 1,
+   "council": 1
+  },
+  "ratepayer": {
+   "online": 1,
+   "env": 1,
+   "pge": 1
+  },
+  "labor": {
+   "developer": 2,
+   "council": 1,
+   "residents": 1
+  },
+  "developer": {
+   "council": 1,
+   "mayor": 1
+  }
+ },
+ "item_actors": {
+  "a-sj-draft-standards": [
+   "env",
+   "council"
+  ],
+  "a-sj-moratorium-calls": [
+   "residents",
+   "env"
+  ],
+  "a-alviso-opposition": [
+   "residents"
+  ],
+  "a-sj-permit-pathway": [
+   "planning"
+  ],
+  "a-pge-rule30": [
+   "pge"
+  ],
+  "a-ca-sb57": [
+   "ratepayer"
+  ],
+  "a-reddit-sanjose": [
+   "online"
+  ],
+  "a-sj-council-pro-growth": [
+   "council",
+   "mayor"
+  ],
+  "a-sj-pge-partnership": [
+   "pge"
+  ]
+ },
+ "levers": {
+  "cba_local_hiring": {
+   "label": "Community benefit agreement + local hiring",
+   "stance": {
+    "residents": 0.35,
+    "labor": 0.4,
+    "council": 0.15,
+    "online": 0.1,
+    "mayor": 0.1
+   },
+   "items": {
+    "a-alviso-opposition": -0.15,
+    "a-sj-moratorium-calls": -0.1
+   },
+   "why": "addresses 'what does Alviso get'; draft standards already ask for housing fees"
+  },
+  "recycled_water_heat_reuse": {
+   "label": "Recycled-water / closed-loop cooling + heat reuse",
+   "stance": {
+    "env": 0.4,
+    "residents": 0.15,
+    "council": 0.2,
+    "online": 0.1
+   },
+   "items": {
+    "a-sj-draft-standards": -0.35,
+    "a-reddit-sanjose": -0.05
+   },
+   "why": "meets the draft San Jose cooling condition; water was a top petition complaint"
+  },
+  "edge_phase_gen_limits": {
+   "label": "Edge phase 16-38 MW at distribution + generator limits (25 h/yr)",
+   "stance": {
+    "pge": 0.3,
+    "ratepayer": 0.25,
+    "residents": 0.2,
+    "env": 0.15,
+    "online": 0.1,
+    "developer": -0.2
+   },
+   "items": {
+    "a-pge-rule30": -0.3,
+    "a-ca-sb57": -0.1,
+    "a-sj-draft-standards": -0.15,
+    "a-reddit-sanjose": -0.05
+   },
+   "why": "grid result: 150 MW transmission RED, 16 MW GREEN / 38.7 MW fits at distribution; meets 25 h/yr generator-testing draft limit"
+  }
+ },
+ "scenarios": {
+  "S0_baseline": {
+   "label": "150 MW, gas backup, no engagement",
+   "levers": []
+  },
+  "S1_cba_hiring": {
+   "label": "S0 + community benefit agreement + local hiring",
+   "levers": [
+    "cba_local_hiring"
+   ]
+  },
+  "S2_water_heat": {
+   "label": "S0 + recycled-water/closed-loop cooling + heat reuse",
+   "levers": [
+    "recycled_water_heat_reuse"
+   ]
+  },
+  "S3_edge_phase": {
+   "label": "16-38 MW edge phase at distribution + generator limits",
+   "levers": [
+    "edge_phase_gen_limits"
+   ]
+  },
+  "S4_all_levers": {
+   "label": "All levers",
+   "levers": [
+    "cba_local_hiring",
+    "recycled_water_heat_reuse",
+    "edge_phase_gen_limits"
+   ]
+  }
+ },
+ "social_files_used": [],
+ "social": {}
+}
