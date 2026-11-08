@@ -1,0 +1,194 @@
+{
+ "question": "150 MW at Alviso, San Jose by Jun 2028?",
+ "overall": "AMBER",
+ "reason": "Not 150 MW. Yes to 38.7 MW now.",
+ "lanes": [
+  {
+   "id": "grid",
+   "name": "Grid power",
+   "rag": "RED",
+   "num": "45.2 MW",
+   "text": "short at transmission (N-1)",
+   "bullets": [
+    "Transmission plan for 150 MW fails firm N-1 by 45.2 MW.",
+    "Needs 111.3 MW beyond distribution capacity.",
+    "Thermal and voltage checks pass; N-1 is the blocker."
+   ],
+   "src": "20261108T230352Z/certificate.json"
+  },
+  {
+   "id": "edge",
+   "name": "Edge sites now",
+   "rag": "GREEN",
+   "num": "38.7 MW",
+   "text": "across 9 feeder sites",
+   "bullets": [
+    "38.7 MW connectable at distribution, 0% curtailment.",
+    "Edge loop proved 16 MW GREEN in round 3.",
+    "Directional PG&E GRIP 2028 data, not verified capacity."
+   ],
+   "src": "data/l2/flex_headroom.json, 20261108T230427Z/edge_alviso.json"
+  },
+  {
+   "id": "flex",
+   "name": "Flexibility",
+   "rag": "AMBER",
+   "num": "47.6 MW",
+   "text": "with 2% curtailment",
+   "bullets": [
+    "0% curtailment: 38.8 MW. 2%: 47.6 MW. 10%: 90.6 MW.",
+    "Needs a signed storage/curtailment commitment (none today).",
+    "Curtailment hours are a contract term, not physics."
+   ],
+   "src": "data/l2/flex_headroom.json"
+  },
+  {
+   "id": "future",
+   "name": "Future load",
+   "rag": "RED",
+   "num": "7.4 MW",
+   "text": "if area load +20%",
+   "bullets": [
+    "Edge capacity drops from 38.7 to 7.4 MW.",
+    "+20% is an ASSUMED stress case, not a utility forecast.",
+    "Lock in capacity early before others queue."
+   ],
+   "src": "scenarios/growth_alviso.py"
+  },
+  {
+   "id": "consent",
+   "name": "Community consent",
+   "rag": "AMBER",
+   "num": "0.47",
+   "text": "negotiable, no hard blocker",
+   "bullets": [
+    "Consent score 0.47 (AMBER band 0.35-0.65). Weights ASSUMED.",
+    "San Jose draft standards: recycled-water cooling, carbon-neutral power, generator limits.",
+    "Public posts: 83 oppose, 10 support, 17 neutral."
+   ],
+   "src": "data/shared/socio/alviso.json, data/shared/social/social_summary.json"
+  },
+  {
+   "id": "climate",
+   "name": "Climate & resilience",
+   "rag": "AMBER",
+   "num": "Zone AE",
+   "text": "FEMA flood zone, 12 ft BFE",
+   "bullets": [
+    "River flood 0 m now -> 0.19 m in 2050 (CLIMADA).",
+    "Days >35C: ~5.7 -> ~9.2/yr by 2036-2050.",
+    "Not in a fire-threat district."
+   ],
+   "src": "data/shared/climate/alviso.json"
+  },
+  {
+   "id": "time",
+   "name": "Timeline",
+   "rag": "RED",
+   "num": "7-10 yrs",
+   "text": "for transmission; 1.6 yrs left",
+   "bullets": [
+    "Deadline 2028-06-30: 1.6 years left.",
+    "New transmission takes 7-10 years.",
+    "Distribution edge sites and storage fit the deadline."
+   ],
+   "src": "data/l2/l3_inputs.json"
+  }
+ ],
+ "actions": [
+  {
+   "text": "Phase 16-38.7 MW at edge sites first",
+   "flips": "time",
+   "to": "GREEN"
+  },
+  {
+   "text": "Commit 25-50 MW battery storage",
+   "flips": "grid",
+   "to": "AMBER"
+  },
+  {
+   "text": "Accept 2% curtailment (47.6 MW)",
+   "flips": "flex",
+   "to": "GREEN"
+  },
+  {
+   "text": "Community benefit agreement + local hiring",
+   "flips": "consent",
+   "to": "AMBER"
+  },
+  {
+   "text": "Recycled-water cooling + all levers (sim 0.67)",
+   "flips": "consent",
+   "to": "GREEN"
+  }
+ ],
+ "sim": {
+  "engine": "MiroFish-style fallback, not MiroFish",
+  "items": [
+   {
+    "id": "S0",
+    "label": "150 MW, gas backup, no engagement",
+    "proxy": 0.475,
+    "rag": "AMBER"
+   },
+   {
+    "id": "S1",
+    "label": "S0 + community benefit agreement + local hiring",
+    "proxy": 0.511,
+    "rag": "AMBER"
+   },
+   {
+    "id": "S2",
+    "label": "S0 + recycled-water/closed-loop cooling + heat reuse",
+    "proxy": 0.521,
+    "rag": "AMBER"
+   },
+   {
+    "id": "S3",
+    "label": "16-38 MW edge phase at distribution + generator limits",
+    "proxy": 0.552,
+    "rag": "AMBER"
+   },
+   {
+    "id": "S4",
+    "label": "All levers",
+    "proxy": 0.668,
+    "rag": "GREEN"
+   }
+  ]
+ },
+ "how": [
+  {
+   "step": "Find",
+   "status": "classical",
+   "detail": "NumPy/classical fallback (not PsiQDK)"
+  },
+  {
+   "step": "Check",
+   "status": "N-1 fail",
+   "detail": "AC power flow + N-1 contingency"
+  },
+  {
+   "step": "Prove",
+   "status": "Python mirror",
+   "detail": "Python mirror of the Lean rules (Lean did not run)"
+  }
+ ],
+ "loop": [
+  {
+   "round": 1,
+   "rag": "RED"
+  },
+  {
+   "round": 2,
+   "rag": "RED"
+  },
+  {
+   "round": 3,
+   "rag": "GREEN"
+  }
+ ],
+ "footer": "Screening estimate from public utility data. Not a utility approval.",
+ "generated_utc": "2026-11-08T23:04:39Z",
+ "run": "20261108T230352Z"
+}
