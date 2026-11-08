@@ -10,7 +10,9 @@ QSiteProof is a proposed one-day hack prototype that combines PsiQDK search, pan
 
 **Status:** Concept and prototype plan. The architecture, certificate, and evaluation below describe the intended workflow, not completed implementation or measured results.
 
-[Read the original one-page concept plan (PDF)](docs/QSiteProof_Final_Plan_Updated.pdf).
+[![QSiteProof one-page concept plan](docs/QSiteProof_Final_Plan.png)](docs/QSiteProof_Final_Plan_Updated.pdf)
+
+*Click the image to open the original PDF.*
 
 ## Case study: North San Jose, Santa Clara County, California
 
