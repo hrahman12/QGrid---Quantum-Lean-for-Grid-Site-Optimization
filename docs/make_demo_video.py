@@ -6,7 +6,7 @@ Every number and shape comes from the run files or from OpenStreetMap (data/l1):
   same math PsiQDK simulated (sin((2k+1)theta)), plus PsiQDK's resource estimate
 - physics + Lean: physics_result.json and certificate.json verbatim
 
-Run: python docs/make_demo_video.py  ->  docs/demo_green.mp4 and docs/demo_green.gif
+Run: python docs/make_demo_video.py  ->  docs/demo_green.mp4 and docs/demo_green.gif (both 1920x1080)
 """
 import json, math
 from pathlib import Path
@@ -41,7 +41,7 @@ xy = lambda la, lo: ((lo - lon0) * kx, (la - lat0) * 110.57)  # km east, km nort
 
 
 def frame_base(title, step):
-    fig = plt.figure(figsize=(W, H), dpi=100, facecolor=BG)
+    fig = plt.figure(figsize=(W, H), dpi=150, facecolor=BG)
     fig.text(0.03, 0.94, "QSiteProof", fontsize=22, weight="bold")
     fig.text(0.215, 0.945, title, fontsize=15, color=MUT)
     steps = ["1 Input", "2 Find (quantum)", "3 Check physics", "4 Prove (Lean)", "Result"]
@@ -91,8 +91,9 @@ def to_img(fig):
     return img
 
 
-frames = []
-hold = lambda img, sec: frames.extend([img] * int(sec * FPS))
+frames, stills = [], []  # stills: (image, seconds) for a full-res GIF without duplicate frames
+def hold(img, sec):
+    frames.extend([img] * int(sec * FPS)); stills.append((img, sec))
 
 # 1. Input
 fig = frame_base("Can this site connect sooner on today's grid?", 0)
@@ -185,7 +186,7 @@ fig.text(0.5, 0.26, "GREEN covers only the encoded rules over the supplied evide
          fontsize=10, ha="center", color="#6c80a0")
 hold(to_img(fig), 4)
 
-imageio.mimwrite(OUT_MP4, frames, fps=FPS, codec="libx264", quality=8, macro_block_size=8)
-small = [f[::2, ::2] for f in frames[::3]]
-imageio.mimwrite(OUT_GIF, small, duration=1000 * 3 / FPS, loop=0)
+imageio.mimwrite(OUT_MP4, frames, fps=FPS, codec="libx264", quality=10, macro_block_size=8,
+                 ffmpeg_params=["-crf", "12", "-preset", "slow", "-pix_fmt", "yuv420p"])
+imageio.mimwrite(OUT_GIF, [im for im, _ in stills], duration=[1000 * sec for _, sec in stills], loop=0)
 print("wrote", OUT_MP4, OUT_MP4.stat().st_size // 1024, "KB;", OUT_GIF, OUT_GIF.stat().st_size // 1024, "KB;", len(frames), "frames")

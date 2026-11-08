@@ -16,7 +16,7 @@ QSiteProof is a proposed one-day hack prototype that combines PsiQDK search, pan
 
 [![QSiteProof demo: 150 MW Alviso site found GREEN](docs/demo_green.gif)](docs/demo_green.mp4)
 
-*Click for the full-resolution MP4.* Every frame comes from one real pipeline run ([docs/demo_run/](docs/demo_run/)), rendered by [docs/make_demo_video.py](docs/make_demo_video.py):
+*1920×1080. Click for the MP4.* Every frame comes from one real pipeline run ([docs/demo_run/](docs/demo_run/)), rendered by [docs/make_demo_video.py](docs/make_demo_video.py):
 
 | Step | What you see | Real result |
 | --- | --- | --- |
