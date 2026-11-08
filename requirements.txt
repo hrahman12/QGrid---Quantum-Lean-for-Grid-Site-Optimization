@@ -3,3 +3,6 @@ pandapower
 gridstatus
 pandas
 pytest
+requests
+numpy
+# optional: psiqdk (WSL/Linux), Lean 4 + lake; docs/make_demo_video.py also needs matplotlib, imageio
