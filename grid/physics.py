@@ -6,7 +6,7 @@ Model (all assumptions, none measured):
   snapshot lines tie substations together (tap transformer T-<sub>-<kv> if the line kV differs from the bus kV)
   each substation carries an existing load = assumed_mva*PF - headroom_mw, plus the plan's split.
 Flexibility: storage_mw and curtailment_mw cut the site load pro-rata across splits,
-  dlr raises line ratings by DLR_UPLIFT, reconductor by RECONDUCTOR_UPLIFT.
+  dlr raises line ratings by snapshot['dlr_uplift_pct'] (default 15), reconductor by RECONDUCTOR_UPLIFT.
 Limits: normal <=100% loading, 0.95-1.05 pu; N-1 (every snapshot line; source transformers assumed firm/redundant, so assumed_mva is firm capacity) <=110% emergency, 0.90-1.10 pu.
 shortcut: site load sits on the substation bus (no LV site feeder), PQ only at constant PF; upgrade if Lean needs it.
 """
@@ -21,7 +21,6 @@ import pandapower as pp
 PF = 0.95
 Q_PER_P = math.tan(math.acos(PF))
 SLACK_VM_PU = 1.02
-DLR_UPLIFT = 1.15
 RECONDUCTOR_UPLIFT = 1.40
 LOAD_LIMIT_PCT = 100.0
 N1_LIMIT_PCT = 110.0
@@ -76,7 +75,7 @@ def build_net(plan, snap):
             trafo(s, bus[(sid, s["kv"])], bus[(sid, kv)], s["kv"], kv, f"T-{sid}-{kv}")
         return bus[(sid, kv)]
 
-    uplift = (DLR_UPLIFT if flex["dlr"] else 1.0) * (RECONDUCTOR_UPLIFT if flex["reconductor"] else 1.0)
+    uplift = (1 + snap.get("dlr_uplift_pct", 15.0) / 100 if flex["dlr"] else 1.0) * (RECONDUCTOR_UPLIFT if flex["reconductor"] else 1.0)
     for ln in snap["lines"]:
         if ln["from"] not in subs or ln["to"] not in subs:
             continue

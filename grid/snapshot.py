@@ -16,6 +16,7 @@ from __future__ import annotations
 import csv
 import json
 import math
+import os
 import re
 import threading
 from datetime import datetime, timezone
@@ -27,7 +28,9 @@ DATA = Path(__file__).resolve().parents[1] / "data" / "l1"
 OVERPASS = ("https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter",
             "https://overpass.private.coffee/api/interpreter")
 UA = {"User-Agent": "QSiteProof-hackday/0.1 (SeaBridgeAI L1)"}
-RADIUS_KM, MAX_SUBS, MIN_KV = 25.0, 5, 66.0
+RADIUS_KM, MAX_SUBS, MIN_KV = 25.0, 5, 60.0
+L2_RATINGS = Path(__file__).resolve().parents[1] / "data" / "l2" / "substation_ratings.json"
+DLR_UPLIFT_PCT_DEFAULT = 15.0  # assumed when no L2 ratings exist for the site
 PF, UTIL, ROUTE_FACTOR = 0.95, 0.65, 1.25
 MVA_BY_KV = {66: 60, 69: 75, 115: 150, 138: 200, 230: 300, 345: 500, 500: 750}
 LINE_MVA_BY_KV = {66: 80, 69: 90, 115: 200, 138: 250, 230: 450, 345: 900, 500: 1500}
@@ -85,7 +88,16 @@ def _fetch_osm_substations(site):
     raise RuntimeError(f"Overpass failed on all endpoints and no cache at {cache}")
 
 
-def pick_substations(fc, site):
+def _l2_ratings(site):
+    """L2's substation_ratings.json when it covers this site (read-only; owned by lane L2), else None."""
+    try:
+        d = json.loads(L2_RATINGS.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    return d if d.get("site_id") == site["id"] else None
+
+
+def pick_substations(fc, site, l2=None):
     """Nearest MAX_SUBS substations with a parsable voltage >= MIN_KV within RADIUS_KM; near-duplicates merged."""
     cands = []
     for f in fc["features"]:
@@ -98,11 +110,15 @@ def pick_substations(fc, site):
     for d, _, props, lat, lon, kv in sorted(cands, key=lambda c: (c[0], c[1])):
         if any(haversine_km(lat, lon, p["lat"], p["lon"]) < 0.15 for p in picked):
             continue  # same physical yard mapped twice
-        sid = "SUB-" + props["osm_id"].replace("/", "")
+        sid = "osm-" + props["osm_id"].replace("/", "-")  # same id scheme as data/l2/substation_ratings.json
         mva = _near(MVA_BY_KV, kv)
         picked.append({"id": sid, "name": props.get("name") or props.get("operator") or f"OSM substation {props['osm_id']}",
                        "lat": round(lat, 5), "lon": round(lon, 5), "kv": kv, "assumed_mva": mva,
                        "distance_km": round(d, 2), "headroom_mw": round(mva * PF * (1 - UTIL), 1)})
+        if l2 and sid in l2:  # L2 ratings win; the table above only covers substations L2 lacks
+            r = l2[sid]
+            picked[-1].update(name=r["name"], assumed_mva=r["assumed_mva"], headroom_mw=r["headroom_mw"],
+                              headroom_mw_n1_firm=r["headroom_mw_n1_firm"], rating_source="data/l2/substation_ratings.json")
         if len(picked) == MAX_SUBS:
             break
     return picked
@@ -166,7 +182,8 @@ def iso_signal(iso_name):
     """Latest ISO load (MW) and LMP ($/MWh) via gridstatus; cached CSV when live fails."""
     import gridstatus
     cache = DATA / f"iso_{iso_name}_latest.csv"
-    live = _with_timeout(lambda: _live_iso(iso_name), ISO_TIMEOUT_S) if hasattr(gridstatus, iso_name) else None
+    offline = os.environ.get("QSITE_OFFLINE") == "1"  # skip live calls; read caches only
+    live = None if offline or not hasattr(gridstatus, iso_name) else _with_timeout(lambda: _live_iso(iso_name), ISO_TIMEOUT_S)
     if live:
         DATA.mkdir(parents=True, exist_ok=True)
         with cache.open("w", newline="", encoding="utf-8") as f:
@@ -187,18 +204,33 @@ def iso_signal(iso_name):
             "source": f"unavailable:{iso_name} (no live data, no cache)"}
 
 
+def _l2_as_fc(l2):
+    feats = [{"type": "Feature", "properties": {"osm_id": s["id"].replace("osm-", "", 1).replace("-", "/", 1),
+                                                "name": s["name"], "voltage": str(int(max(s["voltages_kv"]) * 1000))},
+              "geometry": {"type": "Point", "coordinates": [s["lon"], s["lat"]]}} for s in l2["substations"]]
+    return {"type": "FeatureCollection", "features": feats}, "data/l2/substation_ratings.json (OSM substations)"
+
+
 def get_snapshot(site):
     """site -> grid_snapshot (contracts/grid_snapshot.schema.json), plus an `assumptions` list."""
-    fc, osm_src = _fetch_osm_substations(site)
-    subs = pick_substations(fc, site)
+    l2 = _l2_ratings(site)
+    if os.environ.get("QSITE_OFFLINE") == "1" or l2:  # L2 already holds the OSM pool for its site; no network needed
+        cache = DATA / f"osm_substations_{site['id']}.geojson"
+        fc, osm_src = _l2_as_fc(l2) if l2 else (json.loads(cache.read_text(encoding="utf-8")), f"cache:{cache.name}")
+    else:
+        fc, osm_src = _fetch_osm_substations(site)
+    subs = pick_substations(fc, site, {s["id"]: s for s in l2["substations"]} if l2 else None)
     if not subs:
         raise RuntimeError(f"no OSM substations >= {MIN_KV} kV within {RADIUS_KM} km of {site['id']}")
     return {
         "site_id": site["id"], "substations": subs, "lines": infer_lines(subs) if len(subs) > 1 else [],
         "iso": iso_signal(site["iso"]),
+        "dlr_uplift_pct": l2["dlr_uplift_pct"]["mid"] if l2 else DLR_UPLIFT_PCT_DEFAULT,
         "assumptions": [
             f"substations: {osm_src}; (c) OpenStreetMap contributors (ODbL)",
-            f"assumed_mva from kV table {MVA_BY_KV}; headroom_mw = assumed_mva*{PF}*(1-{UTIL}) (assumed {UTIL:.0%} utilization)",
+            ("assumed_mva/headroom_mw from data/l2/substation_ratings.json (ASSUMED planning values, see its disclaimer); "
+             if l2 else "") + f"fallback table {MVA_BY_KV}; headroom_mw = assumed_mva*{PF}*(1-{UTIL}) (assumed {UTIL:.0%} utilization)",
+            "iso.lmp = mean of the ISO's real-time 5-min LMPs returned by gridstatus (CAISO: NP15/SP15/ZP26 hubs); load = latest system load MW",
             f"lines inferred (MST + 2nd-nearest), rating from kV table {LINE_MVA_BY_KV}, length = straight line x {ROUTE_FACTOR}",
         ],
     }
