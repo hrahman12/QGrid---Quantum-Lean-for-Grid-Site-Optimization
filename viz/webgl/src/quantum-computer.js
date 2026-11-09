@@ -43,7 +43,7 @@ export function createQuantumComputer(container) {
   const edges = new THREE.LineSegments(new THREE.EdgesGeometry(lid.geometry),new THREE.LineBasicMaterial({color:0x5486a1,transparent:true,opacity:.55}));lid.add(edges);
   const states = new THREE.Group(); states.visible=false; scene.add(states);
   const bars = new THREE.InstancedMesh(new THREE.BoxGeometry(.3,1,.3),new THREE.MeshStandardMaterial({color:0xffffff,metalness:.2,roughness:.5}),256); states.add(bars);
-  const dummy=new THREE.Object3D(); let job=null,isRunning=false,frame,alive=true,step=0;
+  const dummy=new THREE.Object3D(); let job=null,source='live',isRunning=false,frame,alive=true,step=0;
   const caption=document.createElement('div');caption.className='processor-caption';caption.textContent='Photonic-computer concept · PsiQDK simulator';container.append(caption);
   const resize=()=>{const w=container.clientWidth,h=container.clientHeight;if(!w||!h)return;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();};const observer=new ResizeObserver(resize);observer.observe(container);resize();
   const start=performance.now(),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -57,20 +57,20 @@ export function createQuantumComputer(container) {
     step=value;if(!job)return;
     hardware.visible=false;states.visible=true;
     const vector=value===0?job.result.states[0]:value===1?job.phase_state:job.result.states.at(-1);
-    const n=vector.length,cols=Math.ceil(Math.sqrt(n)),marked=new Set(job.marked_indices);bars.count=n;
+    const n=vector.length,cols=Math.ceil(Math.sqrt(n)),marked=new Set(job.marked_indices),maxShare=Math.max(1,...Object.values(job.measurements||{}))/job.result.shots;bars.count=n;
     for(let i=0;i<n;i++){
       const [re,im]=vector[i];let probability=re*re+im*im;
       if(value===3)probability=(job.measurements[String(i)]||0)/job.result.shots;
-      const h=Math.min(6,Math.max(.02,probability*n*.7)),negative=value===1&&re<0;
+      const h=value===3?Math.max(.02,5*probability/maxShare):Math.min(6,Math.max(.02,probability*n*.7)),negative=value===1&&re<0;
       dummy.position.set((i%cols-(cols-1)/2)*.4,negative?-h/2:h/2,(Math.floor(i/cols)-(cols-1)/2)*.4);dummy.scale.set(1,h,1);dummy.updateMatrix();bars.setMatrixAt(i,dummy.matrix);
       bars.setColorAt(i,new THREE.Color(negative?0xffbd58:marked.has(i)?0x45e6a1:0x2c6f99));
     }bars.instanceMatrix.needsUpdate=true;bars.instanceColor.needsUpdate=true;
-    caption.textContent=['Actual PsiQDK state: uniform superposition','Actual PsiQDK state: phase-flipped amplitudes','Actual PsiQDK state: amplified probabilities','Actual PsiQDK measurements: 32 samples'][value];
+    caption.textContent=(source==='recorded'?'Recorded run · ':'')+['Actual PsiQDK state: uniform superposition','Actual PsiQDK state: phase-flipped amplitudes','Actual PsiQDK state: amplified probabilities',`Actual PsiQDK measurements: ${job.result.shots} samples`][value];
   }
   return {
     running(on){isRunning=on;if(on){hardware.visible=true;states.visible=false;caption.textContent='Executing PsiQDK Workbench simulation…';}else if(!job)caption.textContent='No verified PsiQDK result yet';},
-    result(value){job=value;hardware.visible=true;states.visible=false;caption.textContent=`PsiQDK completed · ${value.space.n_qubits} qubits · ${value.result.shots} shots`;},
-    step(value){if(value==='computer'){hardware.visible=true;states.visible=false;caption.textContent=job?'Completed on PsiQDK Workbench':'Photonic-computer concept · PsiQDK simulator';}else displayStep(value);},
+    result(value,kind='live'){job=value;source=kind;hardware.visible=true;states.visible=false;caption.textContent=kind==='recorded'?`Recorded native PsiQDK run · ${value.space.n_qubits} qubits · ${value.result.shots} shots`:`PsiQDK completed · ${value.space.n_qubits} qubits · ${value.result.shots} shots`;},
+    step(value){if(value==='computer'){hardware.visible=true;states.visible=false;caption.textContent=job?(source==='recorded'?'Recorded run · PsiQDK Workbench simulator':'Completed on PsiQDK Workbench'):'Photonic-computer concept · PsiQDK simulator';}else displayStep(value);},
     dispose(){alive=false;cancelAnimationFrame(frame);observer.disconnect();controls.dispose();scene.traverse(o=>{o.geometry?.dispose();if(o.material)for(const m of Array.isArray(o.material)?o.material:[o.material])m.dispose();});renderer.dispose();}
   };
 }
