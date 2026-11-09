@@ -1,0 +1,17 @@
+{
+  "converged": true,
+  "max_line_loading_pct": 120.9,
+  "v_min_pu": 0.9726,
+  "v_max_pu": 1.02,
+  "n1_pass": false,
+  "violations": [
+    "transformer XF-osm-way-1200014620 loading 121% > 100%",
+    "N-1 line L-way-1200014647-way-175775908 out: transformer XF-osm-way-1200014620 loading 121% > 110%",
+    "N-1 line L-way-1200014647-way-1200014619 out: transformer XF-osm-way-1200014620 loading 121% > 110%",
+    "N-1 line L-way-1200014647-way-1200014620 out: transformer XF-osm-way-1200014620 loading 121% > 110%",
+    "N-1 line L-way-175775908-way-1263610594 out: transformer XF-osm-way-1200014620 loading 121% > 110%",
+    "N-1 line L-way-1263610594-way-1200014619 out: transformer XF-osm-way-1200014620 loading 121% > 110%",
+    "N-1 line L-way-1263610594-way-1200014620 out: transformer XF-osm-way-1200014620 loading 121% > 110%",
+    "N-1 line L-way-1200014619-way-1200014620 out: transformer XF-osm-way-1200014620 loading 123% > 110%"
+  ]
+}

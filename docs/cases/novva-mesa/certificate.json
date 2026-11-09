@@ -1,0 +1,145 @@
+{
+  "checks": [
+    {
+      "name": "capacity",
+      "pass": false,
+      "detail": "osm-way-1200014620 split 300.000 MW > headroom 99.800 MW",
+      "tag": "hard"
+    },
+    {
+      "name": "thermal_voltage",
+      "pass": false,
+      "detail": "max loading 120.9% > limit 100.0%",
+      "tag": "hard"
+    },
+    {
+      "name": "n1",
+      "pass": false,
+      "detail": "N-1 contingency check failed (8 violations; first: transformer XF-osm-way-1200014620 loading 121% > 100%)",
+      "tag": "hard"
+    },
+    {
+      "name": "flex_commitment",
+      "pass": false,
+      "detail": "storage 50.000 MW > committed 0.000 MW (ASSUMED: no site commitment evidence, none committed)",
+      "tag": "negotiable"
+    },
+    {
+      "name": "deadline",
+      "pass": true,
+      "detail": "used options finish in time (storage 547 d; lead times ASSUMED) <= 783 d left before deadline 2028-12-31 (as of 2026-11-09)",
+      "tag": "hard"
+    },
+    {
+      "name": "permit_row",
+      "pass": true,
+      "detail": "no reconductor or new ROW used; no ROW permit needed",
+      "tag": "negotiable"
+    },
+    {
+      "name": "penalty_trigger",
+      "pass": true,
+      "detail": "penalty trigger FALSE: curtailment 30.000 MW <= cap 10.0% of requested; deadline met",
+      "tag": "negotiable"
+    },
+    {
+      "name": "bank",
+      "pass": true,
+      "detail": "no feeder/bank splits; bank rule not applicable (transmission splits only)",
+      "tag": "hard"
+    },
+    {
+      "name": "storage_relief",
+      "pass": true,
+      "detail": "relief 80.000 MW <= requested load 300.000 MW; storage energy obligation 200.000 MWh (50.000 MW x 4 h ASSUMED duration, charged before each window)",
+      "tag": "hard"
+    },
+    {
+      "name": "firm_n1",
+      "pass": true,
+      "detail": "every split's net MW <= its N-1 firm headroom (headroom_mw_n1_firm), where known",
+      "tag": "hard"
+    },
+    {
+      "name": "evidence_binding",
+      "pass": true,
+      "detail": "plan sha256 7a172aee8aa4, physics sha256 e054220b6de6, snapshot sha256 n/a, qsiteproof-rules/3",
+      "tag": "hard"
+    }
+  ],
+  "result": "RED",
+  "blocking_condition": "capacity: osm-way-1200014620 split 300.000 MW > headroom 99.800 MW",
+  "conditions": [
+    "flex_commitment: obtain a signed storage/curtailment commitment covering the plan's MW (storage 50.000 MW > committed 0.000 MW (ASSUMED: no site commitment evidence, none committed))"
+  ],
+  "scope_note": "Rules checked by python-mirror (Lean unavailable) (lake not found on PATH or ~/.elan/bin); Lean did NOT run for this certificate. The mirror re-implements lean/QSiteProof (theorems there: verdict_green_iff_all, verdict_red_blocking_sound, blocking_is_first, verdict_extensional, certify_deterministic, report_pass_sound) but carries no proof. Obligations in order, each pass/fail decided by python-mirror: capacity, thermal_voltage, n1, flex_commitment, deadline, permit_row, penalty_trigger, bank, storage_relief, firm_n1, evidence_binding (firm_n1 is now decided by Lean when the engine is lean4). Python-only: hard/negotiable tags, the AMBER verdict, firm_n1/n1 negotiability (relief needed vs available levers) and the detail text of bank, storage_relief, firm_n1, evidence_binding. Verdict: RED if a hard rule fails, AMBER if only negotiable rules fail. Evidence sha256: e7addfe0572fdd18889a53616a5943b09c47d2dd858a1d4edcd267864f9c39b5 (canonical JSON, sorted keys). ASSUMED: lead times DLR 365 d, storage 547 d, reconductor 1095 d; curtailment penalty cap 10.0% of requested; loading limit 100.0%, voltage band 0.9500-1.0500 pu; DLR headroom uplift 0.0%; flex commitment: ASSUMED: no site commitment evidence, none committed; ROW permit granted: false; as-of 2026-11-09; headroom from candidate_plan splits.headroom_mw; storage duration 4 h (energy obligation = storage MW x duration); net load per quantum/load_model.py; rules qsiteproof-rules/3: lean11 (incl. bank,storage_relief,firm_n1,evidence_binding); quantum/load_model.py net_split; DLR lines-only. GREEN covers only the encoded rules over the supplied evidence; it is not a utility interconnection approval.",
+  "engine": "python-mirror",
+  "evidence_sha256": "e7addfe0572fdd18889a53616a5943b09c47d2dd858a1d4edcd267864f9c39b5",
+  "evidence": {
+    "format": "qsiteproof-evidence/1",
+    "site_id": "novva-mesa",
+    "requested_kw": 300000,
+    "splits": [
+      {
+        "substation_id": "osm-way-1200014620",
+        "kw": 300000,
+        "net_kw": 220000,
+        "headroom_known": true,
+        "headroom_kw": 99800
+      }
+    ],
+    "headroom_source": "candidate_plan splits.headroom_mw",
+    "dlr": false,
+    "dlr_headroom_uplift_permille": 0,
+    "storage_kw": 50000,
+    "curtailment_kw": 30000,
+    "reconductor": false,
+    "new_row": false,
+    "converged": true,
+    "has_loading": true,
+    "max_loading_permille": 1209,
+    "loading_limit_permille": 1000,
+    "has_voltage": true,
+    "v_min_pu4": 9726,
+    "v_max_pu4": 10200,
+    "v_lo_pu4": 9500,
+    "v_hi_pu4": 10500,
+    "n1_pass": false,
+    "violation_count": 8,
+    "first_violation": "transformer XF-osm-way-1200014620 loading 121% > 100%",
+    "firm_only_violations": false,
+    "committed_storage_kw": 0,
+    "committed_curtailment_kw": 0,
+    "commitment_source": "ASSUMED: no site commitment evidence, none committed",
+    "as_of": "2026-11-09",
+    "as_of_day": 20766,
+    "deadline": "2028-12-31",
+    "deadline_day": 21549,
+    "lead_dlr_days": 365,
+    "lead_storage_days": 547,
+    "lead_reconductor_days": 1095,
+    "row_permit_granted": false,
+    "curtail_cap_permille": 100,
+    "storage_duration_h": 4,
+    "max_storage_kw": 50000,
+    "firm": [
+      {
+        "substation_id": "osm-way-1200014620",
+        "firm_known": false,
+        "firm_kw": 0
+      }
+    ],
+    "banks": [],
+    "bank_source": "none (no distribution splits)",
+    "bank_curtail_pct": 0,
+    "plan_site_id": "novva-mesa",
+    "plan_site_bound": true,
+    "plan_sha256": "7a172aee8aa42b66e96b531fe8a61e9200ed2cb98c650569d3eac30ee6676b22",
+    "snapshot_sha256": "",
+    "headroom_ids": [
+      "osm-way-1200014620"
+    ],
+    "physics_sha256": "e054220b6de682f6ad2ee952ba29d09450188c5c0104c771d738cf7af51a055a",
+    "rule_version": "qsiteproof-rules/3: lean11 (incl. bank,storage_relief,firm_n1,evidence_binding); quantum/load_model.py net_split; DLR lines-only"
+  }
+}

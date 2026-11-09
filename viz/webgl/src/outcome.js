@@ -56,7 +56,7 @@ export function headline(live) {
   if (cert.result === 'GREEN') { phrase = 'Fits the grid'; sentence = `Every encoded rule passes for ${requested} MW on the nearby substations.`; }
   else if (hard && /n1|capacity|bank/.test(hard.name)) {
     phrase = 'Grid too small';
-    sentence = `If one transformer fails, nearby substations can only guarantee about ${firm} MW${Number.isFinite(short) ? `, ${r1(short)} MW short of what the plan needs` : ''}.`;
+    sentence = `${splits.every((x) => x.headroom_mw_n1_firm != null) ? 'If one transformer fails, nearby substations can only guarantee' : 'The chosen nearby substations can only offer (assumed ratings)'} about ${firm} MW${Number.isFinite(short) ? `, ${r1(short)} MW short of what the plan needs` : ''}.`;
   } else if (hard) { phrase = label(hard.name); sentence = hard.detail; }
   else { phrase = 'Needs a signed commitment'; sentence = failed.map((c) => c.detail).join(' '); }
   const meaning = cert.result === 'GREEN' ? 'The plan passes the encoded rules; it is still a screen, not a utility approval.'

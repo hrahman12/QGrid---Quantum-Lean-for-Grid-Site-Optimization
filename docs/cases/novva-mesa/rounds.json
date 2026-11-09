@@ -1,0 +1,29 @@
+[
+  {
+    "round": 1,
+    "plan": "osm-way-1200014620=300 [storage_mw,curtailment_mw]",
+    "verdict": "RED",
+    "blocking_rule": "capacity",
+    "blocking_condition": "capacity: osm-way-1200014620 split 300.000 MW > headroom 99.800 MW",
+    "evals": 1260,
+    "search": "heuristic",
+    "constraints_in": []
+  },
+  {
+    "round": 2,
+    "plan": "osm-way-1200014620=300 [storage_mw,curtailment_mw]",
+    "verdict": "RED",
+    "blocking_rule": "capacity",
+    "blocking_condition": "capacity: osm-way-1200014620 split 300.000 MW > headroom 99.800 MW",
+    "evals": 1260,
+    "search": "heuristic",
+    "constraints_in": [
+      {
+        "rule": "capacity",
+        "detail": "osm-way-1200014620 split 300.000 MW > headroom 99.800 MW",
+        "substation_id": "osm-way-1200014620"
+      }
+    ],
+    "stopped": "stalled: constraint already applied"
+  }
+]

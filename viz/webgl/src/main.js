@@ -73,6 +73,7 @@ function renderLive(){
  $('#what-if').replaceChildren(...whatIf(live,h).map(w=>{const li=make('li');li.dataset.status=w.to;li.append(make('span',w.text),make('b',`→ ${w.to==='AMBER'?'YELLOW':w.to}`),make('small',w.note));return li;}));
  $('#reason-word').textContent=h.phrase;$('#reason-word').dataset.status=h.verdict;
  $('#reason-title').textContent=h.sentence;
+ $('#flow-result').textContent=word;$('#flow-result').style.color=`var(--${h.verdict.toLowerCase()})`;
 }
 function chooseCase(id,note){
  caseId=id;renderLive();

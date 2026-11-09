@@ -1,0 +1,308 @@
+{
+  "site_id": "novva-mesa",
+  "substations": [
+    {
+      "id": "osm-way-1200014647",
+      "name": "OSM substation way/1200014647",
+      "lat": 33.35867,
+      "lon": -111.64705,
+      "kv": 69.0,
+      "assumed_mva": 75,
+      "distance_km": 1.7,
+      "headroom_mw": 24.9
+    },
+    {
+      "id": "osm-way-175775908",
+      "name": "OSM substation way/175775908",
+      "lat": 33.39392,
+      "lon": -111.63661,
+      "kv": 69.0,
+      "assumed_mva": 75,
+      "distance_km": 2.56,
+      "headroom_mw": 24.9
+    },
+    {
+      "id": "osm-way-1263610594",
+      "name": "OSM substation way/1263610594",
+      "lat": 33.3567,
+      "lon": -111.61077,
+      "kv": 69.0,
+      "assumed_mva": 75,
+      "distance_km": 2.83,
+      "headroom_mw": 24.9
+    },
+    {
+      "id": "osm-way-1200014619",
+      "name": "OSM substation way/1200014619",
+      "lat": 33.34427,
+      "lon": -111.63178,
+      "kv": 69.0,
+      "assumed_mva": 75,
+      "distance_km": 2.99,
+      "headroom_mw": 24.9
+    },
+    {
+      "id": "osm-way-1200014620",
+      "name": "Prickly Pear Substation",
+      "lat": 33.34392,
+      "lon": -111.63364,
+      "kv": 230.0,
+      "assumed_mva": 300,
+      "distance_km": 3.01,
+      "headroom_mw": 99.8
+    }
+  ],
+  "lines": [
+    {
+      "id": "L-way-1200014647-way-175775908",
+      "from": "osm-way-1200014647",
+      "to": "osm-way-175775908",
+      "kv": 69.0,
+      "rating_mva": 90,
+      "length_km": 5.05
+    },
+    {
+      "id": "L-way-1200014647-way-1200014619",
+      "from": "osm-way-1200014647",
+      "to": "osm-way-1200014619",
+      "kv": 69.0,
+      "rating_mva": 90,
+      "length_km": 2.67
+    },
+    {
+      "id": "L-way-1200014647-way-1200014620",
+      "from": "osm-way-1200014647",
+      "to": "osm-way-1200014620",
+      "kv": 69.0,
+      "rating_mva": 90,
+      "length_km": 2.57
+    },
+    {
+      "id": "L-way-175775908-way-1263610594",
+      "from": "osm-way-175775908",
+      "to": "osm-way-1263610594",
+      "kv": 69.0,
+      "rating_mva": 90,
+      "length_km": 5.98
+    },
+    {
+      "id": "L-way-1263610594-way-1200014619",
+      "from": "osm-way-1263610594",
+      "to": "osm-way-1200014619",
+      "kv": 69.0,
+      "rating_mva": 90,
+      "length_km": 2.99
+    },
+    {
+      "id": "L-way-1263610594-way-1200014620",
+      "from": "osm-way-1263610594",
+      "to": "osm-way-1200014620",
+      "kv": 69.0,
+      "rating_mva": 90,
+      "length_km": 3.19
+    },
+    {
+      "id": "L-way-1200014619-way-1200014620",
+      "from": "osm-way-1200014619",
+      "to": "osm-way-1200014620",
+      "kv": 69.0,
+      "rating_mva": 90,
+      "length_km": 0.22
+    }
+  ],
+  "iso": {
+    "lmp": null,
+    "load": null,
+    "timestamp": "2026-11-09T00:37:37Z",
+    "source": "unavailable:NONE:SRP (no live data, no cache)"
+  },
+  "dlr_uplift_pct": 15.0,
+  "distribution": {
+    "requested_mw": 300,
+    "connectable_at_distribution_mw": 38.66,
+    "needs_transmission_mw": 261.34,
+    "n_edge_sites": 9,
+    "edge_sites": [
+      {
+        "substation_id": "08389",
+        "substation": "MONTAGUE",
+        "bank_id": "0838901",
+        "feeder_id": "083892101",
+        "feeder": "MONTAGUE 2101",
+        "mw": 3.18,
+        "lat": 37.403069,
+        "lon": -121.905624
+      },
+      {
+        "substation_id": "08389",
+        "substation": "MONTAGUE",
+        "bank_id": "0838903",
+        "feeder_id": "083892107",
+        "feeder": "MONTAGUE 2107",
+        "mw": 2.82,
+        "lat": 37.403069,
+        "lon": -121.905624
+      },
+      {
+        "substation_id": "08342",
+        "substation": "LAWRENCE",
+        "bank_id": "0834202",
+        "feeder_id": "083421108",
+        "feeder": "LAWRENCE 1108",
+        "mw": 8.77,
+        "lat": 37.397195,
+        "lon": -122.010095
+      },
+      {
+        "substation_id": "08342",
+        "substation": "LAWRENCE",
+        "bank_id": "0834203",
+        "feeder_id": "083421112",
+        "feeder": "LAWRENCE 1112",
+        "mw": 6.88,
+        "lat": 37.397195,
+        "lon": -122.010095
+      },
+      {
+        "substation_id": "08342",
+        "substation": "LAWRENCE",
+        "bank_id": "0834203",
+        "feeder_id": "083421113",
+        "feeder": "LAWRENCE 1113",
+        "mw": 2.42,
+        "lat": 37.397195,
+        "lon": -122.010095
+      },
+      {
+        "substation_id": "08342",
+        "substation": "LAWRENCE",
+        "bank_id": "0834202",
+        "feeder_id": "083421107",
+        "feeder": "LAWRENCE 1107",
+        "mw": 3.43,
+        "lat": 37.397195,
+        "lon": -122.010095
+      },
+      {
+        "substation_id": "01472",
+        "substation": "DIXON LANDING",
+        "bank_id": "0147202",
+        "feeder_id": "014722105",
+        "feeder": "DIXON LANDING 2105",
+        "mw": 3.17,
+        "lat": 37.457059,
+        "lon": -121.920973
+      },
+      {
+        "substation_id": "01472",
+        "substation": "DIXON LANDING",
+        "bank_id": "0147201",
+        "feeder_id": "014722103",
+        "feeder": "DIXON LANDING 2103",
+        "mw": 2.63,
+        "lat": 37.457059,
+        "lon": -121.920973
+      },
+      {
+        "substation_id": "08361",
+        "substation": "BRITTON",
+        "bank_id": "0836103",
+        "feeder_id": "083611115",
+        "feeder": "BRITTON 1115",
+        "mw": 5.36,
+        "lat": 37.374916,
+        "lon": -122.016517
+      }
+    ],
+    "substations": [
+      {
+        "id": "08234",
+        "name": "RIVER OAKS",
+        "lat": 37.411282,
+        "lon": -121.927074,
+        "bank_headroom_mw": 0.0,
+        "connectable_mw": 0.0,
+        "feeders_with_hosting": 2
+      },
+      {
+        "id": "08389",
+        "name": "MONTAGUE",
+        "lat": 37.403069,
+        "lon": -121.905624,
+        "bank_headroom_mw": 6.0,
+        "connectable_mw": 6.0,
+        "feeders_with_hosting": 9
+      },
+      {
+        "id": "08342",
+        "name": "LAWRENCE",
+        "lat": 37.397195,
+        "lon": -122.010095,
+        "bank_headroom_mw": 21.5,
+        "connectable_mw": 21.5,
+        "feeders_with_hosting": 11
+      },
+      {
+        "id": "01472",
+        "name": "DIXON LANDING",
+        "lat": 37.457059,
+        "lon": -121.920973,
+        "bank_headroom_mw": 5.8,
+        "connectable_mw": 5.8,
+        "feeders_with_hosting": 8
+      },
+      {
+        "id": "08380",
+        "name": "TRIMBLE",
+        "lat": 37.382832,
+        "lon": -121.92644,
+        "bank_headroom_mw": 0.0,
+        "connectable_mw": 0.0,
+        "feeders_with_hosting": 14
+      },
+      {
+        "id": "08361",
+        "name": "BRITTON",
+        "lat": 37.374916,
+        "lon": -122.016517,
+        "bank_headroom_mw": 5.49,
+        "connectable_mw": 5.36,
+        "feeders_with_hosting": 12
+      },
+      {
+        "id": "08283",
+        "name": "MILPITAS",
+        "lat": 37.415579,
+        "lon": -121.88807,
+        "bank_headroom_mw": 0.0,
+        "connectable_mw": 0.0,
+        "feeders_with_hosting": 12
+      },
+      {
+        "id": "08246",
+        "name": "NORTECH",
+        "lat": 37.420952,
+        "lon": -121.960459,
+        "bank_headroom_mw": 0.0,
+        "connectable_mw": 0.0,
+        "feeders_with_hosting": 5
+      },
+      {
+        "id": "08379",
+        "name": "SIGNETICS",
+        "lat": 37.384845,
+        "lon": -122.013185,
+        "bank_headroom_mw": 0.0,
+        "connectable_mw": 0.0,
+        "feeders_with_hosting": 0
+      }
+    ],
+    "note": "PG&E GRIP values are directional, not guaranteed; not a PG&E approval. -99.99 -> null. See SOURCES.md."
+  },
+  "assumptions": [
+    "substations: overpass:overpass-api.de; (c) OpenStreetMap contributors (ODbL)",
+    "fallback table {66: 60, 69: 75, 115: 150, 138: 200, 230: 300, 345: 500, 500: 750}; headroom_mw = assumed_mva*0.95*(1-0.65) (assumed 65% utilization)",
+    "iso (CAISO) from data/l2/iso.py: lmp = NP15 hub (TH_NP15_GEN-APND) day-ahead hourly LMP, load = CAISO system load MW, stress_2025 = 2025 CISO top-2% net-load hours (curtailment window); fallback: mean of gridstatus real-time 5-min LMPs (NP15/SP15/ZP26 hubs)",
+    "lines inferred (MST + 2nd-nearest), rating from kV table {66: 80, 69: 90, 115: 200, 138: 250, 230: 450, 345: 900, 500: 1500}, length = straight line x 1.25"
+  ]
+}
