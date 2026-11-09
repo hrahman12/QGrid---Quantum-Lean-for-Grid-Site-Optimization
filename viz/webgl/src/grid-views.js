@@ -32,16 +32,16 @@ const fmt = n => `${Number(n.toFixed(1))} MW`;
 export function mountGridViews(host, f) {
   host.classList.add('gv');
   host.append(el('p', 'gv-lead', 'We simulate the real local grid, including what happens if one transformer fails.'));
-  host.append(el('div', 'gv-source', 'Recorded pandapower run (live snapshot) · the preview below re-estimates as you move the knobs'));
+  host.append(el('div', 'gv-source', 'Recorded power-grid simulation (pandapower, live snapshot) · the preview below re-estimates as you move the knobs'));
 
-  const diagram = el('div', 'gv-line'); diagram.setAttribute('role', 'list'); diagram.setAttribute('aria-label', 'Candidate substations: planned MW vs firm N-1 headroom');
+  const diagram = el('div', 'gv-line'); diagram.setAttribute('role', 'list'); diagram.setAttribute('aria-label', 'Candidate substations: planned MW vs room guaranteed if one transformer fails (firm N-1)');
   diagram.append(el('div', 'gv-site', 'SITE'));
   for (const s of f.subs) {
     const node = el('div', 'gv-sub'); node.dataset.status = s.status; node.setAttribute('role', 'listitem');
-    node.append(el('b', '', s.name), el('span', 'gv-plan', `${fmt(s.mw)} planned`), el('small', '', `${fmt(s.netMw)} net vs ${fmt(s.firmMw)} firm N-1`));
+    node.append(el('b', '', s.name), el('span', 'gv-plan', `${fmt(s.mw)} planned`), el('small', '', `${fmt(s.netMw)} net vs ${fmt(s.firmMw)} guaranteed if one fails (firm N-1)`));
     const bar = el('div', 'gv-bar'), max = Math.max(s.netMw, s.firmMw) || 1;
     const need = el('i'); need.style.width = `${(s.netMw / max) * 100}%`;
-    const firm = el('span'); firm.style.left = `${(s.firmMw / max) * 100}%`; firm.title = 'firm N-1 headroom';
+    const firm = el('span'); firm.style.left = `${(s.firmMw / max) * 100}%`; firm.title = 'room guaranteed if one transformer fails (firm N-1)';
     bar.append(need, firm); node.append(bar);
     diagram.append(el('i', 'gv-wire'), node);
   }

@@ -72,12 +72,12 @@ export function headline(live) {
 export function whatIf(live, h = headline(live)) {
   const out = [];
   const edge = live.edge?.final;
-  if (edge) out.push({ text: `Phase it: start with ${live.edge.site.requested_mw} MW of small edge sites on local distribution`, to: edge.verdict, note: 'pipeline result for that phase' });
-  else if (h.verdict !== 'GREEN') out.push({ text: `Phase it: start with the ${h.firm} MW the grid can guarantee now`, to: 'GREEN', note: 'firm capacity only; needs a rerun' });
+  if (edge) out.push({ text: `Phase it: start with ${live.edge.site.requested_mw} MW of small sites on the local grid (edge sites)`, to: edge.verdict, note: 'pipeline result for that phase' });
+  else if (h.verdict !== 'GREEN') out.push({ text: `Phase it: start with the ${h.firm} MW the grid can guarantee now`, to: 'GREEN', note: 'guaranteed capacity only; needs a rerun' });
   if (live.certificate.checks.some((c) => c.name === 'flex_commitment' && !c.pass))
-    out.push({ text: 'Sign the battery / curtailment commitment', to: worst(live.certificate.checks.filter((c) => !c.pass && c.name !== 'flex_commitment').map((c) => (c.tag === 'hard' ? 'RED' : 'AMBER'))), note: 'clears the commitment rule; grid limit remains' });
+    out.push({ text: 'Sign the battery / pausing-use (curtailment) commitment', to: worst(live.certificate.checks.filter((c) => !c.pass && c.name !== 'flex_commitment').map((c) => (c.tag === 'hard' ? 'RED' : 'AMBER'))), note: 'clears the commitment rule; grid limit remains' });
   const banks = live.edge?.bank_capacity_mw_by_curtailment_pct;
-  if (banks) out.push({ text: `Accept 2% curtailment in grid emergencies (local room ${banks['0']} → ${banks['2']} MW)`, to: 'AMBER', note: 'more room, still short of the full request' });
+  if (banks) out.push({ text: `Pause use in a few peak hours, about 2% (curtailment) (local room ${banks['0']} → ${banks['2']} MW)`, to: 'AMBER', note: 'more room, still short of the full request' });
   if (live.risk) {
     const sim = Object.fromEntries((live.risk.mirofish?.scenarios || []).map((s) => [s.scenario, s]));
     const [s0, s1] = [sim.S0_baseline, sim.S1_cba_hiring];
@@ -86,6 +86,6 @@ export function whatIf(live, h = headline(live)) {
     out.push({ text: 'Recycled-water or closed-loop cooling', to: 'AMBER', note: 'answers the high water-stress and city cooling concerns' });
   }
   if (Number.isFinite(h.short) && h.short > 0)
-    out.push({ text: `Firm transmission upgrade adding ~${r1(h.short)} MW, finished before ${live.site.deadline}`, to: 'GREEN', note: 'grid rules; upgrade lead time is ASSUMED' });
+    out.push({ text: `Guaranteed transmission upgrade (firm) adding ~${r1(h.short)} MW, finished before ${live.site.deadline}`, to: 'GREEN', note: 'grid rules; upgrade lead time is ASSUMED' });
   return out.slice(0, 6);
 }

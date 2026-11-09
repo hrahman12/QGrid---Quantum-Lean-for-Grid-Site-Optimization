@@ -199,7 +199,7 @@ export function createScene(container, run, geography, onSelect) {
   }
   updateQuantum();
   const caption=document.createElement('div');caption.className='quantum-caption';caption.hidden=true;
-  caption.innerHTML=`<strong>${(run.quantum.per_iteration.at(-1).p_marked*100).toFixed(1)}% marked-state probability</strong>Archived pre-firm-N-1 PsiQDK run · ${run.quantum.marked} marked / ${run.quantum.space.padded_N} states<br>Aggregate probabilities; spatial ordering is illustrative. Not a current search.`;container.append(caption);
+  caption.innerHTML=`<strong>${(run.quantum.per_iteration.at(-1).p_marked*100).toFixed(1)}% chance of the right answers</strong>Archived run from before the if-one-transformer-fails review (firm N-1) · ${run.quantum.marked} marked / ${run.quantum.space.padded_N} states<br>Aggregate probabilities; spatial ordering is illustrative. Not a current search.`;container.append(caption);
   const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();let down=null,selected='site',quantumMode=false,alive=true,frame=0;
   renderer.domElement.addEventListener('pointerdown',(e)=>{down=[e.clientX,e.clientY];});
   renderer.domElement.addEventListener('pointerup',(e)=>{
@@ -239,8 +239,8 @@ export function createScene(container, run, geography, onSelect) {
     quantumStep(step){
       if(step===3){this.quantum(false);return;}
       this.quantum(true);qStage=step===1?-1:step===0?0:1;updateQuantum();
-      const titles=['Uniform superposition','Phase flip: marked amplitudes change sign','Interference amplifies marked states'];
-      caption.replaceChildren();const strong=document.createElement('strong');strong.textContent=titles[step];caption.append(strong,document.createTextNode('Archived pre-firm-N-1 simulation · aggregate state ordering is illustrative.'));
+      const titles=['All options equally likely (uniform superposition)','Right answers flagged (phase flip: marked amplitudes change sign)','Right answers boosted (interference amplifies marked states)'];
+      caption.replaceChildren();const strong=document.createElement('strong');strong.textContent=titles[step];caption.append(strong,document.createTextNode('Archived simulation from before the transformer-failure review · aggregate state ordering is illustrative.'));
     },
     layer(name,value){({terrain:terrainMesh,lines:geoLines,distribution})[name].visible=value;},
     quantum(value){quantumMode=value;quantumWorld.visible=value;gridWorld.visible=!value;caption.hidden=!value;lookTarget=new THREE.Vector3(0,0,value?0:5);cameraTarget=value?new THREE.Vector3(24,29,30):new THREE.Vector3(24,29,37);},

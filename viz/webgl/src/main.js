@@ -50,7 +50,7 @@ function render(){
  $('#flow-check').textContent=physicsBlocked?'Blocked':'Pass';$('#flow-check').style.color=physicsBlocked?'var(--red)':'var(--green)';$('#flow-result').textContent=result.status;$('#flow-result').style.color=`var(--${result.status.toLowerCase()})`;
  renderLive();
  scene?.update(result);gridPhysics?.update(result);updateSelection();
- if(lastQuantum && !quantumPending && searchSignature(settings)!==lastQuantumSettings){$('#quantum-status').textContent='Inputs changed — run PsiQDK again';$('#quantum-engine-tag').textContent='Previous result is stale';}
+ if(lastQuantum && !quantumPending && searchSignature(settings)!==lastQuantumSettings){$('#quantum-status').textContent='Inputs changed — run the simulator again';$('#quantum-engine-tag').textContent='Previous result is stale';}
 }
 function liveCase(){
  if(caseId==='alviso')return {...run.current_run,risk:run.risk_layers,edge:run.scenarios.edge};
@@ -107,19 +107,19 @@ function updateSelection(){
 function selectAsset(id){selected=id;updateSelection();scene.select(id);}
 function explain(){
  const head=make('h2',`${result.status}: why this verdict?`);head.style.color=`var(--${result.status.toLowerCase()})`;
- const p=make('p',`${round(result.requested)} MW gross demand − ${round(result.curtailed)} MW curtailment − ${round(result.storage)} MW assumed battery support = ${round(result.delivered)} MW net grid demand. Firm N-1 capacity is ${round(result.n1Capacity)} MW.`);
+ const p=make('p',`${round(result.requested)} MW gross demand − ${round(result.curtailed)} MW curtailment − ${round(result.storage)} MW assumed battery support = ${round(result.delivered)} MW net grid demand. Guaranteed capacity if one transformer fails (firm N-1) is ${round(result.n1Capacity)} MW.`);
  const rows=result.checks.flatMap(c=>[make('h3',`${c.status} · ${c.name}`),make('p',c.detail)]);
- const next=make('p',result.blocking.length?'Resolve every unmet rule listed above, then check again. RED means a hard rule (capacity, thermal or firm N-1) fails; AMBER means only negotiable conditions remain. Line uprating does not increase firm transformer caps.':'The browser checks pass. A changed plan still needs the actual quantum / physics / Lean pipeline before formal certification.');
+ const next=make('p',result.blocking.length?'Resolve every unmet rule listed above, then check again. RED means a hard rule (capacity, line heating or guaranteed capacity if one part fails) fails; AMBER means only negotiable conditions remain. Line uprating does not increase firm transformer caps.':'The browser checks pass. A changed plan still needs the actual quantum search, power-grid simulation and proof-checker pipeline before formal certification.');
  showDialog('THIS SCENARIO / EXACT REASONS',[head,p,...rows,make('h3','What to do next'),next]);
 }
 function showRecord() {
   const heading = make('h2', `Archived certificate: ${run.certificate.result} (superseded)`);
   heading.style.color = 'var(--amber)';
-  const text = make('p', `This historical 150 MW run (${run.quantum.generated_utc}) predates the firm N-1 transformer review. Its GREEN verdict is superseded: the current 150 MW baseline is blocked by firm transformer caps. It is retained for comparison, not as a current certificate. Scenario knobs do not change this archive.`);
+  const text = make('p', `This historical 150 MW run (${run.quantum.generated_utc}) predates the review of what holds if one transformer fails (firm N-1). Its GREEN verdict is superseded: the current 150 MW baseline is blocked by firm transformer caps. It is retained for comparison, not as a current certificate. Scenario knobs do not change this archive.`);
   const rows = run.certificate.checks.map((check) => {
     const row = make('div', undefined, 'certificate-row'); row.append(make('span', check.name.replaceAll('_', ' ')), make('span', check.pass ? 'PASS' : 'FAIL')); row.title = check.detail; return row;
   });
-  const metrics = make('p', `Recorded pandapower result: ${run.physics_result.max_line_loading_pct}% maximum loading; ${run.physics_result.v_min_pu}–${run.physics_result.v_max_pu} pu voltage; N-1 ${run.physics_result.n1_pass ? 'pass' : 'fail'}.`);
+  const metrics = make('p', `Recorded power-grid simulation (pandapower) result: ${run.physics_result.max_line_loading_pct}% maximum loading; ${run.physics_result.v_min_pu}–${run.physics_result.v_max_pu} pu voltage; if one part fails (N-1) ${run.physics_result.n1_pass ? 'pass' : 'fail'}.`);
   const hash = make('code', run.certificate.evidence_sha256);
   const note = make('p', run.certificate.scope_note);
   const download = make('button', '↓ Download saved certificate', 'outline-button'); download.style.marginTop = '18px'; download.onclick = () => downloadJson('qgrid-saved-certificate.json', run.certificate);
@@ -131,16 +131,16 @@ function showSources() {
   const equations = make('ul');
   for (const text of [
     'Gross demand = requested load × (1 + demand growth). Net grid demand subtracts selected curtailment and assumed battery MW.',
-    'Scenario headroom scales the recorded assumed headroom by (100 − utilization) / 35, DLR uplift, a 20% reconductoring factor, and a heat penalty of 0.8% per °C above 25°C.',
+    'Scenario headroom scales the recorded assumed headroom by (100 − utilization) / 35, line-upgrade (DLR) uplift, a 20% stronger-wire (reconductoring) factor, and a heat penalty of 0.8% per °C above 25°C.',
     'Thermal loading scales the recorded 71.7% result by net load, the largest route share relative to 75%, utilization, heat, and the selected upgrade factors. This is a sensitivity proxy, not an AC or IEEE 738 calculation.',
-    'Firm N-1 screening uses the recorded firm transformer headroom: 19.9 MW per selected source before an outage. Line-rating uplift and reconductoring never increase those firm caps. It does not solve line contingencies or validate protection and topology.',
-    'Assumed delivery times: DLR 12 months, battery 18 months, reconductoring 36 months. ROW, flood protection, and storage commitment toggles are scenario assumptions, not evidence of permits or commitments.',
+    'The guaranteed-capacity check (firm N-1) uses the recorded firm transformer headroom: 19.9 MW per selected source before an outage. Line-rating uplift and reconductoring never increase those firm caps. It does not solve line contingencies or validate protection and topology.',
+    'Assumed delivery times: line upgrades from weather data (DLR) 12 months, battery 18 months, stronger wires (reconductoring) 36 months. ROW, flood protection, and storage commitment toggles are scenario assumptions, not evidence of permits or commitments.',
     'GRIP distribution MW comes from the cached 2028 flexibility curve, linearly interpolated between published scenario points. Above 10% curtailment the display is capped at the last data point.',
-    'Overall display follows the Lean rules: RED when any hard rule (capacity, thermal, firm N-1) fails, AMBER when only negotiable conditions are unmet, GREEN when all 8 screens pass. This display rule does not change the pipeline or Lean verdict.',
+    'Overall display follows the proof-checker (Lean) rules: RED when any hard rule (capacity, thermal, firm N-1) fails, AMBER when only negotiable conditions are unmet, GREEN when all 8 screens pass. This display rule does not change the pipeline or Lean verdict.',
   ]) equations.append(make('li', text));
   const sources = make('ul');
   for (const [label, url] of [
-    ['Saved pipeline run and Lean evidence', 'https://github.com/hrahman12/QGrid---Quantum-Lean-for-Grid-Site-Optimization/tree/main/docs/demo_run'],
+    ['Saved pipeline run and proof-checker (Lean) evidence', 'https://github.com/hrahman12/QGrid---Quantum-Lean-for-Grid-Site-Optimization/tree/main/docs/demo_run'],
     ['Recorded GRIP flexibility curve and assumptions', 'https://github.com/hrahman12/QGrid---Quantum-Lean-for-Grid-Site-Optimization/blob/main/data/l2/flex_headroom.json'],
     ['OpenStreetMap contributors · ODbL', 'https://www.openstreetmap.org/copyright'],
     ['Terrain Tiles / USGS terrain attribution', 'https://github.com/tilezen/joerd/blob/master/docs/attribution.md'],
@@ -156,21 +156,21 @@ async function runQuantum(){
  if(quantumPending)return;
  const submitted={...settings},signature=searchSignature(settings),controller=new AbortController();
  const timeout=setTimeout(()=>controller.abort(),110000);quantumPending=true;
- $('#run-quantum').disabled=true;$('#run-quantum').textContent='Running…';$('#quantum-status').textContent='Executing the PsiQDK native circuit';$('#quantum-summary').textContent='Building the oracle, applying Grover interference, and collecting measurements…';$('#quantum-engine-tag').textContent='RUNNING';quantumComputer.running(true);
+ $('#run-quantum').disabled=true;$('#run-quantum').textContent='Running…';$('#quantum-status').textContent='Running the quantum simulation';$('#quantum-summary').textContent='Building the yes/no test (oracle), boosting right answers (Grover interference), and collecting results…';$('#quantum-engine-tag').textContent='RUNNING';quantumComputer.running(true);
  try{
   const response=await fetch('/api/quantum',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({settings:submitted}),signal:controller.signal});
-  const type=response.headers.get('content-type')||'';if(!type.includes('application/json'))throw new Error('The native execution service is not available. Start the API server or deploy the repository root.');const data=await response.json();if(!response.ok)throw new Error(data.error||'PsiQDK execution failed.');
-  if(data.backend!=='psiqdk'||!data.result?.numpy_crosscheck_ok)throw new Error('The response did not contain a verified PsiQDK result.');
+  const type=response.headers.get('content-type')||'';if(!type.includes('application/json'))throw new Error('The native execution service is not available. Start the API server or deploy the repository root.');const data=await response.json();if(!response.ok)throw new Error(data.error||'The quantum simulation failed.');
+  if(data.backend!=='psiqdk'||!data.result?.numpy_crosscheck_ok)throw new Error('The response did not contain a verified quantum-simulator result.');
   lastQuantum=data;quantumComputer.result(data);$('#view-quantum').disabled=false;
   if(searchSignature(settings)===signature && data.selected_settings){settings=normalize({...settings,...Object.fromEntries(['storage','curtailment','dlr','split'].map(key=>[key,data.selected_settings[key]]))});lastQuantumSettings=searchSignature(settings);render();}else lastQuantumSettings=signature;
   const metrics=data.result.resources?.qpu_metrics||{};
-  $('#quantum-status').textContent=data.plan?'PsiQDK completed · measured candidate applied':'PsiQDK completed · no feasible candidate measured';
-  $('#quantum-summary').textContent=`${data.space.n_qubits} qubits · ${data.space.padded_N} states · ${data.marked_indices.length} marked · ${data.result.iterations} Grover iterations · ${data.result.samples_marked}/${data.result.shots} marked shots · AV ${metrics.active_volume??'n/a'} · ${data.wall_s}s`;
-  $('#quantum-engine-tag').textContent='PSIQDK · COMPLETED';
-  if(searchSignature(settings)!==lastQuantumSettings){$('#quantum-status').textContent='PsiQDK completed for earlier inputs — run again';$('#quantum-engine-tag').textContent='RESULT STALE';}
-  $('.quantum-steps small').textContent=`Returned native states · job ${data.job_id.slice(0,8)} · ${Object.entries(data.result.versions).map(([k,v])=>`${k} ${v}`).join(' · ')}`;
- }catch(error){$('#quantum-status').textContent='PsiQDK did not complete';$('#quantum-summary').textContent=error.name==='AbortError'?'The job timed out. No fallback result was used.':error.message;$('#quantum-engine-tag').textContent='UNAVAILABLE';}
- finally{clearTimeout(timeout);quantumPending=false;quantumComputer.running(false);$('#run-quantum').disabled=false;$('#run-quantum').textContent='▶ Run PsiQDK';}
+  $('#quantum-status').textContent=data.plan?'Simulation done · measured candidate applied':'Simulation done · no feasible candidate measured';
+  $('#quantum-summary').textContent=`${data.space.n_qubits} quantum bits (qubits) · ${data.space.padded_N} states · ${data.marked_indices.length} marked · ${data.result.iterations} search rounds (Grover iterations) · ${data.result.samples_marked}/${data.result.shots} marked shots · AV ${metrics.active_volume??'n/a'} · ${data.wall_s}s`;
+  $('#quantum-engine-tag').textContent='SIMULATOR · COMPLETED';
+  if(searchSignature(settings)!==lastQuantumSettings){$('#quantum-status').textContent='Simulation was for earlier inputs — run again';$('#quantum-engine-tag').textContent='RESULT STALE';}
+  $('.quantum-steps small').textContent=`Results returned by the simulator · job ${data.job_id.slice(0,8)} · ${Object.entries(data.result.versions).map(([k,v])=>`${k} ${v}`).join(' · ')}`;
+ }catch(error){$('#quantum-status').textContent='The simulator did not complete';$('#quantum-summary').textContent=error.name==='AbortError'?'The job timed out. No fallback result was used.':error.message;$('#quantum-engine-tag').textContent='UNAVAILABLE';}
+ finally{clearTimeout(timeout);quantumPending=false;quantumComputer.running(false);$('#run-quantum').disabled=false;$('#run-quantum').textContent='▶ Run quantum simulator (PsiQDK)';}
 }
 async function init(){
  try{
@@ -212,7 +212,7 @@ let vmRecordedJob=null,vmViews=null;
  try{const r=await fetch(`${import.meta.env.BASE_URL}data/native_job.json`);if(r.ok){const j=await r.json();if(j.backend==='psiqdk'&&j.result?.numpy_crosscheck_ok&&j.result.states?.length)vmRecordedJob=j;}}catch{}
  if(vmRecordedJob&&!lastQuantum){
   quantumComputer.result(vmRecordedJob,'recorded');$('#view-quantum').disabled=false;
-  $('.quantum-steps small').textContent=`Recorded native PsiQDK run · job ${vmRecordedJob.job_id.slice(0,8)} · ${vmRecordedJob.completed_utc.replace(/\.\d+/,'').replace('+00:00','Z')} · Run PsiQDK for a live job`;
+  $('.quantum-steps small').textContent=`Recorded simulator run · job ${vmRecordedJob.job_id.slice(0,8)} · ${vmRecordedJob.completed_utc.replace(/\.\d+/,'').replace('+00:00','Z')} · Run the simulator for a live job`;
  }
  // The existing "Returned states" handler needs a live job; with none yet, show the recorded native run.
  $('#view-quantum').addEventListener('click',()=>{if(lastQuantum||!vmRecordedJob)return;quantumComputer.step(0);document.querySelectorAll('[data-quantum-step]').forEach((n,i)=>n.classList.toggle('active',i===0));$('.quantum-steps').hidden=false;$('#view-quantum').classList.add('active');$('#view-grid').classList.remove('active');});
