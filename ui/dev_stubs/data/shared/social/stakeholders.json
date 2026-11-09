@@ -1,0 +1,97 @@
+{
+ "nodes": [
+  {
+   "id": "n0",
+   "label": "STUB actor 0",
+   "type": "city",
+   "stance": "neutral",
+   "influence": 0.9
+  },
+  {
+   "id": "n1",
+   "label": "STUB actor 1",
+   "type": "residents",
+   "stance": "oppose",
+   "influence": 0.7
+  },
+  {
+   "id": "n2",
+   "label": "STUB actor 2",
+   "type": "utility",
+   "stance": "neutral",
+   "influence": 0.8
+  },
+  {
+   "id": "n3",
+   "label": "STUB actor 3",
+   "type": "developer",
+   "stance": "support",
+   "influence": 0.6
+  },
+  {
+   "id": "n4",
+   "label": "STUB actor 4",
+   "type": "NGO",
+   "stance": "oppose",
+   "influence": 0.5
+  },
+  {
+   "id": "n5",
+   "label": "STUB actor 5",
+   "type": "union",
+   "stance": "support",
+   "influence": 0.4
+  },
+  {
+   "id": "n6",
+   "label": "STUB actor 6",
+   "type": "regulator",
+   "stance": "neutral",
+   "influence": 0.85
+  },
+  {
+   "id": "n7",
+   "label": "STUB actor 7",
+   "type": "press",
+   "stance": "neutral",
+   "influence": 0.3
+  }
+ ],
+ "edges": [
+  {
+   "source": "n1",
+   "target": "n0",
+   "relation": "pressures"
+  },
+  {
+   "source": "n3",
+   "target": "n5",
+   "relation": "funds"
+  },
+  {
+   "source": "n6",
+   "target": "n2",
+   "relation": "regulates"
+  },
+  {
+   "source": "n5",
+   "target": "n0",
+   "relation": "endorses"
+  },
+  {
+   "source": "n4",
+   "target": "n3",
+   "relation": "opposes"
+  },
+  {
+   "source": "n7",
+   "target": "n0",
+   "relation": "pressures"
+  },
+  {
+   "source": "n2",
+   "target": "n3",
+   "relation": "endorses"
+  }
+ ]
+}

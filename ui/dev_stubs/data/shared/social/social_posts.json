@@ -1,0 +1,725 @@
+{
+ "note": "STUB posts",
+ "posts": [
+  {
+   "id": "STUB-0",
+   "platform": "STUB-reddit",
+   "author_hash": "stub91b758",
+   "created_utc": "2026-11-11",
+   "stance": "neutral",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 0",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-1",
+   "platform": "STUB-reddit",
+   "author_hash": "stub7ed4d5",
+   "created_utc": "2026-11-17",
+   "stance": "support",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 1",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-2",
+   "platform": "STUB-hn",
+   "author_hash": "stubc9e9c6",
+   "created_utc": "2026-06-11",
+   "stance": "support",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 2",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-3",
+   "platform": "STUB-reddit",
+   "author_hash": "stube4b06c",
+   "created_utc": "2026-11-16",
+   "stance": "support",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 3",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-4",
+   "platform": "STUB-reddit",
+   "author_hash": "stubb2221a",
+   "created_utc": "2026-08-14",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 4",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-5",
+   "platform": "STUB-reddit",
+   "author_hash": "stube6c3f3",
+   "created_utc": "2026-07-10",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 5",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-6",
+   "platform": "STUB-reddit",
+   "author_hash": "stuba648a7",
+   "created_utc": "2026-09-10",
+   "stance": "support",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 6",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-7",
+   "platform": "STUB-reddit",
+   "author_hash": "stubf8130c",
+   "created_utc": "2026-08-10",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 7",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-8",
+   "platform": "STUB-hn",
+   "author_hash": "stubf06d3f",
+   "created_utc": "2026-08-18",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 8",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-9",
+   "platform": "STUB-hn",
+   "author_hash": "stub3b1a11",
+   "created_utc": "2026-10-13",
+   "stance": "support",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 9",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-10",
+   "platform": "STUB-hn",
+   "author_hash": "stubed2f89",
+   "created_utc": "2026-05-16",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 10",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-11",
+   "platform": "STUB-reddit",
+   "author_hash": "stuba11d45",
+   "created_utc": "2026-10-14",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 11",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-12",
+   "platform": "STUB-hn",
+   "author_hash": "stube5446d",
+   "created_utc": "2026-10-18",
+   "stance": "support",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 12",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-13",
+   "platform": "STUB-reddit",
+   "author_hash": "stub4da98f",
+   "created_utc": "2026-07-19",
+   "stance": "support",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 13",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-14",
+   "platform": "STUB-hn",
+   "author_hash": "stub96c8da",
+   "created_utc": "2026-11-10",
+   "stance": "support",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 14",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-15",
+   "platform": "STUB-reddit",
+   "author_hash": "stubbe6521",
+   "created_utc": "2026-11-16",
+   "stance": "support",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 15",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-16",
+   "platform": "STUB-reddit",
+   "author_hash": "stub5dfbd3",
+   "created_utc": "2026-09-15",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 16",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-17",
+   "platform": "STUB-hn",
+   "author_hash": "stuba9ec08",
+   "created_utc": "2026-09-11",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 17",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-18",
+   "platform": "STUB-hn",
+   "author_hash": "stub5eda92",
+   "created_utc": "2026-08-10",
+   "stance": "support",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 18",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-19",
+   "platform": "STUB-reddit",
+   "author_hash": "stub4efbc8",
+   "created_utc": "2026-10-19",
+   "stance": "support",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 19",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-20",
+   "platform": "STUB-reddit",
+   "author_hash": "stub2b28fe",
+   "created_utc": "2026-09-13",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 20",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-21",
+   "platform": "STUB-reddit",
+   "author_hash": "stub8a245e",
+   "created_utc": "2026-11-18",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 21",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-22",
+   "platform": "STUB-hn",
+   "author_hash": "stub83868a",
+   "created_utc": "2026-07-19",
+   "stance": "neutral",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 22",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-23",
+   "platform": "STUB-hn",
+   "author_hash": "stube8e5b4",
+   "created_utc": "2026-07-18",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 23",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-24",
+   "platform": "STUB-hn",
+   "author_hash": "stubc89da1",
+   "created_utc": "2026-11-18",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 24",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-25",
+   "platform": "STUB-reddit",
+   "author_hash": "stub6d1447",
+   "created_utc": "2026-05-17",
+   "stance": "neutral",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 25",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-26",
+   "platform": "STUB-reddit",
+   "author_hash": "stubf0e642",
+   "created_utc": "2026-09-16",
+   "stance": "support",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 26",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-27",
+   "platform": "STUB-hn",
+   "author_hash": "stub6a17b9",
+   "created_utc": "2026-07-10",
+   "stance": "neutral",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 27",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-28",
+   "platform": "STUB-hn",
+   "author_hash": "stub99901c",
+   "created_utc": "2026-05-13",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 28",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-29",
+   "platform": "STUB-reddit",
+   "author_hash": "stubdc6b13",
+   "created_utc": "2026-05-18",
+   "stance": "neutral",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 29",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-30",
+   "platform": "STUB-reddit",
+   "author_hash": "stubd77c96",
+   "created_utc": "2026-10-11",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 30",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-31",
+   "platform": "STUB-reddit",
+   "author_hash": "stub73f7ba",
+   "created_utc": "2026-05-14",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 31",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-32",
+   "platform": "STUB-hn",
+   "author_hash": "stub1c0772",
+   "created_utc": "2026-11-19",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 32",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-33",
+   "platform": "STUB-hn",
+   "author_hash": "stub4a5012",
+   "created_utc": "2026-05-12",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 33",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-34",
+   "platform": "STUB-hn",
+   "author_hash": "stub870266",
+   "created_utc": "2026-06-14",
+   "stance": "neutral",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 34",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-35",
+   "platform": "STUB-hn",
+   "author_hash": "stubb3df44",
+   "created_utc": "2026-07-17",
+   "stance": "support",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 35",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-36",
+   "platform": "STUB-reddit",
+   "author_hash": "stub060cea",
+   "created_utc": "2026-07-16",
+   "stance": "neutral",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 36",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-37",
+   "platform": "STUB-hn",
+   "author_hash": "stubcbd3f5",
+   "created_utc": "2026-06-14",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 37",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-38",
+   "platform": "STUB-hn",
+   "author_hash": "stube65a81",
+   "created_utc": "2026-10-18",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 38",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-39",
+   "platform": "STUB-hn",
+   "author_hash": "stubd12982",
+   "created_utc": "2026-05-13",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 39",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-40",
+   "platform": "STUB-hn",
+   "author_hash": "stub257e84",
+   "created_utc": "2026-05-12",
+   "stance": "support",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 40",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-41",
+   "platform": "STUB-hn",
+   "author_hash": "stub8b7199",
+   "created_utc": "2026-11-13",
+   "stance": "support",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 41",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-42",
+   "platform": "STUB-reddit",
+   "author_hash": "stub861e02",
+   "created_utc": "2026-10-10",
+   "stance": "support",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 42",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-43",
+   "platform": "STUB-hn",
+   "author_hash": "stuba8ea37",
+   "created_utc": "2026-10-16",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 43",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-44",
+   "platform": "STUB-hn",
+   "author_hash": "stub202cc8",
+   "created_utc": "2026-06-10",
+   "stance": "neutral",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 44",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-45",
+   "platform": "STUB-reddit",
+   "author_hash": "stubdbc799",
+   "created_utc": "2026-05-14",
+   "stance": "neutral",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 45",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-46",
+   "platform": "STUB-reddit",
+   "author_hash": "stub6a8a43",
+   "created_utc": "2026-09-14",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 46",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-47",
+   "platform": "STUB-reddit",
+   "author_hash": "stub8f8b2b",
+   "created_utc": "2026-11-10",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 47",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-48",
+   "platform": "STUB-hn",
+   "author_hash": "stub2be88b",
+   "created_utc": "2026-11-19",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 48",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-49",
+   "platform": "STUB-hn",
+   "author_hash": "stub334de7",
+   "created_utc": "2026-07-11",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 49",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-50",
+   "platform": "STUB-hn",
+   "author_hash": "stub976699",
+   "created_utc": "2026-06-17",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 50",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-51",
+   "platform": "STUB-hn",
+   "author_hash": "stub4bcb6b",
+   "created_utc": "2026-09-17",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 51",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-52",
+   "platform": "STUB-hn",
+   "author_hash": "stub9cb471",
+   "created_utc": "2026-11-16",
+   "stance": "neutral",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 52",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-53",
+   "platform": "STUB-reddit",
+   "author_hash": "stub282ee0",
+   "created_utc": "2026-06-15",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 53",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-54",
+   "platform": "STUB-hn",
+   "author_hash": "stub6de2b3",
+   "created_utc": "2026-06-14",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 54",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-55",
+   "platform": "STUB-hn",
+   "author_hash": "stubeea3d6",
+   "created_utc": "2026-09-15",
+   "stance": "support",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 55",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-56",
+   "platform": "STUB-reddit",
+   "author_hash": "stub10b8fe",
+   "created_utc": "2026-10-10",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 56",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-57",
+   "platform": "STUB-reddit",
+   "author_hash": "stub2b7113",
+   "created_utc": "2026-06-18",
+   "stance": "oppose",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 57",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-58",
+   "platform": "STUB-hn",
+   "author_hash": "stubc25570",
+   "created_utc": "2026-07-19",
+   "stance": "neutral",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 58",
+   "url": "https://example.invalid/stub"
+  },
+  {
+   "id": "STUB-59",
+   "platform": "STUB-hn",
+   "author_hash": "stub56befa",
+   "created_utc": "2026-07-11",
+   "stance": "neutral",
+   "topics": [
+    "STUB water"
+   ],
+   "title": "STUB post 59",
+   "url": "https://example.invalid/stub"
+  }
+ ]
+}

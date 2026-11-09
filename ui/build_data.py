@@ -187,7 +187,10 @@ def build(roots):
 
     # ---- quantum search record (newest quantum/out/last_search.json across roots)
     # the search record must belong to the same checkout as the pipeline run shown below
-    cert_p = first_root(roots, "runs/*/certificate.json")
+    # only complete runs: pipeline.py writes certificate.json before sources.json and rounds.json
+    complete = lambda p: all((p.parent / f).exists() for f in ("site.json", "grid_snapshot.json", "candidate_plan.json",
+                                                               "physics_result.json", "sources.json", "rounds.json"))
+    cert_p = first_root(roots, "runs/*/certificate.json", complete)
     qroots = ([cert_p.parent.parent.parent] if cert_p else []) + roots
     rich = lambda p: (load(p).get("oracle") or {}).get("M") and (load(p).get("grover") or {}).get("per_iteration") \
         and load(p).get("site_id") == l3["site"]["id"]
@@ -296,14 +299,243 @@ def build(roots):
     }
 
 
+# ---------------------------------------------------------------- climate / social / simulation layers
+# Each layer is optional: null when its files are absent. Field names are read leniently (first key that
+# exists) because the producing PRs were still open when this was written; nothing is filled in or guessed.
+STUBS = UI / "dev_stubs"
+
+
+def pick(d, *keys, default=None):
+    for k in keys:
+        if isinstance(d, dict) and d.get(k) is not None:
+            return d[k]
+    return default
+
+
+def as_list(d, *keys):
+    if isinstance(d, list):
+        return d
+    v = pick(d, *keys)
+    return v if isinstance(v, list) else []
+
+
+def find_layer(rel_paths, stubs, roots):
+    """-> (root, is_stub) for the first root holding any of rel_paths; stubs only with --stubs."""
+    for r in roots[:1]:
+        if any((r / p).exists() for p in rel_paths):
+            return r, False
+    if stubs and any((STUBS / p).exists() for p in rel_paths):
+        return STUBS, True
+    return None, False
+
+
+def tagged(v):
+    """A value cell: {value, unit, tag, source, note} from a dict or a bare number."""
+    if isinstance(v, dict):
+        return {"value": pick(v, "value", "val", "mean", "median"), "unit": pick(v, "unit", "units"),
+                "tag": pick(v, "tag", "provenance", "source_type", "kind"), "source": pick(v, "source", "citation", "url"),
+                "note": pick(v, "note", "basis", "detail")}
+    return {"value": v, "unit": None, "tag": None, "source": None, "note": None}
+
+
+def build_nature(roots, src):
+    """data/shared/nature/<site>.json (AlphaGeo + open-access layer): nature_rag, headline, top3,
+    indicators[{name, modality, value, unit, rag, rule, source, method, date, note, line}]. RAG and line used as given."""
+    files = sorted((ROOT / "data/shared/nature").glob("*.json"))
+    files = [f for f in files if f.stem != "measurements"]
+    sites = []
+    for f in files:
+        d = load(f)
+        if not isinstance(d, dict) or "indicators" not in d:
+            continue
+        src.append(f)
+        sites.append({"site": f.stem, "name": (d.get("site") or {}).get("name") or f.stem,
+                      "rag": d.get("nature_rag"), "headline": d.get("headline"), "rule": d.get("rule"),
+                      "top3": d.get("top3") or [], "generated": d.get("generated"), "source": rel(f, [ROOT]),
+                      "indicators": [{k: x.get(k) for k in ("name", "modality", "value", "unit", "rag", "rule", "source",
+                                                            "method", "date", "note", "line")} for x in d["indicators"]]})
+    if not sites:
+        return None
+    sites.sort(key=lambda x: x["site"] != "alviso")  # the demo site first
+    return {"sites": sites}
+
+
+def build_socioecon(src):
+    """data/shared/socioeconomic/<site>.json: overall_rag, headline, counts, indicators[{name, value, unit,
+    plain_english, rag, rag_rule, source, method, date, scored}]. RAG and sentence used as given."""
+    sites = []
+    for f in sorted((ROOT / "data/shared/socioeconomic").glob("*.json")):
+        d = load(f)
+        if not isinstance(d, dict) or "indicators" not in d:
+            continue
+        src.append(f)
+        sites.append({"site": f.stem, "name": d.get("site") or f.stem, "rag": d.get("overall_rag"),
+                      "headline": d.get("headline"), "rule": d.get("overall_rule"), "counts": d.get("counts"),
+                      "generated": d.get("generated"), "tract": d.get("tract_geoid"), "acs": d.get("acs_vintage"),
+                      "source": rel(f, [ROOT]),
+                      "indicators": [{"name": x.get("name"), "value": x.get("value"), "unit": x.get("unit"),
+                                      "line": x.get("plain_english"), "rag": x.get("rag"), "rule": x.get("rag_rule"),
+                                      "source": x.get("source"), "method": x.get("method"), "date": x.get("date"),
+                                      "scored": x.get("scored")} for x in d["indicators"]]})
+    if not sites:
+        return None
+    sites.sort(key=lambda x: x["site"] != "alviso")
+    return {"sites": sites}
+
+def month_of(ts):
+    ts = str(ts or "")
+    if re.match(r"^\d{9,}(\.\d+)?$", ts):
+        return datetime.fromtimestamp(float(ts), timezone.utc).strftime("%Y-%m")
+    return ts[:7] if re.match(r"^\d{4}-\d{2}", ts) else None
+
+
+def build_social(stubs, roots, src):
+    base = "data/shared/social/"
+    root, is_stub = find_layer([base + n for n in ("social_posts.json", "opposition_events.json", "stakeholders.json",
+                                                   "engagement_levers.json")], stubs, roots)
+    out = {"stub": is_stub, "posts": None, "events": None, "network": None, "levers": None}
+    if root:
+        p = root / base / "social_posts.json"
+        if p.exists():
+            d = load(p); src.append(p)
+            posts = as_list(d, "posts", "items", "records")
+            by = {}
+            stances = []
+            for x in posts:
+                m = month_of(pick(x, "created_utc", "created", "date", "timestamp", "time"))
+                st = str(pick(x, "stance", "label", default="unknown")).lower()
+                if st not in stances:
+                    stances.append(st)
+                if m:
+                    by.setdefault(m, {}).setdefault(st, 0)
+                    by[m][st] += 1
+            recent = sorted(posts, key=lambda x: str(pick(x, "created_utc", "created", "date", default="")), reverse=True)[:6]
+            out["posts"] = {"source": rel(p, [root]), "n": len(posts), "stances": stances,
+                            "months": [{"month": k, "counts": by[k]} for k in sorted(by)],
+                            "platforms": sorted({str(pick(x, "platform", "source", "site", default="?")) for x in posts}),
+                            "by_platform": {k: sum(1 for x in posts if pick(x, "platform") == k) for k in {pick(x, "platform") for x in posts}},
+                            "by_scope": {k: sum(1 for x in posts if pick(x, "scope") == k) for k in {pick(x, "scope") for x in posts}},
+                            "recent": [{"author": pick(x, "id_hash", "author_hash", "user_hash"),
+                                        "platform": pick(x, "platform", "source"),
+                                        "date": str(pick(x, "created_utc", "created", "date", default=""))[:10],
+                                        "stance": pick(x, "stance"), "topics": pick(x, "topics", default=[]),
+                                        "title": pick(x, "title", "text", "body", default="")[:160],
+                                        "url": pick(x, "url", "permalink", "link")} for x in recent],
+                            "note": pick(d, "note", "method", "honesty") if isinstance(d, dict) else None}
+        p = root / base / "opposition_events.json"
+        if p.exists():
+            d = load(p); src.append(p)
+            ev = sorted(as_list(d, "events", "items"), key=lambda x: str(pick(x, "date", "start", default="")), reverse=True)
+            out["events"] = {"source": rel(p, [root]), "n": len(ev),
+                             "note": pick(d, "note") if isinstance(d, dict) else None,
+                             "items": [{"date": pick(x, "date", "start"),
+                                        "title": pick(x, "title", "name", "summary") or " · ".join(
+                                            str(v) for v in (pick(x, "event"), pick(x, "actor"), pick(x, "size")) if v),
+                                        "evidence": pick(x, "evidence"),
+                                        "url": pick(x, "url", "source_url", "link"),
+                                        "outlet": pick(x, "source", "outlet", "publisher"),
+                                        "site": pick(x, "site", "site_id"), "type": pick(x, "type", "kind")} for x in ev[:12]]}
+        p = root / base / "stakeholders.json"
+        if p.exists():
+            d = load(p); src.append(p)
+            nodes = [{"id": pick(n, "id", "name"), "label": pick(n, "label", "name", "id"), "type": pick(n, "type", "kind", "group"),
+                      "stance": pick(n, "stance"), "influence": pick(n, "influence", "weight", "power")}
+                     for n in as_list(d, "nodes", "stakeholders")]
+            edges = [{"source": pick(e, "source", "from"), "target": pick(e, "target", "to"),
+                      "relation": pick(e, "relation", "kind", "type", "label"), "weight": pick(e, "weight")}
+                     for e in as_list(d, "edges", "links")]
+            out["network"] = {"source": rel(p, [root]), "nodes": nodes, "edges": edges,
+                              "note": pick(d, "note", "method") if isinstance(d, dict) else None}
+        p = root / base / "engagement_levers.json"
+        if p.exists():
+            d = load(p); src.append(p)
+            out["levers"] = {"source": rel(p, [root]),
+                             "items": [{"id": pick(x, "id", "lever"), "name": pick(x, "name", "title", "label", "lever"),
+                                        "description": pick(x, "description", "summary", "detail")}
+                                       for x in as_list(d, "levers", "items")]}
+    socio = []
+    for f in sorted((ROOT / "data/shared/socio").glob("*.json")):
+        d = load(f); src.append(f)
+        socio.append({"site": d.get("site"), "name": d.get("name"), "score": d.get("consent_score"),
+                      "verdict": d.get("verdict"), "note": d.get("verdict_note"),
+                      "conditions": d.get("amber_conditions") or [], "source": rel(f, [ROOT])})
+    out["consent"] = socio or None
+    if not any(out[k] for k in ("posts", "events", "network", "levers", "consent")):
+        return None
+    return out
+
+
+def build_sim(stubs, roots, src, sim_root=None):
+    """sim/mirofish/results/: summary.json + one <scenario>.json per scenario (MiroFish or labelled fallback)."""
+    rp = "sim/mirofish/results/summary.json"
+    root, is_stub = None, False
+    for r in roots[:1] + ([Path(sim_root)] if sim_root else []):
+        if (r / rp).exists():
+            root = r
+            break
+    if not root and stubs and (STUBS / rp).exists():
+        root, is_stub = STUBS, True
+    if not root:
+        return None
+    sp = root / rp
+    summ = load(sp); src.append(sp)
+    scen = []
+    for x in summ.get("scenarios", []):
+        sid = x.get("scenario")
+        fp = root / "sim/mirofish/results" / f"{sid}.json"
+        det = load(fp) if fp.exists() else {}
+        if det:
+            src.append(fp)
+        ini, fin = det.get("key_actors_initial_stance") or {}, det.get("key_actors_final_stance") or {}
+        flips = [{"actor": a, "from": ini[a], "to": fin[a]} for a in fin
+                 if a in ini and ini[a] is not None and fin[a] is not None and (ini[a] > 0) != (fin[a] > 0)
+                 and ini[a] != 0 and fin[a] != 0]
+        scen.append({"id": sid, "name": x.get("label"), "approval": x.get("approval_proxy"), "band": x.get("band"),
+                     "support": x.get("support"), "neutral": x.get("neutral"), "oppose": x.get("oppose"),
+                     "mean_stance": x.get("mean_stance"), "levers": det.get("levers") or [],
+                     "agents": det.get("agents"), "steps": det.get("steps"),
+                     "timeline": [{"step": t.get("step"), "mean": t.get("mean")} for t in det.get("stance_timeline") or []],
+                     "flips": flips, "top_argument": x.get("top_argument"),
+                     "source": rel(fp, [root]) if det else None})
+    readme = root / "sim/mirofish/README.md"
+    blocked = None
+    if readme.exists():
+        txt = readme.read_text(encoding="utf-8"); src.append(readme)
+        if "ZEP_API_KEY" in txt and "could not run" in txt:
+            blocked = "MiroFish itself could not run: it requires a Zep Cloud key (ZEP_API_KEY), which the team did not have (sim/mirofish/README.md)."
+    return {"stub": is_stub, "source": rel(sp, [root]), "engine": summ.get("engine"), "blocked_note": blocked,
+            "baseline_consent": summ.get("repo_baseline_consent"), "compare_against": summ.get("compare_against"),
+            "scenarios": scen}
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--extra-root", action="append", default=[], help="another checkout to search for runs/")
+    ap.add_argument("--sim-root", help="checkout holding sim/mirofish/results/ if not yet in this one")
+    ap.add_argument("--stubs", action="store_true",
+                    help="DEV ONLY: fill absent climate/social/sim layers from ui/dev_stubs (fake STUB values)")
     a = ap.parse_args(argv)
     roots = [ROOT] + [Path(r) for r in a.extra_root if Path(r).exists()]
-    data = clean(build(roots))
+    data = build(roots)
+    extra = []
+    data["nature"] = build_nature(roots, extra)
+    data["socioecon"] = build_socioecon(extra)
+    data["social"] = build_social(a.stubs, roots, extra)
+    data["sim"] = build_sim(a.stubs, roots, extra, a.sim_root)
+    data["stubs_used"] = [k for k in ("social", "sim") if (data[k] or {}).get("stub")]
+    data["files_read"] = sorted(set(data["files_read"]) | {rel(p, roots + [STUBS]) for p in extra if not str(p).startswith(str(STUBS))})
+    data = clean(data)
     txt = json.dumps(data, separators=(",", ":"), allow_nan=False)
     (UI / "data.json").write_text(txt + "\n", encoding="utf-8")
+    # decision lanes: ORCH's ui/build_decision.py build() owns the RAG rules; it reads the data.json written above
+    bd = UI / "build_decision.py"
+    data["decision"] = None
+    if bd.exists():
+        try:
+            data["decision"] = clean(import_file("qsp_build_decision", bd).build())
+        except Exception as e:  # keep the page buildable if ORCH's builder and this data disagree
+            print(f"  WARNING: build_decision.build() failed: {e!r}; decision band hidden")
+        txt = json.dumps(data, separators=(",", ":"), allow_nan=False)
+        (UI / "data.json").write_text(txt + "\n", encoding="utf-8")
     html_p = UI / "index.html"
     if html_p.exists():
         html = html_p.read_text(encoding="utf-8")
@@ -313,6 +545,11 @@ def main(argv=None):
             html = html[: i + len(MARK_A)] + safe + html[j:]
             html_p.write_text(html, encoding="utf-8")
     print(f"wrote {UI / 'data.json'} ({len(txt)//1024} KB) from {len(data['files_read'])} files")
+    if data["stubs_used"]:
+        print(f"  WARNING: STUB data used for {data['stubs_used']} (--stubs); do not commit this build")
+    print(f"  decision: {(data.get('decision') or {}).get('overall', 'MISSING')} - {(data.get('decision') or {}).get('reason', '')}")
+    for k in ("nature", "socioecon", "social", "sim"):
+        print(f"  {k}: {'present' if data[k] else 'absent'}{' (STUB)' if (data[k] or {}).get('stub') else ''}")
     for k in ("quantum", "pipeline", "edge"):
         print(f"  {k}: {(data[k] or {}).get('source') or (data[k] or {}).get('dir') or 'MISSING'}")
     return 0
