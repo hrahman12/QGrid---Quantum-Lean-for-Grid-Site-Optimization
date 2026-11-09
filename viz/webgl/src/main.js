@@ -225,13 +225,3 @@ let vmRecordedJob=null,vmViews=null;
 })();
 // ===== end VM views =====
 
-// ===== Grid views (card 3): recorded firm N-1 / line loading / voltage / transformer-outage visuals =====
-// Self-contained: delete this block (and src/grid-views.js, src/grid-views.css) to drop them. Imports are hoisted.
-import './grid-views.css';
-import { gridFacts, mountGridViews } from './grid-views.js';
-(async()=>{
- try{const r=await fetch(`${import.meta.env.BASE_URL}data/run.json`);if(!r.ok)return;
-  const host=make('div');host.id='grid-views';$('.physics-card .engine-line').after(host);mountGridViews(host,gridFacts(await r.json()));
- }catch(e){console.warn('Grid views unavailable',e);}
-})();
-// ===== end Grid views =====
