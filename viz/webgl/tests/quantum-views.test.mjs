@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { blochVector, blochVectors, railCounts, groverSteps } from '../src/quantum-views.js';
+import { blochVector, blochVectors, railCounts, groverSteps, quantumOutcomeSummary } from '../src/quantum-views.js';
 
 const close = (a, b, eps = 1e-12) => assert.ok(Math.abs(a - b) < eps, `${a} != ${b}`);
 const basis = (n, index) => Array.from({ length: 2 ** n }, (_, i) => [i === index ? 1 : 0, 0]);
@@ -38,4 +38,35 @@ test('recorded native job: Bloch lengths in [0,1], steps and counts match the re
   const rails = railCounts(job.measurements, job.space.n_qubits);
   for (const [zero, one] of rails) assert.equal(zero + one, job.result.shots);
   assert.deepEqual(job.measurements, { 59: 20, 71: 12 });
+});
+
+const summaryJob = (states, marked, measurements) => ({space:{N:states[0].length,padded_N:states[0].length},marked_indices:marked,phase_state:states[0],measurements,result:{states,shots:Object.values(measurements).reduce((a,b)=>a+b,0)}});
+test('summary detects a Bell register and does not invent entanglement for a product state', () => {
+  const a=Math.SQRT1_2;
+  close(quantumOutcomeSummary(summaryJob([[[a,0],[0,0],[0,0],[a,0]]],[0,3],{0:1,3:1})).peak.mean,1);
+  close(quantumOutcomeSummary(summaryJob([[[.5,0],[.5,0],[.5,0],[.5,0]]],[0],{0:1})).peak.mean,0);
+});
+test('summary reports SDK probabilities separately from observed counts', () => {
+  const job=JSON.parse(readFileSync(new URL('../public/data/native_job.json',import.meta.url)));
+  const s=quantumOutcomeSummary(job);
+  close(s.initialProbability,2/128);close(s.finalProbability,job.result.per_iteration.at(-1).p_marked,1e-9);
+  close(s.probabilityBoost,s.finalProbability/(2/128));
+  assert.equal(s.support,128);assert.equal(s.plans,120);assert.equal(s.markedShots,32);assert.equal(s.shots,32);
+  assert.ok(s.peak.mean>0&&s.peak.mean<=1);
+});
+test('summary handles an unmarked search without an infinite probability multiplier', () => {
+  const s=quantumOutcomeSummary(summaryJob([[[Math.SQRT1_2,0],[Math.SQRT1_2,0]]],[],{0:2,1:2}));
+  assert.equal(s.probabilityBoost,null);assert.equal(s.markedShots,0);close(s.peak.mean,0);
+});
+
+test('summary derives register size from each run rather than assuming seven qubits', () => {
+  for (const n of [1, 3, 5, 8]) {
+    const size = 2 ** n, a = 1 / Math.sqrt(size);
+    const s = quantumOutcomeSummary(summaryJob([Array.from({length:size}, () => [a,0])], [0], {0:3}));
+    assert.equal(s.peak.mixedness.length, n);
+    assert.equal(s.basisStates, size);
+    assert.equal(s.support, size);
+    close(s.initialProbability, 1 / size);
+    close(s.peak.mean, 0);
+  }
 });
