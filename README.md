@@ -17,13 +17,13 @@ QSiteProof is a proposed one-day hack prototype that combines PsiQDK search, pan
 **Live app:** https://q-grid-quantum-lean-for-grid-site-o.vercel.app/ (builds from `main`). Team demo link with native PsiQDK on Linux: https://implementation-instrumental-hardware-mechanical.trycloudflare.com/ (up while the team machine runs).
 **2-minute script:** [docs/DEMO_2MIN.md](docs/DEMO_2MIN.md). **One command, offline:** `./run.sh demo` or `.\run.ps1 demo`.
 
-The app walks four steps: **Define** the site (North San Jose / Alviso by default, plus NOVVA cases in Colorado Springs, West Jordan UT and Mesa AZ, or a US address), **Find** plans with a Grover search on the PsiQDK simulator, **Check** them on a pandapower model of the local grid including transformer failure (N-1), and **Prove** them against 11 rules in Lean 4. The output is one RED / AMBER / GREEN answer, what it means, and the "what if" conditions that would make the project work.
+The app walks four steps: **Define** the site (North San Jose / Alviso by default, plus NOVVA cases in Colorado Springs, West Jordan UT and Mesa AZ, or a US address), **Find** plans with a fast search that checks many options at once (Grover search) on a quantum simulator (PsiQDK), **Check** them on a power-grid simulation (pandapower) of the local grid including transformer failure (N-1), and **Prove** them against 11 rules in a math proof checker (Lean 4). The output is one RED / AMBER / GREEN answer, what it means, and the "what if" conditions that would make the project work.
 
 | Result for 150 MW at Alviso by Jun 2028 | Value |
 |---|---|
-| Verdict | **RED: grid too small** at transmission; firm N-1 capacity 45.2 MW short even with 50 MW storage + 15 MW curtailment (decided by Lean 4 on Linux) |
+| Verdict | **RED: grid too small** at transmission; guaranteed capacity if one transformer fails (firm N-1) 45.2 MW short even with 50 MW storage + 15 MW pausing of use in peak hours (curtailment), decided by the math proof checker (Lean 4) on Linux |
 | Available now | ~39.8 MW firm at the planned substations; 38.7 MW across 9 distribution edge sites (every transformer bank within its cap) |
-| With flexibility | 47.6 MW if the site accepts curtailment in ~2% of hours |
+| With flexibility | 47.6 MW if the site accepts pausing use in a few peak hours, ~2% (curtailment) |
 | If load grows 20% beyond the utility forecast | 7.4 MW |
 | Edge-site loop | RED (Nortech bank full) -> RED (Lawrence bank 1 full) -> GREEN 16 MW |
 | Nature & climate | RED: Don Edwards SF Bay Wildlife Refuge 0.28 km, wetlands, very high river/coastal flood (FEMA NRI), FEMA zone AE |

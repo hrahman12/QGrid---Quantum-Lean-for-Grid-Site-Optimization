@@ -44,7 +44,7 @@ export function createQuantumComputer(container) {
   const states = new THREE.Group(); states.visible=false; scene.add(states);
   const bars = new THREE.InstancedMesh(new THREE.BoxGeometry(.3,1,.3),new THREE.MeshStandardMaterial({color:0xffffff,metalness:.2,roughness:.5}),256); states.add(bars);
   const dummy=new THREE.Object3D(); let job=null,source='live',isRunning=false,frame,alive=true,step=0;
-  const caption=document.createElement('div');caption.className='processor-caption';caption.textContent='Photonic-computer concept · PsiQDK simulator';container.append(caption);
+  const caption=document.createElement('div');caption.className='processor-caption';caption.textContent='Light-based computer concept · quantum simulator (PsiQDK)';container.append(caption);
   const resize=()=>{const w=container.clientWidth,h=container.clientHeight;if(!w||!h)return;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();};const observer=new ResizeObserver(resize);observer.observe(container);resize();
   const start=performance.now(),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   function draw(){if(!alive)return;frame=requestAnimationFrame(draw);const t=(performance.now()-start)/1000;controls.update();
@@ -65,12 +65,12 @@ export function createQuantumComputer(container) {
       dummy.position.set((i%cols-(cols-1)/2)*.4,negative?-h/2:h/2,(Math.floor(i/cols)-(cols-1)/2)*.4);dummy.scale.set(1,h,1);dummy.updateMatrix();bars.setMatrixAt(i,dummy.matrix);
       bars.setColorAt(i,new THREE.Color(negative?0xffbd58:marked.has(i)?0x45e6a1:0x2c6f99));
     }bars.instanceMatrix.needsUpdate=true;bars.instanceColor.needsUpdate=true;
-    caption.textContent=(source==='recorded'?'Recorded run · ':'')+['Actual PsiQDK state: uniform superposition','Actual PsiQDK state: phase-flipped amplitudes','Actual PsiQDK state: amplified probabilities',`Actual PsiQDK measurements: ${job.result.shots} samples`][value];
+    caption.textContent=(source==='recorded'?'Recorded run · ':'')+['Real simulator state: all options equally likely (uniform superposition)','Real simulator state: right answers flagged (phase flip)','Real simulator state: right answers boosted (amplified probabilities)',`Real simulator measurements: ${job.result.shots} samples`][value];
   }
   return {
-    running(on){isRunning=on;if(on){hardware.visible=true;states.visible=false;caption.textContent='Executing PsiQDK Workbench simulation…';}else if(!job)caption.textContent='No verified PsiQDK result yet';},
-    result(value,kind='live'){job=value;source=kind;hardware.visible=true;states.visible=false;caption.textContent=kind==='recorded'?`Recorded native PsiQDK run · ${value.space.n_qubits} qubits · ${value.result.shots} shots`:`PsiQDK completed · ${value.space.n_qubits} qubits · ${value.result.shots} shots`;},
-    step(value){if(value==='computer'){hardware.visible=true;states.visible=false;caption.textContent=job?(source==='recorded'?'Recorded run · PsiQDK Workbench simulator':'Completed on PsiQDK Workbench'):'Photonic-computer concept · PsiQDK simulator';}else displayStep(value);},
+    running(on){isRunning=on;if(on){hardware.visible=true;states.visible=false;caption.textContent='Running the quantum simulation…';}else if(!job)caption.textContent='No verified simulator result yet';},
+    result(value,kind='live'){job=value;source=kind;hardware.visible=true;states.visible=false;caption.textContent=kind==='recorded'?`Recorded simulator run · ${value.space.n_qubits} qubits · ${value.result.shots} shots`:`Simulation done · ${value.space.n_qubits} qubits · ${value.result.shots} shots`;},
+    step(value){if(value==='computer'){hardware.visible=true;states.visible=false;caption.textContent=job?(source==='recorded'?'Recorded run · quantum simulator':'Completed on the quantum simulator'):'Light-based computer concept · quantum simulator (PsiQDK)';}else displayStep(value);},
     dispose(){alive=false;cancelAnimationFrame(frame);observer.disconnect();controls.dispose();scene.traverse(o=>{o.geometry?.dispose();if(o.material)for(const m of Array.isArray(o.material)?o.material:[o.material])m.dispose();});renderer.dispose();}
   };
 }

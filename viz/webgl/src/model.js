@@ -64,10 +64,10 @@ export function evaluate(input, run) {
   add('capacity', 'Connection capacity', overload ? 'RED' : minMargin < delivered * 0.1 ? 'AMBER' : 'GREEN',
     overload ? `${overload.name}: ${round(overload.mw)} MW allocated exceeds ${round(overload.capacity)} MW scenario headroom.`
       : `${round(delivered)} MW net grid demand; smallest route margin ${round(minMargin)} MW.`);
-  add('thermal', 'Thermal screen', projectedLoading > s.lineLimit ? 'RED' : projectedLoading > s.lineLimit * 0.9 ? 'AMBER' : 'GREEN',
+  add('thermal', 'Overheating check (thermal screen)', projectedLoading > s.lineLimit ? 'RED' : projectedLoading > s.lineLimit * 0.9 ? 'AMBER' : 'GREEN',
     `Estimated peak loading ${round(projectedLoading)}% against a ${s.lineLimit}% limit. Analytical proxy, not AC power flow.`);
-  add('n1', 'Firm N-1 capacity', !s.requireN1 ? 'AMBER' : n1Overload ? 'RED' : 'GREEN',
-    !s.requireN1 ? 'Single-outage resilience is not required in this scenario.' : n1Overload ? `${n1Overload.name}: ${round(n1Overload.mw)} MW exceeds its ${round(n1Overload.headroom_mw_n1_firm || 0)} MW firm cap. DLR and reconductoring do not raise firm transformer caps.` : `${round(delivered)} MW net demand fits the individual firm caps (${round(n1Capacity)} MW combined). Network topology is not solved.`);
+  add('n1', 'Guaranteed capacity if one part fails (firm N-1)', !s.requireN1 ? 'AMBER' : n1Overload ? 'RED' : 'GREEN',
+    !s.requireN1 ? 'Single-outage resilience is not required in this scenario.' : n1Overload ? `${n1Overload.name}: ${round(n1Overload.mw)} MW exceeds its ${round(n1Overload.headroom_mw_n1_firm || 0)} MW firm cap. Weather-based line upgrades and stronger wires do not raise firm transformer caps.` : `${round(delivered)} MW net demand fits the individual firm caps (${round(n1Capacity)} MW combined). Network topology is not solved.`);
   add('commitment', 'Storage commitment', storage > 0 && !s.storageCommitted ? 'AMBER' : 'GREEN',
     storage > 0 ? `${round(storage)} MW storage assumed available at the critical hour${s.storageCommitted ? ' and committed in this scenario' : '; commitment is still needed'}. Energy duration is not modelled.` : 'No battery support required in this scenario.');
   add('deadline', 'Delivery deadline', s.months < leadMonths ? 'AMBER' : 'GREEN',
@@ -76,7 +76,7 @@ export function evaluate(input, run) {
     s.reconductor ? (s.rowPermit ? 'ROW permission is assumed granted for this scenario.' : 'Reconductoring needs the assumed ROW permission.') : 'No reconductoring selected; this screen adds no ROW requirement.');
   add('flood', 'Flood mitigation', s.floodProtected ? 'GREEN' : 'AMBER',
     s.floodProtected ? 'Protection is assumed in this scenario for the recorded FEMA AE flood-zone context.' : 'Flood-zone AE mitigation evidence is still needed.');
-  add('penalty', 'Curtailment obligation', s.curtailment > 10 ? 'AMBER' : 'GREEN',
+  add('penalty', 'Pausing-use obligation (curtailment)', s.curtailment > 10 ? 'AMBER' : 'GREEN',
     `${s.curtailment}% curtailment selected; the screening penalty cap is assumed at 10%.`);
   const status = screeningStatus(checks);
   const blocking = checks.filter((c) => c.status !== 'GREEN');
