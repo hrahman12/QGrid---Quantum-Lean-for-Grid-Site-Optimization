@@ -14,7 +14,7 @@ QSiteProof is a proposed one-day hack prototype that combines PsiQDK search, pan
 
 ## Demo (SF x MIT Energy Hack Day, 8 Nov 2026)
 
-**Live app:** https://q-grid-quantum-lean-for-grid-site-o.vercel.app/ (builds from `main`). Team demo link with native PsiQDK on Linux: https://implementation-instrumental-hardware-mechanical.trycloudflare.com/ (up while the team machine runs).
+**Live app:** https://q-grid-quantum-lean-for-grid-site-o.vercel.app/ (builds from `main`). Team demo link with native PsiQDK on Linux: https://unless-therefore-rica-bible.trycloudflare.com/ (up while the team machine runs).
 **2-minute script:** [docs/DEMO_2MIN.md](docs/DEMO_2MIN.md). **One command, offline:** `./run.sh demo` or `.\run.ps1 demo`.
 
 The app walks four steps: **Define** the site (North San Jose / Alviso by default, plus NOVVA cases in Colorado Springs, West Jordan UT and Mesa AZ, or a US address), **Find** plans with a fast search that checks many options at once (Grover search) on a quantum simulator (PsiQDK), **Check** them on a power-grid simulation (pandapower) of the local grid including transformer failure (N-1), and **Prove** them against 11 rules in a math proof checker (Lean 4). The output is one RED / AMBER / GREEN answer, what it means, and the "what if" conditions that would make the project work.
