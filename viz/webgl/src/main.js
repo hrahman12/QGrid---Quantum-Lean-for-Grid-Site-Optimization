@@ -3,7 +3,7 @@ import { DEFAULTS, PRESETS, evaluate, normalize, exportScenario, round } from '.
 import { createScene } from './scene.js';
 import { createQuantumComputer } from './quantum-computer.js';
 import { createGridPhysics } from './grid-physics.js';
-import { categorize, headline, whatIf } from './outcome.js';
+import { categorize, headline, whatIf, scenarioHeadline, scenarioWhatIf } from './outcome.js';
 const $ = (s) => document.querySelector(s);
 const make = (tag, text, cls) => { const n = document.createElement(tag); if(text !== undefined) n.textContent = text; if(cls) n.className = cls; return n; };
 let run, scene, quantumComputer, gridPhysics, result, lastQuantum=null, lastQuantumSettings=null, quantumPending=false, selected = 'site', settings = { ...DEFAULTS }, caseId = 'alviso';
@@ -57,7 +57,8 @@ function liveCase(){
  return run.cases[caseId];
 }
 function renderLive(){
- const live=liveCase(),h=headline(live),word=h.verdict;
+ // Alviso: the selected scenario is the one verdict on the page; the recorded run is a secondary line.
+ const live=liveCase(),alviso=caseId==='alviso',h=alviso?scenarioHeadline(result):headline(live),word=h.verdict;
  const [place,region]=live.site.name.split(/,(.*)/s);
  if(caseId==='alviso')$('#site-name').replaceChildren('North San Jose',make('br'),make('span','/ Alviso'));else $('#site-name').replaceChildren(place.replace(/ campus$/,''),make('br'),make('span',`${live.site.requested_mw} MW · ASSUMED`));
  $('#site-region').textContent=caseId==='alviso'?'Santa Clara County, California':`${(region||'').replace(/\s*\(.*$/,'').trim()} · ${live.site.grid_operator||''}`;
@@ -66,15 +67,17 @@ function renderLive(){
  const opens=new Set([...document.querySelectorAll('.category[open]')].map(n=>n.dataset.id));
  $('#categories').replaceChildren(...categorize(live,caseId==='alviso'?result.checks:[]).map(cat=>{
   const d=make('details',undefined,'category');d.dataset.id=cat.id;d.dataset.status=cat.status;d.open=opens.has(cat.id);
-  const s=make('summary');s.append(make('span',{GREEN:'✓',AMBER:'!',RED:'×',NONE:'–'}[cat.status],'indicator'),make('span',cat.name),make('small',cat.status==='NONE'?'NOT SCREENED':cat.status));
+  const s=make('summary');s.append(make('span',{GREEN:'✓',AMBER:'!',RED:'×',NONE:'–'}[cat.status],'indicator'),make('span',cat.name),...(cat.note?[make('em',cat.note,'cat-note')]:[]),make('small',cat.status==='NONE'?'NOT SCREENED':cat.status));
   const body=cat.items.length?cat.items.map(i=>checkNode({id:`${cat.id}-${i.name}`,name:i.name,status:i.status,detail:i.detail})):[make('p','No data for this site yet. Nature, climate, community and economics layers were built for Alviso only; this site needs those runs.')];
   d.append(s,...body);return d;}));
  $('#verdict').dataset.status=h.verdict;
  $('#verdict-title').textContent=`${word} — ${h.phrase}`;
  $('#verdict-level').textContent=h.level;
- $('#verdict-description').textContent=h.meaning;
- $('#what-if').replaceChildren(...whatIf(live,h).map(w=>{const li=make('li');li.dataset.status=w.to;li.append(make('span',w.text),make('b',`→ ${w.to}`),make('small',w.note));return li;}));
- $('#reason-word').textContent=h.phrase;$('#reason-word').dataset.status=h.verdict;
+ $('#verdict-description').textContent=alviso?`${h.passed} / 8 checks pass in this scenario. ${h.meaning}`:h.meaning;
+ if(alviso){const rh=headline(live);$('#verdict-scenario').textContent=`Recorded full run (${rh.requested} MW baseline, Lean-checked): ${rh.verdict} — ${rh.short} MW short`;$('#verdict-scenario').style.color='';}
+ const w=alviso?scenarioWhatIf(result,run):{title:'WHAT IF',items:whatIf(live,h)};$('.what-if .eyebrow').textContent=w.title;
+ $('#what-if').replaceChildren(...w.items.map(w=>{const li=make('li');li.dataset.status=w.to;li.append(make('span',w.text),make('b',w.if?`if not → ${w.to}`:`→ ${w.to}`),make('small',w.note));return li;}));
+ $('#reason-word').textContent=h.why||h.phrase;$('#reason-word').dataset.status=h.verdict;
  $('#reason-title').textContent=h.sentence;
  $('#flow-result').textContent=word;$('#flow-result').style.color=`var(--${h.verdict.toLowerCase()})`;
 }

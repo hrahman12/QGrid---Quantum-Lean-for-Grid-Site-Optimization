@@ -63,3 +63,4 @@
 @media(max-width:1199px) and (min-width:580px){#app{grid-template-rows:48px minmax(0,1fr) 112px auto}}
 @media(max-width:1199px){.outcome{flex-wrap:wrap}.out-main{flex-basis:100%}}
 @media(max-width:579px){#app{grid-template-rows:43px 30px minmax(0,1fr) 109px auto}.outcome{max-height:42dvh;overflow:auto;padding:8px 10px}.outcome .out-main h2{font-size:20px}.outcome .out-main p{margin:0}.what-if ul{grid-template-columns:1fr}}
+.category>summary .cat-note{font-size:7.5px;font-style:normal;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
