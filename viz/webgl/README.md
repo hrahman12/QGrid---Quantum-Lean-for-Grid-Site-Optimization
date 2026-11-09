@@ -25,7 +25,7 @@ From the repository root, also run `python -m viz.webgl.server.local_api` in a s
 
 The overall browser color follows the Lean rules: **RED if any hard rule (capacity, thermal, firm N-1) fails; AMBER if only negotiable conditions are unmet; GREEN when all 8 pass**. This display does not alter the actual pipeline or Lean verdict. The 150 MW baseline has seven passing screens and one blocking firm N-1 check, so its browser display is RED, matching the transmission pipeline result under the recorded 19.9 MW firm cap per selected source. DLR and reconductoring do not inflate those caps. The Flexible preset reduces net demand to 30 MW and passes the browser screen. The older GREEN certificate is retained only as a superseded historical record.
 
-The sliders update an analytical sensitivity screen. **Run PsiQDK does execute the native PsiQDK Workbench simulator**, using at most eight register qubits and 32 shots per bounded request. This is a classical simulation of a fault-tolerant quantum circuit, not a quantum-hardware run; the oracle marking list is classically enumerated, so no quantum advantage is claimed. The browser Check / Prove screens do **not** execute pandapower or Lean and do not issue a new formal certificate or utility approval. The saved Lean result and its evidence hash remain separate from the scenario state.
+The sliders update an analytical sensitivity screen. **Run PsiQDK does execute the native PsiQDK Workbench simulator**, using exactly seven register qubits (128 basis-state slots) and 32 shots per bounded request. Unused slots are padding and never marked as valid plans. This is a classical simulation of a fault-tolerant quantum circuit, not a quantum-hardware run; the oracle marking list is classically enumerated, so no quantum advantage is claimed. The browser Check / Prove screens do **not** execute pandapower or Lean and do not issue a new formal certificate or utility approval. The saved Lean result and its evidence hash remain separate from the scenario state.
 
 Real geographic inputs come from the repository's cached OSM line/substation geometry and Terrain Tiles elevation. Equipment geometry and proposed routes are visual abstractions. Transmission topology, headroom, upgrade factors, deadline assumptions, battery support, and flood protection are scoped as model assumptions. The distribution curve comes from the cached PG&E GRIP analysis and remains directional.
 
@@ -38,6 +38,8 @@ Import the QGrid GitHub repository into Vercel using its repository root. The ro
 ## Quantum search semantics
 
 The browser search uses the two displayed connection sources in 25% split steps. Battery and curtailment sliders become upper bounds for a discrete search; the returned measured plan may use less and replaces those candidate values only if the search inputs have not changed. Firm transformer caps remain fixed. DLR changes line assumptions, not firm transformer capacity. Reconductoring is passed through as a plan assumption rather than varied by the circuit. Downstream permitting / commitment changes do not invalidate a completed search.
+
+The browser register stays at seven qubits even when the discrete plan list is smaller. Curtailment levels are zero, up to 5%, and the selected budget (deduplicated); together with at most four battery levels, two DLR settings and five splits, this bounds the list to 120 plans within 128 slots.
 
 The native-state view uses the actual returned statevector indices and measured histogram. The visual hardware is an illustrative photonic-computer concept.
 
