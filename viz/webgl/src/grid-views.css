@@ -1,0 +1,23 @@
+/* Grid views: card 3 recorded grid-physics visuals (grid-views.js). Uses the app's palette tokens. */
+.gv{border:1px solid #2a4c62;border-radius:8px;background:#0b1a29;padding:8px 9px;display:flex;flex-direction:column;gap:7px;flex-shrink:0;color:#c9d8ea}
+.gv-lead{font:500 11px/1.35 'Space Grotesk',sans-serif;color:#e2eefb}
+.gv-source{font-size:7px;color:#7b93b0;letter-spacing:.3px}
+.gv-line{display:flex;align-items:stretch;gap:0}
+.gv-site{align-self:center;font-size:7px;font-weight:700;letter-spacing:.8px;color:var(--green);border:1px solid #367c68;border-radius:4px;padding:4px 5px;flex-shrink:0}
+.gv-wire{flex:0 0 10px;align-self:center;height:1px;background:#4c6f92}
+.gv-sub{--s:var(--green);flex:1 1 0;min-width:0;border:1px solid #2c4d76;border-left:3px solid var(--s);border-radius:5px;padding:5px 6px;background:#0f2236;display:flex;flex-direction:column;gap:2px}
+.gv-sub[data-status=RED]{--s:var(--red);border-color:#703b49;border-left-color:var(--s)}
+.gv-sub b{font-size:8px;font-weight:600;color:#d8e6f5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gv-plan{font:500 13px 'Space Grotesk',sans-serif;color:var(--s)}
+.gv-sub small{font-size:7px;color:#8ca5c3;line-height:1.35}
+.gv-bar,.gv-track{position:relative;height:5px;background:#253953;border-radius:5px;margin-top:3px}
+.gv-bar i{display:block;height:100%;background:var(--s);border-radius:5px}
+.gv-bar span,.gv-track span{position:absolute;top:-2px;height:9px;width:1px;background:#ebf2ff}
+.gv-meter{--s:var(--green)}.gv-meter[data-status=RED]{--s:var(--red)}
+.gv-meter-head{display:flex;justify-content:space-between;gap:6px;font-size:8px;color:#8ca5c3}
+.gv-meter-head b{font-weight:500;color:var(--s);white-space:nowrap}
+.gv-track i{position:absolute;top:0;height:100%;background:var(--s);border-radius:5px;min-width:2px}
+.gv-outage{--s:var(--green);border:1px solid #30574d;border-radius:6px;padding:6px 8px;background:#0f2a29}
+.gv-outage[data-status=RED]{--s:var(--red);border-color:#703b49;background:#261c2b}
+.gv-outage b{font-size:8px;letter-spacing:.8px;text-transform:uppercase;color:var(--s)}
+.gv-outage p{font-size:9px;line-height:1.5;color:#d6e2f0;margin-top:3px}
