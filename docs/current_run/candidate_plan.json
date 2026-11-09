@@ -1,0 +1,30 @@
+{
+  "site_id": "nsj-alviso-150",
+  "splits": [
+    {
+      "substation_id": "osm-way-52612640",
+      "mw": 75.0,
+      "headroom_mw": 418.9,
+      "headroom_mw_n1_firm": 19.9
+    },
+    {
+      "substation_id": "osm-way-39017429",
+      "mw": 75.0,
+      "headroom_mw": 418.9,
+      "headroom_mw_n1_firm": 19.9
+    }
+  ],
+  "flex": {
+    "dlr": false,
+    "storage_mw": 50.0,
+    "curtailment_mw": 15.0,
+    "reconductor": false
+  },
+  "search": {
+    "method": "heuristic",
+    "evals": 1260,
+    "engine": "classical",
+    "classical_enumeration_calls": 1260,
+    "evals_total": 2520
+  }
+}

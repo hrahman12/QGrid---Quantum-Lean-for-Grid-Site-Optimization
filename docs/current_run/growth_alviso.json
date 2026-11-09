@@ -1,0 +1,1863 @@
+{
+  "label": "Directional GRIP data (2028 forecast, pending load withheld). The +20% case is an ASSUMED stress scenario, not a utility forecast. Not a PG&E approval.",
+  "year": 2028,
+  "scenarios": {
+    "baseline_grip_2028": {
+      "load_growth_factor": 1.0,
+      "by_curtailment_pct": {
+        "0": {
+          "distribution_mw": 38.79,
+          "banks_at_zero": [
+            "BRITTON BANK 1",
+            "BRITTON BANK 2",
+            "LAWRENCE BANK 1",
+            "MILPITAS BANK 1",
+            "MILPITAS BANK 2",
+            "MILPITAS BANK 3",
+            "MONTAGUE BANK 2",
+            "NORTECH BANK 2",
+            "RIVER OAKS BANK 1",
+            "RIVER OAKS BANK 2",
+            "TRIMBLE BANK 3"
+          ],
+          "banks": [
+            {
+              "id": "0834201",
+              "name": "LAWRENCE BANK 1",
+              "substation": "LAWRENCE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0834202",
+              "name": "LAWRENCE BANK 2",
+              "substation": "LAWRENCE",
+              "headroom_mw": 12.2
+            },
+            {
+              "id": "0834203",
+              "name": "LAWRENCE BANK 3",
+              "substation": "LAWRENCE",
+              "headroom_mw": 9.3
+            },
+            {
+              "id": "0838901",
+              "name": "MONTAGUE BANK 1",
+              "substation": "MONTAGUE",
+              "headroom_mw": 3.18
+            },
+            {
+              "id": "0838902",
+              "name": "MONTAGUE BANK 2",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838903",
+              "name": "MONTAGUE BANK 3",
+              "substation": "MONTAGUE",
+              "headroom_mw": 2.82
+            },
+            {
+              "id": "0147201",
+              "name": "DIXON LANDING BANK 1",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 2.63
+            },
+            {
+              "id": "0147202",
+              "name": "DIXON LANDING BANK 2",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 3.17
+            },
+            {
+              "id": "0836101",
+              "name": "BRITTON BANK 1",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836102",
+              "name": "BRITTON BANK 2",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836103",
+              "name": "BRITTON BANK 3",
+              "substation": "BRITTON",
+              "headroom_mw": 5.49
+            },
+            {
+              "id": "0824602",
+              "name": "NORTECH BANK 2",
+              "substation": "NORTECH",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823401",
+              "name": "RIVER OAKS BANK 1",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823402",
+              "name": "RIVER OAKS BANK 2",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838003",
+              "name": "TRIMBLE BANK 3",
+              "substation": "TRIMBLE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828301",
+              "name": "MILPITAS BANK 1",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828302",
+              "name": "MILPITAS BANK 2",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828303",
+              "name": "MILPITAS BANK 3",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            }
+          ]
+        },
+        "0.5": {
+          "distribution_mw": 40.28,
+          "banks_at_zero": [
+            "BRITTON BANK 1",
+            "BRITTON BANK 2",
+            "LAWRENCE BANK 1",
+            "MILPITAS BANK 1",
+            "MILPITAS BANK 2",
+            "MILPITAS BANK 3",
+            "MONTAGUE BANK 2",
+            "NORTECH BANK 2",
+            "RIVER OAKS BANK 1",
+            "RIVER OAKS BANK 2",
+            "TRIMBLE BANK 3"
+          ],
+          "banks": [
+            {
+              "id": "0834201",
+              "name": "LAWRENCE BANK 1",
+              "substation": "LAWRENCE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0834202",
+              "name": "LAWRENCE BANK 2",
+              "substation": "LAWRENCE",
+              "headroom_mw": 12.24
+            },
+            {
+              "id": "0834203",
+              "name": "LAWRENCE BANK 3",
+              "substation": "LAWRENCE",
+              "headroom_mw": 9.35
+            },
+            {
+              "id": "0838901",
+              "name": "MONTAGUE BANK 1",
+              "substation": "MONTAGUE",
+              "headroom_mw": 3.57
+            },
+            {
+              "id": "0838902",
+              "name": "MONTAGUE BANK 2",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838903",
+              "name": "MONTAGUE BANK 3",
+              "substation": "MONTAGUE",
+              "headroom_mw": 3.5
+            },
+            {
+              "id": "0147201",
+              "name": "DIXON LANDING BANK 1",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 2.67
+            },
+            {
+              "id": "0147202",
+              "name": "DIXON LANDING BANK 2",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 3.21
+            },
+            {
+              "id": "0836101",
+              "name": "BRITTON BANK 1",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836102",
+              "name": "BRITTON BANK 2",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836103",
+              "name": "BRITTON BANK 3",
+              "substation": "BRITTON",
+              "headroom_mw": 5.74
+            },
+            {
+              "id": "0824602",
+              "name": "NORTECH BANK 2",
+              "substation": "NORTECH",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823401",
+              "name": "RIVER OAKS BANK 1",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823402",
+              "name": "RIVER OAKS BANK 2",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838003",
+              "name": "TRIMBLE BANK 3",
+              "substation": "TRIMBLE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828301",
+              "name": "MILPITAS BANK 1",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828302",
+              "name": "MILPITAS BANK 2",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828303",
+              "name": "MILPITAS BANK 3",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            }
+          ]
+        },
+        "1": {
+          "distribution_mw": 40.74,
+          "banks_at_zero": [
+            "BRITTON BANK 1",
+            "BRITTON BANK 2",
+            "LAWRENCE BANK 1",
+            "MILPITAS BANK 1",
+            "MILPITAS BANK 2",
+            "MILPITAS BANK 3",
+            "MONTAGUE BANK 2",
+            "NORTECH BANK 2",
+            "RIVER OAKS BANK 1",
+            "RIVER OAKS BANK 2",
+            "TRIMBLE BANK 3"
+          ],
+          "banks": [
+            {
+              "id": "0834201",
+              "name": "LAWRENCE BANK 1",
+              "substation": "LAWRENCE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0834202",
+              "name": "LAWRENCE BANK 2",
+              "substation": "LAWRENCE",
+              "headroom_mw": 12.25
+            },
+            {
+              "id": "0834203",
+              "name": "LAWRENCE BANK 3",
+              "substation": "LAWRENCE",
+              "headroom_mw": 9.35
+            },
+            {
+              "id": "0838901",
+              "name": "MONTAGUE BANK 1",
+              "substation": "MONTAGUE",
+              "headroom_mw": 3.64
+            },
+            {
+              "id": "0838902",
+              "name": "MONTAGUE BANK 2",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838903",
+              "name": "MONTAGUE BANK 3",
+              "substation": "MONTAGUE",
+              "headroom_mw": 3.63
+            },
+            {
+              "id": "0147201",
+              "name": "DIXON LANDING BANK 1",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 2.69
+            },
+            {
+              "id": "0147202",
+              "name": "DIXON LANDING BANK 2",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 3.23
+            },
+            {
+              "id": "0836101",
+              "name": "BRITTON BANK 1",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836102",
+              "name": "BRITTON BANK 2",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836103",
+              "name": "BRITTON BANK 3",
+              "substation": "BRITTON",
+              "headroom_mw": 5.95
+            },
+            {
+              "id": "0824602",
+              "name": "NORTECH BANK 2",
+              "substation": "NORTECH",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823401",
+              "name": "RIVER OAKS BANK 1",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823402",
+              "name": "RIVER OAKS BANK 2",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838003",
+              "name": "TRIMBLE BANK 3",
+              "substation": "TRIMBLE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828301",
+              "name": "MILPITAS BANK 1",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828302",
+              "name": "MILPITAS BANK 2",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828303",
+              "name": "MILPITAS BANK 3",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            }
+          ]
+        },
+        "2": {
+          "distribution_mw": 47.61,
+          "banks_at_zero": [
+            "BRITTON BANK 1",
+            "BRITTON BANK 2",
+            "LAWRENCE BANK 1",
+            "MILPITAS BANK 1",
+            "MILPITAS BANK 2",
+            "MILPITAS BANK 3",
+            "MONTAGUE BANK 2",
+            "RIVER OAKS BANK 1",
+            "RIVER OAKS BANK 2",
+            "TRIMBLE BANK 3"
+          ],
+          "banks": [
+            {
+              "id": "0834201",
+              "name": "LAWRENCE BANK 1",
+              "substation": "LAWRENCE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0834202",
+              "name": "LAWRENCE BANK 2",
+              "substation": "LAWRENCE",
+              "headroom_mw": 13.24
+            },
+            {
+              "id": "0834203",
+              "name": "LAWRENCE BANK 3",
+              "substation": "LAWRENCE",
+              "headroom_mw": 10.53
+            },
+            {
+              "id": "0838901",
+              "name": "MONTAGUE BANK 1",
+              "substation": "MONTAGUE",
+              "headroom_mw": 4.23
+            },
+            {
+              "id": "0838902",
+              "name": "MONTAGUE BANK 2",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838903",
+              "name": "MONTAGUE BANK 3",
+              "substation": "MONTAGUE",
+              "headroom_mw": 4.65
+            },
+            {
+              "id": "0147201",
+              "name": "DIXON LANDING BANK 1",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 4.0
+            },
+            {
+              "id": "0147202",
+              "name": "DIXON LANDING BANK 2",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 4.52
+            },
+            {
+              "id": "0836101",
+              "name": "BRITTON BANK 1",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836102",
+              "name": "BRITTON BANK 2",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836103",
+              "name": "BRITTON BANK 3",
+              "substation": "BRITTON",
+              "headroom_mw": 6.19
+            },
+            {
+              "id": "0824602",
+              "name": "NORTECH BANK 2",
+              "substation": "NORTECH",
+              "headroom_mw": 0.25
+            },
+            {
+              "id": "0823401",
+              "name": "RIVER OAKS BANK 1",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823402",
+              "name": "RIVER OAKS BANK 2",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838003",
+              "name": "TRIMBLE BANK 3",
+              "substation": "TRIMBLE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828301",
+              "name": "MILPITAS BANK 1",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828302",
+              "name": "MILPITAS BANK 2",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828303",
+              "name": "MILPITAS BANK 3",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            }
+          ]
+        },
+        "3": {
+          "distribution_mw": 54.7,
+          "banks_at_zero": [
+            "BRITTON BANK 1",
+            "BRITTON BANK 2",
+            "LAWRENCE BANK 1",
+            "MILPITAS BANK 2",
+            "MILPITAS BANK 3",
+            "MONTAGUE BANK 2",
+            "RIVER OAKS BANK 1",
+            "RIVER OAKS BANK 2",
+            "TRIMBLE BANK 3"
+          ],
+          "banks": [
+            {
+              "id": "0834201",
+              "name": "LAWRENCE BANK 1",
+              "substation": "LAWRENCE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0834202",
+              "name": "LAWRENCE BANK 2",
+              "substation": "LAWRENCE",
+              "headroom_mw": 13.34
+            },
+            {
+              "id": "0834203",
+              "name": "LAWRENCE BANK 3",
+              "substation": "LAWRENCE",
+              "headroom_mw": 10.65
+            },
+            {
+              "id": "0838901",
+              "name": "MONTAGUE BANK 1",
+              "substation": "MONTAGUE",
+              "headroom_mw": 5.03
+            },
+            {
+              "id": "0838902",
+              "name": "MONTAGUE BANK 2",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838903",
+              "name": "MONTAGUE BANK 3",
+              "substation": "MONTAGUE",
+              "headroom_mw": 6.05
+            },
+            {
+              "id": "0147201",
+              "name": "DIXON LANDING BANK 1",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 5.32
+            },
+            {
+              "id": "0147202",
+              "name": "DIXON LANDING BANK 2",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 5.82
+            },
+            {
+              "id": "0836101",
+              "name": "BRITTON BANK 1",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836102",
+              "name": "BRITTON BANK 2",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836103",
+              "name": "BRITTON BANK 3",
+              "substation": "BRITTON",
+              "headroom_mw": 6.83
+            },
+            {
+              "id": "0824602",
+              "name": "NORTECH BANK 2",
+              "substation": "NORTECH",
+              "headroom_mw": 0.61
+            },
+            {
+              "id": "0823401",
+              "name": "RIVER OAKS BANK 1",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823402",
+              "name": "RIVER OAKS BANK 2",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838003",
+              "name": "TRIMBLE BANK 3",
+              "substation": "TRIMBLE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828301",
+              "name": "MILPITAS BANK 1",
+              "substation": "MILPITAS",
+              "headroom_mw": 1.05
+            },
+            {
+              "id": "0828302",
+              "name": "MILPITAS BANK 2",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828303",
+              "name": "MILPITAS BANK 3",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            }
+          ]
+        },
+        "5": {
+          "distribution_mw": 66.16,
+          "banks_at_zero": [
+            "BRITTON BANK 1",
+            "BRITTON BANK 2",
+            "MILPITAS BANK 2",
+            "MILPITAS BANK 3",
+            "MONTAGUE BANK 2",
+            "RIVER OAKS BANK 1",
+            "RIVER OAKS BANK 2",
+            "TRIMBLE BANK 3"
+          ],
+          "banks": [
+            {
+              "id": "0834201",
+              "name": "LAWRENCE BANK 1",
+              "substation": "LAWRENCE",
+              "headroom_mw": 0.94
+            },
+            {
+              "id": "0834202",
+              "name": "LAWRENCE BANK 2",
+              "substation": "LAWRENCE",
+              "headroom_mw": 14.19
+            },
+            {
+              "id": "0834203",
+              "name": "LAWRENCE BANK 3",
+              "substation": "LAWRENCE",
+              "headroom_mw": 11.65
+            },
+            {
+              "id": "0838901",
+              "name": "MONTAGUE BANK 1",
+              "substation": "MONTAGUE",
+              "headroom_mw": 5.66
+            },
+            {
+              "id": "0838902",
+              "name": "MONTAGUE BANK 2",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838903",
+              "name": "MONTAGUE BANK 3",
+              "substation": "MONTAGUE",
+              "headroom_mw": 7.16
+            },
+            {
+              "id": "0147201",
+              "name": "DIXON LANDING BANK 1",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 6.36
+            },
+            {
+              "id": "0147202",
+              "name": "DIXON LANDING BANK 2",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 6.85
+            },
+            {
+              "id": "0836101",
+              "name": "BRITTON BANK 1",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836102",
+              "name": "BRITTON BANK 2",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836103",
+              "name": "BRITTON BANK 3",
+              "substation": "BRITTON",
+              "headroom_mw": 8.48
+            },
+            {
+              "id": "0824602",
+              "name": "NORTECH BANK 2",
+              "substation": "NORTECH",
+              "headroom_mw": 1.38
+            },
+            {
+              "id": "0823401",
+              "name": "RIVER OAKS BANK 1",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823402",
+              "name": "RIVER OAKS BANK 2",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838003",
+              "name": "TRIMBLE BANK 3",
+              "substation": "TRIMBLE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828301",
+              "name": "MILPITAS BANK 1",
+              "substation": "MILPITAS",
+              "headroom_mw": 3.49
+            },
+            {
+              "id": "0828302",
+              "name": "MILPITAS BANK 2",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828303",
+              "name": "MILPITAS BANK 3",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            }
+          ]
+        },
+        "10": {
+          "distribution_mw": 90.59,
+          "banks_at_zero": [
+            "BRITTON BANK 1",
+            "BRITTON BANK 2",
+            "MILPITAS BANK 3",
+            "MONTAGUE BANK 2",
+            "RIVER OAKS BANK 1",
+            "RIVER OAKS BANK 2",
+            "TRIMBLE BANK 3"
+          ],
+          "banks": [
+            {
+              "id": "0834201",
+              "name": "LAWRENCE BANK 1",
+              "substation": "LAWRENCE",
+              "headroom_mw": 3.63
+            },
+            {
+              "id": "0834202",
+              "name": "LAWRENCE BANK 2",
+              "substation": "LAWRENCE",
+              "headroom_mw": 16.06
+            },
+            {
+              "id": "0834203",
+              "name": "LAWRENCE BANK 3",
+              "substation": "LAWRENCE",
+              "headroom_mw": 13.86
+            },
+            {
+              "id": "0838901",
+              "name": "MONTAGUE BANK 1",
+              "substation": "MONTAGUE",
+              "headroom_mw": 7.84
+            },
+            {
+              "id": "0838902",
+              "name": "MONTAGUE BANK 2",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838903",
+              "name": "MONTAGUE BANK 3",
+              "substation": "MONTAGUE",
+              "headroom_mw": 10.96
+            },
+            {
+              "id": "0147201",
+              "name": "DIXON LANDING BANK 1",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 8.16
+            },
+            {
+              "id": "0147202",
+              "name": "DIXON LANDING BANK 2",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 8.62
+            },
+            {
+              "id": "0836101",
+              "name": "BRITTON BANK 1",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836102",
+              "name": "BRITTON BANK 2",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836103",
+              "name": "BRITTON BANK 3",
+              "substation": "BRITTON",
+              "headroom_mw": 10.12
+            },
+            {
+              "id": "0824602",
+              "name": "NORTECH BANK 2",
+              "substation": "NORTECH",
+              "headroom_mw": 3.76
+            },
+            {
+              "id": "0823401",
+              "name": "RIVER OAKS BANK 1",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823402",
+              "name": "RIVER OAKS BANK 2",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838003",
+              "name": "TRIMBLE BANK 3",
+              "substation": "TRIMBLE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828301",
+              "name": "MILPITAS BANK 1",
+              "substation": "MILPITAS",
+              "headroom_mw": 6.25
+            },
+            {
+              "id": "0828302",
+              "name": "MILPITAS BANK 2",
+              "substation": "MILPITAS",
+              "headroom_mw": 1.33
+            },
+            {
+              "id": "0828303",
+              "name": "MILPITAS BANK 3",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            }
+          ]
+        }
+      }
+    },
+    "stress_plus20pct_assumed": {
+      "load_growth_factor": 1.2,
+      "by_curtailment_pct": {
+        "0": {
+          "distribution_mw": 7.38,
+          "banks_at_zero": [
+            "BRITTON BANK 1",
+            "BRITTON BANK 2",
+            "BRITTON BANK 3",
+            "DIXON LANDING BANK 1",
+            "DIXON LANDING BANK 2",
+            "LAWRENCE BANK 1",
+            "MILPITAS BANK 1",
+            "MILPITAS BANK 2",
+            "MILPITAS BANK 3",
+            "MONTAGUE BANK 1",
+            "MONTAGUE BANK 2",
+            "MONTAGUE BANK 3",
+            "NORTECH BANK 2",
+            "RIVER OAKS BANK 1",
+            "RIVER OAKS BANK 2",
+            "TRIMBLE BANK 3"
+          ],
+          "banks": [
+            {
+              "id": "0834201",
+              "name": "LAWRENCE BANK 1",
+              "substation": "LAWRENCE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0834202",
+              "name": "LAWRENCE BANK 2",
+              "substation": "LAWRENCE",
+              "headroom_mw": 5.73
+            },
+            {
+              "id": "0834203",
+              "name": "LAWRENCE BANK 3",
+              "substation": "LAWRENCE",
+              "headroom_mw": 1.65
+            },
+            {
+              "id": "0838901",
+              "name": "MONTAGUE BANK 1",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838902",
+              "name": "MONTAGUE BANK 2",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838903",
+              "name": "MONTAGUE BANK 3",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0147201",
+              "name": "DIXON LANDING BANK 1",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0147202",
+              "name": "DIXON LANDING BANK 2",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836101",
+              "name": "BRITTON BANK 1",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836102",
+              "name": "BRITTON BANK 2",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836103",
+              "name": "BRITTON BANK 3",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0824602",
+              "name": "NORTECH BANK 2",
+              "substation": "NORTECH",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823401",
+              "name": "RIVER OAKS BANK 1",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823402",
+              "name": "RIVER OAKS BANK 2",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838003",
+              "name": "TRIMBLE BANK 3",
+              "substation": "TRIMBLE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828301",
+              "name": "MILPITAS BANK 1",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828302",
+              "name": "MILPITAS BANK 2",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828303",
+              "name": "MILPITAS BANK 3",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            }
+          ],
+          "newly_zero_vs_baseline": [
+            "BRITTON BANK 3",
+            "DIXON LANDING BANK 1",
+            "DIXON LANDING BANK 2",
+            "MONTAGUE BANK 1",
+            "MONTAGUE BANK 3"
+          ]
+        },
+        "0.5": {
+          "distribution_mw": 7.49,
+          "banks_at_zero": [
+            "BRITTON BANK 1",
+            "BRITTON BANK 2",
+            "BRITTON BANK 3",
+            "DIXON LANDING BANK 1",
+            "DIXON LANDING BANK 2",
+            "LAWRENCE BANK 1",
+            "MILPITAS BANK 1",
+            "MILPITAS BANK 2",
+            "MILPITAS BANK 3",
+            "MONTAGUE BANK 1",
+            "MONTAGUE BANK 2",
+            "MONTAGUE BANK 3",
+            "NORTECH BANK 2",
+            "RIVER OAKS BANK 1",
+            "RIVER OAKS BANK 2",
+            "TRIMBLE BANK 3"
+          ],
+          "banks": [
+            {
+              "id": "0834201",
+              "name": "LAWRENCE BANK 1",
+              "substation": "LAWRENCE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0834202",
+              "name": "LAWRENCE BANK 2",
+              "substation": "LAWRENCE",
+              "headroom_mw": 5.78
+            },
+            {
+              "id": "0834203",
+              "name": "LAWRENCE BANK 3",
+              "substation": "LAWRENCE",
+              "headroom_mw": 1.71
+            },
+            {
+              "id": "0838901",
+              "name": "MONTAGUE BANK 1",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838902",
+              "name": "MONTAGUE BANK 2",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838903",
+              "name": "MONTAGUE BANK 3",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0147201",
+              "name": "DIXON LANDING BANK 1",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0147202",
+              "name": "DIXON LANDING BANK 2",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836101",
+              "name": "BRITTON BANK 1",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836102",
+              "name": "BRITTON BANK 2",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836103",
+              "name": "BRITTON BANK 3",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0824602",
+              "name": "NORTECH BANK 2",
+              "substation": "NORTECH",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823401",
+              "name": "RIVER OAKS BANK 1",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823402",
+              "name": "RIVER OAKS BANK 2",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838003",
+              "name": "TRIMBLE BANK 3",
+              "substation": "TRIMBLE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828301",
+              "name": "MILPITAS BANK 1",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828302",
+              "name": "MILPITAS BANK 2",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828303",
+              "name": "MILPITAS BANK 3",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            }
+          ],
+          "newly_zero_vs_baseline": [
+            "BRITTON BANK 3",
+            "DIXON LANDING BANK 1",
+            "DIXON LANDING BANK 2",
+            "MONTAGUE BANK 1",
+            "MONTAGUE BANK 3"
+          ]
+        },
+        "1": {
+          "distribution_mw": 7.51,
+          "banks_at_zero": [
+            "BRITTON BANK 1",
+            "BRITTON BANK 2",
+            "BRITTON BANK 3",
+            "DIXON LANDING BANK 1",
+            "DIXON LANDING BANK 2",
+            "LAWRENCE BANK 1",
+            "MILPITAS BANK 1",
+            "MILPITAS BANK 2",
+            "MILPITAS BANK 3",
+            "MONTAGUE BANK 1",
+            "MONTAGUE BANK 2",
+            "MONTAGUE BANK 3",
+            "NORTECH BANK 2",
+            "RIVER OAKS BANK 1",
+            "RIVER OAKS BANK 2",
+            "TRIMBLE BANK 3"
+          ],
+          "banks": [
+            {
+              "id": "0834201",
+              "name": "LAWRENCE BANK 1",
+              "substation": "LAWRENCE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0834202",
+              "name": "LAWRENCE BANK 2",
+              "substation": "LAWRENCE",
+              "headroom_mw": 5.79
+            },
+            {
+              "id": "0834203",
+              "name": "LAWRENCE BANK 3",
+              "substation": "LAWRENCE",
+              "headroom_mw": 1.72
+            },
+            {
+              "id": "0838901",
+              "name": "MONTAGUE BANK 1",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838902",
+              "name": "MONTAGUE BANK 2",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838903",
+              "name": "MONTAGUE BANK 3",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0147201",
+              "name": "DIXON LANDING BANK 1",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0147202",
+              "name": "DIXON LANDING BANK 2",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836101",
+              "name": "BRITTON BANK 1",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836102",
+              "name": "BRITTON BANK 2",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836103",
+              "name": "BRITTON BANK 3",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0824602",
+              "name": "NORTECH BANK 2",
+              "substation": "NORTECH",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823401",
+              "name": "RIVER OAKS BANK 1",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823402",
+              "name": "RIVER OAKS BANK 2",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838003",
+              "name": "TRIMBLE BANK 3",
+              "substation": "TRIMBLE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828301",
+              "name": "MILPITAS BANK 1",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828302",
+              "name": "MILPITAS BANK 2",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828303",
+              "name": "MILPITAS BANK 3",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            }
+          ],
+          "newly_zero_vs_baseline": [
+            "BRITTON BANK 3",
+            "DIXON LANDING BANK 1",
+            "DIXON LANDING BANK 2",
+            "MONTAGUE BANK 1",
+            "MONTAGUE BANK 3"
+          ]
+        },
+        "2": {
+          "distribution_mw": 10.11,
+          "banks_at_zero": [
+            "BRITTON BANK 1",
+            "BRITTON BANK 2",
+            "BRITTON BANK 3",
+            "DIXON LANDING BANK 1",
+            "DIXON LANDING BANK 2",
+            "LAWRENCE BANK 1",
+            "MILPITAS BANK 1",
+            "MILPITAS BANK 2",
+            "MILPITAS BANK 3",
+            "MONTAGUE BANK 1",
+            "MONTAGUE BANK 2",
+            "MONTAGUE BANK 3",
+            "NORTECH BANK 2",
+            "RIVER OAKS BANK 1",
+            "RIVER OAKS BANK 2",
+            "TRIMBLE BANK 3"
+          ],
+          "banks": [
+            {
+              "id": "0834201",
+              "name": "LAWRENCE BANK 1",
+              "substation": "LAWRENCE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0834202",
+              "name": "LAWRENCE BANK 2",
+              "substation": "LAWRENCE",
+              "headroom_mw": 6.98
+            },
+            {
+              "id": "0834203",
+              "name": "LAWRENCE BANK 3",
+              "substation": "LAWRENCE",
+              "headroom_mw": 3.13
+            },
+            {
+              "id": "0838901",
+              "name": "MONTAGUE BANK 1",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838902",
+              "name": "MONTAGUE BANK 2",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838903",
+              "name": "MONTAGUE BANK 3",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0147201",
+              "name": "DIXON LANDING BANK 1",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0147202",
+              "name": "DIXON LANDING BANK 2",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836101",
+              "name": "BRITTON BANK 1",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836102",
+              "name": "BRITTON BANK 2",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836103",
+              "name": "BRITTON BANK 3",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0824602",
+              "name": "NORTECH BANK 2",
+              "substation": "NORTECH",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823401",
+              "name": "RIVER OAKS BANK 1",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823402",
+              "name": "RIVER OAKS BANK 2",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838003",
+              "name": "TRIMBLE BANK 3",
+              "substation": "TRIMBLE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828301",
+              "name": "MILPITAS BANK 1",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828302",
+              "name": "MILPITAS BANK 2",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828303",
+              "name": "MILPITAS BANK 3",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            }
+          ],
+          "newly_zero_vs_baseline": [
+            "BRITTON BANK 3",
+            "DIXON LANDING BANK 1",
+            "DIXON LANDING BANK 2",
+            "MONTAGUE BANK 1",
+            "MONTAGUE BANK 3",
+            "NORTECH BANK 2"
+          ]
+        },
+        "3": {
+          "distribution_mw": 10.37,
+          "banks_at_zero": [
+            "BRITTON BANK 1",
+            "BRITTON BANK 2",
+            "BRITTON BANK 3",
+            "DIXON LANDING BANK 1",
+            "DIXON LANDING BANK 2",
+            "LAWRENCE BANK 1",
+            "MILPITAS BANK 1",
+            "MILPITAS BANK 2",
+            "MILPITAS BANK 3",
+            "MONTAGUE BANK 1",
+            "MONTAGUE BANK 2",
+            "MONTAGUE BANK 3",
+            "NORTECH BANK 2",
+            "RIVER OAKS BANK 1",
+            "RIVER OAKS BANK 2",
+            "TRIMBLE BANK 3"
+          ],
+          "banks": [
+            {
+              "id": "0834201",
+              "name": "LAWRENCE BANK 1",
+              "substation": "LAWRENCE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0834202",
+              "name": "LAWRENCE BANK 2",
+              "substation": "LAWRENCE",
+              "headroom_mw": 7.1
+            },
+            {
+              "id": "0834203",
+              "name": "LAWRENCE BANK 3",
+              "substation": "LAWRENCE",
+              "headroom_mw": 3.27
+            },
+            {
+              "id": "0838901",
+              "name": "MONTAGUE BANK 1",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838902",
+              "name": "MONTAGUE BANK 2",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838903",
+              "name": "MONTAGUE BANK 3",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0147201",
+              "name": "DIXON LANDING BANK 1",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0147202",
+              "name": "DIXON LANDING BANK 2",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836101",
+              "name": "BRITTON BANK 1",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836102",
+              "name": "BRITTON BANK 2",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836103",
+              "name": "BRITTON BANK 3",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0824602",
+              "name": "NORTECH BANK 2",
+              "substation": "NORTECH",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823401",
+              "name": "RIVER OAKS BANK 1",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823402",
+              "name": "RIVER OAKS BANK 2",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838003",
+              "name": "TRIMBLE BANK 3",
+              "substation": "TRIMBLE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828301",
+              "name": "MILPITAS BANK 1",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828302",
+              "name": "MILPITAS BANK 2",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828303",
+              "name": "MILPITAS BANK 3",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            }
+          ],
+          "newly_zero_vs_baseline": [
+            "BRITTON BANK 3",
+            "DIXON LANDING BANK 1",
+            "DIXON LANDING BANK 2",
+            "MILPITAS BANK 1",
+            "MONTAGUE BANK 1",
+            "MONTAGUE BANK 3",
+            "NORTECH BANK 2"
+          ]
+        },
+        "5": {
+          "distribution_mw": 13.87,
+          "banks_at_zero": [
+            "BRITTON BANK 1",
+            "BRITTON BANK 2",
+            "DIXON LANDING BANK 1",
+            "DIXON LANDING BANK 2",
+            "LAWRENCE BANK 1",
+            "MILPITAS BANK 1",
+            "MILPITAS BANK 2",
+            "MILPITAS BANK 3",
+            "MONTAGUE BANK 1",
+            "MONTAGUE BANK 2",
+            "MONTAGUE BANK 3",
+            "NORTECH BANK 2",
+            "RIVER OAKS BANK 1",
+            "RIVER OAKS BANK 2",
+            "TRIMBLE BANK 3"
+          ],
+          "banks": [
+            {
+              "id": "0834201",
+              "name": "LAWRENCE BANK 1",
+              "substation": "LAWRENCE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0834202",
+              "name": "LAWRENCE BANK 2",
+              "substation": "LAWRENCE",
+              "headroom_mw": 8.12
+            },
+            {
+              "id": "0834203",
+              "name": "LAWRENCE BANK 3",
+              "substation": "LAWRENCE",
+              "headroom_mw": 4.47
+            },
+            {
+              "id": "0838901",
+              "name": "MONTAGUE BANK 1",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838902",
+              "name": "MONTAGUE BANK 2",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838903",
+              "name": "MONTAGUE BANK 3",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0147201",
+              "name": "DIXON LANDING BANK 1",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0147202",
+              "name": "DIXON LANDING BANK 2",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836101",
+              "name": "BRITTON BANK 1",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836102",
+              "name": "BRITTON BANK 2",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836103",
+              "name": "BRITTON BANK 3",
+              "substation": "BRITTON",
+              "headroom_mw": 1.28
+            },
+            {
+              "id": "0824602",
+              "name": "NORTECH BANK 2",
+              "substation": "NORTECH",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823401",
+              "name": "RIVER OAKS BANK 1",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823402",
+              "name": "RIVER OAKS BANK 2",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838003",
+              "name": "TRIMBLE BANK 3",
+              "substation": "TRIMBLE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828301",
+              "name": "MILPITAS BANK 1",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828302",
+              "name": "MILPITAS BANK 2",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828303",
+              "name": "MILPITAS BANK 3",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            }
+          ],
+          "newly_zero_vs_baseline": [
+            "DIXON LANDING BANK 1",
+            "DIXON LANDING BANK 2",
+            "LAWRENCE BANK 1",
+            "MILPITAS BANK 1",
+            "MONTAGUE BANK 1",
+            "MONTAGUE BANK 3",
+            "NORTECH BANK 2"
+          ]
+        },
+        "10": {
+          "distribution_mw": 23.57,
+          "banks_at_zero": [
+            "BRITTON BANK 1",
+            "BRITTON BANK 2",
+            "LAWRENCE BANK 1",
+            "MILPITAS BANK 1",
+            "MILPITAS BANK 2",
+            "MILPITAS BANK 3",
+            "MONTAGUE BANK 2",
+            "MONTAGUE BANK 3",
+            "NORTECH BANK 2",
+            "RIVER OAKS BANK 1",
+            "RIVER OAKS BANK 2",
+            "TRIMBLE BANK 3"
+          ],
+          "banks": [
+            {
+              "id": "0834201",
+              "name": "LAWRENCE BANK 1",
+              "substation": "LAWRENCE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0834202",
+              "name": "LAWRENCE BANK 2",
+              "substation": "LAWRENCE",
+              "headroom_mw": 10.37
+            },
+            {
+              "id": "0834203",
+              "name": "LAWRENCE BANK 3",
+              "substation": "LAWRENCE",
+              "headroom_mw": 7.13
+            },
+            {
+              "id": "0838901",
+              "name": "MONTAGUE BANK 1",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.51
+            },
+            {
+              "id": "0838902",
+              "name": "MONTAGUE BANK 2",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838903",
+              "name": "MONTAGUE BANK 3",
+              "substation": "MONTAGUE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0147201",
+              "name": "DIXON LANDING BANK 1",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 0.88
+            },
+            {
+              "id": "0147202",
+              "name": "DIXON LANDING BANK 2",
+              "substation": "DIXON LANDING",
+              "headroom_mw": 1.44
+            },
+            {
+              "id": "0836101",
+              "name": "BRITTON BANK 1",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836102",
+              "name": "BRITTON BANK 2",
+              "substation": "BRITTON",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0836103",
+              "name": "BRITTON BANK 3",
+              "substation": "BRITTON",
+              "headroom_mw": 3.24
+            },
+            {
+              "id": "0824602",
+              "name": "NORTECH BANK 2",
+              "substation": "NORTECH",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823401",
+              "name": "RIVER OAKS BANK 1",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0823402",
+              "name": "RIVER OAKS BANK 2",
+              "substation": "RIVER OAKS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0838003",
+              "name": "TRIMBLE BANK 3",
+              "substation": "TRIMBLE",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828301",
+              "name": "MILPITAS BANK 1",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828302",
+              "name": "MILPITAS BANK 2",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            },
+            {
+              "id": "0828303",
+              "name": "MILPITAS BANK 3",
+              "substation": "MILPITAS",
+              "headroom_mw": 0.0
+            }
+          ],
+          "newly_zero_vs_baseline": [
+            "LAWRENCE BANK 1",
+            "MILPITAS BANK 1",
+            "MILPITAS BANK 2",
+            "MONTAGUE BANK 3",
+            "NORTECH BANK 2"
+          ]
+        }
+      }
+    }
+  },
+  "curtailment_pcts": [
+    "0",
+    "0.5",
+    "1",
+    "2",
+    "3",
+    "5",
+    "10"
+  ]
+}

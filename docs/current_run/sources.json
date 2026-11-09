@@ -1,0 +1,7 @@
+{
+  "site": "data/l1/site.json",
+  "grid_snapshot": "live",
+  "candidate_plan": "live",
+  "physics_result": "live",
+  "certificate": "live"
+}
