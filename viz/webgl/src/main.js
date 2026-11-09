@@ -1,7 +1,9 @@
 import './style.css';
 import { DEFAULTS, PRESETS, evaluate, normalize, exportScenario, round } from './model.js';
 import { createScene } from './scene.js';
-import { createQuantumComputer } from './quantum-computer.js';
+import { mountQuantumViews } from './quantum-views.js';
+import { validateQuantumResult } from './quantum-results.js';
+import './vm-views.css';
 import { createGridPhysics } from './grid-physics.js';
 import { categorize, headline, whatIf, scenarioHeadline, scenarioWhatIf } from './outcome.js';
 const $ = (s) => document.querySelector(s);
@@ -9,7 +11,7 @@ const make = (tag, text, cls) => { const n = document.createElement(tag); if(tex
 let run, scene, quantumComputer, gridPhysics, result, lastQuantum=null, lastQuantumSettings=null, quantumPending=false, selected = 'site', settings = { ...DEFAULTS }, caseId = 'alviso';
 const units = { load:' MW', growth:'%', utilization:'%', split:'%', storage:' MW', curtailment:'%', dlr:'%', temperature:'°C', lineLimit:'%', months:' mo' };
 const dialog = $('#detail-dialog');
-const searchSignature = value => JSON.stringify(['load','growth','utilization','split','storage','curtailment','dlr','temperature','reconductor','requireN1','outage'].map(key=>[key,value[key]]));
+const searchSignature = value => JSON.stringify([caseId,...['load','growth','utilization','split','storage','curtailment','dlr','temperature','reconductor','requireN1','outage'].map(key=>[key,value[key]])]);
 function toast(text){ $('#toast').textContent=text; $('#toast').classList.add('show'); setTimeout(()=>$('#toast').classList.remove('show'),3000); }
 function showDialog(title, content){ $('#dialog-eyebrow').textContent=title; $('#dialog-content').replaceChildren(...content); dialog.showModal(); }
 function checkNode(check){
@@ -50,6 +52,7 @@ function render(){
  $('#flow-check').textContent=physicsBlocked?'Blocked':'Pass';$('#flow-check').style.color=physicsBlocked?'var(--red)':'var(--green)';$('#flow-result').textContent=result.status;$('#flow-result').style.color=`var(--${result.status.toLowerCase()})`;
  renderLive();
  scene?.update(result);gridPhysics?.update(result);updateSelection();
+ quantumComputer?.stale(lastQuantum && searchSignature(settings)!==lastQuantumSettings);
  if(lastQuantum && !quantumPending && searchSignature(settings)!==lastQuantumSettings){$('#quantum-status').textContent='Inputs changed — run the simulator again';$('#quantum-engine-tag').textContent='Previous result is stale';}
 }
 function liveCase(){
@@ -157,28 +160,29 @@ function downloadJson(filename, data) {
 }
 async function runQuantum(){
  if(quantumPending)return;
+ if(caseId!=='alviso'){toast('Native search currently supports Alviso. Select the Alviso case to run it.');return;}
  const submitted={...settings},signature=searchSignature(settings),controller=new AbortController();
  const timeout=setTimeout(()=>controller.abort(),110000);quantumPending=true;
  $('#run-quantum').disabled=true;$('#run-quantum').textContent='Running…';$('#quantum-status').textContent='Running the quantum simulation';$('#quantum-summary').textContent='Building the yes/no test (oracle), boosting right answers (Grover interference), and collecting results…';$('#quantum-engine-tag').textContent='RUNNING';quantumComputer.running(true);
  try{
   const response=await fetch('/api/quantum',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({settings:submitted}),signal:controller.signal});
   const type=response.headers.get('content-type')||'';if(!type.includes('application/json'))throw new Error('The native execution service is not available. Start the API server or deploy the repository root.');const data=await response.json();if(!response.ok)throw new Error(data.error||'The quantum simulation failed.');
-  if(data.backend!=='psiqdk'||!data.result?.numpy_crosscheck_ok)throw new Error('The response did not contain a verified quantum-simulator result.');
-  lastQuantum=data;quantumComputer.result(data);$('#view-quantum').disabled=false;
+  validateQuantumResult(data);
+  lastQuantum=data;quantumComputer.result(data);
   if(searchSignature(settings)===signature && data.selected_settings){settings=normalize({...settings,...Object.fromEntries(['storage','curtailment','dlr','split'].map(key=>[key,data.selected_settings[key]]))});lastQuantumSettings=searchSignature(settings);render();}else lastQuantumSettings=signature;
   const metrics=data.result.resources?.qpu_metrics||{};
   $('#quantum-status').textContent=data.plan?'Simulation done · measured candidate applied':'Simulation done · no feasible candidate measured';
-  $('#quantum-summary').textContent=`${data.space.n_qubits} quantum bits (qubits) · ${data.space.padded_N} states · ${data.marked_indices.length} marked · ${data.result.iterations} search rounds (Grover iterations) · ${data.result.samples_marked}/${data.result.shots} marked shots · AV ${metrics.active_volume??'n/a'} · ${data.wall_s}s`;
+  $('#quantum-summary').textContent=`${data.space.n_qubits} quantum bits (qubits) · ${data.space.N} plans / ${data.space.padded_N} slots · ${data.marked_indices.length} marked · ${data.result.iterations} search rounds (Grover iterations) · ${data.result.samples_marked}/${data.result.shots} marked shots · AV ${metrics.active_volume??'n/a'} · ${data.wall_s}s`;
   $('#quantum-engine-tag').textContent='SIMULATOR · COMPLETED';
   if(searchSignature(settings)!==lastQuantumSettings){$('#quantum-status').textContent='Simulation was for earlier inputs — run again';$('#quantum-engine-tag').textContent='RESULT STALE';}
-  $('.quantum-steps small').textContent=`Results returned by the simulator · job ${data.job_id.slice(0,8)} · ${Object.entries(data.result.versions).map(([k,v])=>`${k} ${v}`).join(' · ')}`;
+
  }catch(error){$('#quantum-status').textContent='The simulator did not complete';$('#quantum-summary').textContent=error.name==='AbortError'?'The job timed out. No fallback result was used.':error.message;$('#quantum-engine-tag').textContent='UNAVAILABLE';}
  finally{clearTimeout(timeout);quantumPending=false;quantumComputer.running(false);$('#run-quantum').disabled=false;$('#run-quantum').textContent='▶ Run quantum simulator (PsiQDK)';}
 }
 async function init(){
  try{
   const get=async p=>{const r=await fetch(`${import.meta.env.BASE_URL}data/${p}.json`);if(!r.ok)throw new Error('Data unavailable');return r.json();};
-  const values=await Promise.all([get('run'),get('geography')]);run=values[0];scene=createScene($('#viewport'),run,values[1],selectAsset);scene.flow(1);quantumComputer=createQuantumComputer($('#quantum-viewport'));gridPhysics=createGridPhysics($('#physics-viewport'));
+  const values=await Promise.all([get('run'),get('geography')]);run=values[0];scene=createScene($('#viewport'),run,values[1],selectAsset);scene.flow(1);let recorded=null;try{recorded=validateQuantumResult(await get('native_job'));}catch{}quantumComputer=mountQuantumViews($('#quantum-workspace'),{recordedJob:recorded});if(recorded){$('#quantum-status').textContent='Recorded reference loaded · ready for a live run';$('#quantum-summary').textContent=`${recorded.space.n_qubits} qubits · ${recorded.result.shots} recorded shots · all four views available`;$('#quantum-engine-tag').textContent='RECORDED · READY';}gridPhysics=createGridPhysics($('#physics-viewport'));
   $('#asset-list').replaceChildren(...run.grid_snapshot.substations.map(s=>{const b=make('button',s.name);b.dataset.asset=s.id;b.onclick=()=>selectAsset(s.id);return b;}));
   $('#knobs').addEventListener('input',e=>{const i=e.target;if(!(i.name in DEFAULTS))return;settings[i.name]=i.type==='checkbox'?i.checked:i.type==='range'?Number(i.value):i.value;render();});
   $('#knobs').addEventListener('focusin',e=>{const card=e.target.closest('.stage-card');if(card)document.querySelectorAll('.stage-card').forEach(n=>n.classList.toggle('selected',n===card));});
@@ -190,9 +194,6 @@ async function init(){
   $('#home-camera').onclick=()=>scene.home();$('#top-camera').onclick=()=>scene.top();
   $('#rotate-camera').onclick=e=>{const on=e.currentTarget.getAttribute('aria-pressed')!=='true';e.currentTarget.setAttribute('aria-pressed',String(on));scene.rotate(on);};
   for(const [id,name] of [['terrain-toggle','terrain'],['lines-toggle','lines'],['distribution-toggle','distribution']])document.getElementById(id).onclick=e=>{const on=e.currentTarget.getAttribute('aria-pressed')!=='true';e.currentTarget.setAttribute('aria-pressed',String(on));scene.layer(name,on);};
-  $('#view-grid').onclick=()=>{quantumComputer.step('computer');$('#view-grid').classList.add('active');$('#view-quantum').classList.remove('active');$('.quantum-steps').hidden=true;};
-  $('#view-quantum').onclick=()=>{if(!lastQuantum)return;quantumComputer.step(0);$('.quantum-steps').hidden=false;$('#view-quantum').classList.add('active');$('#view-grid').classList.remove('active');};
-  document.querySelectorAll('[data-quantum-step]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-quantum-step]').forEach(n=>n.classList.toggle('active',n===b));quantumComputer.step(Number(b.dataset.quantumStep));});
   $('#run-quantum').onclick=runQuantum;
   $('#case-list').replaceChildren(...[['alviso','Alviso, CA (default)'],...Object.entries(run.cases).map(([id,c])=>[id,c.site.name.split(',')[0].replace(/^NOVVA /,'NOVVA ')])].map(([id,text])=>{const b=make('button',text);b.type='button';b.dataset.case=id;b.onclick=()=>chooseCase(id);return b;}));
   $('#address-form').onsubmit=e=>{e.preventDefault();lookUp($('#address').value);};
@@ -203,27 +204,6 @@ async function init(){
  }catch(e){$('#loading').hidden=true;$('#webgl-fallback').hidden=false;$('#webgl-fallback').textContent='Unable to load case-study data. Reload or run npm run dev.';console.error(e);}
 }
 $('#close-dialog').onclick=()=>dialog.close();dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});addEventListener('pagehide',()=>{scene?.dispose();quantumComputer?.dispose();gridPhysics?.dispose();});init();
-
-// ===== VM views (card 2): recorded native PsiQDK job fallback + Grover / Bloch / photonic / counts views =====
-// Self-contained: delete this block (and src/quantum-views.js, src/vm-views.css) to drop them. Imports are hoisted.
-import './vm-views.css';
-import { mountQuantumViews } from './quantum-views.js';
-let vmRecordedJob=null,vmViews=null;
-(async()=>{
- for(let i=0;i<200&&!quantumComputer;i++)await new Promise(r=>setTimeout(r,50)); // wait for init() to build card 2
- if(!quantumComputer)return;
- try{const r=await fetch(`${import.meta.env.BASE_URL}data/native_job.json`);if(r.ok){const j=await r.json();if(j.backend==='psiqdk'&&j.result?.numpy_crosscheck_ok&&j.result.states?.length)vmRecordedJob=j;}}catch{}
- if(vmRecordedJob&&!lastQuantum){
-  quantumComputer.result(vmRecordedJob,'recorded');$('#view-quantum').disabled=false;
-  $('.quantum-steps small').textContent=`Recorded simulator run · job ${vmRecordedJob.job_id.slice(0,8)} · ${vmRecordedJob.completed_utc.replace(/\.\d+/,'').replace('+00:00','Z')} · Run the simulator for a live job`;
- }
- // The existing "Returned states" handler needs a live job; with none yet, show the recorded native run.
- $('#view-quantum').addEventListener('click',()=>{if(lastQuantum||!vmRecordedJob)return;quantumComputer.step(0);document.querySelectorAll('[data-quantum-step]').forEach((n,i)=>n.classList.toggle('active',i===0));$('.quantum-steps').hidden=false;$('#view-quantum').classList.add('active');$('#view-grid').classList.remove('active');});
- const host=make('div');host.id='vm-quantum-views';$('.find-card .quantum-steps').after(host);
- vmViews=mountQuantumViews(host,{getLiveJob:()=>lastQuantum,recordedJob:vmRecordedJob});
- addEventListener('pagehide',()=>vmViews?.dispose());
-})();
-// ===== end VM views =====
 
 // ===== Grid views (card 3): recorded firm N-1 / line loading / voltage / transformer-outage visuals =====
 // Self-contained: delete this block (and src/grid-views.js, src/grid-views.css) to drop them. Imports are hoisted.

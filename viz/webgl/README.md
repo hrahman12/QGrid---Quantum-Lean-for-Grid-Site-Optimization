@@ -40,3 +40,10 @@ Import the QGrid GitHub repository into Vercel using its repository root. The ro
 The browser search uses the two displayed connection sources in 25% split steps. Battery and curtailment sliders become upper bounds for a discrete search; the returned measured plan may use less and replaces those candidate values only if the search inputs have not changed. Firm transformer caps remain fixed. DLR changes line assumptions, not firm transformer capacity. Reconductoring is passed through as a plan assumption rather than varied by the circuit. Downstream permitting / commitment changes do not invalidate a completed search.
 
 The native-state view uses the actual returned statevector indices and measured histogram. The visual hardware is an illustrative photonic-computer concept.
+
+
+### Card 2 workspace
+
+One set of tabs contains all native-run views: **Grover amplitudes** (3D probability bars or a signed-amplitude plot), **Bloch spheres** for every register qubit, **Photonic concept** (animated dual-rail waveguides or the 3D computer), and **Counts** with the independent cross-check and measured candidate. The shared player covers superposition, the first phase flip, every returned Grover iteration, and observed measurements. Detector brightness comes from actual per-qubit shot counts; the chip layout, photon motion, and visual tweening are illustrative.
+
+The validated recorded native run stays explicitly labeled with its original settings and timestamp. A successful live PsiQDK job replaces the record across all views; changing search inputs or the site marks it stale. Native search currently runs the bounded Alviso model, so other site cases cannot silently apply an Alviso candidate. Playback and photonics honor reduced motion, and WebGL resources are disposed on exit.
