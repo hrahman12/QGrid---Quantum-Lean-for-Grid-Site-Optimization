@@ -17,9 +17,11 @@
 </div></section>
 <section class="stage-card find-card" data-step="1"><h1><b>2</b> Find a connection</h1><div class="panel-body">
   <div class="engine-line"><span class="engine-tag">FIND · QUANTUM</span><span class="preview-tag" id="quantum-engine-tag">Quantum simulator</span></div>
-  <button id="run-quantum" class="run-native">▶ Run now · native PsiQDK</button>
-  <div id="quantum-workspace" aria-label="Native quantum run: Grover, Bloch spheres, photonics, and counts"></div>
-  <div class="quantum-job"><b id="quantum-status">Ready · execute a new circuit</b><small id="quantum-summary">Native states + 32 measurements + independent cross-check.</small></div>
+  <p class="plain-line">Tries every way to split the load across nearby substations; a fast search that checks many options at once (Grover quantum search) spots the few that fit.</p>
+  <div id="quantum-viewport" aria-label="3D quantum-computer concept and view of the real quantum simulator (PsiQDK) states"></div>
+  <div class="quantum-controls"><button id="view-grid" class="active">Computer</button><button id="view-quantum" disabled>Results (returned states)</button><button id="run-quantum">▶ Run quantum simulator (PsiQDK)</button></div>
+  <div class="quantum-job"><b id="quantum-status">Ready — not run yet</b><small id="quantum-summary">Runs the real quantum simulator (PsiQDK) on the server.</small></div>
+  <div class="quantum-steps" hidden><div><button data-quantum-step="0" class="active">Try all (superpose)</button><span>→</span><button data-quantum-step="1">Mark right ones (phase flip)</button><span>→</span><button data-quantum-step="2">Boost them (amplify)</button><span>→</span><button data-quantum-step="3">Read result (measure)</button></div><small>Results returned by the simulator: states and counts</small></div>
   <div class="panel-tabs" role="tablist" aria-label="Connection controls"><button class="active" role="tab" aria-selected="true" data-pane="routing">Routing & flexibility</button><button role="tab" aria-selected="false" data-pane="upgrades">Line upgrades</button></div>
   <div class="tab-pane" data-pane-body="routing">
     <label class="knob" for="split">Northern Receiving share <output data-output="split"></output><input type="range" id="split" name="split" min="0" max="100" step="5"><span class="range-ends"><span>Los Esteros</span><span>Northern Receiving</span></span></label>
