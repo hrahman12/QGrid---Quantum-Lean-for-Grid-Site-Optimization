@@ -28,9 +28,10 @@ test('Bell state (|00> + |11>)/sqrt2 gives zero-length Bloch vectors', () => {
 test('recorded native job: Bloch lengths in [0,1], steps and counts match the record', () => {
   const job = JSON.parse(readFileSync(new URL('../public/data/native_job.json', import.meta.url)));
   const steps = groverSteps(job);
-  assert.equal(steps.length, job.result.states.length + 1);
+  assert.equal(steps.length, job.result.states.length + 2);
   assert.equal(steps[1].phase, true);
   for (const m of job.marked_indices) assert.ok(steps[1].vec[m][0] < 0);
+  assert.equal(steps.at(-1).measurement,true);
   for (const s of steps) for (const v of blochVectors(s.vec)) assert.ok(v.r >= -1e-12 && v.r <= 1 + 1e-9);
   // probability on marked indices in the final recorded state equals the recorded p_marked
   const last = job.result.states.at(-1), p = job.marked_indices.reduce((a, m) => a + last[m][0] ** 2 + last[m][1] ** 2, 0);
