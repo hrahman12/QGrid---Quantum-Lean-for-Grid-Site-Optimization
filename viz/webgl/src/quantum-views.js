@@ -45,8 +45,8 @@ export function railCounts(measurements, nQubits) {
 export function groverSteps(job) {
   const r = job.result, steps = [];
   r.states.forEach((vec, it) => {
-    steps.push({ vec, iteration: it, phase: false, label: it === 0 ? 'k = 0 · all options equally likely (uniform superposition)' : `k = ${it} · after ${it} search round${it > 1 ? 's' : ''} (Grover iteration)` });
-    if (it === 0 && job.phase_state) steps.push({ vec: job.phase_state, iteration: 0, phase: true, label: 'k = 0 · the yes/no test (oracle) flags right answers (phase flip)' });
+    steps.push({ vec, iteration: it, phase: false, label: it === 0 ? 'k = 0 · uniform superposition' : `k = ${it} · after ${it} Grover iteration${it > 1 ? 's' : ''}` });
+    if (it === 0 && job.phase_state) steps.push({ vec: job.phase_state, iteration: 0, phase: true, label: 'k = 0 · oracle phase flip (marked amplitudes negated)' });
   });
   return steps;
 }
@@ -62,14 +62,14 @@ const css = (name, fallback) => getComputedStyle(document.documentElement).getPr
 export function mountQuantumViews(container, { getLiveJob = () => null, recordedJob = null } = {}) {
   container.classList.add('vmq');
   const head = el('div', 'vmq-head');
-  const source = el('div', 'vmq-source', 'Loading recorded quantum-simulator run (PsiQDK)…');
+  const source = el('div', 'vmq-source', 'Loading recorded native PsiQDK run…');
   const tabs = el('div', 'vmq-tabs'); tabs.setAttribute('role', 'tablist');
-  const names = [['amp', 'Search likelihoods (Grover amplitudes)'], ['bloch', 'Qubit state views (Bloch spheres)'], ['photonic', 'Light-chip concept (photonic)'], ['counts', 'Results (counts)']];
+  const names = [['amp', 'Grover amplitudes'], ['bloch', 'Bloch spheres'], ['photonic', 'Photonic concept'], ['counts', 'Counts']];
   const tabButtons = names.map(([id, label]) => { const b = el('button', '', label); b.dataset.vmTab = id; b.setAttribute('role', 'tab'); tabs.append(b); return b; });
   const stepper = el('div', 'vmq-stepper');
   const prev = el('button', '', '‹'), play = el('button', '', '▶'), next = el('button', '', '›');
   prev.setAttribute('aria-label', 'Previous recorded state'); next.setAttribute('aria-label', 'Next recorded state'); play.setAttribute('aria-label', 'Play recorded states');
-  const range = el('input'); range.type = 'range'; range.min = 0; range.step = 1; range.setAttribute('aria-label', 'Recorded search step (Grover)');
+  const range = el('input'); range.type = 'range'; range.min = 0; range.step = 1; range.setAttribute('aria-label', 'Recorded Grover step');
   const stepLabel = el('div', 'vmq-steplabel');
   stepper.append(prev, play, range, next);
   head.append(source, tabs, stepper, stepLabel);
@@ -86,10 +86,10 @@ export function mountQuantumViews(container, { getLiveJob = () => null, recorded
   panes.amp.append(ampCanvas, ampFacts, pCanvas, ampCaption);
   // --- bloch pane ---
   const blochWrap = el('div', 'vmq-bloch-wrap'); const blochGrid = el('div', 'vmq-bloch-grid');
-  const blochCaption = el('small', 'vmq-caption', 'Each arrow is one quantum bit\'s state (Bloch vector), from a partial trace of the recorded statevector (computed in the browser). Length 1 = a qubit on its own; shorter than 1 = it is linked (entangled) with the others.');
+  const blochCaption = el('small', 'vmq-caption', 'Each arrow is one qubit\'s Bloch vector, from a partial trace of the recorded statevector (computed in the browser). Length 1 = a pure, unentangled qubit; shorter than 1 = that qubit is entangled with (or mixed by) the others.');
   blochWrap.append(blochGrid); panes.bloch.append(blochWrap, blochCaption);
   // --- photonic pane ---
-  const photoLabel = el('div', 'vmq-photo-label', 'Light-based computer concept: the run is a quantum simulation (PsiQDK statevector), not photonic hardware');
+  const photoLabel = el('div', 'vmq-photo-label', 'Photonic-computer concept illustration: the run is a PsiQDK statevector simulation, not photonic hardware');
   const photoCanvas = el('canvas', 'vmq-canvas vmq-photo');
   const photoCaption = el('small', 'vmq-caption', 'Dual-rail picture: each qubit is a pair of waveguides (rail 0 / rail 1). Detector brightness = recorded shots in which that qubit read 0 or 1 (from job.measurements). Waveguide mesh and photon motion are decorative.');
   panes.photonic.append(photoLabel, photoCanvas, photoCaption);
@@ -168,7 +168,7 @@ export function mountQuantumViews(container, { getLiveJob = () => null, recorded
     for (const m of job.marked_indices) { const x = 4 + (m + .5) * bw, v = values[m]; g.textAlign = 'center'; g.fillText(`|${m}⟩`, Math.min(w - 14, Math.max(14, x)), v >= 0 ? Math.max(11, mid - v * scaleUp - 4) : Math.min(h - 3, mid - v * scaleDown + 11)); }
     g.textAlign = 'left'; g.fillStyle = '#8ca5c3'; g.font = '9px "DM Sans",system-ui,sans-serif';
     g.fillText('0', 4, h - 3); g.textAlign = 'right'; g.fillText(`${N - 1}`, w - 4, h - 3);
-    g.textAlign = 'left'; g.fillText('Likelihood (amplitude) +', 6, 10); g.fillText('−', 6, mid + 11);
+    g.textAlign = 'left'; g.fillText('Re(amplitude) +', 6, 10); g.fillText('−', 6, mid + 11);
   }
   function drawSpark() {
     const f = fitCanvas(pCanvas); if (!f || !job) return; const { g, w, h } = f;
@@ -254,7 +254,7 @@ export function mountQuantumViews(container, { getLiveJob = () => null, recorded
     const r = job.result, diffs = r.numpy_crosscheck_max_abs_diff_per_iteration || [], maxDiff = diffs.length ? Math.max(...diffs) : null;
     cross.dataset.ok = String(!!r.numpy_crosscheck_ok);
     cross.replaceChildren(el('b', '', r.numpy_crosscheck_ok ? `✓ Numerical cross-check passed (max diff ${maxDiff?.toExponential(1) ?? 'n/a'})` : '× Numerical cross-check did not pass'),
-      el('small', '', `Independent check (NumPy) vs the simulator (PsiQDK), per iteration: ${diffs.map((d, i) => `k${i} ${d.toExponential(1)}`).join(' · ')}`));
+      el('small', '', `Independent NumPy statevector vs PsiQDK, per iteration: ${diffs.map((d, i) => `k${i} ${d.toExponential(1)}`).join(' · ')}`));
     const plan = job.plan; const subs = Object.fromEntries((job.space?.candidate_substations || []).map(s => [s.id, s.name]));
     planLine.textContent = plan ? `Selected measured candidate: ${plan.splits.map(s => `${subs[s.substation_id] || s.substation_id} ${s.mw} MW`).join(' + ')} · storage ${plan.flex.storage_mw} MW · curtailment ${plan.flex.curtailment_mw} MW. ${job.status}` : 'No feasible candidate was measured.';
   }
@@ -262,10 +262,10 @@ export function mountQuantumViews(container, { getLiveJob = () => null, recorded
     if (!value?.result?.states?.length) return;
     job = value; steps = groverSteps(job); nQubits = job.space?.n_qubits ?? Math.round(Math.log2(job.result.states[0].length));
     const when = (job.completed_utc || '').replace(/\.\d+/, '').replace('+00:00', 'Z');
-    source.replaceChildren(el('span', `vmq-badge ${kind}`, kind === 'live' ? 'LIVE QUANTUM-SIMULATOR RUN (PsiQDK)' : 'RECORDED QUANTUM-SIMULATOR RUN (PsiQDK)'),
+    source.replaceChildren(el('span', `vmq-badge ${kind}`, kind === 'live' ? 'LIVE PsiQDK RUN' : 'RECORDED NATIVE PsiQDK RUN'),
       document.createTextNode(` job ${job.job_id.slice(0, 8)} · completed ${when} · ${nQubits} qubits · ${job.result.iterations} iterations · psiqdk ${job.result.versions?.psiqdk ?? '?'}`));
-    if (kind !== 'live') source.append(el('small', '', ` Settings: load ${job.input_settings.load} MW, storage ${job.input_settings.storage}, pausing use (curtailment) ${job.input_settings.curtailment}%, line upgrades from weather data (DLR) ${job.input_settings.dlr}%. Shown until a live run returns.`));
-    ampCaption.textContent = `Bars: how likely each recorded state is (real part of its amplitude; ${job.result.states[0].length} = 2^${nQubits} states). Highlighted: states the yes/no test (oracle) marked (${job.marked_indices.length}). Dim: padding states beyond the ${job.space?.N ?? '?'} plans. Curve: recorded p(marked) per iteration.`;
+    if (kind !== 'live') source.append(el('small', '', ` Settings: load ${job.input_settings.load} MW, storage ${job.input_settings.storage}, curtailment ${job.input_settings.curtailment}%, DLR ${job.input_settings.dlr}%. Shown until a live run returns.`));
+    ampCaption.textContent = `Bars: real part of each recorded basis-state amplitude (${job.result.states[0].length} = 2^${nQubits} states). Highlighted: oracle-marked indices (${job.marked_indices.length}). Dim: padding states beyond the ${job.space?.N ?? '?'} plans. Curve: recorded p(marked) per iteration.`;
     range.max = steps.length - 1; shown = null; blochShown = null; buildCells(); renderCounts();
     notes.replaceChildren(...[job.scope, job.result.simulation_note].filter(Boolean).map(t => el('small', '', t)));
     setStep(Math.min(stepIndex, steps.length - 1), false);
@@ -296,7 +296,7 @@ export function mountQuantumViews(container, { getLiveJob = () => null, recorded
     else if (active === 'photonic') drawPhoto(t);
   }
   frame = requestAnimationFrame(loop);
-  if (recordedJob) setJob(recordedJob, 'recorded'); else source.textContent = 'Recorded simulator run unavailable; run the simulator to fill these views.';
+  if (recordedJob) setJob(recordedJob, 'recorded'); else source.textContent = 'Recorded native PsiQDK run unavailable; run PsiQDK to populate these views.';
   return {
     setJob, setStep: i => setStep(i, false), setTab,
     get state() { return job && { stepIndex, steps: steps.length, step: steps[stepIndex], bloch: blochVectors(steps[stepIndex].vec), source: liveRef ? 'live' : 'recorded' }; },

@@ -173,7 +173,7 @@ async function runQuantum(){
   if(searchSignature(settings)!==lastQuantumSettings){$('#quantum-status').textContent='Simulation was for earlier inputs — run again';$('#quantum-engine-tag').textContent='RESULT STALE';}
   $('.quantum-steps small').textContent=`Results returned by the simulator · job ${data.job_id.slice(0,8)} · ${Object.entries(data.result.versions).map(([k,v])=>`${k} ${v}`).join(' · ')}`;
  }catch(error){$('#quantum-status').textContent='The simulator did not complete';$('#quantum-summary').textContent=error.name==='AbortError'?'The job timed out. No fallback result was used.':error.message;$('#quantum-engine-tag').textContent='UNAVAILABLE';}
- finally{clearTimeout(timeout);quantumPending=false;quantumComputer.running(false);$('#run-quantum').disabled=false;$('#run-quantum').textContent='▶ Run quantum simulator (PsiQDK)';}
+ finally{clearTimeout(timeout);quantumPending=false;quantumComputer.running(false);$('#run-quantum').disabled=false;$('#run-quantum').textContent='▶ Run PsiQDK';}
 }
 async function init(){
  try{
@@ -214,8 +214,8 @@ let vmRecordedJob=null,vmViews=null;
  if(!quantumComputer)return;
  try{const r=await fetch(`${import.meta.env.BASE_URL}data/native_job.json`);if(r.ok){const j=await r.json();if(j.backend==='psiqdk'&&j.result?.numpy_crosscheck_ok&&j.result.states?.length)vmRecordedJob=j;}}catch{}
  if(vmRecordedJob&&!lastQuantum){
-  quantumComputer.result(vmRecordedJob,'recorded');$('#view-quantum').disabled=false;
-  $('.quantum-steps small').textContent=`Recorded simulator run · job ${vmRecordedJob.job_id.slice(0,8)} · ${vmRecordedJob.completed_utc.replace(/\.\d+/,'').replace('+00:00','Z')} · Run the simulator for a live job`;
+  quantumComputer.result(vmRecordedJob,'recorded');quantumComputer.step(0);$('#view-quantum').disabled=false;$('#view-quantum').classList.add('active');$('#view-grid').classList.remove('active');$('.quantum-steps').hidden=false;
+  $('.quantum-steps small').textContent=`Recorded native PsiQDK run · job ${vmRecordedJob.job_id.slice(0,8)} · ${vmRecordedJob.completed_utc.replace(/\.\d+/,'').replace('+00:00','Z')} · Run the simulator for a live job`;
  }
  // The existing "Returned states" handler needs a live job; with none yet, show the recorded native run.
  $('#view-quantum').addEventListener('click',()=>{if(lastQuantum||!vmRecordedJob)return;quantumComputer.step(0);document.querySelectorAll('[data-quantum-step]').forEach((n,i)=>n.classList.toggle('active',i===0));$('.quantum-steps').hidden=false;$('#view-quantum').classList.add('active');$('#view-grid').classList.remove('active');});
