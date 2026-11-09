@@ -82,7 +82,8 @@ export function mountQuantumViews(container, { getLiveJob = () => null, recorded
   // --- amplitude pane ---
   const ampCanvas = el('canvas', 'vmq-canvas'); const ampFacts = el('div', 'vmq-facts');
   const pCanvas = el('canvas', 'vmq-spark');
-  panes.amp.append(ampCanvas, ampFacts, pCanvas, el('small', 'vmq-caption', 'Bars: real part of each recorded basis-state amplitude (128 = 2^7 states). Highlighted: oracle-marked indices. Dim: padding states beyond the plan list. Curve: recorded p(marked) per iteration.'));
+  const ampCaption = el('small', 'vmq-caption');
+  panes.amp.append(ampCanvas, ampFacts, pCanvas, ampCaption);
   // --- bloch pane ---
   const blochWrap = el('div', 'vmq-bloch-wrap'); const blochGrid = el('div', 'vmq-bloch-grid');
   const blochCaption = el('small', 'vmq-caption', 'Each arrow is one qubit\'s Bloch vector, from a partial trace of the recorded statevector (computed in the browser). Length 1 = a pure, unentangled qubit; shorter than 1 = that qubit is entangled with (or mixed by) the others.');
@@ -264,6 +265,7 @@ export function mountQuantumViews(container, { getLiveJob = () => null, recorded
     source.replaceChildren(el('span', `vmq-badge ${kind}`, kind === 'live' ? 'LIVE PsiQDK RUN' : 'RECORDED NATIVE PsiQDK RUN'),
       document.createTextNode(` job ${job.job_id.slice(0, 8)} · completed ${when} · ${nQubits} qubits · ${job.result.iterations} iterations · psiqdk ${job.result.versions?.psiqdk ?? '?'}`));
     if (kind !== 'live') source.append(el('small', '', ` Settings: load ${job.input_settings.load} MW, storage ${job.input_settings.storage}, curtailment ${job.input_settings.curtailment}%, DLR ${job.input_settings.dlr}%. Shown until a live run returns.`));
+    ampCaption.textContent = `Bars: real part of each recorded basis-state amplitude (${job.result.states[0].length} = 2^${nQubits} states). Highlighted: oracle-marked indices (${job.marked_indices.length}). Dim: padding states beyond the ${job.space?.N ?? '?'} plans. Curve: recorded p(marked) per iteration.`;
     range.max = steps.length - 1; shown = null; blochShown = null; buildCells(); renderCounts();
     notes.replaceChildren(...[job.scope, job.result.simulation_note].filter(Boolean).map(t => el('small', '', t)));
     setStep(Math.min(stepIndex, steps.length - 1), false);
