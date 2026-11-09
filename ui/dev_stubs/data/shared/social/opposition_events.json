@@ -1,0 +1,46 @@
+{
+ "events": [
+  {
+   "date": "2026-05-15",
+   "title": "STUB opposition event 5",
+   "url": "https://example.invalid/stub",
+   "source": "STUB outlet",
+   "site": "alviso"
+  },
+  {
+   "date": "2026-06-15",
+   "title": "STUB opposition event 6",
+   "url": "https://example.invalid/stub",
+   "source": "STUB outlet",
+   "site": "alviso"
+  },
+  {
+   "date": "2026-07-15",
+   "title": "STUB opposition event 7",
+   "url": "https://example.invalid/stub",
+   "source": "STUB outlet",
+   "site": "alviso"
+  },
+  {
+   "date": "2026-08-15",
+   "title": "STUB opposition event 8",
+   "url": "https://example.invalid/stub",
+   "source": "STUB outlet",
+   "site": "alviso"
+  },
+  {
+   "date": "2026-09-15",
+   "title": "STUB opposition event 9",
+   "url": "https://example.invalid/stub",
+   "source": "STUB outlet",
+   "site": "alviso"
+  },
+  {
+   "date": "2026-10-15",
+   "title": "STUB opposition event 10",
+   "url": "https://example.invalid/stub",
+   "source": "STUB outlet",
+   "site": "alviso"
+  }
+ ]
+}
