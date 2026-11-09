@@ -12,6 +12,28 @@ QSiteProof is a proposed one-day hack prototype that combines PsiQDK search, pan
 
 **Status:** Working prototype. The pipeline stages (OpenStreetMap grid + CAISO data, PsiQDK Grover search with a NumPy fallback, pandapower power flow with N-1, Lean 4 certificate with a Python mirror when Lean is not installed) run on the North San Jose / Alviso site; each run labels which engine actually ran. **Current results live in [STATUS.md](STATUS.md)**: since the firm N-1 transformer check (PR #21), 150 MW at transmission is RED (about 19.9 MW firm headroom per candidate substation); the YES-IF path is distribution edge sites plus curtailment. All grid numbers are conditional screening estimates from PG&E GRIP 2028 forecasts and assumed ratings, not utility approvals.
 
+## Demo (SF x MIT Energy Hack Day, 8 Nov 2026)
+
+**Live app:** https://q-grid-quantum-lean-for-grid-site-o.vercel.app/ (builds from `main`). Team demo link with native PsiQDK on Linux: https://implementation-instrumental-hardware-mechanical.trycloudflare.com/ (up while the team machine runs).
+**2-minute script:** [docs/DEMO_2MIN.md](docs/DEMO_2MIN.md). **One command, offline:** `./run.sh demo` or `.\run.ps1 demo`.
+
+The app walks four steps: **Define** the site (North San Jose / Alviso by default, plus NOVVA cases in Colorado Springs, West Jordan UT and Mesa AZ, or a US address), **Find** plans with a Grover search on the PsiQDK simulator, **Check** them on a pandapower model of the local grid including transformer failure (N-1), and **Prove** them against 11 rules in Lean 4. The output is one RED / AMBER / GREEN answer, what it means, and the "what if" conditions that would make the project work.
+
+| Result for 150 MW at Alviso by Jun 2028 | Value |
+|---|---|
+| Verdict | **RED: grid too small** at transmission; firm N-1 capacity 45.2 MW short even with 50 MW storage + 15 MW curtailment (decided by Lean 4 on Linux) |
+| Available now | ~39.8 MW firm at the planned substations; 38.7 MW across 9 distribution edge sites (every transformer bank within its cap) |
+| With flexibility | 47.6 MW if the site accepts curtailment in ~2% of hours |
+| If load grows 20% beyond the utility forecast | 7.4 MW |
+| Edge-site loop | RED (Nortech bank full) -> RED (Lawrence bank 1 full) -> GREEN 16 MW |
+| Nature & climate | RED: Don Edwards SF Bay Wildlife Refuge 0.28 km, wetlands, very high river/coastal flood (FEMA NRI), FEMA zone AE |
+| Socioeconomic | AMBER: high power prices, mid environmental-justice burden, modest jobs |
+| Community | AMBER: consent 0.47; engagement simulation (MiroFish-style) S0 0.47 -> all levers 0.67 |
+
+Data layers (all cached in the repo, sources in each folder's SOURCES.md): PG&E GRIP grid capacity, OpenStreetMap substations and lines, CAISO prices and stress hours, FEMA flood zones and National Risk Index, CPUC fire districts, SeaBridgeAI AlphaEarth / Earth Engine land and heat indicators, WDPA protected areas, USFWS wetlands, Census ACS, EIA prices, DOE LEAD energy burden, CalEnviroScreen / Colorado EnviroScreen, public Reddit and Hacker News posts (usernames hashed), local news, a stakeholder influence map and engagement levers. Code by area: `grid/` (snapshot, physics, region adapters for any country), `quantum/` (search), `lean/` (rules + certificate), `scenarios/`, `sim/mirofish/`, `viz/webgl/` (the app), `ui/` (decision and 3D pages).
+
+**What we do not claim:** no quantum advantage (Grover runs on a simulator); no utility approval (GREEN covers only the encoded rules over the supplied evidence); ratings outside PG&E data, consent weights and water stress are labelled ASSUMED or unverified.
+
 ## Interactive 3D WebGL explorer
 
 Explore the North San Jose / Alviso network in an interactive [grid-planning workbench](viz/webgl/). Tune load, growth, routing, batteries, curtailment, line ratings, temperature, deadlines, and permitting conditions to see the 3D routes and **GREEN / AMBER / RED** screening verdict change immediately.
