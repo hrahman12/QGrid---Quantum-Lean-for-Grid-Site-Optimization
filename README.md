@@ -36,6 +36,10 @@ Data layers (all cached in the repo, sources in each folder's SOURCES.md): PG&E 
 
 ## Interactive 3D WebGL explorer
 
+**Live native lab: [Open QGrid on Vercel](https://q-grid-quantum-lean-for-grid-site-o-indol.vercel.app/)**
+
+The separate native-lab deployment includes Grover state views, a reduced-qubit Bloch sphere, photonics visuals, actual PsiQDK execution, and an AC grid-physics endpoint. Hosted PsiQDK verified: 7 qubits, 120 plans, 32 shots, independent numerical cross-check passed. Native-lab source: [`l3-native-lab`](https://github.com/hrahman12/QGrid---Quantum-Lean-for-Grid-Site-Optimization/tree/l3-native-lab).
+
 Explore the North San Jose / Alviso network in an interactive [grid-planning workbench](viz/webgl/). Tune load, growth, routing, batteries, curtailment, line ratings, temperature, deadlines, and permitting conditions to see the 3D routes and **GREEN / AMBER / RED** screening verdict change immediately.
 
 ```sh
