@@ -1,0 +1,28 @@
+[
+  {
+    "round": 1,
+    "plan": "osm-way-52612640=75 osm-way-39017429=75 [storage_mw,curtailment_mw]",
+    "verdict": "RED",
+    "blocking_rule": "firm_n1",
+    "blocking_condition": "firm_n1: exceeds firm N-1 capacity of the candidate substations by 45.200 MW; closing it needs 45.200 MW more relief > 0.000 MW negotiable levers available",
+    "evals": 1260,
+    "search": "heuristic",
+    "constraints_in": []
+  },
+  {
+    "round": 2,
+    "plan": "osm-way-52612640=75 osm-way-39017429=75 [storage_mw,curtailment_mw]",
+    "verdict": "RED",
+    "blocking_rule": "firm_n1",
+    "blocking_condition": "firm_n1: exceeds firm N-1 capacity of the candidate substations by 45.200 MW; closing it needs 45.200 MW more relief > 0.000 MW negotiable levers available",
+    "evals": 1260,
+    "search": "heuristic",
+    "constraints_in": [
+      {
+        "rule": "firm_n1",
+        "detail": "exceeds firm N-1 capacity of the candidate substations by 45.200 MW; closing it needs 45.200 MW more relief > 0.000 MW negotiable levers available"
+      }
+    ],
+    "stopped": "stalled: constraint already applied"
+  }
+]

@@ -1,0 +1,189 @@
+{
+  "site": {
+    "id": "nsj-alviso-150-edge",
+    "name": "Alviso edge-site portfolio (16.0 MW as 0.5-10 MW sites at PG&E distribution)",
+    "lat": 37.4265,
+    "lon": -121.975,
+    "requested_mw": 16.0,
+    "deadline": "2028-06-30",
+    "iso": "CAISO"
+  },
+  "naive_feeder_capacity_mw": 376.0,
+  "bank_capacity_mw_0pct": 38.79,
+  "bank_capacity_mw_by_curtailment_pct": {
+    "0": 38.79,
+    "1": 40.73,
+    "2": 47.59,
+    "5": 66.16,
+    "10": 90.6
+  },
+  "rounds": [
+    {
+      "round": 1,
+      "constraints_in": 1,
+      "method": "heuristic",
+      "evals": 128,
+      "edge_sites": [
+        [
+          "NORTECH 2106",
+          4.0
+        ],
+        [
+          "NORTECH 2107",
+          4.0
+        ],
+        [
+          "NORTECH 2109",
+          4.0
+        ],
+        [
+          "NORTECH 2110",
+          4.0
+        ]
+      ],
+      "flex": {
+        "dlr": false,
+        "storage_mw": 0.0,
+        "curtailment_mw": 0.0,
+        "reconductor": false
+      },
+      "physics": {
+        "converged": true,
+        "max_line_loading_pct": 66.0,
+        "n1_pass": true
+      },
+      "l3_certificate": "GREEN",
+      "bank_rule": {
+        "name": "bank_cap",
+        "pass": false,
+        "kind": "hard",
+        "detail": "NORTECH BANK 2 (0824602) carries 8.0 MW on NORTECH 2106, NORTECH 2107 > GRIP cap 0.0 MW at 0% curtailment; feeder hosting is not additive (+1 more bank(s) over cap)",
+        "limits": {}
+      },
+      "verdict": "RED",
+      "blocking": "bank_cap: NORTECH BANK 2 (0824602) carries 8.0 MW on NORTECH 2106, NORTECH 2107 > GRIP cap 0.0 MW at 0% curtailment; feeder hosting is not additive (+1 more bank(s) over cap)"
+    },
+    {
+      "round": 2,
+      "constraints_in": 2,
+      "method": "heuristic",
+      "evals": 128,
+      "edge_sites": [
+        [
+          "LAWRENCE 1102",
+          4.0
+        ],
+        [
+          "LAWRENCE 1103",
+          4.0
+        ],
+        [
+          "LAWRENCE 1108",
+          8.0
+        ]
+      ],
+      "flex": {
+        "dlr": false,
+        "storage_mw": 0.0,
+        "curtailment_mw": 0.0,
+        "reconductor": false
+      },
+      "physics": {
+        "converged": true,
+        "max_line_loading_pct": 66.0,
+        "n1_pass": true
+      },
+      "l3_certificate": "GREEN",
+      "bank_rule": {
+        "name": "bank_cap",
+        "pass": false,
+        "kind": "hard",
+        "detail": "LAWRENCE BANK 1 (0834201) carries 8.0 MW on LAWRENCE 1102, LAWRENCE 1103 > GRIP cap 0.0 MW at 0% curtailment; feeder hosting is not additive",
+        "limits": {}
+      },
+      "verdict": "RED",
+      "blocking": "bank_cap: LAWRENCE BANK 1 (0834201) carries 8.0 MW on LAWRENCE 1102, LAWRENCE 1103 > GRIP cap 0.0 MW at 0% curtailment; feeder hosting is not additive"
+    },
+    {
+      "round": 3,
+      "constraints_in": 3,
+      "method": "heuristic",
+      "evals": 192,
+      "edge_sites": [
+        [
+          "LAWRENCE 1108",
+          8.0
+        ],
+        [
+          "LAWRENCE 1110",
+          4.0
+        ],
+        [
+          "LAWRENCE 1112",
+          4.0
+        ]
+      ],
+      "flex": {
+        "dlr": false,
+        "storage_mw": 0.0,
+        "curtailment_mw": 0.0,
+        "reconductor": false
+      },
+      "physics": {
+        "converged": true,
+        "max_line_loading_pct": 66.0,
+        "n1_pass": true
+      },
+      "l3_certificate": "GREEN",
+      "bank_rule": {
+        "name": "bank_cap",
+        "pass": true,
+        "kind": "hard",
+        "detail": "every transformer bank within its GRIP cap at 0% curtailment"
+      },
+      "verdict": "GREEN",
+      "blocking": null
+    }
+  ],
+  "final": {
+    "round": 3,
+    "constraints_in": 3,
+    "method": "heuristic",
+    "evals": 192,
+    "edge_sites": [
+      [
+        "LAWRENCE 1108",
+        8.0
+      ],
+      [
+        "LAWRENCE 1110",
+        4.0
+      ],
+      [
+        "LAWRENCE 1112",
+        4.0
+      ]
+    ],
+    "flex": {
+      "dlr": false,
+      "storage_mw": 0.0,
+      "curtailment_mw": 0.0,
+      "reconductor": false
+    },
+    "physics": {
+      "converged": true,
+      "max_line_loading_pct": 66.0,
+      "n1_pass": true
+    },
+    "l3_certificate": "GREEN",
+    "bank_rule": {
+      "name": "bank_cap",
+      "pass": true,
+      "kind": "hard",
+      "detail": "every transformer bank within its GRIP cap at 0% curtailment"
+    },
+    "verdict": "GREEN",
+    "blocking": null
+  },
+  "note": "Hannah's propose()/certify() unchanged; bank rule from data/l2/l3_inputs.json (GRIP). Directional; not a PG&E approval."
+}

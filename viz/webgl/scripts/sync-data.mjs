@@ -17,11 +17,29 @@ run.quantum = {
   honesty: q.honesty,
 };
 run.flexibility = await read('data/l2/flex_headroom.json');
+// The archived keys above stay as the superseded 150 MW record the UI presents; the latest pipeline run sits beside them.
+run.grid_snapshot = await read('docs/current_run/grid_snapshot.json');
+run.current_run = {};
+for (const key of ['site', 'candidate_plan', 'physics_result', 'certificate', 'sources', 'rounds']) {
+  run.current_run[key] = await read(`docs/current_run/${key}.json`);
+}
+run.scenarios = { edge: await read('docs/current_run/edge_alviso.json'), growth: await read('docs/current_run/growth_alviso.json') };
+run.risk_layers = {
+  nature: await read('data/shared/nature/alviso.json'),
+  site_risk: await read('data/l2/site_risk.json'),
+  socioeconomic: await read('data/shared/socioeconomic/alviso.json'),
+  consent: await read('data/shared/socio/alviso.json'),
+  social: Object.fromEntries(await Promise.all(['social_summary', 'opposition_events', 'stakeholders', 'engagement_levers']
+    .map(async (k) => [k, await read(`data/shared/social/${k}.json`)]))),
+  mirofish: await read('sim/mirofish/results/summary.json'),
+};
 run.provenance = {
   geometry: 'OpenStreetMap contributors, ODbL; cached in data/l1.',
   planning: 'Transmission topology and substation headroom are planning assumptions from the saved run, not utility ratings or approved connections.',
   certificate: 'The saved Lean certificate is historical and superseded by the firm N-1 review. Scenario sliders do not execute pandapower or Lean. Run PsiQDK executes a new native simulation through the server endpoint.',
-  source_paths: ['docs/demo_run/', 'data/l2/flex_headroom.json', 'data/l1/osm_power_lines_alviso.geojson', 'viz/data/terrain/heightmap.json'],
+  source_paths: ['docs/demo_run/', 'docs/current_run/', 'data/l2/flex_headroom.json', 'data/l2/site_risk.json',
+    'data/shared/nature/alviso.json', 'data/shared/socioeconomic/alviso.json', 'data/shared/socio/alviso.json',
+    'data/shared/social/', 'sim/mirofish/results/summary.json', 'data/l1/osm_power_lines_alviso.geojson', 'viz/data/terrain/heightmap.json'],
 };
 const { lat, lon } = run.site;
 const xy = (p) => [(p[0] - lon) * 111.32 * Math.cos(lat * Math.PI / 180), (p[1] - lat) * 111.32];
