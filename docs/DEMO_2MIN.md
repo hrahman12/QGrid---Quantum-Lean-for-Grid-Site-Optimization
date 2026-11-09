@@ -1,31 +1,47 @@
 # QSiteProof: 2-minute demo script
 
-Setup (before you go on stage, 1 minute):
-1. `git pull` then `.\run.ps1 demo` (Windows) or `./run.sh demo` (Mac/Linux). All steps run offline.
-2. `cd ui; python -m http.server 8765` and open http://localhost:8765 full screen (3D view).
-3. Keep a terminal with `python scenarios/edge_alviso.py` output ready (or report/summary.html in a second tab).
-4. Reset the 3D page: curtailment 0%, +20% toggle off.
+Audience: non-technical decision-makers (investors, developers, policymakers).
+Screen: the 3D page (ui/index.html, or the team's trycloudflare link). Backup: ui/decision.html (opens offline, double-click).
+Before you start: page at the top, curtailment 0%, "+20% growth" off.
 
-## 0:00-0:20 The problem (3D view, top)
-"About $3 trillion is going into data centers by 2030, and $130 billion of US projects stalled in a single quarter this year. The bottleneck isn't money, it's power and consent. A developer asks: can I get **150 MW** here in North San Jose, **how much, and how soon**?"
-Point at the site beacon (150 MW, FEMA flood zone AE) and the substation pillars.
+## 0:00-0:15 The question
+"$3 trillion is going into data centers by 2030, and $130 billion of US projects stalled in a single quarter this year. The bottleneck isn't money: it's power, permits and consent.
+A developer asks us: **can I get 150 megawatts here, in North San Jose, by mid-2028?**"
 
-## 0:20-0:45 The honest no (3D view, left panel)
-"Our pipeline finds a plan, checks it with a real power-flow simulation, and certifies it against written rules. For 150 MW at transmission the answer today is **RED**: firm N-1 capacity is **45 MW short**, even with 50 MW of batteries and 15 MW of curtailment. Most tools would have told you yes."
-Point at "150 MW at transmission today: RED · firm_n1". Red pillars = transformers already at 0 MW.
+## 0:15-0:35 The answer, in one light
+Point at the traffic light: **AMBER: yes, if.**
+"Not 150 megawatts today. **38.7 megawatts now**, across 9 smaller edge sites. Here's why, in colors."
+- **Grid power RED**: "the big substations are 45 megawatts short if one transformer fails."
+- **Edge sites GREEN**: "38.7 megawatts fit today on the local grid."
+- **Flexibility AMBER**: "accept a few hours of curtailment a year and it's 47.6."
+- **Future load RED**: "if demand grows 20% more than the utility planned, it drops to 7.4."
+- **Nature & climate RED**: "a wildlife refuge 300 meters away, wetlands, very high flood risk."
+- **Community AMBER** and **Socioeconomic AMBER**: "negotiable, with conditions."
+- **Timeline RED**: "new transmission takes 7 to 10 years."
 
-## 0:45-1:15 The agent learns (terminal: edge loop)
-"So it looks for the yes-if at distribution, using PG&E's own grid data. Round 1: it picks Nortech feeders; the bank they share is already full, **RED**. That becomes a constraint. Round 2: Lawrence bank 1 is full, **RED**. Round 3: **GREEN, 16 MW** on three Lawrence feeders. Feeders look like 376 MW of capacity; the transformers above them only have 38.8. The agent learns that limit round by round."
+## 0:35-1:00 How it decided (the agent learns)
+Scroll to the edge-site loop, press Play.
+"Our agent proposes a plan, a power-grid simulation checks it, and a proof engine certifies it against written rules. Round 1: RED, that transformer is already full. Round 2: RED again. Round 3: **GREEN, 16 megawatts.** Every 'no' becomes a rule for the next try. On paper the feeders look like 430 megawatts; the transformers above them only have 39. The agent learns that by itself."
 
-## 1:15-1:40 The moving landscape (3D view, controls)
-Click curtailment **2%**: "Accept curtailment in about 2% of hours, 98% availability, and it's **47.6 MW**." Click **0%** again, toggle **+20% growth**: "But utility forecasts were made before AI data centers. If load grows 20% more, it drops to **7.4 MW**. Same site, same day."
-Mention consent: "Consent layer: AMBER. San Jose's draft standards and local opposition are negotiable: a community benefit agreement, recycled-water cooling, clean supply, heat reuse."
+## 1:00-1:20 The moving landscape
+Click curtailment **2%**: "Accept 2% curtailment: 47.6 megawatts."
+Back to **0%**, turn on **+20% growth**: "But utility plans were written before AI data centers. If load grows 20% more: 7.4 megawatts. Same site, same day. Decisions need to be re-checked, not assumed."
 
-## 1:40-2:00 Any country, and what's real
-"It works for any country: Frankfurt comes back **AMBER, yes if 25 MW of storage is committed**; Johor, Malaysia **AMBER, yes if 5 MW of curtailment is committed**.
-Find with a Grover search, check with power flow, prove with Lean rules. Every verdict says which engine ran and which numbers are assumptions. We never claim utility approval, only a defensible yes, yes-if, or no."
+## 1:20-1:45 What makes it a YES
+Scroll to the scenarios / "What makes it a YES".
+"We simulated how the community, the city and the utility react to different plans. Baseline: AMBER, most groups opposed. A community benefit agreement helps residents; recycled-water cooling and heat reuse help environmental groups; starting smaller at the edge brings the utility on board. **All of it together reaches GREEN-leaning, with no group opposed.** No single lever does it alone."
 
-## If asked
-- Quantum: Grover search runs on the PsiQDK simulator (verified on Linux with psiqdk 2.5.0: e.g. a 30 MW request marks 36 feasible plans on 10 qubits). At 150 MW no plan passes firm N-1, so there is nothing for Grover to find and the run is honestly labelled classical. No quantum advantage claimed at this size.
-- Lean: Lean 4.35 builds on our Linux box (lake build, 42 Lean tests pass) and the certificate there says "certificate engine: Lean 4". Windows laptops run the Python mirror of the same rules and say so. Lean decides the core 7 rules + verdict theorems; bank / storage / firm N-1 / evidence binding are being ported (orch-lean-rules).
-- Data: PG&E GRIP 2028 forecast (directional), OSM substations, CAISO NP15, FEMA, Data Center Watch; ratings not from GRIP are labelled ASSUMED.
+## 1:45-2:00 Close
+"It works anywhere: Frankfurt and Johor come back 'yes, if' too. QSiteProof turns grid, climate, nature, economic and community data into one honest answer: **yes, yes-if, or no**, and exactly what it takes to get to yes. It's a screening tool, not a utility approval, and it never claims what it didn't check."
+
+## If asked (one line each)
+- Data: PG&E's public grid capacity data, OpenStreetMap substations, CAISO prices, FEMA, US Fish & Wildlife, protected-area data, satellite land-change data (AlphaEarth), Census, EIA, CalEnviroScreen, public social posts and local news.
+- Quantum: the search runs on a quantum simulator (PsiQDK); no quantum advantage claimed. At 150 MW no plan is feasible, so it runs classical, and says so.
+- Proof: Lean 4 checks all 11 rules on our Linux machine; laptops run the same rules in Python and the screen says which ran.
+- Simulation: stakeholder agents are a scenario tool, not a forecast (MiroFish-style; full MiroFish needs a Zep key).
+- Weak spots we label: water stress is unverified; ratings outside PG&E data are assumptions; consent weights are judgments.
+
+## Setup (1 minute before)
+1. `git pull`, then `.\run.ps1 demo` (Windows) or `./run.sh demo` (Mac/Linux). Everything runs offline.
+2. Open the 3D page (the team link, or `cd ui; python -m http.server 8765` then http://localhost:8765), full screen.
+3. Backup: double-click ui/decision.html.
