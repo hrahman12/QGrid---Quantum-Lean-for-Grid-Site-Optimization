@@ -51,6 +51,69 @@ export function groverSteps(job) {
   return steps;
 }
 
+// The register states are pure. Local mixedness therefore witnesses entanglement
+// with the rest of the register, not classical mixture introduced by measurement.
+export function quantumOutcomeSummary(job) {
+  const steps = groverSteps(job), first = job.result.states[0], final = job.result.states.at(-1);
+  const marked = new Set(job.marked_indices);
+  const probability = state => state.reduce((sum, [re, im], i) => sum + (marked.has(i) ? re * re + im * im : 0), 0);
+  const initialProbability = probability(first), finalProbability = probability(final);
+  const frames = steps.map(s => {
+    const mixedness = blochVectors(s.vec).map(v => Math.max(0, Math.min(1, 1 - v.r * v.r)));
+    return { label: s.label, mixedness, mean: mixedness.reduce((a, b) => a + b, 0) / mixedness.length };
+  });
+  const peak = frames.reduce((a, b) => b.mean > a.mean ? b : a);
+  return { basisStates: first.length, plans: job.space.N,
+    support: first.filter(([r, i]) => r * r + i * i > 1e-12).length,
+    initialProbability, finalProbability, probabilityBoost: initialProbability > 0 ? finalProbability / initialProbability : null,
+    peak, shots: job.result.shots,
+    markedShots: Object.entries(job.measurements).reduce((sum, [i, count]) => sum + (marked.has(Number(i)) ? count : 0), 0) };
+}
+
+function renderQuantumStory(host, job) {
+  const data = quantumOutcomeSummary(job), pct = n => `${(n * 100).toFixed(1)}%`;
+  const flow = el('div', 'qstory-flow');
+  const ns = 'http://www.w3.org/2000/svg';
+  function picture() { const svg = document.createElementNS(ns, 'svg'); svg.setAttribute('viewBox', '0 0 180 80'); svg.setAttribute('aria-hidden', 'true'); return svg; }
+  function shape(svg, tag, attrs, text) { const n = document.createElementNS(ns, tag); for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v); if (text !== undefined) n.textContent = text; svg.append(n); return n; }
+  function panel(number, title, svg, value, note) {
+    const card = el('div', 'qstory-stage'); card.append(el('small', '', number), el('b', '', title), svg, el('strong', '', value), el('p', '', note)); flow.append(card);
+  }
+  const dots = picture(), cols = Math.min(16, Math.ceil(Math.sqrt(data.basisStates * 2))), rows = Math.ceil(data.basisStates / cols);
+  const marked = new Set(job.marked_indices);
+  for (let i = 0; i < data.basisStates; i++) shape(dots, 'circle', { cx: 8 + (i % cols) * 164 / Math.max(1, cols - 1), cy: 8 + Math.floor(i / cols) * 64 / Math.max(1, rows - 1), r: 2.8, fill: i >= data.plans ? '#35485e' : marked.has(i) ? '#ffbd4c' : '#46d9ec' });
+  panel('01', 'Superposition', dots, `${data.support} states`, `${data.peak.mixedness.length} qubits · ${data.plans} plans carried as amplitudes; ${data.basisStates - data.plans} padding slots.`);
+  const correlations = picture(), n = data.peak.mixedness.length;
+  data.peak.mixedness.forEach((m, k) => {
+    const x = 12 + k * 156 / Math.max(1, n - 1);
+    shape(correlations, 'rect', { x: x - 6, y: 8, width: 12, height: 48, rx: 3, fill: '#233c55' });
+    shape(correlations, 'rect', { x: x - 6, y: 56 - 48 * m, width: 12, height: Math.max(.5, 48 * m), rx: 3, fill: '#ffbd4c' });
+    shape(correlations, 'text', { x, y: 73, fill: '#8ca5c3', 'font-size': 10, 'text-anchor': 'middle' }, `q${k}`);
+  });
+  panel('02', 'Entanglement', correlations, pct(data.peak.mean), 'Peak average qubit mixedness in the joint pure state. Taller bars = more mixed locally.');
+  const measured = picture(), outcomes = Object.entries(job.measurements).sort((a, b) => b[1] - a[1]).slice(0, 4);
+  outcomes.forEach(([index, count], k) => {
+    const y = 6 + k * 18;
+    shape(measured, 'text', { x: 2, y: y + 10, fill: '#9fb6d1', 'font-size': 10 }, `|${index}⟩`);
+    shape(measured, 'rect', { x: 36, y, width: 112, height: 12, rx: 2, fill: '#233c55' });
+    shape(measured, 'rect', { x: 36, y, width: 112 * count / data.shots, height: 12, rx: 2, fill: marked.has(Number(index)) ? '#47dca2' : '#6788ac' });
+    shape(measured, 'text', { x: 177, y: y + 10, fill: '#c9d8ea', 'font-size': 11, 'text-anchor': 'end' }, count);
+  });
+  panel('03', 'Measurement', measured, `${data.markedShots}/${data.shots} shots`, 'Observed measurements landing on oracle-marked plans. Each shot returns one result.');
+  const comparison = el('div', 'qstory-comparison');
+  comparison.append(el('b', '', 'Interference changes what we are likely to measure'));
+  for (const [label, value, kind] of [['Before Grover', data.initialProbability, 'before'], ['After Grover', data.finalProbability, 'after']]) {
+    const row = el('div', `qstory-prob ${kind}`), track = el('div', 'qstory-track'), bar = el('i');
+    bar.style.width = `${Math.max(0, Math.min(100, value * 100))}%`; track.append(bar); row.append(el('span', '', label), track, el('strong', '', pct(value))); comparison.append(row);
+  }
+  const boost = data.probabilityBoost === null ? 'No marked candidates in this run' : `${data.probabilityBoost.toFixed(1)}× marked-outcome probability`;
+  comparison.append(el('strong', 'qstory-boost', boost), el('small', '', 'Probability amplification in this SDK run; this is not a measured runtime speedup.'));
+  const method = el('details', 'qstory-method'), source = el('a', '', 'Reduced-state purity reference');
+  source.href = 'https://arxiv.org/abs/quant-ph/0305094'; source.target = '_blank'; source.rel = 'noreferrer';
+  method.append(el('summary', '', 'Key & calculation'), el('p', '', 'Cyan: candidate states. Amber: marked states / local mixedness. Gray: padding or empty space. Green: marked measurements.'), el('p', '', `Entanglement bars: 1 − |r|² for each qubit, where r is computed by partial trace. Shown frame: ${data.peak.label}. The scalar is their mean (0 for a product state; 1 when every single-qubit reduced state is maximally mixed). This requires the full register state to be pure.`), source, el('p', '', 'The before/after probabilities are sums of squared native amplitudes on the marked indices. Grover interference produces this amplification; entanglement alone is not evidence of a speed advantage. Marking is a candidate screen, followed by grid physics and formal verification.'));
+  host.replaceChildren(el('h3', '', 'What quantum changed'), flow, comparison, method);
+}
+
 // ---------- DOM ----------
 const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text !== undefined) n.textContent = text; return n; };
 const fmt = (v, d = 4) => (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(d);
@@ -95,7 +158,8 @@ export function mountQuantumViews(container, { getLiveJob = () => null, recorded
   panes.photonic.append(photoLabel, photoCanvas, photoCaption);
   // --- counts pane ---
   const countsList = el('div', 'vmq-counts'); const cross = el('div', 'vmq-cross'); const planLine = el('div', 'vmq-plan');
-  panes.counts.append(countsList, cross, planLine);
+  const quantumStory = el('section', 'vmq-quantum-story');
+  panes.counts.append(countsList, cross, planLine, quantumStory);
 
   let job = null, steps = [], stepIndex = 0, active = 'amp', playing = null, alive = true, frame = 0, liveRef = null;
   let shown = null, target = null, tweenStart = 0, blochShown = null, blochTarget = null, blochFrom = null, ampFrom = null;
@@ -257,6 +321,7 @@ export function mountQuantumViews(container, { getLiveJob = () => null, recorded
       el('small', '', `Independent NumPy statevector vs PsiQDK, per iteration: ${diffs.map((d, i) => `k${i} ${d.toExponential(1)}`).join(' · ')}`));
     const plan = job.plan; const subs = Object.fromEntries((job.space?.candidate_substations || []).map(s => [s.id, s.name]));
     planLine.textContent = plan ? `Selected measured candidate: ${plan.splits.map(s => `${subs[s.substation_id] || s.substation_id} ${s.mw} MW`).join(' + ')} · storage ${plan.flex.storage_mw} MW · curtailment ${plan.flex.curtailment_mw} MW. ${job.status}` : 'No feasible candidate was measured.';
+    renderQuantumStory(quantumStory, job);
   }
   function setJob(value, kind) {
     if (!value?.result?.states?.length) return;

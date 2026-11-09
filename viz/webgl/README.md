@@ -40,3 +40,10 @@ Import the QGrid GitHub repository into Vercel using its repository root. The ro
 The browser search uses the two displayed connection sources in 25% split steps. Battery and curtailment sliders become upper bounds for a discrete search; the returned measured plan may use less and replaces those candidate values only if the search inputs have not changed. Firm transformer caps remain fixed. DLR changes line assumptions, not firm transformer capacity. Reconductoring is passed through as a plan assumption rather than varied by the circuit. Downstream permitting / commitment changes do not invalidate a completed search.
 
 The native-state view uses the actual returned statevector indices and measured histogram. The visual hardware is an illustrative photonic-computer concept.
+
+
+### Graphical quantum summary
+
+The end of card 2's Counts view shows superposition, entanglement, and measurement from the selected native job. The before/after graph compares the sum of marked-state probabilities in `result.states[0]` and the final native state. Its multiplier is an outcome-probability ratio, not measured runtime advantage over a classical solver. Shot counts are shown separately.
+
+For the pure register states returned by the SDK, the entanglement visualization uses each qubit's local mixedness `1 - |r|^2` from its reduced Bloch vector. It displays the returned frame with the greatest mean local mixedness across qubits (Meyer-Wallach global entanglement); the chosen frame is identified under Key & calculation. This metric is zero for product states and one when all single-qubit reduced states are maximally mixed. See [Brennen's interpretation via reduced-state purity](https://arxiv.org/abs/quant-ph/0305094). The probability amplification comes from Grover interference; see [IBM's Grover tutorial](https://learning.quantum.ibm.com/tutorial/grovers-algorithm).
