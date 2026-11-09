@@ -89,3 +89,80 @@ export function whatIf(live, h = headline(live)) {
     out.push({ text: `Firm transmission upgrade adding ~${r1(h.short)} MW, finished before ${live.site.deadline}`, to: 'GREEN', note: 'grid rules; upgrade lead time is ASSUMED' });
   return out.slice(0, 6);
 }
+
+// ===== Selected scenario -> one verdict for the whole page (headline, why, what-if) =====
+import { evaluate, round } from './model.js';
+const SCENARIO_REASON = {
+  capacity: (r) => ['Not enough grid room', `${round(r.total)} MW of headroom for ${round(r.delivered)} MW from the grid`,
+    `The nearby substations have about ${round(r.total)} MW of room in this scenario, less than the ${round(r.delivered)} MW the site would draw.`],
+  thermal: (r) => ['Lines overheat', `${round(r.projectedLoading)}% peak line loading vs a ${r.settings.lineLimit}% limit`,
+    `At peak the power lines would run at about ${round(r.projectedLoading)}% of their limit, above the ${r.settings.lineLimit}% allowed.`],
+  n1: (r) => r.settings.requireN1
+    ? ['Grid too small', `${round(r.n1Capacity)} MW guaranteed now of ${round(r.requested)} MW requested${r.delivered < r.requested - 0.05 ? ` (${round(r.delivered)} MW from the grid)` : ''}`,
+      `If one transformer fails, the nearby substations can only guarantee about ${round(r.n1Capacity)} MW, and this plan needs ${round(r.delivered)} MW from the grid.`]
+    : ['Backup not required', `${round(r.delivered)} MW from the grid with no single-failure backup`, 'This scenario switches off the rule that the site must stay powered if one transformer fails.'],
+  commitment: (r) => ['Needs a signed battery commitment', `${round(r.storage)} MW of battery support not yet committed`,
+    `The plan relies on ${round(r.storage)} MW of battery support, but nobody has committed to provide it yet.`],
+  deadline: (r) => ['Needs more time', `${r.settings.months} months available, the chosen upgrades need ${r.leadMonths}`,
+    `Batteries or line upgrades in this plan take about ${r.leadMonths} months to deliver, but only ${r.settings.months} months are available.`],
+  row: () => ['Needs right-of-way permission', 'Line rebuild without right-of-way permission',
+    'Rebuilding the lines needs permission to work on the land they cross, which is not secured yet.'],
+  flood: () => ['Needs flood protection', 'Flood protection not in place',
+    'The site sits in a FEMA flood zone (AE) and the plan has no flood protection yet.'],
+  penalty: (r) => ['Too much curtailment', `${r.settings.curtailment}% curtailment vs a 10% cap`,
+    `The plan cuts the site's power ${r.settings.curtailment}% of the time in grid emergencies, above the 10% cap assumed acceptable.`],
+};
+const flexParts = (s, r) => [r.storage > 0 && `battery ${round(r.storage)} MW`, s.curtailment > 0 && `curtailment ${s.curtailment}%`,
+  s.dlr > 0 && `line rating +${s.dlr}%`, s.reconductor && 'reconductored lines'].filter(Boolean);
+
+/** Headline + why sentence for the selected scenario; the scenario verdict is the single displayed verdict. */
+export function scenarioHeadline(r) {
+  const s = r.settings, passed = r.checks.filter((c) => c.status === 'GREEN').length;
+  const first = r.checks.find((c) => c.status === 'RED') || r.checks.find((c) => c.status !== 'GREEN');
+  if (!first) {
+    const flex = flexParts(s, r);
+    const assumes = [...flex, s.storageCommitted && r.storage > 0 && 'the battery commitment signed', s.floodProtected && 'flood protection in place',
+      s.reconductor && s.rowPermit && 'right-of-way permission granted'].filter(Boolean);
+    return { verdict: 'GREEN', phrase: flex.length ? 'Fits with flexibility' : 'Fits the grid', why: 'Everything fits', passed, first: null,
+      level: `${round(r.requested)} MW${flex.length ? ` with ${flex.join(', ')}` : ` within ${round(r.n1Capacity)} MW guaranteed`}`,
+      sentence: `All 8 checks pass for ${round(r.requested)} MW${assumes.length ? `, assuming ${assumes.join(', ')}` : ''}.`,
+      meaning: 'The plan passes the encoded rules; it is still a screen, not a utility approval.' };
+  }
+  const [phrase, level, sentence] = SCENARIO_REASON[first.id](r);
+  return { verdict: r.status, phrase, why: phrase, level, sentence, passed, first,
+    meaning: r.status === 'AMBER' ? 'It can work if the listed conditions are met.' : `It cannot connect ${round(r.requested)} MW reliably without the changes below.` };
+}
+
+/** RED/AMBER: levers for the failing checks, each re-evaluated. GREEN: what keeps it green, and what breaks it. */
+export function scenarioWhatIf(r, run) {
+  const s = r.settings, fail = new Set(r.checks.filter((c) => c.status !== 'GREEN').map((c) => c.id));
+  const tryIt = (change) => evaluate({ ...s, ...change }, run);
+  const left = (e) => { const f = e.checks.filter((c) => c.status !== 'GREEN'); return f.length ? `still unmet: ${f.map((c) => c.name).join(', ')}` : 'all 8 checks pass'; };
+  const items = [];
+  if (r.status === 'GREEN') {
+    const dep = (cond, text, change) => { if (!cond) return; const e = tryIt(change); if (e.status !== 'GREEN') items.push({ text, to: e.status, if: true, note: `if not: ${left(e)}` }); };
+    dep(r.storage > 0, `Battery support of ${round(r.storage)} MW gets built`, { storage: 0 });
+    dep(r.storage > 0 && s.storageCommitted, 'The battery commitment is signed', { storageCommitted: false });
+    dep(s.curtailment > 0, `The site accepts ${s.curtailment}% curtailment in grid emergencies`, { curtailment: 0 });
+    dep(s.dlr > 0, `Line rating upgrade of +${s.dlr}% is installed`, { dlr: 0 });
+    dep(s.reconductor && s.rowPermit, 'Right-of-way permission is granted', { rowPermit: false });
+    dep(s.floodProtected, 'Flood protection is built', { floodProtected: false });
+    dep(r.requested < 150, `The request stays at ${round(r.requested)} MW, not the full 150 MW`, { load: 150, growth: 0 });
+    return { title: 'WHAT THIS DEPENDS ON', items: items.slice(0, 6) };
+  }
+  const lever = (cond, text, change) => { if (cond) { const e = tryIt(change); items.push({ text, to: e.status, note: left(e) }); } };
+  const gridFail = fail.has('capacity') || fail.has('thermal') || (fail.has('n1') && s.requireN1);
+  const F = { load: 100, storage: 60, curtailment: 10, dlr: 15, split: 50 }; // the Flexible preset's levers
+  lever(gridFail, `Phase it: start with the ${round(r.n1Capacity)} MW the grid can guarantee now`, { load: r.n1Capacity, growth: 0, split: 50 });
+  lever(gridFail, `Add flexibility: ${F.storage} MW battery, ${F.curtailment}% curtailment, +${F.dlr}% line rating`,
+    { storage: Math.max(s.storage, F.storage), curtailment: Math.max(s.curtailment, F.curtailment), dlr: Math.max(s.dlr, F.dlr), split: F.split, months: Math.max(s.months, 18) });
+  lever(gridFail && r.requested > F.load, `Shrink to ${F.load} MW and add that flexibility`, { ...F, growth: 0, months: Math.max(s.months, 18) });
+  lever(fail.has('capacity') || fail.has('thermal'), 'Upgrade the lines: +30% rating and reconductoring', { dlr: 30, reconductor: true, rowPermit: true, months: Math.max(s.months, 36) });
+  lever(fail.has('commitment'), 'Sign the battery commitment', { storageCommitted: true });
+  lever(fail.has('deadline'), `Allow ${r.leadMonths} months instead of ${s.months}`, { months: r.leadMonths });
+  lever(fail.has('row'), 'Secure right-of-way permission', { rowPermit: true });
+  lever(fail.has('flood'), 'Build flood protection', { floodProtected: true });
+  lever(fail.has('penalty'), 'Keep curtailment at or below 10%', { curtailment: 10 });
+  lever(fail.has('n1') && !s.requireN1, 'Require single-failure backup again', { requireN1: true });
+  return { title: 'WHAT IF', items: items.slice(0, 6) };
+}
