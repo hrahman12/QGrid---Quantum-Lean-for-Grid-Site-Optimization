@@ -23,9 +23,12 @@ function render(){
   const input=document.getElementById(key); if(input.type==='checkbox') input.checked=value; else input.value=value;
   if(input.type==='range'){input.style.setProperty('--fill',`${(Number(value)-input.min)/(input.max-input.min)*100}%`);input.setAttribute('aria-valuetext',`${value}${units[key]||''}`);document.querySelector(`[data-output="${key}"]`).textContent=`${value}${units[key]||''}`;}
  }
- for(const b of document.querySelectorAll('[data-preset]')){const p=PRESETS[b.dataset.preset];const on=Object.keys(DEFAULTS).every(k=>p[k]===settings[k]);b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on));}
+ let active=null;
+ for(const b of document.querySelectorAll('[data-preset]')){const p=PRESETS[b.dataset.preset];const on=Object.keys(DEFAULTS).every(k=>p[k]===settings[k]);b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on));if(on)active=b;}
  const passed=result.checks.filter(c=>c.status==='GREEN').length;
- $('#verdict-scenario').textContent=`Alviso scenario sliders: ${result.status==='AMBER'?'YELLOW':result.status} — ${passed} / 8 screens pass (browser preview, not the pipeline result).`;
+ const name=active?`'${active.textContent}'`:'(custom)';
+ $('#verdict-scenario').textContent=`Alviso scenario ${name}: ${result.status} — ${passed} / 8 checks pass (${active?.dataset.preset==='baseline'?'baseline, same as the recorded pipeline result':'what-if preview, not the pipeline result'}).`;
+ $('#verdict-scenario').style.color=`var(--${result.status.toLowerCase()})`;
  const first=result.blocking.find(c=>c.status==='RED')||result.blocking[0];
  $('#input-output').textContent=`${round(result.requested)} MW · ${settings.months} months`;
  $('#plan-output').textContent=result.allocations.map(a=>`${round(a.mw)} MW`).join(' + ')+` · ${round(result.delivered)} MW net`;
@@ -42,7 +45,7 @@ function render(){
  const physicsBlocked=result.checks.some(c=>['capacity','thermal','n1'].includes(c.id)&&c.status==='RED');
  $('#physics-output').textContent=physicsBlocked?'Blocked — revise the candidate':'Grid screening passes';
  $('#proof-output').textContent=`${result.status} · ${passed} / 8 scenario checks pass`;$('#passed-count').textContent=`${passed} / 8`;
- $('#lean-goal-status').textContent={GREEN:'READY TO PROVE',AMBER:'1 RULE UNMET',RED:'RULES UNMET'}[result.status];$('#lean-goal-status').dataset.status=result.status;$('#passed-count').style.color=`var(--${result.status.toLowerCase()})`;
+ $('#lean-goal-status').textContent={GREEN:'READY TO PROVE',AMBER:'CONDITIONS UNMET',RED:'RULES UNMET'}[result.status];$('#lean-goal-status').dataset.status=result.status;$('#passed-count').style.color=`var(--${result.status.toLowerCase()})`;
  $('#flow-input').textContent=`${round(result.requested)} MW`;$('#flow-plan').textContent=`${result.allocations.filter(a=>a.mw>0).length} routes`;
  $('#flow-check').textContent=physicsBlocked?'Blocked':'Pass';$('#flow-check').style.color=physicsBlocked?'var(--red)':'var(--green)';$('#flow-result').textContent=result.status;$('#flow-result').style.color=`var(--${result.status.toLowerCase()})`;
  renderLive();
@@ -54,7 +57,7 @@ function liveCase(){
  return run.cases[caseId];
 }
 function renderLive(){
- const live=liveCase(),h=headline(live),word=h.verdict==='AMBER'?'YELLOW':h.verdict;
+ const live=liveCase(),h=headline(live),word=h.verdict;
  const [place,region]=live.site.name.split(/,(.*)/s);
  if(caseId==='alviso')$('#site-name').replaceChildren('North San Jose',make('br'),make('span','/ Alviso'));else $('#site-name').replaceChildren(place.replace(/ campus$/,''),make('br'),make('span',`${live.site.requested_mw} MW · ASSUMED`));
  $('#site-region').textContent=caseId==='alviso'?'Santa Clara County, California':`${(region||'').replace(/\s*\(.*$/,'').trim()} · ${live.site.grid_operator||''}`;
@@ -63,14 +66,14 @@ function renderLive(){
  const opens=new Set([...document.querySelectorAll('.category[open]')].map(n=>n.dataset.id));
  $('#categories').replaceChildren(...categorize(live,caseId==='alviso'?result.checks:[]).map(cat=>{
   const d=make('details',undefined,'category');d.dataset.id=cat.id;d.dataset.status=cat.status;d.open=opens.has(cat.id);
-  const s=make('summary');s.append(make('span',{GREEN:'✓',AMBER:'!',RED:'×',NONE:'–'}[cat.status],'indicator'),make('span',cat.name),make('small',cat.status==='NONE'?'NOT SCREENED':cat.status==='AMBER'?'YELLOW':cat.status));
+  const s=make('summary');s.append(make('span',{GREEN:'✓',AMBER:'!',RED:'×',NONE:'–'}[cat.status],'indicator'),make('span',cat.name),make('small',cat.status==='NONE'?'NOT SCREENED':cat.status));
   const body=cat.items.length?cat.items.map(i=>checkNode({id:`${cat.id}-${i.name}`,name:i.name,status:i.status,detail:i.detail})):[make('p','No data for this site yet. Nature, climate, community and economics layers were built for Alviso only; this site needs those runs.')];
   d.append(s,...body);return d;}));
  $('#verdict').dataset.status=h.verdict;
  $('#verdict-title').textContent=`${word} — ${h.phrase}`;
  $('#verdict-level').textContent=h.level;
  $('#verdict-description').textContent=h.meaning;
- $('#what-if').replaceChildren(...whatIf(live,h).map(w=>{const li=make('li');li.dataset.status=w.to;li.append(make('span',w.text),make('b',`→ ${w.to==='AMBER'?'YELLOW':w.to}`),make('small',w.note));return li;}));
+ $('#what-if').replaceChildren(...whatIf(live,h).map(w=>{const li=make('li');li.dataset.status=w.to;li.append(make('span',w.text),make('b',`→ ${w.to}`),make('small',w.note));return li;}));
  $('#reason-word').textContent=h.phrase;$('#reason-word').dataset.status=h.verdict;
  $('#reason-title').textContent=h.sentence;
  $('#flow-result').textContent=word;$('#flow-result').style.color=`var(--${h.verdict.toLowerCase()})`;
@@ -106,7 +109,7 @@ function explain(){
  const head=make('h2',`${result.status}: why this verdict?`);head.style.color=`var(--${result.status.toLowerCase()})`;
  const p=make('p',`${round(result.requested)} MW gross demand − ${round(result.curtailed)} MW curtailment − ${round(result.storage)} MW assumed battery support = ${round(result.delivered)} MW net grid demand. Firm N-1 capacity is ${round(result.n1Capacity)} MW.`);
  const rows=result.checks.flatMap(c=>[make('h3',`${c.status} · ${c.name}`),make('p',c.detail)]);
- const next=make('p',result.blocking.length?'Resolve every unmet rule listed above, then check again. Yellow means exactly seven of eight screens pass; any blocking physics limit still needs to be resolved. Line uprating does not increase firm transformer caps.':'The browser checks pass. A changed plan still needs the actual quantum / physics / Lean pipeline before formal certification.');
+ const next=make('p',result.blocking.length?'Resolve every unmet rule listed above, then check again. RED means a hard rule (capacity, thermal or firm N-1) fails; AMBER means only negotiable conditions remain. Line uprating does not increase firm transformer caps.':'The browser checks pass. A changed plan still needs the actual quantum / physics / Lean pipeline before formal certification.');
  showDialog('THIS SCENARIO / EXACT REASONS',[head,p,...rows,make('h3','What to do next'),next]);
 }
 function showRecord() {
@@ -133,7 +136,7 @@ function showSources() {
     'Firm N-1 screening uses the recorded firm transformer headroom: 19.9 MW per selected source before an outage. Line-rating uplift and reconductoring never increase those firm caps. It does not solve line contingencies or validate protection and topology.',
     'Assumed delivery times: DLR 12 months, battery 18 months, reconductoring 36 months. ROW, flood protection, and storage commitment toggles are scenario assumptions, not evidence of permits or commitments.',
     'GRIP distribution MW comes from the cached 2028 flexibility curve, linearly interpolated between published scenario points. Above 10% curtailment the display is capped at the last data point.',
-    'Overall display: GREEN when 8/8 screens pass, YELLOW (AMBER) when exactly 7/8 pass, RED when 6/8 or fewer pass. Unmet includes a failed limit or an unresolved condition. Individual blocking physics rules remain red regardless of the overall count. This display rule does not change the pipeline or Lean verdict.',
+    'Overall display follows the Lean rules: RED when any hard rule (capacity, thermal, firm N-1) fails, AMBER when only negotiable conditions are unmet, GREEN when all 8 screens pass. This display rule does not change the pipeline or Lean verdict.',
   ]) equations.append(make('li', text));
   const sources = make('ul');
   for (const [label, url] of [
@@ -176,6 +179,7 @@ async function init(){
   $('#asset-list').replaceChildren(...run.grid_snapshot.substations.map(s=>{const b=make('button',s.name);b.dataset.asset=s.id;b.onclick=()=>selectAsset(s.id);return b;}));
   $('#knobs').addEventListener('input',e=>{const i=e.target;if(!(i.name in DEFAULTS))return;settings[i.name]=i.type==='checkbox'?i.checked:i.type==='range'?Number(i.value):i.value;render();});
   $('#knobs').addEventListener('focusin',e=>{const card=e.target.closest('.stage-card');if(card)document.querySelectorAll('.stage-card').forEach(n=>n.classList.toggle('selected',n===card));});
+  document.querySelectorAll('[data-preset]').forEach(b=>b.dataset.status=evaluate(PRESETS[b.dataset.preset],run).status);
   document.querySelectorAll('[data-preset]').forEach(b=>b.onclick=()=>{settings={...PRESETS[b.dataset.preset]};render();});
   $('#reset').onclick=()=>{settings={...DEFAULTS};render();scene.home();toast('Baseline restored');};
   document.querySelectorAll('[data-pane]').forEach(b=>b.onclick=()=>{const card=b.closest('.stage-card');card.querySelectorAll('[data-pane]').forEach(n=>{const on=n===b;n.classList.toggle('active',on);n.setAttribute('aria-selected',String(on));});card.querySelectorAll('[data-pane-body]').forEach(n=>n.hidden=n.dataset.paneBody!==b.dataset.pane);});

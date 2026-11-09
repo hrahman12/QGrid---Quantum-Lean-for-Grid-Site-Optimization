@@ -4,15 +4,16 @@ import { readFile } from 'node:fs/promises';
 import { DEFAULTS, PRESETS, evaluate, normalize, exportScenario, screeningStatus } from '../src/model.js';
 const run = JSON.parse(await readFile(new URL('../public/data/run.json', import.meta.url)));
 
-test('the baseline keeps the archived load and split but fails the current firm N-1 screen', () => {
+test('the baseline keeps the archived load and split, fails firm N-1 and is RED like the recorded run', () => {
   const r = evaluate(DEFAULTS, run);
-  assert.equal(r.status, 'AMBER'); assert.equal(r.delivered, 150);
+  assert.equal(r.status, 'RED'); assert.equal(r.status, run.current_run.certificate.result); assert.equal(r.delivered, 150);
   assert.equal(r.n1Capacity, 39.8);
   assert.equal(r.checks.find((c) => c.id === 'n1').status, 'RED');
   assert.deepEqual(r.allocations.map((a) => a.mw), [112.5, 37.5]);
   assert.equal(r.projectedLoading, run.physics_result.max_line_loading_pct);
 });
-test('the verdict presets show all pass, one unmet, and several unmet screens', () => {
+test('each preset verdict follows the hard/negotiable rule', () => {
+  assert.equal(evaluate(PRESETS.baseline, run).status, 'RED');
   assert.equal(evaluate(PRESETS.flexible, run).status, 'GREEN');
   const conditional = evaluate(PRESETS.conditional, run);
   assert.equal(conditional.status, 'AMBER');
@@ -34,20 +35,19 @@ test('deadline and permit conditions clear only when the corresponding knobs res
   assert.equal(r.checks.find((c) => c.id === 'row').status, 'GREEN');
   assert.equal(r.status, 'GREEN');
 });
-test('two unresolved conditions produce an overall red display', () => {
+test('two unresolved negotiable conditions stay AMBER', () => {
   const r = evaluate({ ...PRESETS.flexible, storageCommitted: false, curtailment: 15 }, run);
-  assert.equal(r.status, 'RED');
+  assert.equal(r.status, 'AMBER');
   assert.equal(r.checks.find((c) => c.id === 'commitment').status, 'AMBER');
   assert.equal(r.checks.find((c) => c.id === 'penalty').status, 'AMBER');
   assert.equal(r.distribution, run.flexibility.curve.at(-1).distribution_mw);
   assert.equal(r.distributionExtrapolated, true);
 });
-test('the overall display is green only at 8/8, yellow only at 7/8, red at every lower count', () => {
-  const expected = ['RED','RED','RED','RED','RED','RED','RED','AMBER','GREEN'];
+test('any hard-check failure is RED; only negotiable conditions unmet is AMBER; all pass is GREEN', () => {
   for (let passed = 0; passed <= 8; passed++) {
     for (const unmet of ['AMBER', 'RED']) {
       const checks = Array.from({length: 8}, (_, i) => ({status: i < passed ? 'GREEN' : unmet}));
-      assert.equal(screeningStatus(checks), expected[passed], `${passed}/8 with ${unmet} unmet rules`);
+      assert.equal(screeningStatus(checks), passed === 8 ? 'GREEN' : unmet, `${passed}/8 with ${unmet} unmet rules`);
     }
   }
 });
