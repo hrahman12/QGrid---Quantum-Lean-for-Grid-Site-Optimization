@@ -195,3 +195,24 @@ async function init(){
  }catch(e){$('#loading').hidden=true;$('#webgl-fallback').hidden=false;$('#webgl-fallback').textContent='Unable to load case-study data. Reload or run npm run dev.';console.error(e);}
 }
 $('#close-dialog').onclick=()=>dialog.close();dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});addEventListener('pagehide',()=>{scene?.dispose();quantumComputer?.dispose();gridPhysics?.dispose();});init();
+
+// ===== VM views (card 2): recorded native PsiQDK job fallback + Grover / Bloch / photonic / counts views =====
+// Self-contained: delete this block (and src/quantum-views.js, src/vm-views.css) to drop them. Imports are hoisted.
+import './vm-views.css';
+import { mountQuantumViews } from './quantum-views.js';
+let vmRecordedJob=null,vmViews=null;
+(async()=>{
+ for(let i=0;i<200&&!quantumComputer;i++)await new Promise(r=>setTimeout(r,50)); // wait for init() to build card 2
+ if(!quantumComputer)return;
+ try{const r=await fetch(`${import.meta.env.BASE_URL}data/native_job.json`);if(r.ok){const j=await r.json();if(j.backend==='psiqdk'&&j.result?.numpy_crosscheck_ok&&j.result.states?.length)vmRecordedJob=j;}}catch{}
+ if(vmRecordedJob&&!lastQuantum){
+  quantumComputer.result(vmRecordedJob,'recorded');$('#view-quantum').disabled=false;
+  $('.quantum-steps small').textContent=`Recorded native PsiQDK run · job ${vmRecordedJob.job_id.slice(0,8)} · ${vmRecordedJob.completed_utc.replace(/\.\d+/,'').replace('+00:00','Z')} · Run PsiQDK for a live job`;
+ }
+ // The existing "Returned states" handler needs a live job; with none yet, show the recorded native run.
+ $('#view-quantum').addEventListener('click',()=>{if(lastQuantum||!vmRecordedJob)return;quantumComputer.step(0);document.querySelectorAll('[data-quantum-step]').forEach((n,i)=>n.classList.toggle('active',i===0));$('.quantum-steps').hidden=false;$('#view-quantum').classList.add('active');$('#view-grid').classList.remove('active');});
+ const host=make('div');host.id='vm-quantum-views';$('.find-card .quantum-steps').after(host);
+ vmViews=mountQuantumViews(host,{getLiveJob:()=>lastQuantum,recordedJob:vmRecordedJob});
+ addEventListener('pagehide',()=>vmViews?.dispose());
+})();
+// ===== end VM views =====
