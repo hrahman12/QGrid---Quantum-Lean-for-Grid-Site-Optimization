@@ -24,6 +24,7 @@ BOUNDS = {"load": (25, 500), "growth": (0, 50), "utilization": (40, 95), "split"
 DEFAULTS = dict(load=150, growth=0, utilization=65, split=75, storage=0, curtailment=0, dlr=0,
                 temperature=25, lineLimit=100, months=20, reconductor=False, rowPermit=False,
                 floodProtected=True, storageCommitted=True, requireN1=True, outage="none")
+BROWSER_QUBITS = 7
 
 
 def validate_settings(value):
@@ -72,13 +73,18 @@ def build_job(settings):
     class BudgetSpace(PlanSpace):
         def __init__(self):
             self.storage_options = tuple(sorted({0.0, min(25.0, s["storage"]), min(50.0, s["storage"]), float(s["storage"])}))
-            self.curtail_options = tuple(sorted({0.0, min(5.0, s["curtailment"]), min(10.0, s["curtailment"]), float(s["curtailment"])}))
+            # Three curtailment levels keep every supported job within 128 slots.
+            self.curtail_options = tuple(sorted({0.0, min(5.0, s["curtailment"]), float(s["curtailment"])}))
             self.dlr_options = (False, True) if s["dlr"] > 0 else (False,)
             super().__init__(site_id=run["site"]["id"], requested_mw=requested, substations=selected)
 
         @property
         def size(self):
             return len(self.splits) * len(self.dlr_options) * len(self.storage_options) * len(self.curtail_options)
+
+        @property
+        def n_qubits(self):
+            return BROWSER_QUBITS
 
         def decode(self, index):
             if not 0 <= index < self.size:
@@ -89,8 +95,8 @@ def build_job(settings):
             return Plan(index, self.splits[spi], self.dlr_options[di], self.storage_options[si], self.curtail_options[ci])
 
     space = BudgetSpace()
-    if space.n_qubits > 8:
-        raise ValueError("job exceeds the eight-qubit browser execution limit")
+    if space.size > space.padded_size:
+        raise ValueError("job exceeds the fixed seven-qubit browser register")
     oracle = Oracle(space, snapshot)
     marked = oracle.marked_indices()
     return s, run, space, oracle, marked

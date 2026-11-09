@@ -12,7 +12,8 @@ def test_api_rejects_invalid_or_unbounded_load(value):
 def test_baseline_has_no_marked_plan_under_firm_caps():
     _, _, space, _, marked = build_job({})
     assert space.size == 5
-    assert space.n_qubits == 3
+    assert space.n_qubits == 7
+    assert space.padded_size == 128
     assert marked == []
 
 
@@ -41,3 +42,17 @@ def test_outage_removes_the_failed_source_from_the_quantum_space():
     _, _, space, _, _ = build_job({'outage': 'northern'})
     assert len(space.substations) == 1
     assert space.substations[0]['name'] == 'Los Esteros Substation'
+
+
+@pytest.mark.parametrize('settings', [{}, {'outage': 'northern'},
+    {'storage': 100, 'curtailment': 20, 'dlr': 30},
+    {'storage': 60, 'curtailment': 7, 'dlr': 15}])
+def test_browser_register_is_always_seven_qubits_and_padding_is_never_marked(settings):
+    _, _, space, oracle, marked = build_job(settings)
+    assert space.n_qubits == 7
+    assert space.padded_size == 128
+    assert 0 < space.size <= 128
+    assert all(i < space.size for i in marked)
+    for index in range(space.size, 128):
+        with pytest.raises(IndexError):
+            space.decode(index)
