@@ -1,0 +1,36 @@
+{
+ "engine": "STUB engine",
+ "repo_baseline_consent": 0.0,
+ "scenarios": [
+  {
+   "scenario": "S0_stub",
+   "label": "STUB scenario 0",
+   "approval_proxy": 0.4,
+   "band": "STUB",
+   "support": 1,
+   "neutral": 1,
+   "oppose": 1,
+   "mean_stance": 0
+  },
+  {
+   "scenario": "S1_stub",
+   "label": "STUB scenario 1",
+   "approval_proxy": 0.5,
+   "band": "STUB",
+   "support": 1,
+   "neutral": 1,
+   "oppose": 1,
+   "mean_stance": 0
+  },
+  {
+   "scenario": "S4_stub",
+   "label": "STUB scenario 2",
+   "approval_proxy": 0.6,
+   "band": "STUB",
+   "support": 1,
+   "neutral": 1,
+   "oppose": 1,
+   "mean_stance": 0
+  }
+ ]
+}

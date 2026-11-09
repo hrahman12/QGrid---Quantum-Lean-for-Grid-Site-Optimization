@@ -1,0 +1,1 @@
+{"engine": "STUB", "scenario": "S0_stub", "levers": ["STUB lever"], "agents": 3, "steps": 2, "stance_timeline": [{"step": 0, "mean": -0.1}, {"step": 1, "mean": 0.1}], "key_actors_initial_stance": {"STUB actor A": -0.3, "STUB actor B": 0.2}, "key_actors_final_stance": {"STUB actor A": -0.05, "STUB actor B": 0.2}}
