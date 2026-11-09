@@ -1,0 +1,8 @@
+{
+  "converged": true,
+  "max_line_loading_pct": 81.6,
+  "v_min_pu": 0.9894,
+  "v_max_pu": 1.02,
+  "n1_pass": true,
+  "violations": []
+}

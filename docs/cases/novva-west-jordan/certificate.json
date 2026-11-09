@@ -1,0 +1,182 @@
+{
+  "checks": [
+    {
+      "name": "capacity",
+      "pass": true,
+      "detail": "4 splits sum to requested 175.000 MW; every split <= substation headroom",
+      "tag": "hard"
+    },
+    {
+      "name": "thermal_voltage",
+      "pass": true,
+      "detail": "converged; max loading 81.6% <= 100.0%; voltage 0.9894-1.0200 pu within 0.9500-1.0500 pu",
+      "tag": "hard"
+    },
+    {
+      "name": "n1",
+      "pass": true,
+      "detail": "N-1 pass; no violations",
+      "tag": "hard"
+    },
+    {
+      "name": "flex_commitment",
+      "pass": true,
+      "detail": "storage 0.000 MW <= 0.000 MW; curtailment 0.000 MW <= 0.000 MW (ASSUMED: no site commitment evidence, none committed)",
+      "tag": "negotiable"
+    },
+    {
+      "name": "deadline",
+      "pass": true,
+      "detail": "no flex option with a lead time used; 783 d left before deadline 2028-12-31 (as of 2026-11-09)",
+      "tag": "hard"
+    },
+    {
+      "name": "permit_row",
+      "pass": true,
+      "detail": "no reconductor or new ROW used; no ROW permit needed",
+      "tag": "negotiable"
+    },
+    {
+      "name": "penalty_trigger",
+      "pass": true,
+      "detail": "penalty trigger FALSE: curtailment 0.000 MW <= cap 10.0% of requested; deadline met",
+      "tag": "negotiable"
+    },
+    {
+      "name": "bank",
+      "pass": true,
+      "detail": "no feeder/bank splits; bank rule not applicable (transmission splits only)",
+      "tag": "hard"
+    },
+    {
+      "name": "storage_relief",
+      "pass": true,
+      "detail": "relief 0.000 MW <= requested load 175.000 MW; no storage",
+      "tag": "hard"
+    },
+    {
+      "name": "firm_n1",
+      "pass": true,
+      "detail": "every split's net MW <= its N-1 firm headroom (headroom_mw_n1_firm), where known",
+      "tag": "hard"
+    },
+    {
+      "name": "evidence_binding",
+      "pass": true,
+      "detail": "plan sha256 6a462a670a32, physics sha256 b023bd57ab8d, snapshot sha256 n/a, qsiteproof-rules/3",
+      "tag": "hard"
+    }
+  ],
+  "result": "GREEN",
+  "blocking_condition": null,
+  "conditions": [],
+  "scope_note": "Rules checked by python-mirror (Lean unavailable) (lake not found on PATH or ~/.elan/bin); Lean did NOT run for this certificate. The mirror re-implements lean/QSiteProof (theorems there: verdict_green_iff_all, verdict_red_blocking_sound, blocking_is_first, verdict_extensional, certify_deterministic, report_pass_sound) but carries no proof. Obligations in order, each pass/fail decided by python-mirror: capacity, thermal_voltage, n1, flex_commitment, deadline, permit_row, penalty_trigger, bank, storage_relief, firm_n1, evidence_binding (firm_n1 is now decided by Lean when the engine is lean4). Python-only: hard/negotiable tags, the AMBER verdict, firm_n1/n1 negotiability (relief needed vs available levers) and the detail text of bank, storage_relief, firm_n1, evidence_binding. Verdict: RED if a hard rule fails, AMBER if only negotiable rules fail. Evidence sha256: f5d7e879f4d210a92dcce4da9be6f11f304da73c7fec159e2d18d2042fc1e237 (canonical JSON, sorted keys). ASSUMED: lead times DLR 365 d, storage 547 d, reconductor 1095 d; curtailment penalty cap 10.0% of requested; loading limit 100.0%, voltage band 0.9500-1.0500 pu; DLR headroom uplift 0.0%; flex commitment: ASSUMED: no site commitment evidence, none committed; ROW permit granted: false; as-of 2026-11-09; headroom from candidate_plan splits.headroom_mw; storage duration 4 h (energy obligation = storage MW x duration); net load per quantum/load_model.py; rules qsiteproof-rules/3: lean11 (incl. bank,storage_relief,firm_n1,evidence_binding); quantum/load_model.py net_split; DLR lines-only. GREEN covers only the encoded rules over the supplied evidence; it is not a utility interconnection approval.",
+  "engine": "python-mirror",
+  "evidence_sha256": "f5d7e879f4d210a92dcce4da9be6f11f304da73c7fec159e2d18d2042fc1e237",
+  "evidence": {
+    "format": "qsiteproof-evidence/1",
+    "site_id": "novva-west-jordan",
+    "requested_kw": 175000,
+    "splits": [
+      {
+        "substation_id": "osm-way-1328467648",
+        "kw": 43750,
+        "net_kw": 43750,
+        "headroom_known": true,
+        "headroom_kw": 66500
+      },
+      {
+        "substation_id": "osm-way-844044362",
+        "kw": 43750,
+        "net_kw": 43750,
+        "headroom_known": true,
+        "headroom_kw": 66500
+      },
+      {
+        "substation_id": "osm-way-714852819",
+        "kw": 43750,
+        "net_kw": 43750,
+        "headroom_known": true,
+        "headroom_kw": 66500
+      },
+      {
+        "substation_id": "osm-way-163683054",
+        "kw": 43750,
+        "net_kw": 43750,
+        "headroom_known": true,
+        "headroom_kw": 166200
+      }
+    ],
+    "headroom_source": "candidate_plan splits.headroom_mw",
+    "dlr": false,
+    "dlr_headroom_uplift_permille": 0,
+    "storage_kw": 0,
+    "curtailment_kw": 0,
+    "reconductor": false,
+    "new_row": false,
+    "converged": true,
+    "has_loading": true,
+    "max_loading_permille": 816,
+    "loading_limit_permille": 1000,
+    "has_voltage": true,
+    "v_min_pu4": 9894,
+    "v_max_pu4": 10200,
+    "v_lo_pu4": 9500,
+    "v_hi_pu4": 10500,
+    "n1_pass": true,
+    "violation_count": 0,
+    "first_violation": "",
+    "firm_only_violations": false,
+    "committed_storage_kw": 0,
+    "committed_curtailment_kw": 0,
+    "commitment_source": "ASSUMED: no site commitment evidence, none committed",
+    "as_of": "2026-11-09",
+    "as_of_day": 20766,
+    "deadline": "2028-12-31",
+    "deadline_day": 21549,
+    "lead_dlr_days": 365,
+    "lead_storage_days": 547,
+    "lead_reconductor_days": 1095,
+    "row_permit_granted": false,
+    "curtail_cap_permille": 100,
+    "storage_duration_h": 4,
+    "max_storage_kw": 50000,
+    "firm": [
+      {
+        "substation_id": "osm-way-1328467648",
+        "firm_known": false,
+        "firm_kw": 0
+      },
+      {
+        "substation_id": "osm-way-844044362",
+        "firm_known": false,
+        "firm_kw": 0
+      },
+      {
+        "substation_id": "osm-way-714852819",
+        "firm_known": false,
+        "firm_kw": 0
+      },
+      {
+        "substation_id": "osm-way-163683054",
+        "firm_known": false,
+        "firm_kw": 0
+      }
+    ],
+    "banks": [],
+    "bank_source": "none (no distribution splits)",
+    "bank_curtail_pct": 0,
+    "plan_site_id": "novva-west-jordan",
+    "plan_site_bound": true,
+    "plan_sha256": "6a462a670a32c2619274527400c15c7f38d0c7b513e3fb9349d65966a2cb8d3a",
+    "snapshot_sha256": "",
+    "headroom_ids": [
+      "osm-way-1328467648",
+      "osm-way-163683054",
+      "osm-way-714852819",
+      "osm-way-844044362"
+    ],
+    "physics_sha256": "b023bd57ab8dbd40bcf1c95c5570cbdb5219bb7664b749191a64542a939fbcb3",
+    "rule_version": "qsiteproof-rules/3: lean11 (incl. bank,storage_relief,firm_n1,evidence_binding); quantum/load_model.py net_split; DLR lines-only"
+  }
+}

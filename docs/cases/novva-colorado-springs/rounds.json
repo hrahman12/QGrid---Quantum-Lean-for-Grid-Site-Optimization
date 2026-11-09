@@ -1,0 +1,12 @@
+[
+  {
+    "round": 1,
+    "plan": "osm-way-225476100=30 osm-way-196952822=15 osm-way-354208852=15 [no flex]",
+    "verdict": "GREEN",
+    "blocking_rule": null,
+    "blocking_condition": null,
+    "evals": 64,
+    "search": "heuristic",
+    "constraints_in": []
+  }
+]

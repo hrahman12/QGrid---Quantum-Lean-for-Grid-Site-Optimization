@@ -1,4 +1,4 @@
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -33,11 +33,20 @@ run.risk_layers = {
     .map(async (k) => [k, await read(`data/shared/social/${k}.json`)]))),
   mirofish: await read('sim/mirofish/results/summary.json'),
 };
+// Precomputed alternative US sites (pipeline.py runs copied to docs/cases/<id>/); Alviso stays the default.
+run.cases = {};
+for (const id of (await readdir(path.join(repo, 'docs/cases'))).sort()) {
+  run.cases[id] = {};
+  for (const key of ['site', 'candidate_plan', 'physics_result', 'certificate', 'sources']) {
+    run.cases[id][key] = await read(`docs/cases/${id}/${key}.json`);
+  }
+  run.cases[id].substations = (await read(`docs/cases/${id}/grid_snapshot.json`)).substations.length;
+}
 run.provenance = {
   geometry: 'OpenStreetMap contributors, ODbL; cached in data/l1.',
   planning: 'Transmission topology and substation headroom are planning assumptions from the saved run, not utility ratings or approved connections.',
   certificate: 'The saved Lean certificate is historical and superseded by the firm N-1 review. Scenario sliders do not execute pandapower or Lean. Run PsiQDK executes a new native simulation through the server endpoint.',
-  source_paths: ['docs/demo_run/', 'docs/current_run/', 'data/l2/flex_headroom.json', 'data/l2/site_risk.json',
+  source_paths: ['docs/demo_run/', 'docs/current_run/', 'docs/cases/', 'data/l2/flex_headroom.json', 'data/l2/site_risk.json',
     'data/shared/nature/alviso.json', 'data/shared/socioeconomic/alviso.json', 'data/shared/socio/alviso.json',
     'data/shared/social/', 'sim/mirofish/results/summary.json', 'data/l1/osm_power_lines_alviso.geojson', 'viz/data/terrain/heightmap.json'],
 };
