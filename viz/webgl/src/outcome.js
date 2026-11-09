@@ -37,9 +37,13 @@ export function categorize(live, scenarioChecks = []) {
   }
   for (const c of scenarioChecks) items[SCENARIO_CATEGORY[c.id] || 'timeline']
     .push({ name: `Scenario screen: ${c.name}`, detail: c.detail, status: c.status, source: 'scenario', scenario: true });
+  // Grid and timeline follow the selected scenario's screens; the other four are site data the knobs do not change.
+  const follows = (id) => scenarioChecks.length && (id === 'grid' || id === 'timeline');
   return CATEGORIES.map(([id, name]) => {
-    const evidence = items[id].filter((i) => !i.scenario);
-    return { id, name, items: items[id], status: evidence.length ? worst(evidence.map((i) => i.status)) : 'NONE' };
+    const list = follows(id) ? items[id].filter((i) => i.scenario) : items[id];
+    const evidence = list.filter((i) => follows(id) || !i.scenario);
+    return { id, name, items: list, status: evidence.length ? worst(evidence.map((i) => i.status)) : 'NONE',
+      note: scenarioChecks.length && !follows(id) ? 'site data, same in every scenario' : '' };
   });
 }
 
@@ -100,7 +104,7 @@ const SCENARIO_REASON = {
   n1: (r) => r.settings.requireN1
     ? ['Grid too small', `${round(r.n1Capacity)} MW guaranteed now of ${round(r.requested)} MW requested${r.delivered < r.requested - 0.05 ? ` (${round(r.delivered)} MW from the grid)` : ''}`,
       `If one transformer fails, the nearby substations can only guarantee about ${round(r.n1Capacity)} MW, and this plan needs ${round(r.delivered)} MW from the grid.`]
-    : ['Backup not required', `${round(r.delivered)} MW from the grid with no single-failure backup`, 'This scenario switches off the rule that the site must stay powered if one transformer fails.'],
+    : ['Backup not required (N-1 off)', `${round(r.delivered)} MW from the grid with no single-failure backup`, 'This scenario switches off the rule that the site must stay powered if one transformer fails.'],
   commitment: (r) => ['Needs a signed battery commitment', `${round(r.storage)} MW of battery support not yet committed`,
     `The plan relies on ${round(r.storage)} MW of battery support, but nobody has committed to provide it yet.`],
   deadline: (r) => ['Needs more time', `${r.settings.months} months available, the chosen upgrades need ${r.leadMonths}`,
@@ -109,11 +113,11 @@ const SCENARIO_REASON = {
     'Rebuilding the lines needs permission to work on the land they cross, which is not secured yet.'],
   flood: () => ['Needs flood protection', 'Flood protection not in place',
     'The site sits in a FEMA flood zone (AE) and the plan has no flood protection yet.'],
-  penalty: (r) => ['Too much curtailment', `${r.settings.curtailment}% curtailment vs a 10% cap`,
+  penalty: (r) => ['Too much pausing use', `pausing use ${r.settings.curtailment}% of the time (curtailment) vs a 10% cap`,
     `The plan cuts the site's power ${r.settings.curtailment}% of the time in grid emergencies, above the 10% cap assumed acceptable.`],
 };
-const flexParts = (s, r) => [r.storage > 0 && `battery ${round(r.storage)} MW`, s.curtailment > 0 && `curtailment ${s.curtailment}%`,
-  s.dlr > 0 && `line rating +${s.dlr}%`, s.reconductor && 'reconductored lines'].filter(Boolean);
+const flexParts = (s, r) => [r.storage > 0 && `battery ${round(r.storage)} MW`, s.curtailment > 0 && `pausing use ${s.curtailment}% (curtailment)`,
+  s.dlr > 0 && `weather-based line rating +${s.dlr}% (DLR)`, s.reconductor && 'stronger wires (reconductoring)'].filter(Boolean);
 
 /** Headline + why sentence for the selected scenario; the scenario verdict is the single displayed verdict. */
 export function scenarioHeadline(r) {
@@ -140,11 +144,11 @@ export function scenarioWhatIf(r, run) {
   const left = (e) => { const f = e.checks.filter((c) => c.status !== 'GREEN'); return f.length ? `still unmet: ${f.map((c) => c.name).join(', ')}` : 'all 8 checks pass'; };
   const items = [];
   if (r.status === 'GREEN') {
-    const dep = (cond, text, change) => { if (!cond) return; const e = tryIt(change); if (e.status !== 'GREEN') items.push({ text, to: e.status, if: true, note: `if not: ${left(e)}` }); };
+    const dep = (cond, text, change) => { if (!cond) return; const e = tryIt(change); if (e.status !== 'GREEN') items.push({ text, to: e.status, if: true, note: `would leave unmet: ${e.checks.filter((c) => c.status !== 'GREEN').map((c) => c.name).join(', ')}` }); };
     dep(r.storage > 0, `Battery support of ${round(r.storage)} MW gets built`, { storage: 0 });
     dep(r.storage > 0 && s.storageCommitted, 'The battery commitment is signed', { storageCommitted: false });
-    dep(s.curtailment > 0, `The site accepts ${s.curtailment}% curtailment in grid emergencies`, { curtailment: 0 });
-    dep(s.dlr > 0, `Line rating upgrade of +${s.dlr}% is installed`, { dlr: 0 });
+    dep(s.curtailment > 0, `The site accepts pausing use ${s.curtailment}% of the time in grid emergencies (curtailment)`, { curtailment: 0 });
+    dep(s.dlr > 0, `Weather-based line rating of +${s.dlr}% (DLR) is installed`, { dlr: 0 });
     dep(s.reconductor && s.rowPermit, 'Right-of-way permission is granted', { rowPermit: false });
     dep(s.floodProtected, 'Flood protection is built', { floodProtected: false });
     dep(r.requested < 150, `The request stays at ${round(r.requested)} MW, not the full 150 MW`, { load: 150, growth: 0 });
@@ -153,16 +157,16 @@ export function scenarioWhatIf(r, run) {
   const lever = (cond, text, change) => { if (cond) { const e = tryIt(change); items.push({ text, to: e.status, note: left(e) }); } };
   const gridFail = fail.has('capacity') || fail.has('thermal') || (fail.has('n1') && s.requireN1);
   const F = { load: 100, storage: 60, curtailment: 10, dlr: 15, split: 50 }; // the Flexible preset's levers
-  lever(gridFail, `Phase it: start with the ${round(r.n1Capacity)} MW the grid can guarantee now`, { load: r.n1Capacity, growth: 0, split: 50 });
-  lever(gridFail, `Add flexibility: ${F.storage} MW battery, ${F.curtailment}% curtailment, +${F.dlr}% line rating`,
+  lever(gridFail, `Phase it: start with the ${round(r.n1Capacity)} MW the grid can guarantee now (firm N-1)`, { load: r.n1Capacity, growth: 0, split: 50 });
+  lever(gridFail, `Add flexibility: ${F.storage} MW battery, pausing use ${F.curtailment}% (curtailment), +${F.dlr}% weather-based line rating (DLR)`,
     { storage: Math.max(s.storage, F.storage), curtailment: Math.max(s.curtailment, F.curtailment), dlr: Math.max(s.dlr, F.dlr), split: F.split, months: Math.max(s.months, 18) });
   lever(gridFail && r.requested > F.load, `Shrink to ${F.load} MW and add that flexibility`, { ...F, growth: 0, months: Math.max(s.months, 18) });
-  lever(fail.has('capacity') || fail.has('thermal'), 'Upgrade the lines: +30% rating and reconductoring', { dlr: 30, reconductor: true, rowPermit: true, months: Math.max(s.months, 36) });
+  lever(fail.has('capacity') || fail.has('thermal'), 'Upgrade the lines: +30% weather-based rating (DLR) and stronger wires (reconductoring)', { dlr: 30, reconductor: true, rowPermit: true, months: Math.max(s.months, 36) });
   lever(fail.has('commitment'), 'Sign the battery commitment', { storageCommitted: true });
   lever(fail.has('deadline'), `Allow ${r.leadMonths} months instead of ${s.months}`, { months: r.leadMonths });
   lever(fail.has('row'), 'Secure right-of-way permission', { rowPermit: true });
   lever(fail.has('flood'), 'Build flood protection', { floodProtected: true });
-  lever(fail.has('penalty'), 'Keep curtailment at or below 10%', { curtailment: 10 });
+  lever(fail.has('penalty'), 'Keep pausing use at or below 10% (curtailment)', { curtailment: 10 });
   lever(fail.has('n1') && !s.requireN1, 'Require single-failure backup again', { requireN1: true });
   return { title: 'WHAT IF', items: items.slice(0, 6) };
 }
