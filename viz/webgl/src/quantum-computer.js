@@ -5,7 +5,7 @@ import { reducedBloch, measurementBloch, stageVector } from './quantum-results.j
 export function createQuantumComputer(container) {
   let renderer;
   try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); }
-  catch { container.textContent = 'Quantum execution remains available; 3D rendering is unavailable.'; return { running() {}, result() {}, step() {}, dispose() {} }; }
+  catch { container.textContent = 'Quantum execution remains available; 3D rendering is unavailable.'; return { running() {}, result() {}, frame() {}, step() {}, dispose() {} }; }
   renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5)); renderer.setClearColor(0x0c192b, 0);
   renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.3;
   container.append(renderer.domElement);
@@ -51,21 +51,21 @@ export function createQuantumComputer(container) {
   const tip=new THREE.Mesh(new THREE.SphereGeometry(.09,12,12),new THREE.MeshBasicMaterial({color:0x72ffcd}));bloch.add(tip);
   const diagram=document.createElement('div');diagram.className='grover-circuit';diagram.innerHTML='<b>GROVER SEARCH</b><div>H⊗n <span>→</span> Oᶠ <span>→</span> D <span>→</span> M</div><small>Prepare · mark · amplify · measure</small>';container.append(diagram);
   const coords=document.createElement('div');coords.className='bloch-coordinates';coords.hidden=true;container.append(coords);
-  const dummy=new THREE.Object3D(); let job=null,isRunning=false,frame,alive=true,step=0,mode='grover';
+  const dummy=new THREE.Object3D(); let job=null,source='recorded',isRunning=false,frame,alive=true,step=0,mode='grover';
   hardware.visible=false;states.visible=false;
   const caption=document.createElement('div');caption.className='processor-caption';caption.textContent='Run PsiQDK to inspect native amplitudes and shots';container.append(caption);
   const resize=()=>{const w=container.clientWidth,h=container.clientHeight;if(!w||!h)return;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();};const observer=new ResizeObserver(resize);observer.observe(container);resize();
   const start=performance.now(),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function draw(){if(!alive)return;frame=requestAnimationFrame(draw);const t=(performance.now()-start)/1000;controls.update();
-    pulses.forEach(({curve,particle},i)=>{particle.visible=isRunning&&!reduced;particle.position.copy(curve.getPoint((t*.35+i/8)%1));});
+  function draw(){if(!alive)return;frame=requestAnimationFrame(draw);if(container.offsetParent===null)return;const t=(performance.now()-start)/1000;controls.update();
+    pulses.forEach(({curve,particle},i)=>{particle.visible=hardware.visible&&!reduced;particle.position.copy(curve.getPoint((t*(isRunning?.35:.15)+i/8)%1));});
     chip.material.color.setHex(isRunning?0x6af3cf:job?0x62b8ff:0x28556a);
     pathMaterials.forEach((m,i)=>{m.opacity=isRunning ? .6+Math.sin(t*4+i)*.3 : .35;});
     renderer.render(scene,camera);
   }draw();
-  function displayStep(value){
+  function displayStep(value,custom=null){
     step=value;if(!job)return;tip.visible=true;
     hardware.visible=false;states.visible=mode==='grover';bloch.visible=mode==='bloch';diagram.hidden=mode!=='grover';coords.hidden=mode!=='bloch';
-    const vector=stageVector(job,value);
+    const vector=custom?.vec||stageVector(job,value);
     const b=value===3?measurementBloch(job):reducedBloch(vector),v=new THREE.Vector3(b.x,b.z,-b.y);
     arrow.visible=v.length()>1e-7;if(arrow.visible){arrow.setDirection(v.clone().normalize());arrow.setLength(2.2*b.length,.22,.1);}tip.position.copy(v.multiplyScalar(2.2));
     coords.textContent=`LSB reduced state · x ${b.x.toFixed(3)} · y ${b.y.toFixed(3)} · z ${b.z.toFixed(3)} · |r| ${b.length.toFixed(3)}`;
@@ -73,15 +73,19 @@ export function createQuantumComputer(container) {
     for(let i=0;i<n;i++){
       const [re,im]=vector[i];let probability=re*re+im*im;
       if(value===3)probability=(job.measurements[String(i)]||0)/job.result.shots;
-      const h=Math.min(6,Math.max(.02,probability*n*.7)),negative=value===1&&re<0;
+      const peak=value===3?Math.max(1,...Object.values(job.measurements))/job.result.shots:Math.max(...job.result.states.flat().map(([r,i])=>r*r+i*i));
+      const h=Math.max(.02,5*probability/peak),negative=value===1&&re<0;
       dummy.position.set((i%cols-(cols-1)/2)*.4,negative?-h/2:h/2,(Math.floor(i/cols)-(cols-1)/2)*.4);dummy.scale.set(1,h,1);dummy.updateMatrix();bars.setMatrixAt(i,dummy.matrix);
       bars.setColorAt(i,new THREE.Color(negative?0xffbd58:marked.has(i)?0x45e6a1:0x2c6f99));
     }bars.instanceMatrix.needsUpdate=true;bars.instanceColor.needsUpdate=true;
     caption.textContent=mode==='bloch'?(value===3?'Measured LSB mixture · not a statevector':'Partial trace of native state · one qubit, not the full register'):['Native superposition · all register slots','Native oracle · negative phases in amber','Native final state · probability per slot',`Native measurements · ${job.result.shots} shots`][value];
+    if(custom)caption.textContent=`${source==='recorded'?'Recorded':'Live'} native run · ${custom.label}`;
+    diagram.hidden=true;
   }
   return {
+    frame(value){mode='grover';displayStep(value.measurement?3:value.phase?1:2,value);},
     running(on){isRunning=on;if(on){hardware.visible=true;states.visible=false;bloch.visible=false;diagram.hidden=true;coords.hidden=true;caption.textContent='Executing native PsiQDK · photon motion is illustrative';}else if(!job)caption.textContent='No verified PsiQDK result yet';},
-    result(value){job=value;mode='grover';displayStep(2);},
+    result(value,kind='live'){job=value;source=kind;mode='grover';displayStep(2);},
     step(value){if(['computer','grover','bloch'].includes(value)){mode=value;hardware.visible=value==='computer';states.visible=value==='grover'&&!!job;bloch.visible=value==='bloch';diagram.hidden=value!=='grover';coords.hidden=value!=='bloch';if(value==='computer')caption.textContent='Photonic hardware concept · not quantum hardware execution';else if(job)displayStep(step);else{arrow.visible=false;tip.visible=false;caption.textContent='Run PsiQDK to populate this view';}}else{tip.visible=true;displayStep(value);}},
     dispose(){alive=false;cancelAnimationFrame(frame);observer.disconnect();controls.dispose();scene.traverse(o=>{o.geometry?.dispose();if(o.material)for(const m of Array.isArray(o.material)?o.material:[o.material])m.dispose();});renderer.dispose();}
   };

@@ -17,10 +17,8 @@
 <section class="stage-card find-card" data-step="1"><h1><b>2</b> Find a connection</h1><div class="panel-body">
   <div class="engine-line"><span class="engine-tag">FIND · QUANTUM</span><span class="preview-tag" id="quantum-engine-tag">Native simulator</span></div>
   <button id="run-quantum" class="run-native">▶ Run now · native PsiQDK</button>
-  <div id="quantum-viewport" aria-label="3D photonic quantum-computer concept and actual PsiQDK state visualizer"></div>
-  <div class="quantum-controls"><button id="view-quantum" class="active">Grover</button><button id="view-bloch">Bloch sphere</button><button id="view-grid">Photonics</button><button id="quantum-evidence" disabled>Run data ↗</button></div>
+  <div id="quantum-workspace" aria-label="Native quantum run: Grover, Bloch spheres, photonics, and counts"></div>
   <div class="quantum-job"><b id="quantum-status">Ready · execute a new circuit</b><small id="quantum-summary">Native states + 32 measurements + independent cross-check.</small></div>
-  <div class="quantum-steps" hidden><div><button data-quantum-step="0" class="active">Superpose</button><span>→</span><button data-quantum-step="1">Phase flip</button><span>→</span><button data-quantum-step="2">Amplify</button><span>→</span><button data-quantum-step="3">Measure</button></div><small>Returned native states and measurement counts</small></div>
   <div class="panel-tabs" role="tablist" aria-label="Connection controls"><button class="active" role="tab" aria-selected="true" data-pane="routing">Routing & flexibility</button><button role="tab" aria-selected="false" data-pane="upgrades">Line upgrades</button></div>
   <div class="tab-pane" data-pane-body="routing">
     <label class="knob" for="split">Northern Receiving share <output data-output="split"></output><input type="range" id="split" name="split" min="0" max="100" step="5"><span class="range-ends"><span>Los Esteros</span><span>Northern Receiving</span></span></label>
