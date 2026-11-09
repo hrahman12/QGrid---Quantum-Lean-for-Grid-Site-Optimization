@@ -25,12 +25,6 @@ The single-screen explorer follows **In → Find → Check physics → Prove →
 
 The browser uses an overall count-based display: 8/8 screens pass is green, exactly 7/8 is yellow, and 6/8 or fewer is red; individual blocking limits stay visible. This does not change the pipeline or Lean verdict. Sliders and the Check / Prove panels are analytical scenario previews; they do not run new AC physics or produce new Lean certificates. The historical GREEN certificate is clearly marked as superseded by the firm N-1 review. See [the explorer README](viz/webgl/README.md) for setup, tests, data refresh, and the Vercel Python runtime.
 
-## Demo: an earlier GREEN run (superseded)
-
-[![QSiteProof demo: 150 MW Alviso site found GREEN](docs/demo_green.gif)](docs/demo_green.mp4)
-
-*1920×1080. Click for the MP4.* Recorded at 14:10 PT, **before** the firm N-1 transformer and bank-cap checks landed; the same 150 MW request is RED today (see STATUS.md). Every frame comes from that one pipeline run ([docs/demo_run/](docs/demo_run/)), rendered by [docs/make_demo_video.py](docs/make_demo_video.py):
-
 | Step | What you see | Real result |
 | --- | --- | --- |
 | **In** | 150 MW data center, Alviso, needed by 2028-06-30 | `data/l1/site.json` |
