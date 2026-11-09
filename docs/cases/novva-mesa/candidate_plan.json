@@ -1,0 +1,23 @@
+{
+  "site_id": "novva-mesa",
+  "splits": [
+    {
+      "substation_id": "osm-way-1200014620",
+      "mw": 300.0,
+      "headroom_mw": 99.8
+    }
+  ],
+  "flex": {
+    "dlr": false,
+    "storage_mw": 50.0,
+    "curtailment_mw": 30.0,
+    "reconductor": false
+  },
+  "search": {
+    "method": "heuristic",
+    "evals": 1260,
+    "engine": "classical",
+    "classical_enumeration_calls": 1260,
+    "evals_total": 2520
+  }
+}

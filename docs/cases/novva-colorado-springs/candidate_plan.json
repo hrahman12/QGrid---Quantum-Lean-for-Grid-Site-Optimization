@@ -1,0 +1,33 @@
+{
+  "site_id": "novva-colorado-springs",
+  "splits": [
+    {
+      "substation_id": "osm-way-225476100",
+      "mw": 30.0,
+      "headroom_mw": 49.9
+    },
+    {
+      "substation_id": "osm-way-196952822",
+      "mw": 15.0,
+      "headroom_mw": 49.9
+    },
+    {
+      "substation_id": "osm-way-354208852",
+      "mw": 15.0,
+      "headroom_mw": 49.9
+    }
+  ],
+  "flex": {
+    "dlr": false,
+    "storage_mw": 0.0,
+    "curtailment_mw": 0.0,
+    "reconductor": false
+  },
+  "search": {
+    "method": "heuristic",
+    "evals": 64,
+    "engine": "numpy-fallback",
+    "classical_enumeration_calls": 630,
+    "evals_total": 694
+  }
+}

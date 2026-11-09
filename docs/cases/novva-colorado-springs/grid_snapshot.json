@@ -1,0 +1,300 @@
+{
+  "site_id": "novva-colorado-springs",
+  "substations": [
+    {
+      "id": "osm-way-225476100",
+      "name": "Flying Horse Substation",
+      "lat": 39.03408,
+      "lon": -104.7838,
+      "kv": 115.0,
+      "assumed_mva": 150,
+      "distance_km": 3.66,
+      "headroom_mw": 49.9
+    },
+    {
+      "id": "osm-way-196952822",
+      "name": "Kettle Creek Substation",
+      "lat": 38.98726,
+      "lon": -104.78513,
+      "kv": 115.0,
+      "assumed_mva": 150,
+      "distance_km": 3.94,
+      "headroom_mw": 49.9
+    },
+    {
+      "id": "osm-way-354208852",
+      "name": "Forest Lakes Substation",
+      "lat": 39.06457,
+      "lon": -104.86258,
+      "kv": 115.0,
+      "assumed_mva": 150,
+      "distance_km": 6.99,
+      "headroom_mw": 49.9
+    },
+    {
+      "id": "osm-way-400530991",
+      "name": "Emil Anderson Substation",
+      "lat": 39.071,
+      "lon": -104.84969,
+      "kv": 115.0,
+      "assumed_mva": 150,
+      "distance_km": 7.06,
+      "headroom_mw": 49.9
+    },
+    {
+      "id": "osm-way-1148323135",
+      "name": "Fox Run Substation",
+      "lat": 39.08065,
+      "lon": -104.78591,
+      "kv": 115.0,
+      "assumed_mva": 150,
+      "distance_km": 7.97,
+      "headroom_mw": 49.9
+    }
+  ],
+  "lines": [
+    {
+      "id": "L-way-225476100-way-196952822",
+      "from": "osm-way-225476100",
+      "to": "osm-way-196952822",
+      "kv": 115.0,
+      "rating_mva": 200,
+      "length_km": 6.51
+    },
+    {
+      "id": "L-way-225476100-way-1148323135",
+      "from": "osm-way-225476100",
+      "to": "osm-way-1148323135",
+      "kv": 115.0,
+      "rating_mva": 200,
+      "length_km": 6.48
+    },
+    {
+      "id": "L-way-196952822-way-1148323135",
+      "from": "osm-way-196952822",
+      "to": "osm-way-1148323135",
+      "kv": 115.0,
+      "rating_mva": 200,
+      "length_km": 12.98
+    },
+    {
+      "id": "L-way-354208852-way-400530991",
+      "from": "osm-way-354208852",
+      "to": "osm-way-400530991",
+      "kv": 115.0,
+      "rating_mva": 200,
+      "length_km": 1.65
+    },
+    {
+      "id": "L-way-354208852-way-1148323135",
+      "from": "osm-way-354208852",
+      "to": "osm-way-1148323135",
+      "kv": 115.0,
+      "rating_mva": 200,
+      "length_km": 8.57
+    },
+    {
+      "id": "L-way-400530991-way-1148323135",
+      "from": "osm-way-400530991",
+      "to": "osm-way-1148323135",
+      "kv": 115.0,
+      "rating_mva": 200,
+      "length_km": 7.01
+    }
+  ],
+  "iso": {
+    "lmp": null,
+    "load": null,
+    "timestamp": "2026-11-09T00:33:03Z",
+    "source": "unavailable:NONE:WACM (no live data, no cache)"
+  },
+  "dlr_uplift_pct": 15.0,
+  "distribution": {
+    "requested_mw": 60,
+    "connectable_at_distribution_mw": 38.66,
+    "needs_transmission_mw": 21.34,
+    "n_edge_sites": 9,
+    "edge_sites": [
+      {
+        "substation_id": "08389",
+        "substation": "MONTAGUE",
+        "bank_id": "0838901",
+        "feeder_id": "083892101",
+        "feeder": "MONTAGUE 2101",
+        "mw": 3.18,
+        "lat": 37.403069,
+        "lon": -121.905624
+      },
+      {
+        "substation_id": "08389",
+        "substation": "MONTAGUE",
+        "bank_id": "0838903",
+        "feeder_id": "083892107",
+        "feeder": "MONTAGUE 2107",
+        "mw": 2.82,
+        "lat": 37.403069,
+        "lon": -121.905624
+      },
+      {
+        "substation_id": "08342",
+        "substation": "LAWRENCE",
+        "bank_id": "0834202",
+        "feeder_id": "083421108",
+        "feeder": "LAWRENCE 1108",
+        "mw": 8.77,
+        "lat": 37.397195,
+        "lon": -122.010095
+      },
+      {
+        "substation_id": "08342",
+        "substation": "LAWRENCE",
+        "bank_id": "0834203",
+        "feeder_id": "083421112",
+        "feeder": "LAWRENCE 1112",
+        "mw": 6.88,
+        "lat": 37.397195,
+        "lon": -122.010095
+      },
+      {
+        "substation_id": "08342",
+        "substation": "LAWRENCE",
+        "bank_id": "0834203",
+        "feeder_id": "083421113",
+        "feeder": "LAWRENCE 1113",
+        "mw": 2.42,
+        "lat": 37.397195,
+        "lon": -122.010095
+      },
+      {
+        "substation_id": "08342",
+        "substation": "LAWRENCE",
+        "bank_id": "0834202",
+        "feeder_id": "083421107",
+        "feeder": "LAWRENCE 1107",
+        "mw": 3.43,
+        "lat": 37.397195,
+        "lon": -122.010095
+      },
+      {
+        "substation_id": "01472",
+        "substation": "DIXON LANDING",
+        "bank_id": "0147202",
+        "feeder_id": "014722105",
+        "feeder": "DIXON LANDING 2105",
+        "mw": 3.17,
+        "lat": 37.457059,
+        "lon": -121.920973
+      },
+      {
+        "substation_id": "01472",
+        "substation": "DIXON LANDING",
+        "bank_id": "0147201",
+        "feeder_id": "014722103",
+        "feeder": "DIXON LANDING 2103",
+        "mw": 2.63,
+        "lat": 37.457059,
+        "lon": -121.920973
+      },
+      {
+        "substation_id": "08361",
+        "substation": "BRITTON",
+        "bank_id": "0836103",
+        "feeder_id": "083611115",
+        "feeder": "BRITTON 1115",
+        "mw": 5.36,
+        "lat": 37.374916,
+        "lon": -122.016517
+      }
+    ],
+    "substations": [
+      {
+        "id": "08234",
+        "name": "RIVER OAKS",
+        "lat": 37.411282,
+        "lon": -121.927074,
+        "bank_headroom_mw": 0.0,
+        "connectable_mw": 0.0,
+        "feeders_with_hosting": 2
+      },
+      {
+        "id": "08389",
+        "name": "MONTAGUE",
+        "lat": 37.403069,
+        "lon": -121.905624,
+        "bank_headroom_mw": 6.0,
+        "connectable_mw": 6.0,
+        "feeders_with_hosting": 9
+      },
+      {
+        "id": "08342",
+        "name": "LAWRENCE",
+        "lat": 37.397195,
+        "lon": -122.010095,
+        "bank_headroom_mw": 21.5,
+        "connectable_mw": 21.5,
+        "feeders_with_hosting": 11
+      },
+      {
+        "id": "01472",
+        "name": "DIXON LANDING",
+        "lat": 37.457059,
+        "lon": -121.920973,
+        "bank_headroom_mw": 5.8,
+        "connectable_mw": 5.8,
+        "feeders_with_hosting": 8
+      },
+      {
+        "id": "08380",
+        "name": "TRIMBLE",
+        "lat": 37.382832,
+        "lon": -121.92644,
+        "bank_headroom_mw": 0.0,
+        "connectable_mw": 0.0,
+        "feeders_with_hosting": 14
+      },
+      {
+        "id": "08361",
+        "name": "BRITTON",
+        "lat": 37.374916,
+        "lon": -122.016517,
+        "bank_headroom_mw": 5.49,
+        "connectable_mw": 5.36,
+        "feeders_with_hosting": 12
+      },
+      {
+        "id": "08283",
+        "name": "MILPITAS",
+        "lat": 37.415579,
+        "lon": -121.88807,
+        "bank_headroom_mw": 0.0,
+        "connectable_mw": 0.0,
+        "feeders_with_hosting": 12
+      },
+      {
+        "id": "08246",
+        "name": "NORTECH",
+        "lat": 37.420952,
+        "lon": -121.960459,
+        "bank_headroom_mw": 0.0,
+        "connectable_mw": 0.0,
+        "feeders_with_hosting": 5
+      },
+      {
+        "id": "08379",
+        "name": "SIGNETICS",
+        "lat": 37.384845,
+        "lon": -122.013185,
+        "bank_headroom_mw": 0.0,
+        "connectable_mw": 0.0,
+        "feeders_with_hosting": 0
+      }
+    ],
+    "note": "PG&E GRIP values are directional, not guaranteed; not a PG&E approval. -99.99 -> null. See SOURCES.md."
+  },
+  "assumptions": [
+    "substations: overpass:overpass-api.de; (c) OpenStreetMap contributors (ODbL)",
+    "fallback table {66: 60, 69: 75, 115: 150, 138: 200, 230: 300, 345: 500, 500: 750}; headroom_mw = assumed_mva*0.95*(1-0.65) (assumed 65% utilization)",
+    "iso (CAISO) from data/l2/iso.py: lmp = NP15 hub (TH_NP15_GEN-APND) day-ahead hourly LMP, load = CAISO system load MW, stress_2025 = 2025 CISO top-2% net-load hours (curtailment window); fallback: mean of gridstatus real-time 5-min LMPs (NP15/SP15/ZP26 hubs)",
+    "lines inferred (MST + 2nd-nearest), rating from kV table {66: 80, 69: 90, 115: 200, 138: 250, 230: 450, 345: 900, 500: 1500}, length = straight line x 1.25"
+  ]
+}

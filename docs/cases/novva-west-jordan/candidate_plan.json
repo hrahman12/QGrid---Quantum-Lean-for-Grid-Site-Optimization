@@ -1,0 +1,38 @@
+{
+  "site_id": "novva-west-jordan",
+  "splits": [
+    {
+      "substation_id": "osm-way-1328467648",
+      "mw": 43.75,
+      "headroom_mw": 66.5
+    },
+    {
+      "substation_id": "osm-way-844044362",
+      "mw": 43.75,
+      "headroom_mw": 66.5
+    },
+    {
+      "substation_id": "osm-way-714852819",
+      "mw": 43.75,
+      "headroom_mw": 66.5
+    },
+    {
+      "substation_id": "osm-way-163683054",
+      "mw": 43.75,
+      "headroom_mw": 166.2
+    }
+  ],
+  "flex": {
+    "dlr": false,
+    "storage_mw": 0.0,
+    "curtailment_mw": 0.0,
+    "reconductor": false
+  },
+  "search": {
+    "method": "heuristic",
+    "evals": 64,
+    "engine": "numpy-fallback",
+    "classical_enumeration_calls": 630,
+    "evals_total": 694
+  }
+}
