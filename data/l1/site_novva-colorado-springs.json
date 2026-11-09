@@ -1,10 +1,10 @@
 {
   "id": "novva-colorado-springs",
-  "name": "NOVVA Colorado Springs campus, 650 Sybilla Ln (ASSUMED 60 MW request)",
+  "name": "Colorado Springs, CO data-center campus (ASSUMED 60 MW request)",
   "lat": 39.013,
   "lon": -104.8164,
   "requested_mw": 60,
-  "requested_mw_basis": "ASSUMED from NOVVA's public campus capacity; not a real connection request",
+  "requested_mw_basis": "ASSUMED from the operator's public campus capacity; not a real connection request",
   "deadline": "2028-12-31",
   "iso": "NONE:WACM",
   "country": "US",

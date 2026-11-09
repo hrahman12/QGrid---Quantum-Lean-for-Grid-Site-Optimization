@@ -1,10 +1,10 @@
 {
   "id": "novva-mesa",
-  "name": "NOVVA Mesa campus, Ellsworth Rd, SE Mesa (approx location, ASSUMED 300 MW request)",
+  "name": "Mesa, AZ data-center campus, approx location (ASSUMED 300 MW request)",
   "lat": 33.3709,
   "lon": -111.6361,
   "requested_mw": 300,
-  "requested_mw_basis": "ASSUMED from NOVVA's public campus capacity; not a real connection request",
+  "requested_mw_basis": "ASSUMED from the operator's public campus capacity; not a real connection request",
   "deadline": "2028-12-31",
   "iso": "NONE:SRP",
   "country": "US",

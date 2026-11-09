@@ -1,10 +1,10 @@
 {
   "id": "novva-west-jordan",
-  "name": "NOVVA Utah campus, 6477 Wells Park Rd, West Jordan (ASSUMED 175 MW request)",
+  "name": "West Jordan, UT data-center campus (ASSUMED 175 MW request)",
   "lat": 40.5769,
   "lon": -112.0435,
   "requested_mw": 175,
-  "requested_mw_basis": "ASSUMED from NOVVA's public campus capacity; not a real connection request",
+  "requested_mw_basis": "ASSUMED from the operator's public campus capacity; not a real connection request",
   "deadline": "2028-12-31",
   "iso": "NONE:PACE",
   "country": "US",
