@@ -27,8 +27,8 @@ export function normalize(input = {}) {
 }
 export const round = (n, decimals = 1) => Number(n.toFixed(decimals));
 export function screeningStatus(checks) {
-  const unmet = checks.filter(c => c.status !== 'GREEN').length;
-  return unmet === 0 ? 'GREEN' : unmet === 1 ? 'AMBER' : 'RED';
+  // Same as the Lean rules: any hard-rule failure is RED; only negotiable conditions unmet is AMBER.
+  return checks.some(c => c.status === 'RED') ? 'RED' : checks.some(c => c.status !== 'GREEN') ? 'AMBER' : 'GREEN';
 }
 export function evaluate(input, run) {
   const s = normalize(input);
