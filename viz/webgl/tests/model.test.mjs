@@ -72,3 +72,10 @@ test('imports clamp invalid inputs and never overwrite saved evidence', () => {
   assert.equal(output.format, 'qgrid-scenario-preview/1'); assert.match(output.scope, /Not a pandapower/);
   assert.equal(JSON.stringify(run), before);
 });
+
+test('fresh AC evidence can block a scenario that passes the analytical screen', () => {
+  const r=evaluate(PRESETS.flexible,run,{converged:true,max_line_loading_pct:110,v_min_pu:.94,v_max_pu:1.02,n1_pass:false,violations:['N-1 line test failed']});
+  assert.equal(r.checks.find(c=>c.id==='thermal').status,'RED');
+  assert.equal(r.checks.find(c=>c.id==='n1').status,'RED');
+  assert.equal(r.status,'RED');
+});

@@ -13,6 +13,9 @@ from viz.webgl.server.search_service import execute
 LOCK = threading.Lock()
 
 class handler(BaseHTTPRequestHandler):
+    def execute_job(self, settings):
+        return execute(settings)
+
     def respond(self, status, data):
         body = json.dumps(data, allow_nan=False).encode()
         self.send_response(status)
@@ -36,7 +39,7 @@ class handler(BaseHTTPRequestHandler):
             if not LOCK.acquire(blocking=False):
                 return self.respond(429, {'error': 'The simulator is busy. Try again after the current run.'})
             try:
-                result = execute(payload['settings'])
+                result = self.execute_job(payload['settings'])
             finally:
                 LOCK.release()
             self.respond(200, result)
@@ -45,7 +48,7 @@ class handler(BaseHTTPRequestHandler):
         except subprocess.TimeoutExpired:
             self.respond(504, {'error': 'PsiQDK simulation timed out; no result was fabricated.'})
         except Exception:
-            self.respond(503, {'error': 'The PsiQDK native worker is unavailable or failed. Check the server runtime. No fallback result was returned.'})
+            self.respond(503, {'error': 'The execution worker is unavailable or failed. Check the server runtime. No fallback result was returned.'})
 
     def log_message(self, *_):
         pass

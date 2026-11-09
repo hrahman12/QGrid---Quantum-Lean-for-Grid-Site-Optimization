@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { reducedBloch, measurementBloch, stageVector } from './quantum-results.js';
 
 export function createQuantumComputer(container) {
   let renderer;
@@ -43,8 +44,16 @@ export function createQuantumComputer(container) {
   const edges = new THREE.LineSegments(new THREE.EdgesGeometry(lid.geometry),new THREE.LineBasicMaterial({color:0x5486a1,transparent:true,opacity:.55}));lid.add(edges);
   const states = new THREE.Group(); states.visible=false; scene.add(states);
   const bars = new THREE.InstancedMesh(new THREE.BoxGeometry(.3,1,.3),new THREE.MeshStandardMaterial({color:0xffffff,metalness:.2,roughness:.5}),256); states.add(bars);
-  const dummy=new THREE.Object3D(); let job=null,isRunning=false,frame,alive=true,step=0;
-  const caption=document.createElement('div');caption.className='processor-caption';caption.textContent='Photonic-computer concept · PsiQDK simulator';container.append(caption);
+  const bloch=new THREE.Group();bloch.visible=false;scene.add(bloch);
+  bloch.add(new THREE.Mesh(new THREE.SphereGeometry(2.2,24,16),new THREE.MeshBasicMaterial({color:0x367a9e,wireframe:true,transparent:true,opacity:.22})));
+  for(const axis of [new THREE.Vector3(1,0,0),new THREE.Vector3(0,1,0),new THREE.Vector3(0,0,1)])bloch.add(new THREE.ArrowHelper(axis,new THREE.Vector3(),2.65,0x5783a3,.15,.07));
+  const arrow=new THREE.ArrowHelper(new THREE.Vector3(0,1,0),new THREE.Vector3(),2.2,0x53e8b0,.25,.12);bloch.add(arrow);
+  const tip=new THREE.Mesh(new THREE.SphereGeometry(.09,12,12),new THREE.MeshBasicMaterial({color:0x72ffcd}));bloch.add(tip);
+  const diagram=document.createElement('div');diagram.className='grover-circuit';diagram.innerHTML='<b>GROVER SEARCH</b><div>H⊗n <span>→</span> Oᶠ <span>→</span> D <span>→</span> M</div><small>Prepare · mark · amplify · measure</small>';container.append(diagram);
+  const coords=document.createElement('div');coords.className='bloch-coordinates';coords.hidden=true;container.append(coords);
+  const dummy=new THREE.Object3D(); let job=null,isRunning=false,frame,alive=true,step=0,mode='grover';
+  hardware.visible=false;states.visible=false;
+  const caption=document.createElement('div');caption.className='processor-caption';caption.textContent='Run PsiQDK to inspect native amplitudes and shots';container.append(caption);
   const resize=()=>{const w=container.clientWidth,h=container.clientHeight;if(!w||!h)return;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();};const observer=new ResizeObserver(resize);observer.observe(container);resize();
   const start=performance.now(),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   function draw(){if(!alive)return;frame=requestAnimationFrame(draw);const t=(performance.now()-start)/1000;controls.update();
@@ -54,9 +63,12 @@ export function createQuantumComputer(container) {
     renderer.render(scene,camera);
   }draw();
   function displayStep(value){
-    step=value;if(!job)return;
-    hardware.visible=false;states.visible=true;
-    const vector=value===0?job.result.states[0]:value===1?job.phase_state:job.result.states.at(-1);
+    step=value;if(!job)return;tip.visible=true;
+    hardware.visible=false;states.visible=mode==='grover';bloch.visible=mode==='bloch';diagram.hidden=mode!=='grover';coords.hidden=mode!=='bloch';
+    const vector=stageVector(job,value);
+    const b=value===3?measurementBloch(job):reducedBloch(vector),v=new THREE.Vector3(b.x,b.z,-b.y);
+    arrow.visible=v.length()>1e-7;if(arrow.visible){arrow.setDirection(v.clone().normalize());arrow.setLength(2.2*b.length,.22,.1);}tip.position.copy(v.multiplyScalar(2.2));
+    coords.textContent=`LSB reduced state · x ${b.x.toFixed(3)} · y ${b.y.toFixed(3)} · z ${b.z.toFixed(3)} · |r| ${b.length.toFixed(3)}`;
     const n=vector.length,cols=Math.ceil(Math.sqrt(n)),marked=new Set(job.marked_indices);bars.count=n;
     for(let i=0;i<n;i++){
       const [re,im]=vector[i];let probability=re*re+im*im;
@@ -65,12 +77,12 @@ export function createQuantumComputer(container) {
       dummy.position.set((i%cols-(cols-1)/2)*.4,negative?-h/2:h/2,(Math.floor(i/cols)-(cols-1)/2)*.4);dummy.scale.set(1,h,1);dummy.updateMatrix();bars.setMatrixAt(i,dummy.matrix);
       bars.setColorAt(i,new THREE.Color(negative?0xffbd58:marked.has(i)?0x45e6a1:0x2c6f99));
     }bars.instanceMatrix.needsUpdate=true;bars.instanceColor.needsUpdate=true;
-    caption.textContent=['Actual PsiQDK state: uniform superposition','Actual PsiQDK state: phase-flipped amplitudes','Actual PsiQDK state: amplified probabilities','Actual PsiQDK measurements: 32 samples'][value];
+    caption.textContent=mode==='bloch'?(value===3?'Measured LSB mixture · not a statevector':'Partial trace of native state · one qubit, not the full register'):['Native superposition · all register slots','Native oracle · negative phases in amber','Native final state · probability per slot',`Native measurements · ${job.result.shots} shots`][value];
   }
   return {
-    running(on){isRunning=on;if(on){hardware.visible=true;states.visible=false;caption.textContent='Executing PsiQDK Workbench simulation…';}else if(!job)caption.textContent='No verified PsiQDK result yet';},
-    result(value){job=value;hardware.visible=true;states.visible=false;caption.textContent=`PsiQDK completed · ${value.space.n_qubits} qubits · ${value.result.shots} shots`;},
-    step(value){if(value==='computer'){hardware.visible=true;states.visible=false;caption.textContent=job?'Completed on PsiQDK Workbench':'Photonic-computer concept · PsiQDK simulator';}else displayStep(value);},
+    running(on){isRunning=on;if(on){hardware.visible=true;states.visible=false;bloch.visible=false;diagram.hidden=true;coords.hidden=true;caption.textContent='Executing native PsiQDK · photon motion is illustrative';}else if(!job)caption.textContent='No verified PsiQDK result yet';},
+    result(value){job=value;mode='grover';displayStep(2);},
+    step(value){if(['computer','grover','bloch'].includes(value)){mode=value;hardware.visible=value==='computer';states.visible=value==='grover'&&!!job;bloch.visible=value==='bloch';diagram.hidden=value!=='grover';coords.hidden=value!=='bloch';if(value==='computer')caption.textContent='Photonic hardware concept · not quantum hardware execution';else if(job)displayStep(step);else{arrow.visible=false;tip.visible=false;caption.textContent='Run PsiQDK to populate this view';}}else{tip.visible=true;displayStep(value);}},
     dispose(){alive=false;cancelAnimationFrame(frame);observer.disconnect();controls.dispose();scene.traverse(o=>{o.geometry?.dispose();if(o.material)for(const m of Array.isArray(o.material)?o.material:[o.material])m.dispose();});renderer.dispose();}
   };
 }

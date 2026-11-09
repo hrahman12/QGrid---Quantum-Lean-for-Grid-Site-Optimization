@@ -30,7 +30,7 @@ export function screeningStatus(checks) {
   const unmet = checks.filter(c => c.status !== 'GREEN').length;
   return unmet === 0 ? 'GREEN' : unmet === 1 ? 'AMBER' : 'RED';
 }
-export function evaluate(input, run) {
+export function evaluate(input, run, physics = null) {
   const s = normalize(input);
   const selected = run.candidate_plan.splits.map((split) => ({
     ...run.grid_snapshot.substations.find((sub) => sub.id === split.substation_id),
@@ -78,6 +78,14 @@ export function evaluate(input, run) {
     s.floodProtected ? 'Protection is assumed in this scenario for the recorded FEMA AE flood-zone context.' : 'Flood-zone AE mitigation evidence is still needed.');
   add('penalty', 'Curtailment obligation', s.curtailment > 10 ? 'AMBER' : 'GREEN',
     `${s.curtailment}% curtailment selected; the screening penalty cap is assumed at 10%.`);
+  if(physics){
+    const thermal=checks.find(c=>c.id==='thermal'),n1=checks.find(c=>c.id==='n1');
+    const ok=physics.converged&&physics.max_line_loading_pct<=s.lineLimit&&physics.v_min_pu>=.95&&physics.v_max_pu<=1.05;
+    thermal.status=ok?'GREEN':'RED';thermal.name='AC thermal / voltage';
+    thermal.detail=`Actual pandapower: ${physics.converged?'converged':'did not converge'}; peak loading ${physics.max_line_loading_pct??'unknown'}%; voltage ${physics.v_min_pu??'?'}–${physics.v_max_pu??'?'} pu. Limits: ${s.lineLimit}%, 0.95–1.05 pu.`;
+    n1.status=!s.requireN1?'AMBER':physics.n1_pass?'GREEN':'RED';
+    n1.detail=!s.requireN1?'N-1 is not required in this scenario.':physics.n1_pass?'Every model line outage and the fixed firm-capacity check pass.':physics.violations.filter(v=>v.startsWith('N-1')).join(' ')||'N-1 could not be established.';
+  }
   const status = screeningStatus(checks);
   const blocking = checks.filter((c) => c.status !== 'GREEN');
   const isBaseline = Object.keys(DEFAULTS).every((key) => s[key] === DEFAULTS[key]);

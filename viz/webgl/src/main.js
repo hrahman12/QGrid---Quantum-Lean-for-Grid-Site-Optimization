@@ -3,9 +3,12 @@ import { DEFAULTS, PRESETS, evaluate, normalize, exportScenario, round } from '.
 import { createScene } from './scene.js';
 import { createQuantumComputer } from './quantum-computer.js';
 import { createGridPhysics } from './grid-physics.js';
+import { validateQuantumResult } from './quantum-results.js';
+import { drawGridDiagnostics } from './grid-diagnostics.js';
 const $ = (s) => document.querySelector(s);
 const make = (tag, text, cls) => { const n = document.createElement(tag); if(text !== undefined) n.textContent = text; if(cls) n.className = cls; return n; };
-let run, scene, quantumComputer, gridPhysics, result, lastQuantum=null, lastQuantumSettings=null, quantumPending=false, selected = 'site', settings = { ...DEFAULTS };
+let lastPhysics=null,lastPhysicsSettings=null,physicsPending=false,physicsNetwork=false;
+let run, scene, quantumComputer, gridPhysics, result, lastQuantum=null, lastQuantumSettings=null, quantumPending=false, selected = 'site', settings = { ...PRESETS.flexible };
 const units = { load:' MW', growth:'%', utilization:'%', split:'%', storage:' MW', curtailment:'%', dlr:'%', temperature:'°C', lineLimit:'%', months:' mo' };
 const dialog = $('#detail-dialog');
 const searchSignature = value => JSON.stringify(['load','growth','utilization','split','storage','curtailment','dlr','temperature','reconductor','requireN1','outage'].map(key=>[key,value[key]]));
@@ -16,8 +19,9 @@ function checkNode(check){
  const s=make('summary'); s.append(make('span',check.status==='GREEN'?'✓':check.status==='AMBER'?'!':'×','indicator'),make('span',check.name),make('small',check.status==='GREEN'?'PASS':check.status==='AMBER'?'IF':'BLOCK'));
  d.append(s,make('p',check.detail)); return d;
 }
+const physicsSignature=s=>JSON.stringify([...JSON.parse(searchSignature(s)),['lineLimit',s.lineLimit]]);
 function render(){
- settings=normalize(settings); result=evaluate(settings,run);
+ settings=normalize(settings); const ac=lastPhysics&&physicsSignature(settings)===lastPhysicsSettings?lastPhysics:null;result=evaluate(settings,run,ac?.result);
  for(const [key,value] of Object.entries(settings)){
   const input=document.getElementById(key); if(input.type==='checkbox') input.checked=value; else input.value=value;
   if(input.type==='range'){input.style.setProperty('--fill',`${(Number(value)-input.min)/(input.max-input.min)*100}%`);input.setAttribute('aria-valuetext',`${value}${units[key]||''}`);document.querySelector(`[data-output="${key}"]`).textContent=`${value}${units[key]||''}`;}
@@ -31,11 +35,11 @@ function render(){
  $('#input-output').textContent=`${round(result.requested)} MW · ${settings.months} months`;
  $('#plan-output').textContent=result.allocations.map(a=>`${round(a.mw)} MW`).join(' + ')+` · ${round(result.delivered)} MW net`;
  $('#metric-demand').textContent=`${round(result.delivered)} MW`;$('#metric-firm').textContent=`${round(result.n1Capacity)} MW`;
- $('#metric-loading').textContent=`${round(result.projectedLoading)}%`;
+ const loading=ac?ac.result.max_line_loading_pct:result.projectedLoading;$('#metric-loading').textContent=loading===null?'?':`${round(loading)}%`;$('#physics-metric-label').textContent=ac?'solved AC peak loading':'preview peak loading';
  const thermal=result.checks.find(c=>c.id==='thermal');$('#metric-loading').style.color=`var(--${thermal.status==='GREEN'?'cyan':thermal.status==='AMBER'?'amber':'red'})`;
  $('#physics-state').textContent=thermal.status==='RED'?'OVERLOAD':thermal.status==='AMBER'?'NEAR LIMIT':'WITHIN LIMIT';$('#physics-state').dataset.status=thermal.status;
  $('#physics-routes').replaceChildren(...result.allocations.map(a=>{const row=make('div');row.dataset.offline=String(a.offline);row.append(make('span',a.name),make('b',a.offline?'OFFLINE':`${round(a.mw)} MW`));return row;}));
- $('#loading-bar').style.width=`${Math.min(100,result.projectedLoading/120*100)}%`;$('#loading-bar').style.background=`var(--${thermal.status.toLowerCase()})`;$('#limit-marker').style.left=`${settings.lineLimit/120*100}%`;
+ $('#loading-bar').style.width=`${Math.min(100,(loading??0)/120*100)}%`;$('#loading-bar').style.background=`var(--${thermal.status.toLowerCase()})`;$('#limit-marker').style.left=`${settings.lineLimit/120*100}%`;
  const opens=new Set([...document.querySelectorAll('.check[open]')].map(n=>n.dataset.id));
  $('#physics-checks').replaceChildren(...result.checks.filter(c=>['capacity','thermal','n1'].includes(c.id)).map(checkNode));
  $('#checks').replaceChildren(...result.checks.filter(c=>!['capacity','thermal','n1'].includes(c.id)).map(checkNode));
@@ -49,6 +53,8 @@ function render(){
  $('#reason-title').textContent=first?`${first.name} ${first.status==='RED'?'blocks this plan.':'is conditional.'}`:'Every scenario condition holds.';
  $('#reason-text').textContent=first?first.detail:'This is a screening result. Run the actual pipeline to obtain new physics and formal evidence.';
  scene?.update(result);gridPhysics?.update(result);updateSelection();
+ if(!physicsPending){$('#physics-engine-tag').textContent=ac?'PANDAPOWER · SOLVED':lastPhysics?'STALE · RERUN AC':'Preview · AC not run';}
+ if(physicsNetwork)drawGridDiagnostics($('#ac-network'),ac);
  if(lastQuantum && !quantumPending && searchSignature(settings)!==lastQuantumSettings){$('#quantum-status').textContent='Inputs changed — run PsiQDK again';$('#quantum-engine-tag').textContent='Previous result is stale';}
 }
 function updateSelection(){
@@ -105,6 +111,14 @@ function downloadJson(filename, data) {
   const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }));
   const a = make('a'); a.href = url; a.download = filename; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
+async function runPhysics(){
+ if(physicsPending)return;physicsPending=true;const submitted={...settings},signature=physicsSignature(settings),controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),110000);
+ $('#run-physics').disabled=true;$('#physics-engine-tag').textContent='SOLVING AC + N-1';$('#physics-run-status').textContent='Solving the base case and each model line outage…';
+ try{const response=await fetch('/api/physics',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({settings:submitted}),signal:controller.signal});if(!(response.headers.get('content-type')||'').includes('application/json'))throw new Error('Physics API unavailable.');const data=await response.json();if(!response.ok)throw new Error(data.error||'AC solver failed.');if(data.engine!=='pandapower'||!data.result)throw new Error('No pandapower evidence returned.');lastPhysics=data;lastPhysicsSettings=signature;$('#physics-evidence').disabled=false;physicsNetwork=true;$('#ac-network').hidden=false;$('#physics-viewport').hidden=true;$('#physics-view').textContent='3D spans';$('#physics-run-status').textContent=`${data.result.converged?'Converged':'No convergence'} · V ${data.result.v_min_pu??'?'}–${data.result.v_max_pu??'?'} pu · N-1 ${data.result.n1_pass?'PASS':'FAIL'} · ${data.wall_s}s`;}
+ catch(error){$('#physics-run-status').textContent=error.name==='AbortError'?'AC job timed out; no result fabricated.':error.message;}
+ finally{clearTimeout(timeout);physicsPending=false;$('#run-physics').disabled=false;render();}
+}
+function selectQuantumView(mode){quantumComputer.step(mode);for(const [id,m] of [['view-grid','computer'],['view-quantum','grover'],['view-bloch','bloch']])document.getElementById(id).classList.toggle('active',mode===m);$('.quantum-steps').hidden=mode==='computer'||!lastQuantum;}
 async function runQuantum(){
  if(quantumPending)return;
  const submitted={...settings},signature=searchSignature(settings),controller=new AbortController();
@@ -113,17 +127,17 @@ async function runQuantum(){
  try{
   const response=await fetch('/api/quantum',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({settings:submitted}),signal:controller.signal});
   const type=response.headers.get('content-type')||'';if(!type.includes('application/json'))throw new Error('The native execution service is not available. Start the API server or deploy the repository root.');const data=await response.json();if(!response.ok)throw new Error(data.error||'PsiQDK execution failed.');
-  if(data.backend!=='psiqdk'||!data.result?.numpy_crosscheck_ok)throw new Error('The response did not contain a verified PsiQDK result.');
-  lastQuantum=data;quantumComputer.result(data);$('#view-quantum').disabled=false;
+  validateQuantumResult(data);
+  lastQuantum=data;quantumComputer.result(data);$('#quantum-evidence').disabled=false;selectQuantumView('grover');document.querySelectorAll('[data-quantum-step]').forEach(b=>b.classList.toggle('active',b.dataset.quantumStep==='2'));quantumComputer.step(2);
   if(searchSignature(settings)===signature && data.selected_settings){settings=normalize({...settings,...Object.fromEntries(['storage','curtailment','dlr','split'].map(key=>[key,data.selected_settings[key]]))});lastQuantumSettings=searchSignature(settings);render();}else lastQuantumSettings=signature;
   const metrics=data.result.resources?.qpu_metrics||{};
   $('#quantum-status').textContent=data.plan?'PsiQDK completed · measured candidate applied':'PsiQDK completed · no feasible candidate measured';
-  $('#quantum-summary').textContent=`${data.space.n_qubits} qubits · ${data.space.padded_N} states · ${data.marked_indices.length} marked · ${data.result.iterations} Grover iterations · ${data.result.samples_marked}/${data.result.shots} marked shots · AV ${metrics.active_volume??'n/a'} · ${data.wall_s}s`;
+  $('#quantum-summary').textContent=`${data.space.n_qubits} qubits · ${data.space.N} plans / ${data.space.padded_N} slots · ${data.marked_indices.length} marked · ${data.result.iterations} Grover iterations · ${data.result.samples_marked}/${data.result.shots} marked shots · AV ${metrics.active_volume??'n/a'} · ${data.wall_s}s · cross-check PASS`;
   $('#quantum-engine-tag').textContent='PSIQDK · COMPLETED';
   if(searchSignature(settings)!==lastQuantumSettings){$('#quantum-status').textContent='PsiQDK completed for earlier inputs — run again';$('#quantum-engine-tag').textContent='RESULT STALE';}
   $('.quantum-steps small').textContent=`Returned native states · job ${data.job_id.slice(0,8)} · ${Object.entries(data.result.versions).map(([k,v])=>`${k} ${v}`).join(' · ')}`;
  }catch(error){$('#quantum-status').textContent='PsiQDK did not complete';$('#quantum-summary').textContent=error.name==='AbortError'?'The job timed out. No fallback result was used.':error.message;$('#quantum-engine-tag').textContent='UNAVAILABLE';}
- finally{clearTimeout(timeout);quantumPending=false;quantumComputer.running(false);$('#run-quantum').disabled=false;$('#run-quantum').textContent='▶ Run PsiQDK';}
+ finally{clearTimeout(timeout);quantumPending=false;quantumComputer.running(false);$('#run-quantum').disabled=false;$('#run-quantum').textContent='▶ Run now · native PsiQDK';}
 }
 async function init(){
  try{
@@ -139,10 +153,15 @@ async function init(){
   $('#home-camera').onclick=()=>scene.home();$('#top-camera').onclick=()=>scene.top();
   $('#rotate-camera').onclick=e=>{const on=e.currentTarget.getAttribute('aria-pressed')!=='true';e.currentTarget.setAttribute('aria-pressed',String(on));scene.rotate(on);};
   for(const [id,name] of [['terrain-toggle','terrain'],['lines-toggle','lines'],['distribution-toggle','distribution']])document.getElementById(id).onclick=e=>{const on=e.currentTarget.getAttribute('aria-pressed')!=='true';e.currentTarget.setAttribute('aria-pressed',String(on));scene.layer(name,on);};
-  $('#view-grid').onclick=()=>{quantumComputer.step('computer');$('#view-grid').classList.add('active');$('#view-quantum').classList.remove('active');$('.quantum-steps').hidden=true;};
-  $('#view-quantum').onclick=()=>{if(!lastQuantum)return;quantumComputer.step(0);$('.quantum-steps').hidden=false;$('#view-quantum').classList.add('active');$('#view-grid').classList.remove('active');};
+  $('#view-grid').onclick=()=>selectQuantumView('computer');
+  $('#view-quantum').onclick=()=>selectQuantumView('grover');
+  $('#view-bloch').onclick=()=>selectQuantumView('bloch');
+  $('#quantum-evidence').onclick=()=>{if(!lastQuantum)return;const d=lastQuantum,rows=Object.entries(d.measurements).sort((a,b)=>b[1]-a[1]).map(([i,count])=>make('p',`|${Number(i).toString(2).padStart(d.space.n_qubits,'0')}⟩ · plan slot ${i} · ${count}/${d.result.shots} shots${d.marked_indices.includes(Number(i))?' · marked':''}`));showDialog('ACTUAL NATIVE RUN',[make('h2',`${d.space.n_qubits} qubits · ${d.space.N} plans`),make('p',`Job ${d.job_id} · ${d.completed_utc} · independent numerical cross-check PASS`),make('p',`Largest amplitude difference: ${Math.max(...d.result.numpy_crosscheck_max_abs_diff_per_iteration).toExponential(3)}. Bloch view traces out all register bits except the least-significant bit. Interior points indicate a mixed reduced state.`),...rows,make('p',Object.entries(d.result.versions).map(([k,v])=>`${k} ${v}`).join(' · '))]);};
   document.querySelectorAll('[data-quantum-step]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-quantum-step]').forEach(n=>n.classList.toggle('active',n===b));quantumComputer.step(Number(b.dataset.quantumStep));});
   $('#run-quantum').onclick=runQuantum;
+  $('#run-physics').onclick=runPhysics;
+  $('#physics-view').onclick=()=>{physicsNetwork=!physicsNetwork;$('#ac-network').hidden=!physicsNetwork;$('#physics-viewport').hidden=physicsNetwork;$('#physics-view').textContent=physicsNetwork?'3D spans':'Solved network';render();};
+  $('#physics-evidence').onclick=()=>{const d=lastPhysics;if(!d)return;showDialog('ACTUAL GRID PHYSICS',[make('h2',`pandapower · ${d.result.converged?'converged':'not converged'}`),make('p',`Job ${d.job_id} · ${d.completed_utc}${physicsSignature(settings)!==lastPhysicsSettings?' · STALE INPUTS':''}`),make('p',d.scope),...d.result.violations.map(v=>make('p',v)),make('h3','Solved branches'),...d.edges.map(e=>make('p',`${e.kind} ${e.name}: ${e.loading_pct?.toFixed(1)??'?'}% loading · ${e.p_mw?.toFixed(2)??'?'} MW`))]);};
   $('#why-button').onclick=explain;$('#sources-button').onclick=showSources;$('#record-button').onclick=showRecord;
   $('#export').onclick=()=>downloadJson('qgrid-scenario.json',exportScenario(settings,run));
   $('#import').onchange=async e=>{try{const f=e.target.files[0];if(!f)return;if(f.size>100000)throw new Error('Too big');const d=JSON.parse(await f.text());if(d.format!=='qgrid-scenario-preview/1'||!d.settings||typeof d.settings!=='object'||Array.isArray(d.settings))throw new Error('Invalid');settings=normalize(d.settings);render();toast('Scenario imported');}catch{toast('Import a QGrid scenario JSON file under 100 KB.');}e.target.value='';};

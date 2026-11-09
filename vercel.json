@@ -5,10 +5,10 @@
   "buildCommand": "npm run build --prefix viz/webgl",
   "outputDirectory": "viz/webgl/dist",
   "functions": {
-    "api/quantum.py": {
+    "api/*.py": {
       "maxDuration": 120,
-      "includeFiles": "{quantum/**,viz/webgl/server/**,viz/webgl/public/data/run.json}",
-      "excludeFiles": "{.venv/**,viz/webgl/node_modules/**,viz/data/**,docs/**,data/**,grid/**,lean/**,report/**}"
+      "includeFiles": "{api/**,quantum/**,grid/**,viz/webgl/server/**,viz/webgl/public/data/run.json}",
+      "excludeFiles": "{.venv/**,viz/webgl/node_modules/**,viz/data/**,docs/**,data/**,lean/**,report/**}"
     }
   }
 }

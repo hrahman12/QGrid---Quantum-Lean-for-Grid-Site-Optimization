@@ -40,3 +40,10 @@ Import the QGrid GitHub repository into Vercel using its repository root. The ro
 The browser search uses the two displayed connection sources in 25% split steps. Battery and curtailment sliders become upper bounds for a discrete search; the returned measured plan may use less and replaces those candidate values only if the search inputs have not changed. Firm transformer caps remain fixed. DLR changes line assumptions, not firm transformer capacity. Reconductoring is passed through as a plan assumption rather than varied by the circuit. Downstream permitting / commitment changes do not invalidate a completed search.
 
 The native-state view uses the actual returned statevector indices and measured histogram. The visual hardware is an illustrative photonic-computer concept.
+
+
+## Native lab branch
+
+`l3-native-lab` is an isolated deployment checkpoint for the native execution work. The lab opens the Flexible demo preset: 100 MW gross, storage/curtailment search budgets, 120 candidate plans in 128 register slots (7 qubits). Run now executes a fresh PsiQDK job. The Grover and Bloch views use returned statevectors; the Bloch sphere is the reduced least-significant-bit state, not a representation of the whole register. Measurement mode uses the returned 32-shot histogram. Run data exposes counts, job identity, package versions, and independent numerical comparison error. The photonic computer is illustrative hardware.
+
+Run AC + N-1 executes `grid.physics.check` against the browser's bounded scenario and returns a reproduced base-case bus/branch profile. The solved-network view shows voltage in pu and branch loading, using the diagnostic presentation of [Lanyon's Maxwell research](https://www.lanyon.ai/research/maxwell-equations/) as visual inspiration. It does not run Lanyon software or claim its proofs. The underlying engine remains pandapower on assumed grid topology and ratings. Fresh AC thermal/voltage and N-1 results feed the corresponding scenario rules. Input changes invalidate those results. Lean remains a rule preview and requires a separate formal run.
